@@ -674,6 +674,7 @@ func (enum *TriggerStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// SecretHashedValue:
 type SecretHashedValue struct {
 	// Key:
 	Key string `json:"key"`
@@ -681,6 +682,7 @@ type SecretHashedValue struct {
 	HashedValue string `json:"hashed_value"`
 }
 
+// TriggerMnqNatsClientConfig:
 type TriggerMnqNatsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
@@ -694,6 +696,7 @@ type TriggerMnqNatsClientConfig struct {
 	MnqCredentialID *string `json:"mnq_credential_id,omitempty"`
 }
 
+// TriggerMnqSqsClientConfig:
 type TriggerMnqSqsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
@@ -707,6 +710,7 @@ type TriggerMnqSqsClientConfig struct {
 	MnqCredentialID *string `json:"mnq_credential_id,omitempty"`
 }
 
+// TriggerSqsClientConfig:
 type TriggerSqsClientConfig struct {
 	// Endpoint:
 	Endpoint string `json:"endpoint"`
@@ -718,6 +722,7 @@ type TriggerSqsClientConfig struct {
 	SecretKey string `json:"secret_key"`
 }
 
+// Secret:
 type Secret struct {
 	// Key:
 	Key string `json:"key"`
@@ -725,6 +730,7 @@ type Secret struct {
 	Value *string `json:"value,omitempty"`
 }
 
+// CreateTriggerRequestMnqNatsClientConfig:
 type CreateTriggerRequestMnqNatsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
@@ -736,6 +742,7 @@ type CreateTriggerRequestMnqNatsClientConfig struct {
 	MnqRegion string `json:"mnq_region"`
 }
 
+// CreateTriggerRequestMnqSqsClientConfig:
 type CreateTriggerRequestMnqSqsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
@@ -747,6 +754,7 @@ type CreateTriggerRequestMnqSqsClientConfig struct {
 	MnqRegion string `json:"mnq_region"`
 }
 
+// CreateTriggerRequestSqsClientConfig:
 type CreateTriggerRequestSqsClientConfig struct {
 	// Endpoint:
 	Endpoint string `json:"endpoint"`
@@ -758,6 +766,7 @@ type CreateTriggerRequestSqsClientConfig struct {
 	SecretKey string `json:"secret_key"`
 }
 
+// Cron:
 type Cron struct {
 	// ID: UUID of the cron.
 	ID string `json:"id"`
@@ -773,6 +782,7 @@ type Cron struct {
 	Name string `json:"name"`
 }
 
+// Domain:
 type Domain struct {
 	// ID: UUID of the domain.
 	ID string `json:"id"`
@@ -788,6 +798,7 @@ type Domain struct {
 	ErrorMessage *string `json:"error_message,omitempty"`
 }
 
+// Runtime:
 type Runtime struct {
 	// Name:
 	Name string `json:"name"`
@@ -811,6 +822,7 @@ type Runtime struct {
 	LogoURL string `json:"logo_url"`
 }
 
+// Function:
 type Function struct {
 	// ID: UUID of the function.
 	ID string `json:"id"`
@@ -858,6 +870,7 @@ type Function struct {
 	RuntimeMessage string `json:"runtime_message"`
 }
 
+// Log:
 type Log struct {
 	// Message: Message of the log.
 	Message string `json:"message"`
@@ -873,6 +886,7 @@ type Log struct {
 	Stream LogStream `json:"stream"`
 }
 
+// Namespace:
 type Namespace struct {
 	// ID: UUID of the namespace.
 	ID string `json:"id"`
@@ -900,6 +914,7 @@ type Namespace struct {
 	Region scw.Region `json:"region"`
 }
 
+// Token:
 type Token struct {
 	// ID: UUID of the token.
 	ID string `json:"id"`
@@ -909,7 +924,7 @@ type Token struct {
 	FunctionID *string `json:"function_id,omitempty"`
 	// NamespaceID: UUID of the namespace the token is assoicated with.
 	NamespaceID *string `json:"namespace_id,omitempty"`
-	// PublicKey: Public key of the token.
+	// Deprecated: PublicKey: Public key of the token.
 	PublicKey *string `json:"public_key,omitempty"`
 	// Status: Status of the token.
 	Status TokenStatus `json:"status"`
@@ -919,6 +934,7 @@ type Token struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// Trigger:
 type Trigger struct {
 	// ID:
 	ID string `json:"id"`
@@ -942,6 +958,7 @@ type Trigger struct {
 	ScwNatsConfig *TriggerMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
 }
 
+// UpdateTriggerRequestSqsClientConfig:
 type UpdateTriggerRequestSqsClientConfig struct {
 	// AccessKey:
 	AccessKey *string `json:"access_key,omitempty"`
@@ -949,6 +966,7 @@ type UpdateTriggerRequestSqsClientConfig struct {
 	SecretKey *string `json:"secret_key,omitempty"`
 }
 
+// CreateCronRequest:
 type CreateCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -962,6 +980,7 @@ type CreateCronRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// CreateDomainRequest:
 type CreateDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -971,6 +990,7 @@ type CreateDomainRequest struct {
 	FunctionID string `json:"function_id"`
 }
 
+// CreateFunctionRequest:
 type CreateFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -996,7 +1016,7 @@ type CreateFunctionRequest struct {
 	Privacy FunctionPrivacy `json:"privacy"`
 	// Description: Description of the function.
 	Description *string `json:"description,omitempty"`
-	// DomainName: Domain name associated with the function.
+	// Deprecated: DomainName: Domain name associated with the function.
 	DomainName *string `json:"domain_name,omitempty"`
 	// SecretEnvironmentVariables:
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
@@ -1006,6 +1026,7 @@ type CreateFunctionRequest struct {
 	HTTPOption FunctionHTTPOption `json:"http_option"`
 }
 
+// CreateNamespaceRequest:
 type CreateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1021,6 +1042,7 @@ type CreateNamespaceRequest struct {
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 }
 
+// CreateTokenRequest:
 type CreateTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1034,6 +1056,7 @@ type CreateTokenRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// CreateTriggerRequest:
 type CreateTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1051,6 +1074,7 @@ type CreateTriggerRequest struct {
 	ScwNatsConfig *CreateTriggerRequestMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
 }
 
+// DeleteCronRequest:
 type DeleteCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1058,6 +1082,7 @@ type DeleteCronRequest struct {
 	CronID string `json:"-"`
 }
 
+// DeleteDomainRequest:
 type DeleteDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1065,6 +1090,7 @@ type DeleteDomainRequest struct {
 	DomainID string `json:"-"`
 }
 
+// DeleteFunctionRequest:
 type DeleteFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1072,6 +1098,7 @@ type DeleteFunctionRequest struct {
 	FunctionID string `json:"-"`
 }
 
+// DeleteNamespaceRequest:
 type DeleteNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1079,6 +1106,7 @@ type DeleteNamespaceRequest struct {
 	NamespaceID string `json:"-"`
 }
 
+// DeleteTokenRequest:
 type DeleteTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1086,6 +1114,7 @@ type DeleteTokenRequest struct {
 	TokenID string `json:"-"`
 }
 
+// DeleteTriggerRequest:
 type DeleteTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1093,6 +1122,7 @@ type DeleteTriggerRequest struct {
 	TriggerID string `json:"-"`
 }
 
+// DeployFunctionRequest:
 type DeployFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1100,6 +1130,7 @@ type DeployFunctionRequest struct {
 	FunctionID string `json:"-"`
 }
 
+// DownloadURL:
 type DownloadURL struct {
 	// URL:
 	URL string `json:"url"`
@@ -1107,6 +1138,7 @@ type DownloadURL struct {
 	Headers map[string]*[]string `json:"headers"`
 }
 
+// GetCronRequest:
 type GetCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1114,6 +1146,7 @@ type GetCronRequest struct {
 	CronID string `json:"-"`
 }
 
+// GetDomainRequest:
 type GetDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1121,6 +1154,7 @@ type GetDomainRequest struct {
 	DomainID string `json:"-"`
 }
 
+// GetFunctionDownloadURLRequest:
 type GetFunctionDownloadURLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1128,6 +1162,7 @@ type GetFunctionDownloadURLRequest struct {
 	FunctionID string `json:"-"`
 }
 
+// GetFunctionRequest:
 type GetFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1135,15 +1170,17 @@ type GetFunctionRequest struct {
 	FunctionID string `json:"-"`
 }
 
+// GetFunctionUploadURLRequest:
 type GetFunctionUploadURLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to get the upload URL for.
 	FunctionID string `json:"-"`
-	// ContentLength:
+	// ContentLength: Size of the archive to upload in bytes.
 	ContentLength uint64 `json:"content_length"`
 }
 
+// GetNamespaceRequest:
 type GetNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1151,6 +1188,7 @@ type GetNamespaceRequest struct {
 	NamespaceID string `json:"-"`
 }
 
+// GetTokenRequest:
 type GetTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1158,6 +1196,7 @@ type GetTokenRequest struct {
 	TokenID string `json:"-"`
 }
 
+// GetTriggerRequest:
 type GetTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1165,6 +1204,7 @@ type GetTriggerRequest struct {
 	TriggerID string `json:"-"`
 }
 
+// IssueJWTRequest:
 type IssueJWTRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1176,6 +1216,7 @@ type IssueJWTRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// ListCronsRequest:
 type ListCronsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1189,6 +1230,7 @@ type ListCronsRequest struct {
 	FunctionID string `json:"function_id"`
 }
 
+// ListCronsResponse:
 type ListCronsResponse struct {
 	// Crons: Array of crons.
 	Crons []*Cron `json:"crons"`
@@ -1215,6 +1257,7 @@ func (r *ListCronsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Crons)), nil
 }
 
+// ListDomainsRequest:
 type ListDomainsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1228,6 +1271,7 @@ type ListDomainsRequest struct {
 	FunctionID string `json:"function_id"`
 }
 
+// ListDomainsResponse:
 type ListDomainsResponse struct {
 	// Domains: Array of domains.
 	Domains []*Domain `json:"domains"`
@@ -1254,11 +1298,13 @@ func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Domains)), nil
 }
 
+// ListFunctionRuntimesRequest:
 type ListFunctionRuntimesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 }
 
+// ListFunctionRuntimesResponse:
 type ListFunctionRuntimesResponse struct {
 	// Runtimes: Array of runtimes available.
 	Runtimes []*Runtime `json:"runtimes"`
@@ -1285,6 +1331,7 @@ func (r *ListFunctionRuntimesResponse) UnsafeAppend(res interface{}) (uint32, er
 	return uint32(len(results.Runtimes)), nil
 }
 
+// ListFunctionsRequest:
 type ListFunctionsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1304,6 +1351,7 @@ type ListFunctionsRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListFunctionsResponse:
 type ListFunctionsResponse struct {
 	// Functions: Array of functions.
 	Functions []*Function `json:"functions"`
@@ -1330,6 +1378,7 @@ func (r *ListFunctionsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Functions)), nil
 }
 
+// ListLogsRequest:
 type ListLogsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1343,6 +1392,7 @@ type ListLogsRequest struct {
 	OrderBy ListLogsRequestOrderBy `json:"order_by"`
 }
 
+// ListLogsResponse:
 type ListLogsResponse struct {
 	// Logs: Array of logs.
 	Logs []*Log `json:"logs"`
@@ -1369,6 +1419,7 @@ func (r *ListLogsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Logs)), nil
 }
 
+// ListNamespacesRequest:
 type ListNamespacesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1386,6 +1437,7 @@ type ListNamespacesRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListNamespacesResponse:
 type ListNamespacesResponse struct {
 	// Namespaces:
 	Namespaces []*Namespace `json:"namespaces"`
@@ -1412,6 +1464,7 @@ func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Namespaces)), nil
 }
 
+// ListTokensRequest:
 type ListTokensRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1427,6 +1480,7 @@ type ListTokensRequest struct {
 	NamespaceID *string `json:"namespace_id,omitempty"`
 }
 
+// ListTokensResponse:
 type ListTokensResponse struct {
 	// Tokens:
 	Tokens []*Token `json:"tokens"`
@@ -1453,6 +1507,7 @@ func (r *ListTokensResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tokens)), nil
 }
 
+// ListTriggersRequest:
 type ListTriggersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1470,6 +1525,7 @@ type ListTriggersRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListTriggersResponse:
 type ListTriggersResponse struct {
 	// Triggers:
 	Triggers []*Trigger `json:"triggers"`
@@ -1496,6 +1552,7 @@ func (r *ListTriggersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Triggers)), nil
 }
 
+// UpdateCronRequest:
 type UpdateCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1511,6 +1568,7 @@ type UpdateCronRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// UpdateFunctionRequest:
 type UpdateFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1536,7 +1594,7 @@ type UpdateFunctionRequest struct {
 	Privacy FunctionPrivacy `json:"privacy"`
 	// Description: Description of the function.
 	Description *string `json:"description,omitempty"`
-	// DomainName: Domain name associated with the function.
+	// Deprecated: DomainName: Domain name associated with the function.
 	DomainName *string `json:"domain_name,omitempty"`
 	// SecretEnvironmentVariables: Secret environment variables of the function.
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
@@ -1546,6 +1604,7 @@ type UpdateFunctionRequest struct {
 	HTTPOption FunctionHTTPOption `json:"http_option"`
 }
 
+// UpdateNamespaceRequest:
 type UpdateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1559,6 +1618,7 @@ type UpdateNamespaceRequest struct {
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 }
 
+// UpdateTriggerRequest:
 type UpdateTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1572,6 +1632,7 @@ type UpdateTriggerRequest struct {
 	SqsConfig *UpdateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
 }
 
+// UploadURL:
 type UploadURL struct {
 	// URL: Upload URL to upload the function to.
 	URL string `json:"url"`
@@ -1612,7 +1673,7 @@ type UploadURL struct {
 //
 //  1. Configure your environment variables.
 //     ```bash
-//     export SCW_ACCESS_KEY="<Secret key of your token>"
+//     export SCW_SECRET_KEY="<your secret key>"
 //     export SCW_DEFAULT_REGION="<choose your location (fr-par/nl-ams/pl-waw)>"
 //     export SCW_DEFAULT_PROJECT_ID="<your project ID>"
 //     ```
@@ -1625,7 +1686,7 @@ type UploadURL struct {
 //     curl -X POST \
 //     "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/namespaces" \
 //     -H "accept: application/json" \
-//     -H "X-Auth-Token: $SCW_ACCESS_KEY" \
+//     -H "X-Auth-Token: $SCW_SECRET_KEY" \
 //     -H "Content-Type: application/json" \
 //     -d '{
 //     name: your-namespace-name, \
@@ -1691,7 +1752,7 @@ type UploadURL struct {
 //  5. Run the following command to create your function. Make sure you include the payload you edited in the previous step.
 //     ```bash
 //     curl -X POST \
-//     -H "X-Auth-Token: $SCW_SECRET_ACCESS_KEY"\
+//     -H "X-Auth-Token: $SCW_SECRET_KEY"\
 //     "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions"\
 //     -d '{
 //     name: function-name, \
@@ -1710,7 +1771,7 @@ type UploadURL struct {
 //  7. Run the following command to deploy your function.
 //     ```bash
 //     curl -X POST \
-//     -H "X-Auth-Token: $SCW_ACCESS_KEY" "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions/$SCW_FUNCTION_ID/deploy" \
+//     -H "X-Auth-Token: $SCW_SECRET_KEY" "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions/$SCW_FUNCTION_ID/deploy" \
 //     -d "{}"
 //     ```
 //     <Message type="note">
@@ -1720,7 +1781,7 @@ type UploadURL struct {
 //  8. Retrieve your function's HTTP(s) endpoint with the following command once your function has been properly deployed.
 //     ```bash
 //     curl -X GET \
-//     -H "X-Auth-Token: $SCW_ACCESS_KEY" "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions/$SCW_FUNCTION_ID"
+//     -H "X-Auth-Token: $SCW_SECRET_KEY" "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions/$SCW_FUNCTION_ID"
 //     export FUNCTION_ENDPOINT="<endpoint>"
 //     ```
 //
@@ -1732,7 +1793,7 @@ type UploadURL struct {
 //  10. (optional) Destroy the namespace (along with all functions and crons) by using the following call.
 //     ```bash
 //     curl -s \
-//     -H "X-Auth-Token: $SCW_ACCESS_KEY" -X DELETE "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/namespaces/$SCW_NAMESPACE_ID"
+//     -H "X-Auth-Token: $SCW_SECRET_KEY" -X DELETE "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/namespaces/$SCW_NAMESPACE_ID"
 //     ```
 //
 // (switchcolumn)
@@ -1767,14 +1828,14 @@ type UploadURL struct {
 // To get all tokens associated with a function:
 //
 // ```bash
-// export SECRET_KEY=<your_secret_key>
+// export SCW_SECRET_KEY=<your_secret_key>
 // export SCW_DEFAULT_REGION="<Scaleway default region>"
 // export SCW_FUNCTION_ID=<funcion_id_you_want_to_inspect>
 //
 //	curl -X GET \
 //	  "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/tokens?function_id=$SCW_FUNCTION_ID" \
 //	  -H "accept: application/json" \
-//	  -H "X-Auth-Token: $SECRET_KEY" \
+//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
 //	  -H "Content-Type: application/json"
 //
 // ```
@@ -1796,7 +1857,7 @@ type UploadURL struct {
 //	curl -X POST \
 //	  "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/tokens" \
 //	  -H "accept: application/json" \
-//	  -H "X-Auth-Token: $SECRET_KEY" \
+//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
 //	  -H "Content-Type: application/json" \
 //	  -d '{
 //	      descrption:desc, \
@@ -2699,7 +2760,7 @@ func (s *API) DeleteDomain(req *DeleteDomainRequest, opts ...scw.RequestOption) 
 	return &resp, nil
 }
 
-// IssueJWT:
+// Deprecated: IssueJWT:
 func (s *API) IssueJWT(req *IssueJWTRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
 	if req.Region == "" {

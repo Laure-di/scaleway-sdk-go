@@ -475,6 +475,7 @@ func (enum *RouteS3ConfigS3Strategy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// DeviceMessageFiltersRule:
 type DeviceMessageFiltersRule struct {
 	// Policy: If set to `accept`, all topics in the topics list will be allowed, with all other topics being denied.
 	// If set to `reject`, all topics in the topics list will be denied, with all other topics being allowed.
@@ -483,6 +484,7 @@ type DeviceMessageFiltersRule struct {
 	Topics *[]string `json:"topics,omitempty"`
 }
 
+// DeviceMessageFilters:
 type DeviceMessageFilters struct {
 	// Publish: Filtering rule to restrict topics the device can publish to.
 	Publish *DeviceMessageFiltersRule `json:"publish"`
@@ -490,11 +492,13 @@ type DeviceMessageFilters struct {
 	Subscribe *DeviceMessageFiltersRule `json:"subscribe"`
 }
 
+// HubTwinsGraphiteConfig:
 type HubTwinsGraphiteConfig struct {
 	// PushURI:
 	PushURI string `json:"push_uri"`
 }
 
+// Certificate:
 type Certificate struct {
 	// Crt:
 	Crt string `json:"crt"`
@@ -502,6 +506,7 @@ type Certificate struct {
 	Key string `json:"key"`
 }
 
+// Device:
 type Device struct {
 	// ID: Device ID, also used as MQTT Client ID or username.
 	ID string `json:"id"`
@@ -531,6 +536,7 @@ type Device struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// Network:
 type Network struct {
 	// ID: Network ID.
 	ID string `json:"id"`
@@ -548,6 +554,7 @@ type Network struct {
 	TopicPrefix string `json:"topic_prefix"`
 }
 
+// CreateRouteRequestDatabaseConfig:
 type CreateRouteRequestDatabaseConfig struct {
 	// Host:
 	Host string `json:"host"`
@@ -565,6 +572,7 @@ type CreateRouteRequestDatabaseConfig struct {
 	Engine RouteDatabaseConfigEngine `json:"engine"`
 }
 
+// CreateRouteRequestRestConfig:
 type CreateRouteRequestRestConfig struct {
 	// Verb:
 	Verb RouteRestConfigHTTPVerb `json:"verb"`
@@ -574,6 +582,7 @@ type CreateRouteRequestRestConfig struct {
 	Headers map[string]string `json:"headers"`
 }
 
+// CreateRouteRequestS3Config:
 type CreateRouteRequestS3Config struct {
 	// BucketRegion:
 	BucketRegion string `json:"bucket_region"`
@@ -585,6 +594,7 @@ type CreateRouteRequestS3Config struct {
 	Strategy RouteS3ConfigS3Strategy `json:"strategy"`
 }
 
+// Hub:
 type Hub struct {
 	// ID: Hub ID.
 	ID string `json:"id"`
@@ -624,6 +634,7 @@ type Hub struct {
 	TwinsGraphiteConfig *HubTwinsGraphiteConfig `json:"twins_graphite_config,omitempty"`
 }
 
+// RouteSummary:
 type RouteSummary struct {
 	// ID: Route ID.
 	ID string `json:"id"`
@@ -641,11 +652,13 @@ type RouteSummary struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// ListTwinDocumentsResponseDocumentSummary:
 type ListTwinDocumentsResponseDocumentSummary struct {
 	// DocumentName: Name of the document.
 	DocumentName string `json:"document_name"`
 }
 
+// RouteDatabaseConfig:
 type RouteDatabaseConfig struct {
 	// Engine: Database engine the route will connect to. If not specified, the default database will be 'PostgreSQL'.
 	Engine RouteDatabaseConfigEngine `json:"engine"`
@@ -663,6 +676,7 @@ type RouteDatabaseConfig struct {
 	Query string `json:"query"`
 }
 
+// RouteRestConfig:
 type RouteRestConfig struct {
 	// Verb: HTTP verb used to call REST URI.
 	Verb RouteRestConfigHTTPVerb `json:"verb"`
@@ -672,6 +686,7 @@ type RouteRestConfig struct {
 	Headers map[string]string `json:"headers"`
 }
 
+// RouteS3Config:
 type RouteS3Config struct {
 	// BucketRegion: Region of the S3 route's destination bucket (e.g., 'fr-par').
 	BucketRegion string `json:"bucket_region"`
@@ -683,6 +698,7 @@ type RouteS3Config struct {
 	Strategy RouteS3ConfigS3Strategy `json:"strategy"`
 }
 
+// UpdateRouteRequestDatabaseConfig:
 type UpdateRouteRequestDatabaseConfig struct {
 	// Host:
 	Host *string `json:"host,omitempty"`
@@ -700,6 +716,7 @@ type UpdateRouteRequestDatabaseConfig struct {
 	Engine RouteDatabaseConfigEngine `json:"engine"`
 }
 
+// UpdateRouteRequestRestConfig:
 type UpdateRouteRequestRestConfig struct {
 	// Verb:
 	Verb RouteRestConfigHTTPVerb `json:"verb"`
@@ -709,6 +726,7 @@ type UpdateRouteRequestRestConfig struct {
 	Headers *map[string]string `json:"headers,omitempty"`
 }
 
+// UpdateRouteRequestS3Config:
 type UpdateRouteRequestS3Config struct {
 	// BucketRegion:
 	BucketRegion *string `json:"bucket_region,omitempty"`
@@ -720,6 +738,7 @@ type UpdateRouteRequestS3Config struct {
 	Strategy RouteS3ConfigS3Strategy `json:"strategy"`
 }
 
+// CreateDeviceRequest:
 type CreateDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -737,6 +756,7 @@ type CreateDeviceRequest struct {
 	Description *string `json:"description,omitempty"`
 }
 
+// CreateDeviceResponse:
 type CreateDeviceResponse struct {
 	// Device: Information related to the created device.
 	Device *Device `json:"device"`
@@ -744,6 +764,7 @@ type CreateDeviceResponse struct {
 	Certificate *Certificate `json:"certificate"`
 }
 
+// CreateHubRequest:
 type CreateHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -761,6 +782,7 @@ type CreateHubRequest struct {
 	TwinsGraphiteConfig *HubTwinsGraphiteConfig `json:"twins_graphite_config,omitempty"`
 }
 
+// CreateNetworkRequest:
 type CreateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -774,6 +796,7 @@ type CreateNetworkRequest struct {
 	TopicPrefix string `json:"topic_prefix"`
 }
 
+// CreateNetworkResponse:
 type CreateNetworkResponse struct {
 	// Network: Information related to the created network.
 	Network *Network `json:"network"`
@@ -781,6 +804,7 @@ type CreateNetworkResponse struct {
 	Secret string `json:"secret"`
 }
 
+// CreateRouteRequest:
 type CreateRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -798,6 +822,7 @@ type CreateRouteRequest struct {
 	RestConfig *CreateRouteRequestRestConfig `json:"rest_config,omitempty"`
 }
 
+// DeleteDeviceRequest:
 type DeleteDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -805,6 +830,7 @@ type DeleteDeviceRequest struct {
 	DeviceID string `json:"-"`
 }
 
+// DeleteHubRequest:
 type DeleteHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -814,6 +840,7 @@ type DeleteHubRequest struct {
 	DeleteDevices *bool `json:"delete_devices,omitempty"`
 }
 
+// DeleteNetworkRequest:
 type DeleteNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -821,6 +848,7 @@ type DeleteNetworkRequest struct {
 	NetworkID string `json:"-"`
 }
 
+// DeleteRouteRequest:
 type DeleteRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -828,6 +856,7 @@ type DeleteRouteRequest struct {
 	RouteID string `json:"-"`
 }
 
+// DeleteTwinDocumentRequest:
 type DeleteTwinDocumentRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -837,6 +866,7 @@ type DeleteTwinDocumentRequest struct {
 	DocumentName string `json:"-"`
 }
 
+// DeleteTwinDocumentsRequest:
 type DeleteTwinDocumentsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -844,6 +874,7 @@ type DeleteTwinDocumentsRequest struct {
 	TwinID string `json:"-"`
 }
 
+// DisableDeviceRequest:
 type DisableDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -851,6 +882,7 @@ type DisableDeviceRequest struct {
 	DeviceID string `json:"-"`
 }
 
+// DisableHubRequest:
 type DisableHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -858,6 +890,7 @@ type DisableHubRequest struct {
 	HubID string `json:"-"`
 }
 
+// EnableDeviceRequest:
 type EnableDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -865,6 +898,7 @@ type EnableDeviceRequest struct {
 	DeviceID string `json:"-"`
 }
 
+// EnableHubRequest:
 type EnableHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -872,6 +906,7 @@ type EnableHubRequest struct {
 	HubID string `json:"-"`
 }
 
+// GetDeviceCertificateRequest:
 type GetDeviceCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -879,6 +914,7 @@ type GetDeviceCertificateRequest struct {
 	DeviceID string `json:"-"`
 }
 
+// GetDeviceCertificateResponse:
 type GetDeviceCertificateResponse struct {
 	// Device: Information related to the created device.
 	Device *Device `json:"device"`
@@ -886,6 +922,7 @@ type GetDeviceCertificateResponse struct {
 	CertificatePem string `json:"certificate_pem"`
 }
 
+// GetDeviceMetricsRequest:
 type GetDeviceMetricsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -895,11 +932,13 @@ type GetDeviceMetricsRequest struct {
 	StartDate *time.Time `json:"start_date,omitempty"`
 }
 
+// GetDeviceMetricsResponse:
 type GetDeviceMetricsResponse struct {
 	// Metrics: Metrics for a device over the requested period.
 	Metrics []*scw.TimeSeries `json:"metrics"`
 }
 
+// GetDeviceRequest:
 type GetDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -907,6 +946,7 @@ type GetDeviceRequest struct {
 	DeviceID string `json:"-"`
 }
 
+// GetHubCARequest:
 type GetHubCARequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -914,11 +954,13 @@ type GetHubCARequest struct {
 	HubID string `json:"-"`
 }
 
+// GetHubCAResponse:
 type GetHubCAResponse struct {
 	// CaCertPem:
 	CaCertPem string `json:"ca_cert_pem"`
 }
 
+// GetHubMetricsRequest:
 type GetHubMetricsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -928,11 +970,13 @@ type GetHubMetricsRequest struct {
 	StartDate *time.Time `json:"start_date,omitempty"`
 }
 
+// GetHubMetricsResponse:
 type GetHubMetricsResponse struct {
 	// Metrics: Metrics for a Hub over the requested period.
 	Metrics []*scw.TimeSeries `json:"metrics"`
 }
 
+// GetHubRequest:
 type GetHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -940,6 +984,7 @@ type GetHubRequest struct {
 	HubID string `json:"-"`
 }
 
+// GetNetworkRequest:
 type GetNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -947,6 +992,7 @@ type GetNetworkRequest struct {
 	NetworkID string `json:"-"`
 }
 
+// GetRouteRequest:
 type GetRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -954,6 +1000,7 @@ type GetRouteRequest struct {
 	RouteID string `json:"-"`
 }
 
+// GetTwinDocumentRequest:
 type GetTwinDocumentRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -963,6 +1010,7 @@ type GetTwinDocumentRequest struct {
 	DocumentName string `json:"-"`
 }
 
+// ListDevicesRequest:
 type ListDevicesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -982,6 +1030,7 @@ type ListDevicesRequest struct {
 	Status DeviceStatus `json:"status"`
 }
 
+// ListDevicesResponse:
 type ListDevicesResponse struct {
 	// TotalCount: Total number of devices.
 	TotalCount uint32 `json:"total_count"`
@@ -1008,6 +1057,7 @@ func (r *ListDevicesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Devices)), nil
 }
 
+// ListHubsRequest:
 type ListHubsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1025,6 +1075,7 @@ type ListHubsRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListHubsResponse:
 type ListHubsResponse struct {
 	// TotalCount: Total number of Hubs.
 	TotalCount uint32 `json:"total_count"`
@@ -1051,6 +1102,7 @@ func (r *ListHubsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Hubs)), nil
 }
 
+// ListNetworksRequest:
 type ListNetworksRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1068,6 +1120,7 @@ type ListNetworksRequest struct {
 	TopicPrefix *string `json:"topic_prefix,omitempty"`
 }
 
+// ListNetworksResponse:
 type ListNetworksResponse struct {
 	// TotalCount: Total number of Networks.
 	TotalCount uint32 `json:"total_count"`
@@ -1094,6 +1147,7 @@ func (r *ListNetworksResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Networks)), nil
 }
 
+// ListRoutesRequest:
 type ListRoutesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1109,6 +1163,7 @@ type ListRoutesRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListRoutesResponse:
 type ListRoutesResponse struct {
 	// TotalCount: Total number of routes.
 	TotalCount uint32 `json:"total_count"`
@@ -1135,6 +1190,7 @@ func (r *ListRoutesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Routes)), nil
 }
 
+// ListTwinDocumentsRequest:
 type ListTwinDocumentsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1142,11 +1198,13 @@ type ListTwinDocumentsRequest struct {
 	TwinID string `json:"-"`
 }
 
+// ListTwinDocumentsResponse:
 type ListTwinDocumentsResponse struct {
 	// Documents: List of the twin document.
 	Documents []*ListTwinDocumentsResponseDocumentSummary `json:"documents"`
 }
 
+// PatchTwinDocumentRequest:
 type PatchTwinDocumentRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1165,6 +1223,7 @@ type PatchTwinDocumentRequest struct {
 	Data *scw.JSONObject `json:"data,omitempty"`
 }
 
+// PutTwinDocumentRequest:
 type PutTwinDocumentRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1178,6 +1237,7 @@ type PutTwinDocumentRequest struct {
 	Data *scw.JSONObject `json:"data,omitempty"`
 }
 
+// RenewDeviceCertificateRequest:
 type RenewDeviceCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1185,6 +1245,7 @@ type RenewDeviceCertificateRequest struct {
 	DeviceID string `json:"-"`
 }
 
+// RenewDeviceCertificateResponse:
 type RenewDeviceCertificateResponse struct {
 	// Device: Information related to the created device.
 	Device *Device `json:"device"`
@@ -1192,6 +1253,7 @@ type RenewDeviceCertificateResponse struct {
 	Certificate *Certificate `json:"certificate"`
 }
 
+// Route:
 type Route struct {
 	// ID: Route ID.
 	ID string `json:"id"`
@@ -1215,6 +1277,7 @@ type Route struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// SetDeviceCertificateRequest:
 type SetDeviceCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1224,6 +1287,7 @@ type SetDeviceCertificateRequest struct {
 	CertificatePem string `json:"certificate_pem"`
 }
 
+// SetDeviceCertificateResponse:
 type SetDeviceCertificateResponse struct {
 	// Device:
 	Device *Device `json:"device"`
@@ -1231,6 +1295,7 @@ type SetDeviceCertificateResponse struct {
 	CertificatePem string `json:"certificate_pem"`
 }
 
+// SetHubCARequest:
 type SetHubCARequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1242,6 +1307,7 @@ type SetHubCARequest struct {
 	ChallengeCertPem string `json:"challenge_cert_pem"`
 }
 
+// TwinDocument:
 type TwinDocument struct {
 	// TwinID: Parent twin ID of the document.
 	TwinID string `json:"twin_id"`
@@ -1253,6 +1319,7 @@ type TwinDocument struct {
 	Data *scw.JSONObject `json:"data,omitempty"`
 }
 
+// UpdateDeviceRequest:
 type UpdateDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1270,6 +1337,7 @@ type UpdateDeviceRequest struct {
 	HubID *string `json:"hub_id,omitempty"`
 }
 
+// UpdateHubRequest:
 type UpdateHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1289,6 +1357,7 @@ type UpdateHubRequest struct {
 	TwinsGraphiteConfig *HubTwinsGraphiteConfig `json:"twins_graphite_config,omitempty"`
 }
 
+// UpdateRouteRequest:
 type UpdateRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1805,7 +1874,7 @@ func (s *API) DeleteHub(req *DeleteHubRequest, opts ...scw.RequestOption) error 
 	return nil
 }
 
-// GetHubMetrics: Get the metrics of an existing IoT Hub, specified by its Hub ID.
+// Deprecated: GetHubMetrics: Get the metrics of an existing IoT Hub, specified by its Hub ID.
 func (s *API) GetHubMetrics(req *GetHubMetricsRequest, opts ...scw.RequestOption) (*GetHubMetricsResponse, error) {
 	var err error
 	if req.Region == "" {
@@ -2242,7 +2311,7 @@ func (s *API) DeleteDevice(req *DeleteDeviceRequest, opts ...scw.RequestOption) 
 	return nil
 }
 
-// GetDeviceMetrics: Get the metrics of an existing device, specified by its device ID.
+// Deprecated: GetDeviceMetrics: Get the metrics of an existing device, specified by its device ID.
 func (s *API) GetDeviceMetrics(req *GetDeviceMetricsRequest, opts ...scw.RequestOption) (*GetDeviceMetricsResponse, error) {
 	var err error
 	if req.Region == "" {

@@ -170,6 +170,7 @@ func (enum *MACAddressType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MACAddress:
 type MACAddress struct {
 	// ID: ID of the flexible IP.
 	ID string `json:"id"`
@@ -187,6 +188,7 @@ type MACAddress struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// FlexibleIP:
 type FlexibleIP struct {
 	// ID: ID of the flexible IP.
 	ID string `json:"id"`
@@ -221,6 +223,7 @@ type FlexibleIP struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// AttachFlexibleIPRequest:
 type AttachFlexibleIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -230,6 +233,7 @@ type AttachFlexibleIPRequest struct {
 	ServerID string `json:"server_id"`
 }
 
+// AttachFlexibleIPsResponse:
 type AttachFlexibleIPsResponse struct {
 	// TotalCount: Total count of flexible IPs that are being updated.
 	TotalCount uint32 `json:"total_count"`
@@ -256,6 +260,7 @@ func (r *AttachFlexibleIPsResponse) UnsafeAppend(res interface{}) (uint32, error
 	return uint32(len(results.FlexibleIPs)), nil
 }
 
+// CreateFlexibleIPRequest:
 type CreateFlexibleIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -273,6 +278,7 @@ type CreateFlexibleIPRequest struct {
 	IsIPv6 bool `json:"is_ipv6"`
 }
 
+// DeleteFlexibleIPRequest:
 type DeleteFlexibleIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -280,6 +286,7 @@ type DeleteFlexibleIPRequest struct {
 	FipID string `json:"-"`
 }
 
+// DeleteMACAddrRequest:
 type DeleteMACAddrRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -287,6 +294,7 @@ type DeleteMACAddrRequest struct {
 	FipID string `json:"-"`
 }
 
+// DetachFlexibleIPRequest:
 type DetachFlexibleIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -294,6 +302,7 @@ type DetachFlexibleIPRequest struct {
 	FipsIDs []string `json:"fips_ids"`
 }
 
+// DetachFlexibleIPsResponse:
 type DetachFlexibleIPsResponse struct {
 	// TotalCount: Total count of flexible IPs that are being detached.
 	TotalCount uint32 `json:"total_count"`
@@ -320,6 +329,7 @@ func (r *DetachFlexibleIPsResponse) UnsafeAppend(res interface{}) (uint32, error
 	return uint32(len(results.FlexibleIPs)), nil
 }
 
+// DuplicateMACAddrRequest:
 type DuplicateMACAddrRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -329,6 +339,7 @@ type DuplicateMACAddrRequest struct {
 	DuplicateFromFipID string `json:"duplicate_from_fip_id"`
 }
 
+// GenerateMACAddrRequest:
 type GenerateMACAddrRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -338,6 +349,7 @@ type GenerateMACAddrRequest struct {
 	MacType MACAddressType `json:"mac_type"`
 }
 
+// GetFlexibleIPRequest:
 type GetFlexibleIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -345,6 +357,7 @@ type GetFlexibleIPRequest struct {
 	FipID string `json:"-"`
 }
 
+// ListFlexibleIPsRequest:
 type ListFlexibleIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -366,6 +379,7 @@ type ListFlexibleIPsRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListFlexibleIPsResponse:
 type ListFlexibleIPsResponse struct {
 	// TotalCount: Total count of matching flexible IPs.
 	TotalCount uint32 `json:"total_count"`
@@ -392,6 +406,7 @@ func (r *ListFlexibleIPsResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.FlexibleIPs)), nil
 }
 
+// MoveMACAddrRequest:
 type MoveMACAddrRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -401,6 +416,7 @@ type MoveMACAddrRequest struct {
 	DstFipID string `json:"dst_fip_id"`
 }
 
+// UpdateFlexibleIPRequest:
 type UpdateFlexibleIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`

@@ -114,6 +114,7 @@ func (enum *ResourceType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Resource:
 type Resource struct {
 	// Type:
 	Type ResourceType `json:"type"`
@@ -125,6 +126,7 @@ type Resource struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// Source:
 type Source struct {
 	// Zonal:
 	Zonal *string `json:"zonal,omitempty"`
@@ -138,6 +140,7 @@ type Source struct {
 	SubnetID *string `json:"subnet_id,omitempty"`
 }
 
+// IP:
 type IP struct {
 	// ID:
 	ID string `json:"id"`
@@ -169,6 +172,7 @@ type IP struct {
 	Zone *scw.Zone `json:"zone,omitempty"`
 }
 
+// ListIPsRequest:
 type ListIPsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -182,7 +186,7 @@ type ListIPsRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 	// OrganizationID:
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// Source:
+	// Deprecated: Source:
 	Source *Source `json:"source,omitempty"`
 	// Zonal:
 	Zonal *string `json:"zonal,omitempty"`
@@ -212,6 +216,7 @@ type ListIPsRequest struct {
 	ResourceIDs []string `json:"resource_ids"`
 }
 
+// ListIPsResponse:
 type ListIPsResponse struct {
 	// TotalCount:
 	TotalCount uint64 `json:"total_count"`

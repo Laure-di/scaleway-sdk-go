@@ -228,11 +228,13 @@ func (enum *PlanName) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// ContactPointEmail:
 type ContactPointEmail struct {
 	// To:
 	To string `json:"to"`
 }
 
+// TokenScopes:
 type TokenScopes struct {
 	// QueryMetrics: Permission to fetch metrics.
 	QueryMetrics bool `json:"query_metrics"`
@@ -250,6 +252,7 @@ type TokenScopes struct {
 	SetupAlerts bool `json:"setup_alerts"`
 }
 
+// CockpitEndpoints:
 type CockpitEndpoints struct {
 	// MetricsURL: URL for metrics.
 	MetricsURL string `json:"metrics_url"`
@@ -261,7 +264,7 @@ type CockpitEndpoints struct {
 	GrafanaURL string `json:"grafana_url"`
 }
 
-// Pricing plan.
+// Plan: Pricing plan.
 type Plan struct {
 	// ID: ID of a given pricing plan.
 	ID string `json:"id"`
@@ -279,13 +282,13 @@ type Plan struct {
 	RetentionPrice uint32 `json:"retention_price"`
 }
 
-// Contact point.
+// ContactPoint: Contact point.
 type ContactPoint struct {
 	// Email: Contact point configuration.
 	Email *ContactPointEmail `json:"email,omitempty"`
 }
 
-// Grafana user.
+// GrafanaUser: Grafana user.
 type GrafanaUser struct {
 	// ID: ID of the Grafana user.
 	ID uint32 `json:"id"`
@@ -297,6 +300,7 @@ type GrafanaUser struct {
 	Password *string `json:"password,omitempty"`
 }
 
+// Token:
 type Token struct {
 	// ID: ID of the token.
 	ID string `json:"id"`
@@ -314,12 +318,13 @@ type Token struct {
 	SecretKey *string `json:"secret_key,omitempty"`
 }
 
+// ActivateCockpitRequest:
 type ActivateCockpitRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
 }
 
-// Cockpit.
+// Cockpit: Cockpit.
 type Cockpit struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
@@ -337,13 +342,13 @@ type Cockpit struct {
 	Plan *Plan `json:"plan"`
 }
 
-// Metrics for a given Cockpit.
+// CockpitMetrics: Metrics for a given Cockpit.
 type CockpitMetrics struct {
 	// Timeseries: Time series array.
 	Timeseries []*scw.TimeSeries `json:"timeseries"`
 }
 
-// Request to create a contact point.
+// CreateContactPointRequest: Request to create a contact point.
 type CreateContactPointRequest struct {
 	// ProjectID: ID of the Project in which to create the contact point.
 	ProjectID string `json:"project_id"`
@@ -351,7 +356,7 @@ type CreateContactPointRequest struct {
 	ContactPoint *ContactPoint `json:"contact_point"`
 }
 
-// Request to create a Grafana user.
+// CreateGrafanaUserRequest: Request to create a Grafana user.
 type CreateGrafanaUserRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
@@ -361,6 +366,7 @@ type CreateGrafanaUserRequest struct {
 	Role GrafanaUserRole `json:"role"`
 }
 
+// CreateTokenRequest:
 type CreateTokenRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
@@ -370,12 +376,13 @@ type CreateTokenRequest struct {
 	Scopes *TokenScopes `json:"scopes"`
 }
 
+// DeactivateCockpitRequest:
 type DeactivateCockpitRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
 }
 
-// Request to delete a contact point.
+// DeleteContactPointRequest: Request to delete a contact point.
 type DeleteContactPointRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
@@ -383,7 +390,7 @@ type DeleteContactPointRequest struct {
 	ContactPoint *ContactPoint `json:"contact_point"`
 }
 
-// Request to delete a Grafana user.
+// DeleteGrafanaUserRequest: Request to delete a Grafana user.
 type DeleteGrafanaUserRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
@@ -391,24 +398,25 @@ type DeleteGrafanaUserRequest struct {
 	GrafanaUserID uint32 `json:"-"`
 }
 
+// DeleteTokenRequest:
 type DeleteTokenRequest struct {
 	// TokenID: ID of the token.
 	TokenID string `json:"-"`
 }
 
-// Request to disable the sending of managed alerts.
+// DisableManagedAlertsRequest: Request to disable the sending of managed alerts.
 type DisableManagedAlertsRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
 }
 
-// Request to enable the sending of managed alerts.
+// EnableManagedAlertsRequest: Request to enable the sending of managed alerts.
 type EnableManagedAlertsRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
 }
 
-// Request to get a given Cockpit's metrics.
+// GetCockpitMetricsRequest: Request to get a given Cockpit's metrics.
 type GetCockpitMetricsRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
@@ -420,17 +428,19 @@ type GetCockpitMetricsRequest struct {
 	MetricName *string `json:"metric_name,omitempty"`
 }
 
+// GetCockpitRequest:
 type GetCockpitRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
 }
 
+// GetTokenRequest:
 type GetTokenRequest struct {
 	// TokenID: ID of the token.
 	TokenID string `json:"-"`
 }
 
-// Request to list all contact points.
+// ListContactPointsRequest: Request to list all contact points.
 type ListContactPointsRequest struct {
 	// Page: Page number.
 	Page *int32 `json:"page,omitempty"`
@@ -440,7 +450,7 @@ type ListContactPointsRequest struct {
 	ProjectID string `json:"project_id"`
 }
 
-// Response returned when listing contact points.
+// ListContactPointsResponse: Response returned when listing contact points.
 type ListContactPointsResponse struct {
 	// TotalCount: Count of all contact points created.
 	TotalCount uint32 `json:"total_count"`
@@ -471,7 +481,7 @@ func (r *ListContactPointsResponse) UnsafeAppend(res interface{}) (uint32, error
 	return uint32(len(results.ContactPoints)), nil
 }
 
-// Request to list all Grafana users.
+// ListGrafanaUsersRequest: Request to list all Grafana users.
 type ListGrafanaUsersRequest struct {
 	// Page: Page number.
 	Page *int32 `json:"page,omitempty"`
@@ -483,7 +493,7 @@ type ListGrafanaUsersRequest struct {
 	ProjectID string `json:"project_id"`
 }
 
-// Response returned when listing Grafana users.
+// ListGrafanaUsersResponse: Response returned when listing Grafana users.
 type ListGrafanaUsersResponse struct {
 	// TotalCount: Count of all Grafana users.
 	TotalCount uint32 `json:"total_count"`
@@ -510,7 +520,7 @@ func (r *ListGrafanaUsersResponse) UnsafeAppend(res interface{}) (uint32, error)
 	return uint32(len(results.GrafanaUsers)), nil
 }
 
-// Request to list all pricing plans.
+// ListPlansRequest: Request to list all pricing plans.
 type ListPlansRequest struct {
 	// Page: Page number.
 	Page *int32 `json:"page,omitempty"`
@@ -520,7 +530,7 @@ type ListPlansRequest struct {
 	OrderBy ListPlansRequestOrderBy `json:"order_by"`
 }
 
-// Response returned when listing all pricing plans.
+// ListPlansResponse: Response returned when listing all pricing plans.
 type ListPlansResponse struct {
 	// TotalCount: Count of all pricing plans.
 	TotalCount uint64 `json:"total_count"`
@@ -547,6 +557,7 @@ func (r *ListPlansResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Plans)), nil
 }
 
+// ListTokensRequest:
 type ListTokensRequest struct {
 	// Page: Page number.
 	Page *int32 `json:"page,omitempty"`
@@ -558,6 +569,7 @@ type ListTokensRequest struct {
 	ProjectID string `json:"project_id"`
 }
 
+// ListTokensResponse:
 type ListTokensResponse struct {
 	// TotalCount: Count of all tokens created.
 	TotalCount uint32 `json:"total_count"`
@@ -584,12 +596,13 @@ func (r *ListTokensResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tokens)), nil
 }
 
+// ResetCockpitGrafanaRequest:
 type ResetCockpitGrafanaRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
 }
 
-// Request to reset a Grafana user's password.
+// ResetGrafanaUserPasswordRequest: Request to reset a Grafana user's password.
 type ResetGrafanaUserPasswordRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
@@ -597,7 +610,7 @@ type ResetGrafanaUserPasswordRequest struct {
 	GrafanaUserID uint32 `json:"-"`
 }
 
-// Request to select a specific pricing plan.
+// SelectPlanRequest: Request to select a specific pricing plan.
 type SelectPlanRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
@@ -605,10 +618,11 @@ type SelectPlanRequest struct {
 	PlanID string `json:"plan_id"`
 }
 
-// Response returned when selecting a pricing plan.
+// SelectPlanResponse: Response returned when selecting a pricing plan.
 type SelectPlanResponse struct {
 }
 
+// TriggerTestAlertRequest:
 type TriggerTestAlertRequest struct {
 	// ProjectID:
 	ProjectID string `json:"project_id"`

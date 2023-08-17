@@ -39,6 +39,38 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
+type ListFoldersRequestOrderBy string
+
+const (
+	ListFoldersRequestOrderByCreatedAtAsc  = ListFoldersRequestOrderBy("created_at_asc")
+	ListFoldersRequestOrderByCreatedAtDesc = ListFoldersRequestOrderBy("created_at_desc")
+	ListFoldersRequestOrderByNameAsc       = ListFoldersRequestOrderBy("name_asc")
+	ListFoldersRequestOrderByNameDesc      = ListFoldersRequestOrderBy("name_desc")
+)
+
+func (enum ListFoldersRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListFoldersRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListFoldersRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListFoldersRequestOrderBy(ListFoldersRequestOrderBy(tmp).String())
+	return nil
+}
+
 type ListSecretsRequestOrderBy string
 
 const (
@@ -197,6 +229,7 @@ func (enum *SecretVersionStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// PasswordGenerationParams:
 type PasswordGenerationParams struct {
 	// Length: Length of the password to generate (between 1 and 1024).
 	Length uint32 `json:"length"`
@@ -210,6 +243,21 @@ type PasswordGenerationParams struct {
 	AdditionalChars string `json:"additional_chars"`
 }
 
+// Folder:
+type Folder struct {
+	// ID: ID of the folder.
+	ID string `json:"id"`
+	// ProjectID: ID of the Project containing the folder.
+	ProjectID string `json:"project_id"`
+	// Name: Name of the folder.
+	Name string `json:"name"`
+	// Path: Location of the folder in the directory structure.
+	Path string `json:"path"`
+	// CreatedAt: Date and time of the folder's creation.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+}
+
+// SecretVersion:
 type SecretVersion struct {
 	// Revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
 	Revision uint32 `json:"revision"`
@@ -230,6 +278,7 @@ type SecretVersion struct {
 	IsLatest bool `json:"is_latest"`
 }
 
+// Secret:
 type Secret struct {
 	// ID: ID of the secret.
 	ID string `json:"id"`
@@ -256,10 +305,13 @@ type Secret struct {
 	IsProtected bool `json:"is_protected"`
 	// Type: See `Secret.Type` enum for description of values.
 	Type SecretType `json:"type"`
+	// Path: Location of the secret in the directory structure.
+	Path string `json:"path"`
 	// Region: Region of the secret.
 	Region scw.Region `json:"region"`
 }
 
+// AccessSecretVersionByNameRequest:
 type AccessSecretVersionByNameRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -271,6 +323,7 @@ type AccessSecretVersionByNameRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// AccessSecretVersionRequest:
 type AccessSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -280,6 +333,7 @@ type AccessSecretVersionRequest struct {
 	Revision string `json:"-"`
 }
 
+// AccessSecretVersionResponse:
 type AccessSecretVersionResponse struct {
 	// SecretID: ID of the secret.
 	SecretID string `json:"secret_id"`
@@ -291,17 +345,31 @@ type AccessSecretVersionResponse struct {
 	DataCrc32 *uint32 `json:"data_crc32,omitempty"`
 }
 
+// AddSecretOwnerRequest:
 type AddSecretOwnerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
 	SecretID string `json:"-"`
-	// ProductName: (Deprecated: use `product` field) Name of the product to add.
+	// Deprecated: ProductName: (Deprecated: use `product` field) Name of the product to add.
 	ProductName *string `json:"product_name,omitempty"`
 	// Product: See `Product` enum for description of values.
 	Product Product `json:"product"`
 }
 
+// CreateFolderRequest:
+type CreateFolderRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ProjectID: ID of the Project containing the folder.
+	ProjectID string `json:"project_id"`
+	// Name: Name of the folder.
+	Name string `json:"name"`
+	// Path: (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+	Path *string `json:"path,omitempty"`
+}
+
+// CreateSecretRequest:
 type CreateSecretRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -315,8 +383,11 @@ type CreateSecretRequest struct {
 	Description *string `json:"description,omitempty"`
 	// Type: (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
 	Type SecretType `json:"type"`
+	// Path: (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
+	Path *string `json:"path,omitempty"`
 }
 
+// CreateSecretVersionRequest:
 type CreateSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -328,12 +399,21 @@ type CreateSecretVersionRequest struct {
 	Description *string `json:"description,omitempty"`
 	// DisablePrevious: (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
 	DisablePrevious *bool `json:"disable_previous,omitempty"`
-	// PasswordGeneration: (Optional.) If specified, a random password will be generated. The `data` and `data_crc32` fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
+	// Deprecated: PasswordGeneration: (Optional.) If specified, a random password will be generated. The `data` and `data_crc32` fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
 	PasswordGeneration *PasswordGenerationParams `json:"password_generation,omitempty"`
 	// DataCrc32: If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
 	DataCrc32 *uint32 `json:"data_crc32,omitempty"`
 }
 
+// DeleteFolderRequest:
+type DeleteFolderRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// FolderID: ID of the folder.
+	FolderID string `json:"-"`
+}
+
+// DeleteSecretRequest:
 type DeleteSecretRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -341,6 +421,7 @@ type DeleteSecretRequest struct {
 	SecretID string `json:"-"`
 }
 
+// DestroySecretVersionRequest:
 type DestroySecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -350,6 +431,7 @@ type DestroySecretVersionRequest struct {
 	Revision string `json:"-"`
 }
 
+// DisableSecretVersionRequest:
 type DisableSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -359,6 +441,7 @@ type DisableSecretVersionRequest struct {
 	Revision string `json:"-"`
 }
 
+// EnableSecretVersionRequest:
 type EnableSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -368,6 +451,7 @@ type EnableSecretVersionRequest struct {
 	Revision string `json:"-"`
 }
 
+// GeneratePasswordRequest:
 type GeneratePasswordRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -389,6 +473,7 @@ type GeneratePasswordRequest struct {
 	AdditionalChars *string `json:"additional_chars,omitempty"`
 }
 
+// GetSecretByNameRequest:
 type GetSecretByNameRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -398,6 +483,7 @@ type GetSecretByNameRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// GetSecretRequest:
 type GetSecretRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -405,6 +491,7 @@ type GetSecretRequest struct {
 	SecretID string `json:"-"`
 }
 
+// GetSecretVersionByNameRequest:
 type GetSecretVersionByNameRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -416,6 +503,7 @@ type GetSecretVersionByNameRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// GetSecretVersionRequest:
 type GetSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -425,6 +513,50 @@ type GetSecretVersionRequest struct {
 	Revision string `json:"-"`
 }
 
+// ListFoldersRequest:
+type ListFoldersRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
+	// Path: Filter by path (optional).
+	Path *string `json:"path,omitempty"`
+	// Page:
+	Page *int32 `json:"page,omitempty"`
+	// PageSize:
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy:
+	OrderBy ListFoldersRequestOrderBy `json:"order_by"`
+}
+
+// ListFoldersResponse:
+type ListFoldersResponse struct {
+	// Folders: List of folders.
+	Folders []*Folder `json:"folders"`
+	// TotalCount: Count of all folders matching the requested criteria.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListFoldersResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListFoldersResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListFoldersResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Folders = append(r.Folders, results.Folders...)
+	r.TotalCount += uint32(len(results.Folders))
+	return uint32(len(results.Folders)), nil
+}
+
+// ListSecretVersionsByNameRequest:
 type ListSecretVersionsByNameRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -440,6 +572,7 @@ type ListSecretVersionsByNameRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListSecretVersionsRequest:
 type ListSecretVersionsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -453,6 +586,7 @@ type ListSecretVersionsRequest struct {
 	Status []SecretVersionStatus `json:"status"`
 }
 
+// ListSecretVersionsResponse:
 type ListSecretVersionsResponse struct {
 	// Versions: Single page of versions.
 	Versions []*SecretVersion `json:"versions"`
@@ -479,6 +613,7 @@ func (r *ListSecretVersionsResponse) UnsafeAppend(res interface{}) (uint32, erro
 	return uint32(len(results.Versions)), nil
 }
 
+// ListSecretsRequest:
 type ListSecretsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -498,8 +633,11 @@ type ListSecretsRequest struct {
 	Name *string `json:"name,omitempty"`
 	// IsManaged: Filter by managed / not managed (optional).
 	IsManaged *bool `json:"is_managed,omitempty"`
+	// Path: Filter by path (optional).
+	Path *string `json:"path,omitempty"`
 }
 
+// ListSecretsResponse:
 type ListSecretsResponse struct {
 	// Secrets: Single page of secrets matching the requested criteria.
 	Secrets []*Secret `json:"secrets"`
@@ -526,6 +664,7 @@ func (r *ListSecretsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Secrets)), nil
 }
 
+// ListTagsRequest:
 type ListTagsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -537,6 +676,7 @@ type ListTagsRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListTagsResponse:
 type ListTagsResponse struct {
 	// Tags: List of tags.
 	Tags []string `json:"tags"`
@@ -563,6 +703,7 @@ func (r *ListTagsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tags)), nil
 }
 
+// ProtectSecretRequest:
 type ProtectSecretRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -570,6 +711,7 @@ type ProtectSecretRequest struct {
 	SecretID string `json:"-"`
 }
 
+// UnprotectSecretRequest:
 type UnprotectSecretRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -577,6 +719,7 @@ type UnprotectSecretRequest struct {
 	SecretID string `json:"-"`
 }
 
+// UpdateSecretRequest:
 type UpdateSecretRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -588,8 +731,11 @@ type UpdateSecretRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 	// Description: Description of the secret.
 	Description *string `json:"description,omitempty"`
+	// Path: (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+	Path *string `json:"path,omitempty"`
 }
 
+// UpdateSecretVersionRequest:
 type UpdateSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -704,7 +850,7 @@ func (s *API) Regions() []scw.Region {
 	return []scw.Region{scw.RegionFrPar}
 }
 
-// CreateSecret: You must sepcify the `region` to create a secret.
+// CreateSecret: You must specify the `region` to create a secret.
 func (s *API) CreateSecret(req *CreateSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
 	var err error
 	if req.Region == "" {
@@ -731,6 +877,41 @@ func (s *API) CreateSecret(req *CreateSecretRequest, opts ...scw.RequestOption) 
 	}
 
 	var resp Secret
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateFolder: Create folder.
+func (s *API) CreateFolder(req *CreateFolderRequest, opts ...scw.RequestOption) (*Folder, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/secret-manager/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/folders",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Folder
 
 	err = s.client.Do(scwReq, &resp, opts...)
 	if err != nil {
@@ -769,7 +950,11 @@ func (s *API) GetSecret(req *GetSecretRequest, opts ...scw.RequestOption) (*Secr
 	return &resp, nil
 }
 
-// GetSecretByName: Retrieve the metadata of a secret specified by the `region` and `secret_name` parameters.
+// Deprecated: GetSecretByName: Retrieve the metadata of a secret specified by the `region` and `secret_name` parameters.
+//
+// GetSecretByName usage is now deprecated.
+//
+// Scaleway recommends you to use ListSecrets with the `name` filter.
 func (s *API) GetSecretByName(req *GetSecretByNameRequest, opts ...scw.RequestOption) (*Secret, error) {
 	var err error
 	if req.Region == "" {
@@ -859,6 +1044,7 @@ func (s *API) ListSecrets(req *ListSecretsRequest, opts ...scw.RequestOption) (*
 	parameter.AddToQuery(query, "tags", req.Tags)
 	parameter.AddToQuery(query, "name", req.Name)
 	parameter.AddToQuery(query, "is_managed", req.IsManaged)
+	parameter.AddToQuery(query, "path", req.Path)
 
 	if fmt.Sprint(req.Region) == "" {
 		return nil, errors.New("field Region cannot be empty in request")
@@ -871,6 +1057,48 @@ func (s *API) ListSecrets(req *ListSecretsRequest, opts ...scw.RequestOption) (*
 	}
 
 	var resp ListSecretsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListFolders: Retrieve the list of folders created within a Project.
+func (s *API) ListFolders(req *ListFoldersRequest, opts ...scw.RequestOption) (*ListFoldersResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+	parameter.AddToQuery(query, "path", req.Path)
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/secret-manager/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/folders",
+		Query:  query,
+	}
+
+	var resp ListFoldersResponse
 
 	err = s.client.Do(scwReq, &resp, opts...)
 	if err != nil {
@@ -898,6 +1126,34 @@ func (s *API) DeleteSecret(req *DeleteSecretRequest, opts ...scw.RequestOption) 
 	scwReq := &scw.ScalewayRequest{
 		Method: "DELETE",
 		Path:   "/secret-manager/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/secrets/" + fmt.Sprint(req.SecretID) + "",
+	}
+
+	err = s.client.Do(scwReq, nil, opts...)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteFolder: Delete a given folder specified by the and `folder_id` parameter.
+func (s *API) DeleteFolder(req *DeleteFolderRequest, opts ...scw.RequestOption) error {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.FolderID) == "" {
+		return errors.New("field FolderID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/secret-manager/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/folders/" + fmt.Sprint(req.FolderID) + "",
 	}
 
 	err = s.client.Do(scwReq, nil, opts...)

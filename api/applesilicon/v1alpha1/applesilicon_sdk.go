@@ -139,6 +139,7 @@ func (enum *ServerTypeStock) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// ServerTypeCPU:
 type ServerTypeCPU struct {
 	// Name:
 	Name string `json:"name"`
@@ -146,6 +147,7 @@ type ServerTypeCPU struct {
 	CoreCount uint32 `json:"core_count"`
 }
 
+// ServerTypeDisk:
 type ServerTypeDisk struct {
 	// Capacity:
 	Capacity scw.Size `json:"capacity"`
@@ -153,6 +155,7 @@ type ServerTypeDisk struct {
 	Type string `json:"type"`
 }
 
+// ServerTypeMemory:
 type ServerTypeMemory struct {
 	// Capacity:
 	Capacity scw.Size `json:"capacity"`
@@ -160,6 +163,7 @@ type ServerTypeMemory struct {
 	Type string `json:"type"`
 }
 
+// OS:
 type OS struct {
 	// ID: Unique ID of the OS.
 	ID string `json:"id"`
@@ -173,6 +177,7 @@ type OS struct {
 	CompatibleServerTypes []string `json:"compatible_server_types"`
 }
 
+// ServerType:
 type ServerType struct {
 	// CPU: CPU description.
 	CPU *ServerTypeCPU `json:"cpu"`
@@ -188,6 +193,7 @@ type ServerType struct {
 	MinimumLeaseDuration *scw.Duration `json:"minimum_lease_duration,omitempty"`
 }
 
+// Server:
 type Server struct {
 	// ID: UUID of the server.
 	ID string `json:"id"`
@@ -215,6 +221,7 @@ type Server struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// CreateServerRequest:
 type CreateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -226,6 +233,7 @@ type CreateServerRequest struct {
 	Type string `json:"type"`
 }
 
+// DeleteServerRequest:
 type DeleteServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -233,6 +241,7 @@ type DeleteServerRequest struct {
 	ServerID string `json:"-"`
 }
 
+// GetOSRequest:
 type GetOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -240,6 +249,7 @@ type GetOSRequest struct {
 	OsID string `json:"-"`
 }
 
+// GetServerRequest:
 type GetServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -247,6 +257,7 @@ type GetServerRequest struct {
 	ServerID string `json:"-"`
 }
 
+// GetServerTypeRequest:
 type GetServerTypeRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -254,6 +265,7 @@ type GetServerTypeRequest struct {
 	ServerType string `json:"-"`
 }
 
+// ListOSRequest:
 type ListOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -267,6 +279,7 @@ type ListOSRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListOSResponse:
 type ListOSResponse struct {
 	// TotalCount: Total number of OS.
 	TotalCount uint32 `json:"total_count"`
@@ -293,16 +306,19 @@ func (r *ListOSResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Os)), nil
 }
 
+// ListServerTypesRequest:
 type ListServerTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 }
 
+// ListServerTypesResponse:
 type ListServerTypesResponse struct {
 	// ServerTypes: Available server types.
 	ServerTypes []*ServerType `json:"server_types"`
 }
 
+// ListServersRequest:
 type ListServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -318,6 +334,7 @@ type ListServersRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListServersResponse:
 type ListServersResponse struct {
 	// TotalCount: Total number of servers.
 	TotalCount uint32 `json:"total_count"`
@@ -344,6 +361,7 @@ func (r *ListServersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Servers)), nil
 }
 
+// RebootServerRequest:
 type RebootServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -351,6 +369,7 @@ type RebootServerRequest struct {
 	ServerID string `json:"-"`
 }
 
+// ReinstallServerRequest:
 type ReinstallServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -358,6 +377,7 @@ type ReinstallServerRequest struct {
 	ServerID string `json:"-"`
 }
 
+// UpdateServerRequest:
 type UpdateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`

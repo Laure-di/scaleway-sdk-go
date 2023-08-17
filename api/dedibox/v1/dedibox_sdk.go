@@ -1203,6 +1203,7 @@ func (enum *ServiceType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// CPU:
 type CPU struct {
 	// Name: Name of CPU.
 	Name string `json:"name"`
@@ -1214,6 +1215,7 @@ type CPU struct {
 	Frequency uint32 `json:"frequency"`
 }
 
+// Disk:
 type Disk struct {
 	// Capacity: Capacity of the disk.
 	Capacity scw.Size `json:"capacity"`
@@ -1221,6 +1223,7 @@ type Disk struct {
 	Type ServerDiskType `json:"type"`
 }
 
+// Memory:
 type Memory struct {
 	// Capacity: Capacity of the memory.
 	Capacity scw.Size `json:"capacity"`
@@ -1232,31 +1235,37 @@ type Memory struct {
 	IsEcc bool `json:"is_ecc"`
 }
 
+// OfferAntiDosInfo:
 type OfferAntiDosInfo struct {
 	// Type:
 	Type OfferAntiDosInfoType `json:"type"`
 }
 
+// OfferBackupInfo:
 type OfferBackupInfo struct {
 	// Size:
 	Size scw.Size `json:"size"`
 }
 
+// OfferBandwidthInfo:
 type OfferBandwidthInfo struct {
 	// Speed:
 	Speed uint32 `json:"speed"`
 }
 
+// OfferLicenseInfo:
 type OfferLicenseInfo struct {
 	// BoundToIP:
 	BoundToIP bool `json:"bound_to_ip"`
 }
 
+// OfferRPNInfo:
 type OfferRPNInfo struct {
 	// Speed:
 	Speed uint32 `json:"speed"`
 }
 
+// OfferSANInfo:
 type OfferSANInfo struct {
 	// Size: SAN size (in bytes).
 	Size uint64 `json:"size"`
@@ -1266,6 +1275,7 @@ type OfferSANInfo struct {
 	DeviceType OfferSANInfoType `json:"device_type"`
 }
 
+// OfferStorageInfo:
 type OfferStorageInfo struct {
 	// MaxQuota:
 	MaxQuota uint32 `json:"max_quota"`
@@ -1273,6 +1283,7 @@ type OfferStorageInfo struct {
 	Size scw.Size `json:"size"`
 }
 
+// PersistentMemory:
 type PersistentMemory struct {
 	// Capacity: Capacity of the persistent memory.
 	Capacity scw.Size `json:"capacity"`
@@ -1282,6 +1293,7 @@ type PersistentMemory struct {
 	Model string `json:"model"`
 }
 
+// RaidController:
 type RaidController struct {
 	// Model: Model of the RAID controller.
 	Model string `json:"model"`
@@ -1289,6 +1301,7 @@ type RaidController struct {
 	RaidLevel []string `json:"raid_level"`
 }
 
+// Offer:
 type Offer struct {
 	// ID: ID of the offer.
 	ID uint64 `json:"id"`
@@ -1326,16 +1339,19 @@ type Offer struct {
 	BandwidthInfo *OfferBandwidthInfo `json:"bandwidth_info,omitempty"`
 }
 
+// OfferFailoverBlockInfo:
 type OfferFailoverBlockInfo struct {
 	// OnetimeFees:
 	OnetimeFees *Offer `json:"onetime_fees"`
 }
 
+// OfferFailoverIPInfo:
 type OfferFailoverIPInfo struct {
 	// OnetimeFees:
 	OnetimeFees *Offer `json:"onetime_fees"`
 }
 
+// OfferServiceLevelInfo:
 type OfferServiceLevelInfo struct {
 	// SupportTicket:
 	SupportTicket bool `json:"support_ticket"`
@@ -1361,6 +1377,7 @@ type OfferServiceLevelInfo struct {
 	AvailableOptions []*Offer `json:"available_options"`
 }
 
+// IP:
 type IP struct {
 	// IPID: ID of the IP.
 	IPID string `json:"ip_id"`
@@ -1382,6 +1399,7 @@ type IP struct {
 	Status IPStatus `json:"status"`
 }
 
+// OfferServerInfo:
 type OfferServerInfo struct {
 	// Bandwidth:
 	Bandwidth uint64 `json:"bandwidth"`
@@ -1411,6 +1429,7 @@ type OfferServerInfo struct {
 	StockByDatacenter map[string]OfferServerInfoStock `json:"stock_by_datacenter"`
 }
 
+// NetworkInterface:
 type NetworkInterface struct {
 	// CardID: Card ID of the network interface.
 	CardID uint64 `json:"card_id"`
@@ -1424,6 +1443,7 @@ type NetworkInterface struct {
 	IPs []*IP `json:"ips"`
 }
 
+// OS:
 type OS struct {
 	// ID: ID of the OS.
 	ID uint64 `json:"id"`
@@ -1469,6 +1489,7 @@ type OS struct {
 	ReleasedAt *time.Time `json:"released_at,omitempty"`
 }
 
+// ServerLocation:
 type ServerLocation struct {
 	// Rack:
 	Rack string `json:"rack"`
@@ -1478,6 +1499,7 @@ type ServerLocation struct {
 	DatacenterName string `json:"datacenter_name"`
 }
 
+// ServerOption:
 type ServerOption struct {
 	// Offer:
 	Offer *Offer `json:"offer"`
@@ -1491,6 +1513,7 @@ type ServerOption struct {
 	Options []*ServerOption `json:"options"`
 }
 
+// ServiceLevel:
 type ServiceLevel struct {
 	// OfferID: Offer ID of service level.
 	OfferID uint32 `json:"offer_id"`
@@ -1498,6 +1521,7 @@ type ServiceLevel struct {
 	Level ServiceLevelLevel `json:"level"`
 }
 
+// Server:
 type Server struct {
 	// ID: ID of the server.
 	ID uint64 `json:"id"`
@@ -1549,6 +1573,7 @@ type Server struct {
 	IsRpnv2Member bool `json:"is_rpnv2_member"`
 }
 
+// FailoverBlock:
 type FailoverBlock struct {
 	// ID: ID of the failover block.
 	ID uint64 `json:"id"`
@@ -1566,6 +1591,7 @@ type FailoverBlock struct {
 	GatewayIP net.IP `json:"gateway_ip"`
 }
 
+// ServerDisk:
 type ServerDisk struct {
 	// ID:
 	ID uint64 `json:"id"`
@@ -1579,6 +1605,7 @@ type ServerDisk struct {
 	IsAddon bool `json:"is_addon"`
 }
 
+// Service:
 type Service struct {
 	// ID: ID of the service.
 	ID uint64 `json:"id"`
@@ -1600,6 +1627,7 @@ type Service struct {
 	Type ServiceType `json:"type"`
 }
 
+// InstallPartition:
 type InstallPartition struct {
 	// FileSystem: File system of the installation partition.
 	FileSystem PartitionFileSystem `json:"file_system"`
@@ -1613,6 +1641,7 @@ type InstallPartition struct {
 	Connectors []string `json:"connectors"`
 }
 
+// FailoverIP:
 type FailoverIP struct {
 	// ID: ID of the failover IP.
 	ID uint64 `json:"id"`
@@ -1642,6 +1671,7 @@ type FailoverIP struct {
 	ServerZone *string `json:"server_zone,omitempty"`
 }
 
+// ServerEvent:
 type ServerEvent struct {
 	// EventID: ID of the event.
 	EventID uint64 `json:"event_id"`
@@ -1651,6 +1681,7 @@ type ServerEvent struct {
 	Date *time.Time `json:"date,omitempty"`
 }
 
+// ServerSummary:
 type ServerSummary struct {
 	// ID: ID of the server.
 	ID uint64 `json:"id"`
@@ -1690,6 +1721,7 @@ type ServerSummary struct {
 	RpnVersion *uint32 `json:"rpn_version,omitempty"`
 }
 
+// RaidArray:
 type RaidArray struct {
 	// RaidLevel: The RAID level.
 	RaidLevel RaidArrayRaidLevel `json:"raid_level"`
@@ -1697,6 +1729,7 @@ type RaidArray struct {
 	Disks []*ServerDisk `json:"disks"`
 }
 
+// Partition:
 type Partition struct {
 	// Type: Type of the partition.
 	Type PartitionType `json:"type"`
@@ -1712,6 +1745,7 @@ type Partition struct {
 	Connectors []string `json:"connectors"`
 }
 
+// UpdatableRaidArray:
 type UpdatableRaidArray struct {
 	// RaidLevel: The RAID level.
 	RaidLevel RaidArrayRaidLevel `json:"raid_level"`
@@ -1719,6 +1753,7 @@ type UpdatableRaidArray struct {
 	DiskIDs []uint64 `json:"disk_ids"`
 }
 
+// AttachFailoverIPToMacAddressRequest:
 type AttachFailoverIPToMacAddressRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1730,6 +1765,7 @@ type AttachFailoverIPToMacAddressRequest struct {
 	Mac *string `json:"mac,omitempty"`
 }
 
+// AttachFailoverIPsRequest:
 type AttachFailoverIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1739,6 +1775,7 @@ type AttachFailoverIPsRequest struct {
 	FipsIDs []uint64 `json:"fips_ids"`
 }
 
+// BMCAccess:
 type BMCAccess struct {
 	// URL: URL to access to the server console.
 	URL string `json:"url"`
@@ -1752,6 +1789,7 @@ type BMCAccess struct {
 	Status BMCAccessStatus `json:"status"`
 }
 
+// Backup:
 type Backup struct {
 	// ID: ID of the backup.
 	ID uint64 `json:"id"`
@@ -1775,6 +1813,7 @@ type Backup struct {
 	QuotaFilesUsed uint64 `json:"quota_files_used"`
 }
 
+// CancelServerInstallRequest:
 type CancelServerInstallRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1782,6 +1821,7 @@ type CancelServerInstallRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// CreateFailoverIPsRequest:
 type CreateFailoverIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1793,6 +1833,7 @@ type CreateFailoverIPsRequest struct {
 	Quantity uint32 `json:"quantity"`
 }
 
+// CreateFailoverIPsResponse:
 type CreateFailoverIPsResponse struct {
 	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
@@ -1819,6 +1860,7 @@ func (r *CreateFailoverIPsResponse) UnsafeAppend(res interface{}) (uint32, error
 	return uint32(len(results.Services)), nil
 }
 
+// CreateServerRequest:
 type CreateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1832,6 +1874,7 @@ type CreateServerRequest struct {
 	DatacenterName *string `json:"datacenter_name,omitempty"`
 }
 
+// DeleteFailoverIPRequest:
 type DeleteFailoverIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1839,6 +1882,7 @@ type DeleteFailoverIPRequest struct {
 	IPID uint64 `json:"-"`
 }
 
+// DeleteServerRequest:
 type DeleteServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1846,6 +1890,7 @@ type DeleteServerRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// DeleteServiceRequest:
 type DeleteServiceRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1853,6 +1898,7 @@ type DeleteServiceRequest struct {
 	ServiceID uint64 `json:"-"`
 }
 
+// DetachFailoverIPFromMacAddressRequest:
 type DetachFailoverIPFromMacAddressRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1860,6 +1906,7 @@ type DetachFailoverIPFromMacAddressRequest struct {
 	IPID uint64 `json:"-"`
 }
 
+// DetachFailoverIPsRequest:
 type DetachFailoverIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1867,6 +1914,7 @@ type DetachFailoverIPsRequest struct {
 	FipsIDs []uint64 `json:"fips_ids"`
 }
 
+// GetBMCAccessRequest:
 type GetBMCAccessRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1874,6 +1922,7 @@ type GetBMCAccessRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// GetFailoverIPRequest:
 type GetFailoverIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1881,6 +1930,7 @@ type GetFailoverIPRequest struct {
 	IPID uint64 `json:"-"`
 }
 
+// GetOSRequest:
 type GetOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1892,6 +1942,7 @@ type GetOSRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// GetOfferRequest:
 type GetOfferRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1901,6 +1952,7 @@ type GetOfferRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// GetOrderedServiceRequest:
 type GetOrderedServiceRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1908,6 +1960,7 @@ type GetOrderedServiceRequest struct {
 	OrderedServiceID uint64 `json:"-"`
 }
 
+// GetRaidRequest:
 type GetRaidRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1915,6 +1968,7 @@ type GetRaidRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// GetRemainingQuotaRequest:
 type GetRemainingQuotaRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1922,6 +1976,7 @@ type GetRemainingQuotaRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// GetRemainingQuotaResponse:
 type GetRemainingQuotaResponse struct {
 	// FailoverIPQuota: Current failover IP quota.
 	FailoverIPQuota uint32 `json:"failover_ip_quota"`
@@ -1933,6 +1988,7 @@ type GetRemainingQuotaResponse struct {
 	FailoverBlockRemainingQuota uint32 `json:"failover_block_remaining_quota"`
 }
 
+// GetRescueRequest:
 type GetRescueRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1940,6 +1996,7 @@ type GetRescueRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// GetServerBackupRequest:
 type GetServerBackupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1947,6 +2004,7 @@ type GetServerBackupRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// GetServerDefaultPartitioningRequest:
 type GetServerDefaultPartitioningRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1956,6 +2014,7 @@ type GetServerDefaultPartitioningRequest struct {
 	OsID uint64 `json:"-"`
 }
 
+// GetServerInstallRequest:
 type GetServerInstallRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1963,6 +2022,7 @@ type GetServerInstallRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// GetServerRequest:
 type GetServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1970,6 +2030,7 @@ type GetServerRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// GetServiceRequest:
 type GetServiceRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1977,6 +2038,7 @@ type GetServiceRequest struct {
 	ServiceID uint64 `json:"-"`
 }
 
+// InstallServerRequest:
 type InstallServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2004,6 +2066,7 @@ type InstallServerRequest struct {
 	IPID *uint64 `json:"ip_id,omitempty"`
 }
 
+// ListFailoverIPsRequest:
 type ListFailoverIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2022,6 +2085,7 @@ type ListFailoverIPsRequest struct {
 	OnlyAvailable *bool `json:"only_available,omitempty"`
 }
 
+// ListFailoverIPsResponse:
 type ListFailoverIPsResponse struct {
 	// TotalCount: Total count of matching failovers IP.
 	TotalCount uint32 `json:"total_count"`
@@ -2048,6 +2112,7 @@ func (r *ListFailoverIPsResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.FailoverIPs)), nil
 }
 
+// ListOSRequest:
 type ListOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2065,6 +2130,7 @@ type ListOSRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListOSResponse:
 type ListOSResponse struct {
 	// TotalCount: Total count of matching OS.
 	TotalCount uint32 `json:"total_count"`
@@ -2091,6 +2157,7 @@ func (r *ListOSResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Os)), nil
 }
 
+// ListOffersRequest:
 type ListOffersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2118,6 +2185,7 @@ type ListOffersRequest struct {
 	IsRpnSan *bool `json:"is_rpn_san,omitempty"`
 }
 
+// ListOffersResponse:
 type ListOffersResponse struct {
 	// TotalCount: Total count of matching offers.
 	TotalCount uint32 `json:"total_count"`
@@ -2144,6 +2212,7 @@ func (r *ListOffersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Offers)), nil
 }
 
+// ListServerDisksRequest:
 type ListServerDisksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2157,6 +2226,7 @@ type ListServerDisksRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// ListServerDisksResponse:
 type ListServerDisksResponse struct {
 	// TotalCount: Total count of matching server disks.
 	TotalCount uint32 `json:"total_count"`
@@ -2183,6 +2253,7 @@ func (r *ListServerDisksResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.Disks)), nil
 }
 
+// ListServerEventsRequest:
 type ListServerEventsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2196,6 +2267,7 @@ type ListServerEventsRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// ListServerEventsResponse:
 type ListServerEventsResponse struct {
 	// TotalCount: Total count of matching server events.
 	TotalCount uint32 `json:"total_count"`
@@ -2222,6 +2294,7 @@ func (r *ListServerEventsResponse) UnsafeAppend(res interface{}) (uint32, error)
 	return uint32(len(results.Events)), nil
 }
 
+// ListServersRequest:
 type ListServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2237,6 +2310,7 @@ type ListServersRequest struct {
 	Search *string `json:"search,omitempty"`
 }
 
+// ListServersResponse:
 type ListServersResponse struct {
 	// TotalCount: Total count of matching servers.
 	TotalCount uint32 `json:"total_count"`
@@ -2263,6 +2337,7 @@ func (r *ListServersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Servers)), nil
 }
 
+// ListServicesRequest:
 type ListServicesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2276,6 +2351,7 @@ type ListServicesRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListServicesResponse:
 type ListServicesResponse struct {
 	// TotalCount: Total count of matching services.
 	TotalCount uint32 `json:"total_count"`
@@ -2302,6 +2378,7 @@ func (r *ListServicesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Services)), nil
 }
 
+// ListSubscribableServerOptionsRequest:
 type ListSubscribableServerOptionsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2313,6 +2390,7 @@ type ListSubscribableServerOptionsRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// ListSubscribableServerOptionsResponse:
 type ListSubscribableServerOptionsResponse struct {
 	// TotalCount: Total count of matching subscribable server options.
 	TotalCount uint32 `json:"total_count"`
@@ -2339,11 +2417,13 @@ func (r *ListSubscribableServerOptionsResponse) UnsafeAppend(res interface{}) (u
 	return uint32(len(results.ServerOptions)), nil
 }
 
+// Raid:
 type Raid struct {
 	// RaidArrays: Details about the RAID controller.
 	RaidArrays []*RaidArray `json:"raid_arrays"`
 }
 
+// RebootServerRequest:
 type RebootServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2351,6 +2431,7 @@ type RebootServerRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// Rescue:
 type Rescue struct {
 	// OsID: OS ID of the rescue.
 	OsID uint64 `json:"os_id"`
@@ -2362,11 +2443,13 @@ type Rescue struct {
 	Protocol RescueProtocol `json:"protocol"`
 }
 
+// ServerDefaultPartitioning:
 type ServerDefaultPartitioning struct {
 	// Partitions: Default partitions.
 	Partitions []*Partition `json:"partitions"`
 }
 
+// ServerInstall:
 type ServerInstall struct {
 	// OsID:
 	OsID uint64 `json:"os_id"`
@@ -2384,6 +2467,7 @@ type ServerInstall struct {
 	PanelURL *string `json:"panel_url,omitempty"`
 }
 
+// StartBMCAccessRequest:
 type StartBMCAccessRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2393,6 +2477,7 @@ type StartBMCAccessRequest struct {
 	IP net.IP `json:"ip"`
 }
 
+// StartRescueRequest:
 type StartRescueRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2402,6 +2487,7 @@ type StartRescueRequest struct {
 	OsID uint64 `json:"os_id"`
 }
 
+// StartServerRequest:
 type StartServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2409,6 +2495,7 @@ type StartServerRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// StopBMCAccessRequest:
 type StopBMCAccessRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2416,6 +2503,7 @@ type StopBMCAccessRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// StopRescueRequest:
 type StopRescueRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2423,6 +2511,7 @@ type StopRescueRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// StopServerRequest:
 type StopServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2430,6 +2519,7 @@ type StopServerRequest struct {
 	ServerID uint64 `json:"-"`
 }
 
+// SubscribeServerOptionRequest:
 type SubscribeServerOptionRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2439,6 +2529,7 @@ type SubscribeServerOptionRequest struct {
 	OptionID uint64 `json:"option_id"`
 }
 
+// SubscribeStorageOptionsRequest:
 type SubscribeStorageOptionsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2448,11 +2539,13 @@ type SubscribeStorageOptionsRequest struct {
 	OptionsIDs []uint64 `json:"options_ids"`
 }
 
+// SubscribeStorageOptionsResponse:
 type SubscribeStorageOptionsResponse struct {
 	// Services: Services subscribe storage options.
 	Services []*Service `json:"services"`
 }
 
+// UpdateRaidRequest:
 type UpdateRaidRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2462,6 +2555,7 @@ type UpdateRaidRequest struct {
 	RaidArrays []*UpdatableRaidArray `json:"raid_arrays"`
 }
 
+// UpdateReverseRequest:
 type UpdateReverseRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2471,6 +2565,7 @@ type UpdateReverseRequest struct {
 	Reverse string `json:"reverse"`
 }
 
+// UpdateServerBackupRequest:
 type UpdateServerBackupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2484,6 +2579,7 @@ type UpdateServerBackupRequest struct {
 	ACLEnabled *bool `json:"acl_enabled,omitempty"`
 }
 
+// UpdateServerRequest:
 type UpdateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2495,6 +2591,7 @@ type UpdateServerRequest struct {
 	EnableIPv6 *bool `json:"enable_ipv6,omitempty"`
 }
 
+// UpdateServerTagsRequest:
 type UpdateServerTagsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`

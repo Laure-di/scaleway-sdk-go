@@ -730,12 +730,15 @@ func (enum *VolumeType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// EndpointDirectAccessDetails:
 type EndpointDirectAccessDetails struct {
 }
 
+// EndpointLoadBalancerDetails:
 type EndpointLoadBalancerDetails struct {
 }
 
+// EndpointPrivateNetworkDetails:
 type EndpointPrivateNetworkDetails struct {
 	// PrivateNetworkID: UUID of the private network.
 	PrivateNetworkID string `json:"private_network_id"`
@@ -745,12 +748,15 @@ type EndpointPrivateNetworkDetails struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// EndpointSpecPrivateNetworkIpamConfig:
 type EndpointSpecPrivateNetworkIpamConfig struct {
 }
 
+// ReadReplicaEndpointSpecPrivateNetworkIpamConfig:
 type ReadReplicaEndpointSpecPrivateNetworkIpamConfig struct {
 }
 
+// EngineSetting:
 type EngineSetting struct {
 	// Name: Setting name from the database engine.
 	Name string `json:"name"`
@@ -776,6 +782,7 @@ type EngineSetting struct {
 	FloatMax *float32 `json:"float_max,omitempty"`
 }
 
+// Endpoint:
 type Endpoint struct {
 	// ID: UUID of the endpoint.
 	ID string `json:"id"`
@@ -795,9 +802,11 @@ type Endpoint struct {
 	Hostname *string `json:"hostname,omitempty"`
 }
 
+// EndpointSpecLoadBalancer:
 type EndpointSpecLoadBalancer struct {
 }
 
+// EndpointSpecPrivateNetwork:
 type EndpointSpecPrivateNetwork struct {
 	// PrivateNetworkID: UUID of the Private Network to be connected to the Database Instance.
 	PrivateNetworkID string `json:"private_network_id"`
@@ -807,9 +816,11 @@ type EndpointSpecPrivateNetwork struct {
 	IpamConfig *EndpointSpecPrivateNetworkIpamConfig `json:"ipam_config,omitempty"`
 }
 
+// ReadReplicaEndpointSpecDirectAccess:
 type ReadReplicaEndpointSpecDirectAccess struct {
 }
 
+// ReadReplicaEndpointSpecPrivateNetwork:
 type ReadReplicaEndpointSpecPrivateNetwork struct {
 	// PrivateNetworkID: UUID of the Private Network to be connected to the Read Replica.
 	PrivateNetworkID string `json:"private_network_id"`
@@ -819,6 +830,7 @@ type ReadReplicaEndpointSpecPrivateNetwork struct {
 	IpamConfig *ReadReplicaEndpointSpecPrivateNetworkIpamConfig `json:"ipam_config,omitempty"`
 }
 
+// EngineVersion:
 type EngineVersion struct {
 	// Version: Database engine version.
 	Version string `json:"version"`
@@ -836,6 +848,7 @@ type EngineVersion struct {
 	AvailableInitSettings []*EngineSetting `json:"available_init_settings"`
 }
 
+// BackupSchedule:
 type BackupSchedule struct {
 	// Frequency: Frequency of the backup schedule (in hours).
 	Frequency uint32 `json:"frequency"`
@@ -847,6 +860,7 @@ type BackupSchedule struct {
 	NextRunAt *time.Time `json:"next_run_at,omitempty"`
 }
 
+// InstanceSetting:
 type InstanceSetting struct {
 	// Name:
 	Name string `json:"name"`
@@ -854,6 +868,7 @@ type InstanceSetting struct {
 	Value string `json:"value"`
 }
 
+// LogsPolicy:
 type LogsPolicy struct {
 	// MaxAgeRetention: Max age (in days) of remote logs to keep on the Database Instance.
 	MaxAgeRetention *uint32 `json:"max_age_retention,omitempty"`
@@ -861,6 +876,7 @@ type LogsPolicy struct {
 	TotalDiskRetention *scw.Size `json:"total_disk_retention,omitempty"`
 }
 
+// Maintenance:
 type Maintenance struct {
 	// StartsAt: Start date of the maintenance window.
 	StartsAt *time.Time `json:"starts_at,omitempty"`
@@ -874,6 +890,7 @@ type Maintenance struct {
 	Status MaintenanceStatus `json:"status"`
 }
 
+// ReadReplica:
 type ReadReplica struct {
 	// ID: UUID of the Read Replica.
 	ID string `json:"id"`
@@ -887,6 +904,7 @@ type ReadReplica struct {
 	SameZone bool `json:"same_zone"`
 }
 
+// UpgradableVersion:
 type UpgradableVersion struct {
 	// ID:
 	ID string `json:"id"`
@@ -898,6 +916,7 @@ type UpgradableVersion struct {
 	MinorVersion string `json:"minor_version"`
 }
 
+// Volume:
 type Volume struct {
 	// Type:
 	Type VolumeType `json:"type"`
@@ -905,6 +924,7 @@ type Volume struct {
 	Size scw.Size `json:"size"`
 }
 
+// NodeTypeVolumeConstraintSizes:
 type NodeTypeVolumeConstraintSizes struct {
 	// MinSize: [deprecated] Mimimum size required for the Volume.
 	MinSize scw.Size `json:"min_size"`
@@ -912,6 +932,7 @@ type NodeTypeVolumeConstraintSizes struct {
 	MaxSize scw.Size `json:"max_size"`
 }
 
+// NodeTypeVolumeType:
 type NodeTypeVolumeType struct {
 	// Type: Volume Type.
 	Type VolumeType `json:"type"`
@@ -925,6 +946,7 @@ type NodeTypeVolumeType struct {
 	ChunkSize scw.Size `json:"chunk_size"`
 }
 
+// ACLRuleRequest:
 type ACLRuleRequest struct {
 	// IP:
 	IP scw.IPNet `json:"ip"`
@@ -932,10 +954,11 @@ type ACLRuleRequest struct {
 	Description string `json:"description"`
 }
 
+// ACLRule:
 type ACLRule struct {
 	// IP:
 	IP scw.IPNet `json:"ip"`
-	// Port:
+	// Deprecated: Port:
 	Port *uint32 `json:"port,omitempty"`
 	// Protocol:
 	Protocol ACLRuleProtocol `json:"protocol"`
@@ -947,6 +970,7 @@ type ACLRule struct {
 	Description string `json:"description"`
 }
 
+// EndpointSpec:
 type EndpointSpec struct {
 	// LoadBalancer: Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance.
 	LoadBalancer *EndpointSpecLoadBalancer `json:"load_balancer,omitempty"`
@@ -954,6 +978,7 @@ type EndpointSpec struct {
 	PrivateNetwork *EndpointSpecPrivateNetwork `json:"private_network,omitempty"`
 }
 
+// ReadReplicaEndpointSpec:
 type ReadReplicaEndpointSpec struct {
 	// DirectAccess: Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica.
 	DirectAccess *ReadReplicaEndpointSpecDirectAccess `json:"direct_access,omitempty"`
@@ -961,6 +986,7 @@ type ReadReplicaEndpointSpec struct {
 	PrivateNetwork *ReadReplicaEndpointSpecPrivateNetwork `json:"private_network,omitempty"`
 }
 
+// DatabaseBackup:
 type DatabaseBackup struct {
 	// ID: UUID of the database backup.
 	ID string `json:"id"`
@@ -992,6 +1018,7 @@ type DatabaseBackup struct {
 	SameRegion bool `json:"same_region"`
 }
 
+// DatabaseEngine:
 type DatabaseEngine struct {
 	// Name: Engine name.
 	Name string `json:"name"`
@@ -1003,6 +1030,7 @@ type DatabaseEngine struct {
 	Region scw.Region `json:"region"`
 }
 
+// Database:
 type Database struct {
 	// Name: Name of the database.
 	Name string `json:"name"`
@@ -1014,6 +1042,7 @@ type Database struct {
 	Size scw.Size `json:"size"`
 }
 
+// ListInstanceLogsDetailsResponseInstanceLogDetail:
 type ListInstanceLogsDetailsResponseInstanceLogDetail struct {
 	// LogName:
 	LogName string `json:"log_name"`
@@ -1021,6 +1050,7 @@ type ListInstanceLogsDetailsResponseInstanceLogDetail struct {
 	Size uint64 `json:"size"`
 }
 
+// InstanceLog:
 type InstanceLog struct {
 	// DownloadURL: Presigned S3 URL to download your log file.
 	DownloadURL *string `json:"download_url,omitempty"`
@@ -1038,6 +1068,7 @@ type InstanceLog struct {
 	Region scw.Region `json:"region"`
 }
 
+// Instance:
 type Instance struct {
 	// CreatedAt: Creation date (must follow the ISO 8601 format).
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -1059,7 +1090,7 @@ type Instance struct {
 	Engine string `json:"engine"`
 	// UpgradableVersion: Available database engine versions for upgrade.
 	UpgradableVersion []*UpgradableVersion `json:"upgradable_version"`
-	// Endpoint: Endpoint of the Database Instance.
+	// Deprecated: Endpoint: Endpoint of the Database Instance.
 	Endpoint *Endpoint `json:"endpoint,omitempty"`
 	// Tags: List of tags applied to the Database Instance.
 	Tags []string `json:"tags"`
@@ -1085,6 +1116,7 @@ type Instance struct {
 	Maintenances []*Maintenance `json:"maintenances"`
 }
 
+// NodeType:
 type NodeType struct {
 	// Name: Node Type name identifier.
 	Name string `json:"name"`
@@ -1096,9 +1128,9 @@ type NodeType struct {
 	Vcpus uint32 `json:"vcpus"`
 	// Memory: Quantity of RAM.
 	Memory scw.Size `json:"memory"`
-	// VolumeConstraint: [deprecated] Node Type volume constraints.
+	// Deprecated: VolumeConstraint: [deprecated] Node Type volume constraints.
 	VolumeConstraint *NodeTypeVolumeConstraintSizes `json:"volume_constraint,omitempty"`
-	// IsBssdCompatible: The Node Type is compliant with Block Storage.
+	// Deprecated: IsBssdCompatible: The Node Type is compliant with Block Storage.
 	IsBssdCompatible *bool `json:"is_bssd_compatible,omitempty"`
 	// Disabled: The Node Type is currently disabled.
 	Disabled bool `json:"disabled"`
@@ -1116,6 +1148,7 @@ type NodeType struct {
 	Region scw.Region `json:"region"`
 }
 
+// Privilege:
 type Privilege struct {
 	// Permission: Permission (Read, Read/Write, All, Custom).
 	Permission Permission `json:"permission"`
@@ -1125,6 +1158,7 @@ type Privilege struct {
 	UserName string `json:"user_name"`
 }
 
+// Snapshot:
 type Snapshot struct {
 	// ID: UUID of the snapshot.
 	ID string `json:"id"`
@@ -1150,6 +1184,7 @@ type Snapshot struct {
 	Region scw.Region `json:"region"`
 }
 
+// User:
 type User struct {
 	// Name: Name of the user (Length must be between 1 and 63 characters for PostgreSQL and between 1 and 32 characters for MySQL. First character must be an alphabet character (a-zA-Z). Your username cannot start with '_rdb' or in PostgreSQL, 'pg_'. Only a-zA-Z0-9_$- characters are accepted).
 	Name string `json:"name"`
@@ -1157,6 +1192,7 @@ type User struct {
 	IsAdmin bool `json:"is_admin"`
 }
 
+// AddInstanceACLRulesRequest:
 type AddInstanceACLRulesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1166,11 +1202,13 @@ type AddInstanceACLRulesRequest struct {
 	Rules []*ACLRuleRequest `json:"rules"`
 }
 
+// AddInstanceACLRulesResponse:
 type AddInstanceACLRulesResponse struct {
 	// Rules: ACL Rules enabled for the Database Instance.
 	Rules []*ACLRule `json:"rules"`
 }
 
+// AddInstanceSettingsRequest:
 type AddInstanceSettingsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1180,11 +1218,13 @@ type AddInstanceSettingsRequest struct {
 	Settings []*InstanceSetting `json:"settings"`
 }
 
+// AddInstanceSettingsResponse:
 type AddInstanceSettingsResponse struct {
 	// Settings: Settings available on the Database Instance.
 	Settings []*InstanceSetting `json:"settings"`
 }
 
+// CloneInstanceRequest:
 type CloneInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1196,6 +1236,7 @@ type CloneInstanceRequest struct {
 	NodeType *string `json:"node_type,omitempty"`
 }
 
+// CreateDatabaseBackupRequest:
 type CreateDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1209,6 +1250,7 @@ type CreateDatabaseBackupRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// CreateDatabaseRequest:
 type CreateDatabaseRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1218,6 +1260,7 @@ type CreateDatabaseRequest struct {
 	Name string `json:"name"`
 }
 
+// CreateEndpointRequest:
 type CreateEndpointRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1227,6 +1270,7 @@ type CreateEndpointRequest struct {
 	EndpointSpec *EndpointSpec `json:"endpoint_spec"`
 }
 
+// CreateInstanceFromSnapshotRequest:
 type CreateInstanceFromSnapshotRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1240,10 +1284,11 @@ type CreateInstanceFromSnapshotRequest struct {
 	NodeType *string `json:"node_type,omitempty"`
 }
 
+// CreateInstanceRequest:
 type CreateInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// OrganizationID: Please use project_id instead.
+	// Deprecated: OrganizationID: Please use project_id instead.
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: The Project ID on which the Database Instance will be created.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -1275,6 +1320,7 @@ type CreateInstanceRequest struct {
 	BackupSameRegion bool `json:"backup_same_region"`
 }
 
+// CreateReadReplicaEndpointRequest:
 type CreateReadReplicaEndpointRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1284,6 +1330,7 @@ type CreateReadReplicaEndpointRequest struct {
 	EndpointSpec []*ReadReplicaEndpointSpec `json:"endpoint_spec"`
 }
 
+// CreateReadReplicaRequest:
 type CreateReadReplicaRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1295,6 +1342,7 @@ type CreateReadReplicaRequest struct {
 	SameZone *bool `json:"same_zone,omitempty"`
 }
 
+// CreateSnapshotRequest:
 type CreateSnapshotRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1306,6 +1354,7 @@ type CreateSnapshotRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// CreateUserRequest:
 type CreateUserRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1319,6 +1368,7 @@ type CreateUserRequest struct {
 	IsAdmin bool `json:"is_admin"`
 }
 
+// DeleteDatabaseBackupRequest:
 type DeleteDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1326,6 +1376,7 @@ type DeleteDatabaseBackupRequest struct {
 	DatabaseBackupID string `json:"-"`
 }
 
+// DeleteDatabaseRequest:
 type DeleteDatabaseRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1335,6 +1386,7 @@ type DeleteDatabaseRequest struct {
 	Name string `json:"-"`
 }
 
+// DeleteEndpointRequest:
 type DeleteEndpointRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1342,6 +1394,7 @@ type DeleteEndpointRequest struct {
 	EndpointID string `json:"-"`
 }
 
+// DeleteInstanceACLRulesRequest:
 type DeleteInstanceACLRulesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1351,11 +1404,13 @@ type DeleteInstanceACLRulesRequest struct {
 	ACLRuleIPs []string `json:"acl_rule_ips"`
 }
 
+// DeleteInstanceACLRulesResponse:
 type DeleteInstanceACLRulesResponse struct {
 	// Rules: IP addresses defined in the ACL rules of the Database Instance.
 	Rules []*ACLRule `json:"rules"`
 }
 
+// DeleteInstanceRequest:
 type DeleteInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1363,6 +1418,7 @@ type DeleteInstanceRequest struct {
 	InstanceID string `json:"-"`
 }
 
+// DeleteInstanceSettingsRequest:
 type DeleteInstanceSettingsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1372,11 +1428,13 @@ type DeleteInstanceSettingsRequest struct {
 	SettingNames []string `json:"setting_names"`
 }
 
+// DeleteInstanceSettingsResponse:
 type DeleteInstanceSettingsResponse struct {
 	// Settings: Settings names to delete from the Database Instance.
 	Settings []*InstanceSetting `json:"settings"`
 }
 
+// DeleteReadReplicaRequest:
 type DeleteReadReplicaRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1384,6 +1442,7 @@ type DeleteReadReplicaRequest struct {
 	ReadReplicaID string `json:"-"`
 }
 
+// DeleteSnapshotRequest:
 type DeleteSnapshotRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1391,6 +1450,7 @@ type DeleteSnapshotRequest struct {
 	SnapshotID string `json:"-"`
 }
 
+// DeleteUserRequest:
 type DeleteUserRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1400,6 +1460,7 @@ type DeleteUserRequest struct {
 	Name string `json:"-"`
 }
 
+// ExportDatabaseBackupRequest:
 type ExportDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1407,6 +1468,7 @@ type ExportDatabaseBackupRequest struct {
 	DatabaseBackupID string `json:"-"`
 }
 
+// GetDatabaseBackupRequest:
 type GetDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1414,6 +1476,7 @@ type GetDatabaseBackupRequest struct {
 	DatabaseBackupID string `json:"-"`
 }
 
+// GetEndpointRequest:
 type GetEndpointRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1421,6 +1484,7 @@ type GetEndpointRequest struct {
 	EndpointID string `json:"-"`
 }
 
+// GetInstanceCertificateRequest:
 type GetInstanceCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1428,6 +1492,7 @@ type GetInstanceCertificateRequest struct {
 	InstanceID string `json:"-"`
 }
 
+// GetInstanceLogRequest:
 type GetInstanceLogRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1435,6 +1500,7 @@ type GetInstanceLogRequest struct {
 	InstanceLogID string `json:"-"`
 }
 
+// GetInstanceMetricsRequest:
 type GetInstanceMetricsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1448,6 +1514,7 @@ type GetInstanceMetricsRequest struct {
 	MetricName *string `json:"metric_name,omitempty"`
 }
 
+// GetInstanceRequest:
 type GetInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1455,6 +1522,7 @@ type GetInstanceRequest struct {
 	InstanceID string `json:"-"`
 }
 
+// GetReadReplicaRequest:
 type GetReadReplicaRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1462,6 +1530,7 @@ type GetReadReplicaRequest struct {
 	ReadReplicaID string `json:"-"`
 }
 
+// GetSnapshotRequest:
 type GetSnapshotRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1469,11 +1538,13 @@ type GetSnapshotRequest struct {
 	SnapshotID string `json:"-"`
 }
 
+// InstanceMetrics:
 type InstanceMetrics struct {
 	// Timeseries: Time series of metrics of a Database Instance.
 	Timeseries []*scw.TimeSeries `json:"timeseries"`
 }
 
+// ListDatabaseBackupsRequest:
 type ListDatabaseBackupsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1493,6 +1564,7 @@ type ListDatabaseBackupsRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListDatabaseBackupsResponse:
 type ListDatabaseBackupsResponse struct {
 	// DatabaseBackups: List of database backups.
 	DatabaseBackups []*DatabaseBackup `json:"database_backups"`
@@ -1519,6 +1591,7 @@ func (r *ListDatabaseBackupsResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.DatabaseBackups)), nil
 }
 
+// ListDatabaseEnginesRequest:
 type ListDatabaseEnginesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1532,6 +1605,7 @@ type ListDatabaseEnginesRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListDatabaseEnginesResponse:
 type ListDatabaseEnginesResponse struct {
 	// Engines: List of the available database engines.
 	Engines []*DatabaseEngine `json:"engines"`
@@ -1558,6 +1632,7 @@ func (r *ListDatabaseEnginesResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.Engines)), nil
 }
 
+// ListDatabasesRequest:
 type ListDatabasesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1577,6 +1652,7 @@ type ListDatabasesRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListDatabasesResponse:
 type ListDatabasesResponse struct {
 	// Databases: List of the databases.
 	Databases []*Database `json:"databases"`
@@ -1603,6 +1679,7 @@ func (r *ListDatabasesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Databases)), nil
 }
 
+// ListInstanceACLRulesRequest:
 type ListInstanceACLRulesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1614,6 +1691,7 @@ type ListInstanceACLRulesRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListInstanceACLRulesResponse:
 type ListInstanceACLRulesResponse struct {
 	// Rules: List of ACL rules present on a Database Instance.
 	Rules []*ACLRule `json:"rules"`
@@ -1640,6 +1718,7 @@ func (r *ListInstanceACLRulesResponse) UnsafeAppend(res interface{}) (uint32, er
 	return uint32(len(results.Rules)), nil
 }
 
+// ListInstanceLogsDetailsRequest:
 type ListInstanceLogsDetailsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1647,11 +1726,13 @@ type ListInstanceLogsDetailsRequest struct {
 	InstanceID string `json:"-"`
 }
 
+// ListInstanceLogsDetailsResponse:
 type ListInstanceLogsDetailsResponse struct {
 	// Details: Remote Database Instance logs details.
 	Details []*ListInstanceLogsDetailsResponseInstanceLogDetail `json:"details"`
 }
 
+// ListInstanceLogsRequest:
 type ListInstanceLogsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1661,11 +1742,13 @@ type ListInstanceLogsRequest struct {
 	OrderBy ListInstanceLogsRequestOrderBy `json:"order_by"`
 }
 
+// ListInstanceLogsResponse:
 type ListInstanceLogsResponse struct {
 	// InstanceLogs: Available logs in a Database Instance.
 	InstanceLogs []*InstanceLog `json:"instance_logs"`
 }
 
+// ListInstancesRequest:
 type ListInstancesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1685,6 +1768,7 @@ type ListInstancesRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListInstancesResponse:
 type ListInstancesResponse struct {
 	// Instances: List of all Database Instances available in an Organization or Project.
 	Instances []*Instance `json:"instances"`
@@ -1711,6 +1795,7 @@ func (r *ListInstancesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Instances)), nil
 }
 
+// ListNodeTypesRequest:
 type ListNodeTypesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1722,6 +1807,7 @@ type ListNodeTypesRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListNodeTypesResponse:
 type ListNodeTypesResponse struct {
 	// NodeTypes: Types of the node.
 	NodeTypes []*NodeType `json:"node_types"`
@@ -1748,6 +1834,7 @@ func (r *ListNodeTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.NodeTypes)), nil
 }
 
+// ListPrivilegesRequest:
 type ListPrivilegesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1765,6 +1852,7 @@ type ListPrivilegesRequest struct {
 	UserName *string `json:"user_name,omitempty"`
 }
 
+// ListPrivilegesResponse:
 type ListPrivilegesResponse struct {
 	// Privileges: Privileges of a user in a database in a Database Instance.
 	Privileges []*Privilege `json:"privileges"`
@@ -1791,6 +1879,7 @@ func (r *ListPrivilegesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Privileges)), nil
 }
 
+// ListSnapshotsRequest:
 type ListSnapshotsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1810,6 +1899,7 @@ type ListSnapshotsRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListSnapshotsResponse:
 type ListSnapshotsResponse struct {
 	// Snapshots: List of snapshots.
 	Snapshots []*Snapshot `json:"snapshots"`
@@ -1836,6 +1926,7 @@ func (r *ListSnapshotsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Snapshots)), nil
 }
 
+// ListUsersRequest:
 type ListUsersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1851,6 +1942,7 @@ type ListUsersRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListUsersResponse:
 type ListUsersResponse struct {
 	// Users: List of users in a Database Instance.
 	Users []*User `json:"users"`
@@ -1877,6 +1969,7 @@ func (r *ListUsersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Users)), nil
 }
 
+// MigrateEndpointRequest:
 type MigrateEndpointRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1886,6 +1979,7 @@ type MigrateEndpointRequest struct {
 	InstanceID string `json:"instance_id"`
 }
 
+// PrepareInstanceLogsRequest:
 type PrepareInstanceLogsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1897,11 +1991,13 @@ type PrepareInstanceLogsRequest struct {
 	EndDate *time.Time `json:"end_date,omitempty"`
 }
 
+// PrepareInstanceLogsResponse:
 type PrepareInstanceLogsResponse struct {
 	// InstanceLogs: Instance logs for a Database Instance between a start and an end date.
 	InstanceLogs []*InstanceLog `json:"instance_logs"`
 }
 
+// PromoteReadReplicaRequest:
 type PromoteReadReplicaRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1909,6 +2005,7 @@ type PromoteReadReplicaRequest struct {
 	ReadReplicaID string `json:"-"`
 }
 
+// PurgeInstanceLogsRequest:
 type PurgeInstanceLogsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1918,6 +2015,7 @@ type PurgeInstanceLogsRequest struct {
 	LogName *string `json:"log_name,omitempty"`
 }
 
+// RenewInstanceCertificateRequest:
 type RenewInstanceCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1925,6 +2023,7 @@ type RenewInstanceCertificateRequest struct {
 	InstanceID string `json:"-"`
 }
 
+// ResetReadReplicaRequest:
 type ResetReadReplicaRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1932,6 +2031,7 @@ type ResetReadReplicaRequest struct {
 	ReadReplicaID string `json:"-"`
 }
 
+// RestartInstanceRequest:
 type RestartInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1939,6 +2039,7 @@ type RestartInstanceRequest struct {
 	InstanceID string `json:"-"`
 }
 
+// RestoreDatabaseBackupRequest:
 type RestoreDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1950,6 +2051,7 @@ type RestoreDatabaseBackupRequest struct {
 	InstanceID string `json:"instance_id"`
 }
 
+// SetInstanceACLRulesRequest:
 type SetInstanceACLRulesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1959,11 +2061,13 @@ type SetInstanceACLRulesRequest struct {
 	Rules []*ACLRuleRequest `json:"rules"`
 }
 
+// SetInstanceACLRulesResponse:
 type SetInstanceACLRulesResponse struct {
 	// Rules: ACLs rules configured for a Database Instance.
 	Rules []*ACLRule `json:"rules"`
 }
 
+// SetInstanceSettingsRequest:
 type SetInstanceSettingsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1973,11 +2077,13 @@ type SetInstanceSettingsRequest struct {
 	Settings []*InstanceSetting `json:"settings"`
 }
 
+// SetInstanceSettingsResponse:
 type SetInstanceSettingsResponse struct {
 	// Settings: Settings configured for a Database Instance.
 	Settings []*InstanceSetting `json:"settings"`
 }
 
+// SetPrivilegeRequest:
 type SetPrivilegeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1991,6 +2097,7 @@ type SetPrivilegeRequest struct {
 	Permission Permission `json:"permission"`
 }
 
+// UpdateDatabaseBackupRequest:
 type UpdateDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2002,6 +2109,7 @@ type UpdateDatabaseBackupRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// UpdateInstanceRequest:
 type UpdateInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2025,6 +2133,7 @@ type UpdateInstanceRequest struct {
 	BackupScheduleStartHour *uint32 `json:"backup_schedule_start_hour,omitempty"`
 }
 
+// UpdateSnapshotRequest:
 type UpdateSnapshotRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2036,6 +2145,7 @@ type UpdateSnapshotRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// UpdateUserRequest:
 type UpdateUserRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2049,6 +2159,7 @@ type UpdateUserRequest struct {
 	IsAdmin *bool `json:"is_admin,omitempty"`
 }
 
+// UpgradeInstanceRequest:
 type UpgradeInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2098,10 +2209,10 @@ type UpgradeInstanceRequest struct {
 //     '{
 //     "project_id": "d8e65f2b-cce9-40b7-80fc-6a2902db6826",
 //     "name": "myDB",
-//     "engine": "PostgreSQL-14",
+//     "engine": "PostgreSQL-15",
 //     "tags": ["donnerstag"],
 //     "is_ha_cluster": true,
-//     "node_type": "db-dev-s",
+//     "node_type": "db-pro2-xxs",
 //     "disable_backup": false,
 //     "user_name": "my_initial_user",
 //     "password": "thiZ_is_v0ry_s3cret",
@@ -2133,10 +2244,10 @@ type UpgradeInstanceRequest struct {
 //     -d '{
 //     "project_id": "d8e65f2b-cce9-40b7-80fc-6a2902db6826",
 //     "name": "myDB",
-//     "engine": "PostgreSQL-14",
+//     "engine": "PostgreSQL-15",
 //     "tags": ["donnerstag"],
 //     "is_ha_cluster": true,
-//     "node_type": "db-dev-s",
+//     "node_type": "db-pro2-xxs",
 //     "disable_backup": false,
 //     "user_name": "my_initial_user",
 //     "password": "thiZ_is_v0ry_s3cret",
@@ -2165,7 +2276,7 @@ type UpgradeInstanceRequest struct {
 //     "organization_id": "895693aa-3915-4896-8761-c2923b008be7",
 //     "project_id": "d8e65f2b-cce9-40b7-80fc-6a2902db6826",
 //     "status": "ready",
-//     "engine": "PostgreSQL-11",
+//     "engine": "PostgreSQL-15",
 //     "endpoint": {
 //     "ip": "198.51.100.0",
 //     "port": 22245,
@@ -2182,7 +2293,7 @@ type UpgradeInstanceRequest struct {
 //     },
 //     "is_ha_cluster": true,
 //     "read_replicas": [],
-//     "node_type": "db-dev-s",
+//     "node_type": "db-pro2-xxs",
 //     "volume": {
 //     "type": "bssd",
 //     "size": 30000000000
@@ -2244,7 +2355,7 @@ type UpgradeInstanceRequest struct {
 //
 // ### Versions
 //
-// Scaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13 and 14.
+// Scaleway Database for PostgreSQL supports PostgreSQL versions 11, 12, 13, 14 and 15.
 //
 // ### System
 //

@@ -525,6 +525,7 @@ func (enum *UserType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// RuleSpecs:
 type RuleSpecs struct {
 	// PermissionSetNames: Names of permission sets bound to the rule.
 	PermissionSetNames *[]string `json:"permission_set_names,omitempty"`
@@ -534,6 +535,7 @@ type RuleSpecs struct {
 	OrganizationID *string `json:"organization_id,omitempty"`
 }
 
+// JWT:
 type JWT struct {
 	// Jti: JWT ID.
 	Jti string `json:"jti"`
@@ -553,6 +555,7 @@ type JWT struct {
 	UserAgent string `json:"user_agent"`
 }
 
+// APIKey:
 type APIKey struct {
 	// AccessKey: Access key of the API key.
 	AccessKey string `json:"access_key"`
@@ -578,6 +581,7 @@ type APIKey struct {
 	CreationIP string `json:"creation_ip"`
 }
 
+// Application:
 type Application struct {
 	// ID: ID of the application.
 	ID string `json:"id"`
@@ -597,6 +601,7 @@ type Application struct {
 	NbAPIKeys uint32 `json:"nb_api_keys"`
 }
 
+// Group:
 type Group struct {
 	// ID: ID of the group.
 	ID string `json:"id"`
@@ -616,6 +621,7 @@ type Group struct {
 	ApplicationIDs []string `json:"application_ids"`
 }
 
+// PermissionSet:
 type PermissionSet struct {
 	// ID: Id of the permission set.
 	ID string `json:"id"`
@@ -629,6 +635,7 @@ type PermissionSet struct {
 	Categories *[]string `json:"categories,omitempty"`
 }
 
+// Policy:
 type Policy struct {
 	// ID: Id of the policy.
 	ID string `json:"id"`
@@ -660,6 +667,7 @@ type Policy struct {
 	NoPrincipal *bool `json:"no_principal,omitempty"`
 }
 
+// Quotum:
 type Quotum struct {
 	// Name: Name of the quota.
 	Name string `json:"name"`
@@ -669,6 +677,7 @@ type Quotum struct {
 	Unlimited *bool `json:"unlimited,omitempty"`
 }
 
+// Rule:
 type Rule struct {
 	// ID: Id of rule.
 	ID string `json:"id"`
@@ -684,6 +693,7 @@ type Rule struct {
 	AccountRootUserID *string `json:"account_root_user_id,omitempty"`
 }
 
+// SSHKey:
 type SSHKey struct {
 	// ID: ID of SSH key.
 	ID string `json:"id"`
@@ -705,6 +715,7 @@ type SSHKey struct {
 	Disabled bool `json:"disabled"`
 }
 
+// User:
 type User struct {
 	// ID: ID of user.
 	ID string `json:"id"`
@@ -722,7 +733,7 @@ type User struct {
 	LastLoginAt *time.Time `json:"last_login_at,omitempty"`
 	// Type: Type of user.
 	Type UserType `json:"type"`
-	// TwoFactorEnabled: Deprecated, use "mfa" instead.
+	// Deprecated: TwoFactorEnabled: Deprecated, use "mfa" instead.
 	TwoFactorEnabled *bool `json:"two_factor_enabled,omitempty"`
 	// Status: Status of user invitation.
 	Status UserStatus `json:"status"`
@@ -732,6 +743,7 @@ type User struct {
 	AccountRootUserID string `json:"account_root_user_id"`
 }
 
+// AddGroupMemberRequest:
 type AddGroupMemberRequest struct {
 	// GroupID: ID of the group.
 	GroupID string `json:"-"`
@@ -741,6 +753,7 @@ type AddGroupMemberRequest struct {
 	ApplicationID *string `json:"application_id,omitempty"`
 }
 
+// AddGroupMembersRequest:
 type AddGroupMembersRequest struct {
 	// GroupID: ID of the group.
 	GroupID string `json:"-"`
@@ -750,11 +763,13 @@ type AddGroupMembersRequest struct {
 	ApplicationIDs []string `json:"application_ids"`
 }
 
+// ClonePolicyRequest:
 type ClonePolicyRequest struct {
 	// PolicyID:
 	PolicyID string `json:"-"`
 }
 
+// CreateAPIKeyRequest:
 type CreateAPIKeyRequest struct {
 	// ApplicationID: ID of the application.
 	ApplicationID *string `json:"application_id,omitempty"`
@@ -768,6 +783,7 @@ type CreateAPIKeyRequest struct {
 	Description string `json:"description"`
 }
 
+// CreateApplicationRequest:
 type CreateApplicationRequest struct {
 	// Name: Name of the application to create (max length is 64 characters).
 	Name string `json:"name"`
@@ -777,6 +793,7 @@ type CreateApplicationRequest struct {
 	Description string `json:"description"`
 }
 
+// CreateGroupRequest:
 type CreateGroupRequest struct {
 	// OrganizationID: ID of Organization linked to the group.
 	OrganizationID string `json:"organization_id"`
@@ -786,6 +803,7 @@ type CreateGroupRequest struct {
 	Description string `json:"description"`
 }
 
+// CreatePolicyRequest:
 type CreatePolicyRequest struct {
 	// Name: Name of the policy to create (max length is 64 characters).
 	Name string `json:"name"`
@@ -805,6 +823,7 @@ type CreatePolicyRequest struct {
 	NoPrincipal *bool `json:"no_principal,omitempty"`
 }
 
+// CreateSSHKeyRequest:
 type CreateSSHKeyRequest struct {
 	// Name: Name of the SSH key. Max length is 1000.
 	Name string `json:"name"`
@@ -814,6 +833,7 @@ type CreateSSHKeyRequest struct {
 	ProjectID string `json:"project_id"`
 }
 
+// CreateUserRequest:
 type CreateUserRequest struct {
 	// OrganizationID: ID of the Organization.
 	OrganizationID string `json:"organization_id"`
@@ -821,66 +841,79 @@ type CreateUserRequest struct {
 	Email string `json:"email"`
 }
 
+// DeleteAPIKeyRequest:
 type DeleteAPIKeyRequest struct {
 	// AccessKey: Access key to delete.
 	AccessKey string `json:"-"`
 }
 
+// DeleteApplicationRequest:
 type DeleteApplicationRequest struct {
 	// ApplicationID: ID of the application to delete.
 	ApplicationID string `json:"-"`
 }
 
+// DeleteGroupRequest:
 type DeleteGroupRequest struct {
 	// GroupID: ID of the group to delete.
 	GroupID string `json:"-"`
 }
 
+// DeleteJWTRequest:
 type DeleteJWTRequest struct {
 	// Jti: JWT ID of the JWT to delete.
 	Jti string `json:"-"`
 }
 
+// DeletePolicyRequest:
 type DeletePolicyRequest struct {
 	// PolicyID: Id of policy to delete.
 	PolicyID string `json:"-"`
 }
 
+// DeleteSSHKeyRequest:
 type DeleteSSHKeyRequest struct {
 	// SSHKeyID:
 	SSHKeyID string `json:"-"`
 }
 
+// DeleteUserRequest:
 type DeleteUserRequest struct {
 	// UserID: ID of the user to delete.
 	UserID string `json:"-"`
 }
 
+// GetAPIKeyRequest:
 type GetAPIKeyRequest struct {
 	// AccessKey: Access key to search for.
 	AccessKey string `json:"-"`
 }
 
+// GetApplicationRequest:
 type GetApplicationRequest struct {
 	// ApplicationID: ID of the application to find.
 	ApplicationID string `json:"-"`
 }
 
+// GetGroupRequest:
 type GetGroupRequest struct {
 	// GroupID: ID of the group.
 	GroupID string `json:"-"`
 }
 
+// GetJWTRequest:
 type GetJWTRequest struct {
 	// Jti: JWT ID of the JWT to get.
 	Jti string `json:"-"`
 }
 
+// GetPolicyRequest:
 type GetPolicyRequest struct {
 	// PolicyID: Id of policy to search.
 	PolicyID string `json:"-"`
 }
 
+// GetQuotumRequest:
 type GetQuotumRequest struct {
 	// QuotumName: Name of the quota to get.
 	QuotumName string `json:"-"`
@@ -888,16 +921,19 @@ type GetQuotumRequest struct {
 	OrganizationID string `json:"organization_id"`
 }
 
+// GetSSHKeyRequest:
 type GetSSHKeyRequest struct {
 	// SSHKeyID: ID of the SSH key.
 	SSHKeyID string `json:"-"`
 }
 
+// GetUserRequest:
 type GetUserRequest struct {
 	// UserID: ID of the user to find.
 	UserID string `json:"-"`
 }
 
+// ListAPIKeysRequest:
 type ListAPIKeysRequest struct {
 	// OrderBy: Criteria for sorting results.
 	OrderBy ListAPIKeysRequestOrderBy `json:"order_by"`
@@ -907,9 +943,9 @@ type ListAPIKeysRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 	// OrganizationID: ID of Organization.
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// ApplicationID: ID of application that bears the API key.
+	// Deprecated: ApplicationID: ID of application that bears the API key.
 	ApplicationID *string `json:"application_id,omitempty"`
-	// UserID: ID of user that bears the API key.
+	// Deprecated: UserID: ID of user that bears the API key.
 	UserID *string `json:"user_id,omitempty"`
 	// Editable: Defines whether to filter out editable API keys or not.
 	Editable *bool `json:"editable,omitempty"`
@@ -925,6 +961,7 @@ type ListAPIKeysRequest struct {
 	BearerType BearerType `json:"bearer_type"`
 }
 
+// ListAPIKeysResponse:
 type ListAPIKeysResponse struct {
 	// APIKeys: List of API keys.
 	APIKeys []*APIKey `json:"api_keys"`
@@ -951,6 +988,7 @@ func (r *ListAPIKeysResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.APIKeys)), nil
 }
 
+// ListApplicationsRequest:
 type ListApplicationsRequest struct {
 	// OrderBy: Criteria for sorting results.
 	OrderBy ListApplicationsRequestOrderBy `json:"order_by"`
@@ -968,6 +1006,7 @@ type ListApplicationsRequest struct {
 	ApplicationIDs []string `json:"application_ids"`
 }
 
+// ListApplicationsResponse:
 type ListApplicationsResponse struct {
 	// Applications: List of applications.
 	Applications []*Application `json:"applications"`
@@ -994,6 +1033,7 @@ func (r *ListApplicationsResponse) UnsafeAppend(res interface{}) (uint32, error)
 	return uint32(len(results.Applications)), nil
 }
 
+// ListGroupsRequest:
 type ListGroupsRequest struct {
 	// OrderBy: Sort order of groups.
 	OrderBy ListGroupsRequestOrderBy `json:"order_by"`
@@ -1013,6 +1053,7 @@ type ListGroupsRequest struct {
 	GroupIDs []string `json:"group_ids"`
 }
 
+// ListGroupsResponse:
 type ListGroupsResponse struct {
 	// Groups: List of groups.
 	Groups []*Group `json:"groups"`
@@ -1039,6 +1080,7 @@ func (r *ListGroupsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Groups)), nil
 }
 
+// ListJWTsRequest:
 type ListJWTsRequest struct {
 	// OrderBy: Criteria for sorting results.
 	OrderBy ListJWTsRequestOrderBy `json:"order_by"`
@@ -1052,6 +1094,7 @@ type ListJWTsRequest struct {
 	Expired *bool `json:"expired,omitempty"`
 }
 
+// ListJWTsResponse:
 type ListJWTsResponse struct {
 	// Jwts:
 	Jwts []*JWT `json:"jwts"`
@@ -1078,6 +1121,7 @@ func (r *ListJWTsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Jwts)), nil
 }
 
+// ListPermissionSetsRequest:
 type ListPermissionSetsRequest struct {
 	// OrderBy: Criteria for sorting results.
 	OrderBy ListPermissionSetsRequestOrderBy `json:"order_by"`
@@ -1089,6 +1133,7 @@ type ListPermissionSetsRequest struct {
 	OrganizationID string `json:"organization_id"`
 }
 
+// ListPermissionSetsResponse:
 type ListPermissionSetsResponse struct {
 	// PermissionSets: List of permission sets.
 	PermissionSets []*PermissionSet `json:"permission_sets"`
@@ -1115,6 +1160,7 @@ func (r *ListPermissionSetsResponse) UnsafeAppend(res interface{}) (uint32, erro
 	return uint32(len(results.PermissionSets)), nil
 }
 
+// ListPoliciesRequest:
 type ListPoliciesRequest struct {
 	// OrderBy: Criteria for sorting results.
 	OrderBy ListPoliciesRequestOrderBy `json:"order_by"`
@@ -1138,6 +1184,7 @@ type ListPoliciesRequest struct {
 	PolicyName *string `json:"policy_name,omitempty"`
 }
 
+// ListPoliciesResponse:
 type ListPoliciesResponse struct {
 	// Policies: List of policies.
 	Policies []*Policy `json:"policies"`
@@ -1164,6 +1211,7 @@ func (r *ListPoliciesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Policies)), nil
 }
 
+// ListQuotaRequest:
 type ListQuotaRequest struct {
 	// OrderBy: Criteria for sorting results.
 	OrderBy ListQuotaRequestOrderBy `json:"order_by"`
@@ -1175,6 +1223,7 @@ type ListQuotaRequest struct {
 	OrganizationID string `json:"organization_id"`
 }
 
+// ListQuotaResponse:
 type ListQuotaResponse struct {
 	// Quota: List of quota.
 	Quota []*Quotum `json:"quota"`
@@ -1201,6 +1250,7 @@ func (r *ListQuotaResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Quota)), nil
 }
 
+// ListRulesRequest:
 type ListRulesRequest struct {
 	// PolicyID: Id of policy to search.
 	PolicyID *string `json:"policy_id,omitempty"`
@@ -1210,6 +1260,7 @@ type ListRulesRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListRulesResponse:
 type ListRulesResponse struct {
 	// Rules: Rules of the policy.
 	Rules []*Rule `json:"rules"`
@@ -1236,6 +1287,7 @@ func (r *ListRulesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Rules)), nil
 }
 
+// ListSSHKeysRequest:
 type ListSSHKeysRequest struct {
 	// OrderBy: Sort order of the SSH keys.
 	OrderBy ListSSHKeysRequestOrderBy `json:"order_by"`
@@ -1253,6 +1305,7 @@ type ListSSHKeysRequest struct {
 	Disabled *bool `json:"disabled,omitempty"`
 }
 
+// ListSSHKeysResponse:
 type ListSSHKeysResponse struct {
 	// SSHKeys: List of SSH keys.
 	SSHKeys []*SSHKey `json:"ssh_keys"`
@@ -1279,6 +1332,7 @@ func (r *ListSSHKeysResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.SSHKeys)), nil
 }
 
+// ListUsersRequest:
 type ListUsersRequest struct {
 	// OrderBy: Criteria for sorting results.
 	OrderBy ListUsersRequestOrderBy `json:"order_by"`
@@ -1294,6 +1348,7 @@ type ListUsersRequest struct {
 	Mfa *bool `json:"mfa,omitempty"`
 }
 
+// ListUsersResponse:
 type ListUsersResponse struct {
 	// Users: List of users.
 	Users []*User `json:"users"`
@@ -1320,6 +1375,7 @@ func (r *ListUsersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Users)), nil
 }
 
+// RemoveGroupMemberRequest:
 type RemoveGroupMemberRequest struct {
 	// GroupID: ID of the group.
 	GroupID string `json:"-"`
@@ -1329,6 +1385,7 @@ type RemoveGroupMemberRequest struct {
 	ApplicationID *string `json:"application_id,omitempty"`
 }
 
+// SetGroupMembersRequest:
 type SetGroupMembersRequest struct {
 	// GroupID:
 	GroupID string `json:"-"`
@@ -1338,6 +1395,7 @@ type SetGroupMembersRequest struct {
 	ApplicationIDs []string `json:"application_ids"`
 }
 
+// SetRulesRequest:
 type SetRulesRequest struct {
 	// PolicyID: Id of policy to update.
 	PolicyID string `json:"policy_id"`
@@ -1345,11 +1403,13 @@ type SetRulesRequest struct {
 	Rules []*RuleSpecs `json:"rules"`
 }
 
+// SetRulesResponse:
 type SetRulesResponse struct {
 	// Rules: Rules of the policy.
 	Rules []*Rule `json:"rules"`
 }
 
+// UpdateAPIKeyRequest:
 type UpdateAPIKeyRequest struct {
 	// AccessKey: Access key to update.
 	AccessKey string `json:"-"`
@@ -1359,6 +1419,7 @@ type UpdateAPIKeyRequest struct {
 	Description *string `json:"description,omitempty"`
 }
 
+// UpdateApplicationRequest:
 type UpdateApplicationRequest struct {
 	// ApplicationID: ID of the application to update.
 	ApplicationID string `json:"-"`
@@ -1368,6 +1429,7 @@ type UpdateApplicationRequest struct {
 	Description *string `json:"description,omitempty"`
 }
 
+// UpdateGroupRequest:
 type UpdateGroupRequest struct {
 	// GroupID: ID of the group to update.
 	GroupID string `json:"-"`
@@ -1377,6 +1439,7 @@ type UpdateGroupRequest struct {
 	Description *string `json:"description,omitempty"`
 }
 
+// UpdatePolicyRequest:
 type UpdatePolicyRequest struct {
 	// PolicyID: Id of policy to update.
 	PolicyID string `json:"-"`
@@ -1394,6 +1457,7 @@ type UpdatePolicyRequest struct {
 	NoPrincipal *bool `json:"no_principal,omitempty"`
 }
 
+// UpdateSSHKeyRequest:
 type UpdateSSHKeyRequest struct {
 	// SSHKeyID:
 	SSHKeyID string `json:"-"`

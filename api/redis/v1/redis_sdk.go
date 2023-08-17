@@ -203,9 +203,11 @@ func (enum *PrivateNetworkProvisioningMode) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// EndpointSpecPrivateNetworkSpecIpamConfig:
 type EndpointSpecPrivateNetworkSpecIpamConfig struct {
 }
 
+// PrivateNetwork:
 type PrivateNetwork struct {
 	// ID: UUID of the Private Network.
 	ID string `json:"id"`
@@ -217,9 +219,11 @@ type PrivateNetwork struct {
 	ProvisioningMode PrivateNetworkProvisioningMode `json:"provisioning_mode"`
 }
 
+// PublicNetwork:
 type PublicNetwork struct {
 }
 
+// EndpointSpecPrivateNetworkSpec:
 type EndpointSpecPrivateNetworkSpec struct {
 	// ID: UUID of the Private Network to connect to the Database Instance.
 	ID string `json:"id"`
@@ -229,9 +233,11 @@ type EndpointSpecPrivateNetworkSpec struct {
 	IpamConfig *EndpointSpecPrivateNetworkSpecIpamConfig `json:"ipam_config"`
 }
 
+// EndpointSpecPublicNetworkSpec:
 type EndpointSpecPublicNetworkSpec struct {
 }
 
+// AvailableClusterSetting:
 type AvailableClusterSetting struct {
 	// Name: Name of the setting.
 	Name string `json:"name"`
@@ -251,6 +257,7 @@ type AvailableClusterSetting struct {
 	Deprecated bool `json:"deprecated"`
 }
 
+// ACLRule:
 type ACLRule struct {
 	// ID: ID of the rule.
 	ID string `json:"id"`
@@ -260,6 +267,7 @@ type ACLRule struct {
 	Description *string `json:"description,omitempty"`
 }
 
+// ClusterSetting:
 type ClusterSetting struct {
 	// Value: Value of the setting.
 	Value string `json:"value"`
@@ -267,6 +275,7 @@ type ClusterSetting struct {
 	Name string `json:"name"`
 }
 
+// Endpoint:
 type Endpoint struct {
 	// Port: TCP port of the endpoint.
 	Port uint32 `json:"port"`
@@ -280,6 +289,7 @@ type Endpoint struct {
 	ID string `json:"id"`
 }
 
+// ACLRuleSpec:
 type ACLRuleSpec struct {
 	// IPCidr: IPv4 network address of the rule.
 	IPCidr scw.IPNet `json:"ip_cidr"`
@@ -287,6 +297,7 @@ type ACLRuleSpec struct {
 	Description string `json:"description"`
 }
 
+// EndpointSpec:
 type EndpointSpec struct {
 	// PrivateNetwork: Private Network specification details.
 	PrivateNetwork *EndpointSpecPrivateNetworkSpec `json:"private_network,omitempty"`
@@ -294,6 +305,7 @@ type EndpointSpec struct {
 	PublicNetwork *EndpointSpecPublicNetworkSpec `json:"public_network,omitempty"`
 }
 
+// ClusterVersion:
 type ClusterVersion struct {
 	// Version: Redis™ engine version.
 	Version string `json:"version"`
@@ -307,6 +319,7 @@ type ClusterVersion struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// Cluster:
 type Cluster struct {
 	// ID: UUID of the Database Instance.
 	ID string `json:"id"`
@@ -344,6 +357,7 @@ type Cluster struct {
 	UpgradableVersions []string `json:"upgradable_versions"`
 }
 
+// NodeType:
 type NodeType struct {
 	// Name: Node type name.
 	Name string `json:"name"`
@@ -363,6 +377,7 @@ type NodeType struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// AddACLRulesRequest:
 type AddACLRulesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -372,6 +387,7 @@ type AddACLRulesRequest struct {
 	ACLRules []*ACLRuleSpec `json:"acl_rules"`
 }
 
+// AddACLRulesResponse:
 type AddACLRulesResponse struct {
 	// ACLRules: ACL Rules enabled for the Database Instance.
 	ACLRules []*ACLRule `json:"acl_rules"`
@@ -398,6 +414,7 @@ func (r *AddACLRulesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.ACLRules)), nil
 }
 
+// AddClusterSettingsRequest:
 type AddClusterSettingsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -407,6 +424,7 @@ type AddClusterSettingsRequest struct {
 	Settings []*ClusterSetting `json:"settings"`
 }
 
+// AddEndpointsRequest:
 type AddEndpointsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -416,6 +434,7 @@ type AddEndpointsRequest struct {
 	Endpoints []*EndpointSpec `json:"endpoints"`
 }
 
+// AddEndpointsResponse:
 type AddEndpointsResponse struct {
 	// Endpoints: Endpoints defined on the Database Instance.
 	Endpoints []*Endpoint `json:"endpoints"`
@@ -442,16 +461,19 @@ func (r *AddEndpointsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Endpoints)), nil
 }
 
+// ClusterMetricsResponse:
 type ClusterMetricsResponse struct {
 	// Timeseries: Time series of metrics of a given cluster.
 	Timeseries []*scw.TimeSeries `json:"timeseries"`
 }
 
+// ClusterSettingsResponse:
 type ClusterSettingsResponse struct {
 	// Settings: Settings configured for a given Database Instance.
 	Settings []*ClusterSetting `json:"settings"`
 }
 
+// CreateClusterRequest:
 type CreateClusterRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -481,6 +503,7 @@ type CreateClusterRequest struct {
 	ClusterSettings []*ClusterSetting `json:"cluster_settings"`
 }
 
+// DeleteACLRuleRequest:
 type DeleteACLRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -488,6 +511,7 @@ type DeleteACLRuleRequest struct {
 	ACLID string `json:"-"`
 }
 
+// DeleteClusterRequest:
 type DeleteClusterRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -495,6 +519,7 @@ type DeleteClusterRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// DeleteClusterSettingRequest:
 type DeleteClusterSettingRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -504,6 +529,7 @@ type DeleteClusterSettingRequest struct {
 	SettingName string `json:"-"`
 }
 
+// DeleteEndpointRequest:
 type DeleteEndpointRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -511,6 +537,7 @@ type DeleteEndpointRequest struct {
 	EndpointID string `json:"-"`
 }
 
+// GetACLRuleRequest:
 type GetACLRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -518,6 +545,7 @@ type GetACLRuleRequest struct {
 	ACLID string `json:"-"`
 }
 
+// GetClusterCertificateRequest:
 type GetClusterCertificateRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -525,6 +553,7 @@ type GetClusterCertificateRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// GetClusterMetricsRequest:
 type GetClusterMetricsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -538,6 +567,7 @@ type GetClusterMetricsRequest struct {
 	MetricName *string `json:"metric_name,omitempty"`
 }
 
+// GetClusterRequest:
 type GetClusterRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -545,6 +575,7 @@ type GetClusterRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// GetEndpointRequest:
 type GetEndpointRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -552,6 +583,7 @@ type GetEndpointRequest struct {
 	EndpointID string `json:"-"`
 }
 
+// ListClusterVersionsRequest:
 type ListClusterVersionsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -569,6 +601,7 @@ type ListClusterVersionsRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListClusterVersionsResponse:
 type ListClusterVersionsResponse struct {
 	// Versions: List of available Redis™ engine versions.
 	Versions []*ClusterVersion `json:"versions"`
@@ -595,6 +628,7 @@ func (r *ListClusterVersionsResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.Versions)), nil
 }
 
+// ListClustersRequest:
 type ListClustersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -616,6 +650,7 @@ type ListClustersRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListClustersResponse:
 type ListClustersResponse struct {
 	// Clusters: List all Database Instances.
 	Clusters []*Cluster `json:"clusters"`
@@ -642,6 +677,7 @@ func (r *ListClustersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Clusters)), nil
 }
 
+// ListNodeTypesRequest:
 type ListNodeTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -653,6 +689,7 @@ type ListNodeTypesRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListNodeTypesResponse:
 type ListNodeTypesResponse struct {
 	// NodeTypes: Types of node.
 	NodeTypes []*NodeType `json:"node_types"`
@@ -679,6 +716,7 @@ func (r *ListNodeTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.NodeTypes)), nil
 }
 
+// MigrateClusterRequest:
 type MigrateClusterRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -692,6 +730,7 @@ type MigrateClusterRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// RenewClusterCertificateRequest:
 type RenewClusterCertificateRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -699,6 +738,7 @@ type RenewClusterCertificateRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// SetACLRulesRequest:
 type SetACLRulesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -708,11 +748,13 @@ type SetACLRulesRequest struct {
 	ACLRules []*ACLRuleSpec `json:"acl_rules"`
 }
 
+// SetACLRulesResponse:
 type SetACLRulesResponse struct {
 	// ACLRules: ACL Rules enabled for the Database Instance.
 	ACLRules []*ACLRule `json:"acl_rules"`
 }
 
+// SetClusterSettingsRequest:
 type SetClusterSettingsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -722,6 +764,7 @@ type SetClusterSettingsRequest struct {
 	Settings []*ClusterSetting `json:"settings"`
 }
 
+// SetEndpointsRequest:
 type SetEndpointsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -731,11 +774,13 @@ type SetEndpointsRequest struct {
 	Endpoints []*EndpointSpec `json:"endpoints"`
 }
 
+// SetEndpointsResponse:
 type SetEndpointsResponse struct {
 	// Endpoints: Endpoints defined on the Database Instance.
 	Endpoints []*Endpoint `json:"endpoints"`
 }
 
+// UpdateClusterRequest:
 type UpdateClusterRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -751,6 +796,7 @@ type UpdateClusterRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// UpdateEndpointRequest:
 type UpdateEndpointRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`

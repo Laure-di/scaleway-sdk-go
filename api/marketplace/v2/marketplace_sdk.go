@@ -167,6 +167,7 @@ func (enum *LocalImageType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Category:
 type Category struct {
 	// ID:
 	ID string `json:"id"`
@@ -176,6 +177,7 @@ type Category struct {
 	Description string `json:"description"`
 }
 
+// Image:
 type Image struct {
 	// ID: UUID of this image.
 	ID string `json:"id"`
@@ -197,6 +199,7 @@ type Image struct {
 	Label string `json:"label"`
 }
 
+// LocalImage:
 type LocalImage struct {
 	// ID: Version you will typically use to define an image in an API call.
 	ID string `json:"id"`
@@ -212,6 +215,7 @@ type LocalImage struct {
 	Type LocalImageType `json:"type"`
 }
 
+// Version:
 type Version struct {
 	// ID: UUID of this version.
 	ID string `json:"id"`
@@ -225,26 +229,31 @@ type Version struct {
 	PublishedAt *time.Time `json:"published_at,omitempty"`
 }
 
+// GetCategoryRequest:
 type GetCategoryRequest struct {
 	// CategoryID:
 	CategoryID string `json:"-"`
 }
 
+// GetImageRequest:
 type GetImageRequest struct {
 	// ImageID: Display the image name.
 	ImageID string `json:"-"`
 }
 
+// GetLocalImageRequest:
 type GetLocalImageRequest struct {
 	// LocalImageID:
 	LocalImageID string `json:"-"`
 }
 
+// GetVersionRequest:
 type GetVersionRequest struct {
 	// VersionID:
 	VersionID string `json:"-"`
 }
 
+// ListCategoriesRequest:
 type ListCategoriesRequest struct {
 	// PageSize:
 	PageSize *uint32 `json:"page_size,omitempty"`
@@ -252,6 +261,7 @@ type ListCategoriesRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListCategoriesResponse:
 type ListCategoriesResponse struct {
 	// Categories:
 	Categories []*Category `json:"categories"`
@@ -278,6 +288,7 @@ func (r *ListCategoriesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Categories)), nil
 }
 
+// ListImagesRequest:
 type ListImagesRequest struct {
 	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
 	PageSize *uint32 `json:"page_size,omitempty"`
@@ -293,6 +304,7 @@ type ListImagesRequest struct {
 	IncludeEol bool `json:"include_eol"`
 }
 
+// ListImagesResponse:
 type ListImagesResponse struct {
 	// Images:
 	Images []*Image `json:"images"`
@@ -319,6 +331,7 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Images)), nil
 }
 
+// ListLocalImagesRequest:
 type ListLocalImagesRequest struct {
 	// ImageID:
 	ImageID *string `json:"image_id,omitempty"`
@@ -338,6 +351,7 @@ type ListLocalImagesRequest struct {
 	Type LocalImageType `json:"type"`
 }
 
+// ListLocalImagesResponse:
 type ListLocalImagesResponse struct {
 	// LocalImages:
 	LocalImages []*LocalImage `json:"local_images"`
@@ -364,6 +378,7 @@ func (r *ListLocalImagesResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.LocalImages)), nil
 }
 
+// ListVersionsRequest:
 type ListVersionsRequest struct {
 	// ImageID:
 	ImageID string `json:"image_id"`
@@ -375,6 +390,7 @@ type ListVersionsRequest struct {
 	OrderBy ListVersionsRequestOrderBy `json:"order_by"`
 }
 
+// ListVersionsResponse:
 type ListVersionsResponse struct {
 	// Versions:
 	Versions []*Version `json:"versions"`

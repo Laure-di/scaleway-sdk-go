@@ -44,6 +44,7 @@ type Arch string
 const (
 	ArchX86_64 = Arch("x86_64")
 	ArchArm    = Arch("arm")
+	ArchArm64  = Arch("arm64")
 )
 
 func (enum Arch) String() string {
@@ -862,6 +863,7 @@ func (enum *VolumeVolumeType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// ServerSummary:
 type ServerSummary struct {
 	// ID:
 	ID string `json:"id"`
@@ -869,6 +871,7 @@ type ServerSummary struct {
 	Name string `json:"name"`
 }
 
+// Bootscript:
 type Bootscript struct {
 	// Bootcmdargs: Bootscript arguments.
 	Bootcmdargs string `json:"bootcmdargs"`
@@ -896,12 +899,13 @@ type Bootscript struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// Volume:
 type Volume struct {
 	// ID: Volume unique ID.
 	ID string `json:"id"`
 	// Name: Volume name.
 	Name string `json:"name"`
-	// ExportURI: Show the volume NBD export URI.
+	// Deprecated: ExportURI: Show the volume NBD export URI.
 	ExportURI *string `json:"export_uri,omitempty"`
 	// Size: Volume disk size.
 	Size scw.Size `json:"size"`
@@ -925,6 +929,7 @@ type Volume struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// VolumeSummary:
 type VolumeSummary struct {
 	// ID:
 	ID string `json:"id"`
@@ -936,6 +941,7 @@ type VolumeSummary struct {
 	VolumeType VolumeVolumeType `json:"volume_type"`
 }
 
+// ServerTypeNetworkInterface:
 type ServerTypeNetworkInterface struct {
 	// InternalBandwidth: Maximum internal bandwidth in bits per seconds.
 	InternalBandwidth *uint64 `json:"internal_bandwidth,omitempty"`
@@ -943,6 +949,7 @@ type ServerTypeNetworkInterface struct {
 	InternetBandwidth *uint64 `json:"internet_bandwidth,omitempty"`
 }
 
+// ServerTypeVolumeConstraintSizes:
 type ServerTypeVolumeConstraintSizes struct {
 	// MinSize: Minimum volume size in bytes.
 	MinSize scw.Size `json:"min_size"`
@@ -950,6 +957,7 @@ type ServerTypeVolumeConstraintSizes struct {
 	MaxSize scw.Size `json:"max_size"`
 }
 
+// Image:
 type Image struct {
 	// ID:
 	ID string `json:"id"`
@@ -961,7 +969,7 @@ type Image struct {
 	CreationDate *time.Time `json:"creation_date,omitempty"`
 	// ModificationDate:
 	ModificationDate *time.Time `json:"modification_date,omitempty"`
-	// DefaultBootscript:
+	// Deprecated: DefaultBootscript:
 	DefaultBootscript *Bootscript `json:"default_bootscript,omitempty"`
 	// ExtraVolumes:
 	ExtraVolumes map[string]*Volume `json:"extra_volumes"`
@@ -983,6 +991,7 @@ type Image struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// PlacementGroup:
 type PlacementGroup struct {
 	// ID: Placement group unique ID.
 	ID string `json:"id"`
@@ -1004,6 +1013,7 @@ type PlacementGroup struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// PrivateNIC:
 type PrivateNIC struct {
 	// ID: Private NIC unique ID.
 	ID string `json:"id"`
@@ -1019,6 +1029,7 @@ type PrivateNIC struct {
 	Tags []string `json:"tags"`
 }
 
+// SecurityGroupSummary:
 type SecurityGroupSummary struct {
 	// ID:
 	ID string `json:"id"`
@@ -1026,6 +1037,7 @@ type SecurityGroupSummary struct {
 	Name string `json:"name"`
 }
 
+// ServerIP:
 type ServerIP struct {
 	// ID: Unique ID of the IP address.
 	ID string `json:"id"`
@@ -1043,6 +1055,7 @@ type ServerIP struct {
 	ProvisioningMode ServerIPProvisioningMode `json:"provisioning_mode"`
 }
 
+// ServerIPv6:
 type ServerIPv6 struct {
 	// Address: Instance IPv6 IP-Address.
 	Address net.IP `json:"address"`
@@ -1052,6 +1065,7 @@ type ServerIPv6 struct {
 	Netmask string `json:"netmask"`
 }
 
+// ServerLocation:
 type ServerLocation struct {
 	// ClusterID:
 	ClusterID string `json:"cluster_id"`
@@ -1065,11 +1079,13 @@ type ServerLocation struct {
 	ZoneID string `json:"zone_id"`
 }
 
+// ServerMaintenance:
 type ServerMaintenance struct {
 	// Reason:
 	Reason string `json:"reason"`
 }
 
+// VolumeServer:
 type VolumeServer struct {
 	// ID:
 	ID string `json:"id"`
@@ -1099,6 +1115,7 @@ type VolumeServer struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// SnapshotBaseVolume:
 type SnapshotBaseVolume struct {
 	// ID: Volume ID on which the snapshot is based.
 	ID string `json:"id"`
@@ -1106,6 +1123,7 @@ type SnapshotBaseVolume struct {
 	Name string `json:"name"`
 }
 
+// ServerTypeCapabilities:
 type ServerTypeCapabilities struct {
 	// BlockStorage: Defines whether the Instance supports block storage.
 	BlockStorage *bool `json:"block_storage,omitempty"`
@@ -1113,6 +1131,7 @@ type ServerTypeCapabilities struct {
 	BootTypes []BootType `json:"boot_types"`
 }
 
+// ServerTypeNetwork:
 type ServerTypeNetwork struct {
 	// Interfaces: List of available network interfaces.
 	Interfaces []*ServerTypeNetworkInterface `json:"interfaces"`
@@ -1124,16 +1143,19 @@ type ServerTypeNetwork struct {
 	IPv6Support bool `json:"ipv6_support"`
 }
 
+// ServerTypeVolumeConstraintsByType:
 type ServerTypeVolumeConstraintsByType struct {
 	// LSSD: Local SSD volumes.
 	LSSD *ServerTypeVolumeConstraintSizes `json:"l_ssd"`
 }
 
+// VolumeTypeCapabilities:
 type VolumeTypeCapabilities struct {
 	// Snapshot:
 	Snapshot bool `json:"snapshot"`
 }
 
+// VolumeTypeConstraints:
 type VolumeTypeConstraints struct {
 	// Min:
 	Min scw.Size `json:"min"`
@@ -1141,6 +1163,7 @@ type VolumeTypeConstraints struct {
 	Max scw.Size `json:"max"`
 }
 
+// IP:
 type IP struct {
 	// ID:
 	ID string `json:"id"`
@@ -1166,6 +1189,7 @@ type IP struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// VolumeTemplate:
 type VolumeTemplate struct {
 	// ID: UUID of the volume.
 	ID string `json:"id"`
@@ -1175,12 +1199,13 @@ type VolumeTemplate struct {
 	Size scw.Size `json:"size"`
 	// VolumeType: Type of the volume.
 	VolumeType VolumeVolumeType `json:"volume_type"`
-	// Organization: Organization ID of the volume.
+	// Deprecated: Organization: Organization ID of the volume.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID of the volume.
 	Project *string `json:"project,omitempty"`
 }
 
+// SecurityGroup:
 type SecurityGroup struct {
 	// ID: Security group unique ID.
 	ID string `json:"id"`
@@ -1200,7 +1225,7 @@ type SecurityGroup struct {
 	Project string `json:"project"`
 	// Tags: Security group tags.
 	Tags []string `json:"tags"`
-	// OrganizationDefault: True if it is your default security group for this Organization ID.
+	// Deprecated: OrganizationDefault: True if it is your default security group for this Organization ID.
 	OrganizationDefault *bool `json:"organization_default,omitempty"`
 	// ProjectDefault: True if it is your default security group for this Project ID.
 	ProjectDefault bool `json:"project_default"`
@@ -1218,6 +1243,7 @@ type SecurityGroup struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// SecurityGroupRule:
 type SecurityGroupRule struct {
 	// ID:
 	ID string `json:"id"`
@@ -1241,6 +1267,7 @@ type SecurityGroupRule struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// VolumeServerTemplate:
 type VolumeServerTemplate struct {
 	// ID: UUID of the volume.
 	ID *string `json:"id,omitempty"`
@@ -1260,6 +1287,7 @@ type VolumeServerTemplate struct {
 	Project *string `json:"project,omitempty"`
 }
 
+// Server:
 type Server struct {
 	// ID: Instance unique ID.
 	ID string `json:"id"`
@@ -1305,7 +1333,7 @@ type Server struct {
 	Location *ServerLocation `json:"location"`
 	// IPv6: Instance IPv6 address.
 	IPv6 *ServerIPv6 `json:"ipv6"`
-	// Bootscript: Instance bootscript.
+	// Deprecated: Bootscript: Instance bootscript.
 	Bootscript *Bootscript `json:"bootscript,omitempty"`
 	// BootType: Instance boot type.
 	BootType BootType `json:"boot_type"`
@@ -1327,6 +1355,7 @@ type Server struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// Snapshot:
 type Snapshot struct {
 	// ID: Snapshot ID.
 	ID string `json:"id"`
@@ -1356,6 +1385,7 @@ type Snapshot struct {
 	ErrorReason *string `json:"error_reason,omitempty"`
 }
 
+// Task:
 type Task struct {
 	// ID: Unique ID of the task.
 	ID string `json:"id"`
@@ -1377,6 +1407,7 @@ type Task struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// Dashboard:
 type Dashboard struct {
 	// VolumesCount:
 	VolumesCount uint32 `json:"volumes_count"`
@@ -1410,6 +1441,7 @@ type Dashboard struct {
 	PlacementGroupsCount uint32 `json:"placement_groups_count"`
 }
 
+// PlacementGroupServer:
 type PlacementGroupServer struct {
 	// ID: Instance UUID.
 	ID string `json:"id"`
@@ -1419,13 +1451,15 @@ type PlacementGroupServer struct {
 	PolicyRespected bool `json:"policy_respected"`
 }
 
+// GetServerTypesAvailabilityResponseAvailability:
 type GetServerTypesAvailabilityResponseAvailability struct {
 	// Availability:
 	Availability ServerTypesAvailability `json:"availability"`
 }
 
+// ServerType:
 type ServerType struct {
-	// MonthlyPrice: Estimated monthly price, for a 30 days month, in Euro.
+	// Deprecated: MonthlyPrice: Estimated monthly price, for a 30 days month, in Euro.
 	MonthlyPrice *float32 `json:"monthly_price,omitempty"`
 	// HourlyPrice: Hourly price in Euro.
 	HourlyPrice float32 `json:"hourly_price"`
@@ -1451,6 +1485,7 @@ type ServerType struct {
 	Capabilities *ServerTypeCapabilities `json:"capabilities"`
 }
 
+// VolumeType:
 type VolumeType struct {
 	// DisplayName:
 	DisplayName string `json:"display_name"`
@@ -1460,12 +1495,14 @@ type VolumeType struct {
 	Constraints *VolumeTypeConstraints `json:"constraints"`
 }
 
+// ServerActionRequestVolumeBackupTemplate:
 type ServerActionRequestVolumeBackupTemplate struct {
 	// VolumeType: Overrides the `volume_type` of the snapshot for this volume.
 	// If omitted, the volume type of the original volume will be used.
 	VolumeType SnapshotVolumeType `json:"volume_type"`
 }
 
+// SetSecurityGroupRulesRequestRule:
 type SetSecurityGroupRulesRequestRule struct {
 	// ID: UUID of the security rule to update. If no value is provided, a new rule will be created.
 	ID *string `json:"id,omitempty"`
@@ -1489,6 +1526,7 @@ type SetSecurityGroupRulesRequestRule struct {
 	Zone *scw.Zone `json:"zone,omitempty"`
 }
 
+// NullableStringValue:
 type NullableStringValue struct {
 	// Null:
 	Null bool `json:"null"`
@@ -1496,6 +1534,7 @@ type NullableStringValue struct {
 	Value string `json:"value"`
 }
 
+// SecurityGroupTemplate:
 type SecurityGroupTemplate struct {
 	// ID:
 	ID string `json:"id"`
@@ -1503,10 +1542,11 @@ type SecurityGroupTemplate struct {
 	Name string `json:"name"`
 }
 
+// CreateIPRequest:
 type CreateIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
-	// Organization: Organization ID in which the IP is reserved.
+	// Deprecated: Organization: Organization ID in which the IP is reserved.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID in which the IP is reserved.
 	Project *string `json:"project,omitempty"`
@@ -1518,11 +1558,13 @@ type CreateIPRequest struct {
 	Type IPType `json:"type"`
 }
 
+// CreateIPResponse:
 type CreateIPResponse struct {
 	// IP:
 	IP *IP `json:"ip"`
 }
 
+// CreateImageRequest:
 type CreateImageRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1532,11 +1574,11 @@ type CreateImageRequest struct {
 	RootVolume string `json:"root_volume"`
 	// Arch: Architecture of the image.
 	Arch Arch `json:"arch"`
-	// DefaultBootscript: Default bootscript of the image.
+	// Deprecated: DefaultBootscript: Default bootscript of the image.
 	DefaultBootscript *string `json:"default_bootscript,omitempty"`
 	// ExtraVolumes: Additional volumes of the image.
 	ExtraVolumes map[string]*VolumeTemplate `json:"extra_volumes"`
-	// Organization: Organization ID of the image.
+	// Deprecated: Organization: Organization ID of the image.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID of the image.
 	Project *string `json:"project,omitempty"`
@@ -1546,17 +1588,19 @@ type CreateImageRequest struct {
 	Public *bool `json:"public,omitempty"`
 }
 
+// CreateImageResponse:
 type CreateImageResponse struct {
 	// Image:
 	Image *Image `json:"image"`
 }
 
+// CreatePlacementGroupRequest:
 type CreatePlacementGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Name of the placement group.
 	Name string `json:"name"`
-	// Organization: Organization ID of the placement group.
+	// Deprecated: Organization: Organization ID of the placement group.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID of the placement group.
 	Project *string `json:"project,omitempty"`
@@ -1568,11 +1612,13 @@ type CreatePlacementGroupRequest struct {
 	PolicyType PlacementGroupPolicyType `json:"policy_type"`
 }
 
+// CreatePlacementGroupResponse:
 type CreatePlacementGroupResponse struct {
 	// PlacementGroup:
 	PlacementGroup *PlacementGroup `json:"placement_group"`
 }
 
+// CreatePrivateNICRequest:
 type CreatePrivateNICRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1586,11 +1632,13 @@ type CreatePrivateNICRequest struct {
 	IPIDs []string `json:"ip_ids"`
 }
 
+// CreatePrivateNICResponse:
 type CreatePrivateNICResponse struct {
 	// PrivateNic:
 	PrivateNic *PrivateNIC `json:"private_nic"`
 }
 
+// CreateSecurityGroupRequest:
 type CreateSecurityGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1598,13 +1646,13 @@ type CreateSecurityGroupRequest struct {
 	Name string `json:"name"`
 	// Description: Description of the security group.
 	Description string `json:"description"`
-	// Organization: Organization ID the security group belongs to.
+	// Deprecated: Organization: Organization ID the security group belongs to.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID the security group belong to.
 	Project *string `json:"project,omitempty"`
 	// Tags: Tags of the security group.
 	Tags []string `json:"tags"`
-	// OrganizationDefault: Defines whether this security group becomes the default security group for new Instances.
+	// Deprecated: OrganizationDefault: Defines whether this security group becomes the default security group for new Instances.
 	OrganizationDefault *bool `json:"organization_default,omitempty"`
 	// ProjectDefault: Whether this security group becomes the default security group for new Instances.
 	ProjectDefault *bool `json:"project_default,omitempty"`
@@ -1618,11 +1666,13 @@ type CreateSecurityGroupRequest struct {
 	EnableDefaultSecurity *bool `json:"enable_default_security,omitempty"`
 }
 
+// CreateSecurityGroupResponse:
 type CreateSecurityGroupResponse struct {
 	// SecurityGroup:
 	SecurityGroup *SecurityGroup `json:"security_group"`
 }
 
+// CreateSecurityGroupRuleRequest:
 type CreateSecurityGroupRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1646,11 +1696,13 @@ type CreateSecurityGroupRuleRequest struct {
 	Editable bool `json:"editable"`
 }
 
+// CreateSecurityGroupRuleResponse:
 type CreateSecurityGroupRuleResponse struct {
 	// Rule:
 	Rule *SecurityGroupRule `json:"rule"`
 }
 
+// CreateServerRequest:
 type CreateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1671,12 +1723,12 @@ type CreateServerRequest struct {
 	// PublicIP: ID of the reserved IP to attach to the Instance.
 	PublicIP *string `json:"public_ip,omitempty"`
 	// PublicIPs: A list of reserved IP IDs to attach to the Instance.
-	PublicIPs []*string `json:"public_ips"`
+	PublicIPs *[]string `json:"public_ips,omitempty"`
 	// BootType: Boot type to use.
 	BootType *BootType `json:"boot_type,omitempty"`
-	// Bootscript: Bootscript ID to use when `boot_type` is set to `bootscript`.
+	// Deprecated: Bootscript: Bootscript ID to use when `boot_type` is set to `bootscript`.
 	Bootscript *string `json:"bootscript,omitempty"`
-	// Organization: Instance Organization ID.
+	// Deprecated: Organization: Instance Organization ID.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Instance Project ID.
 	Project *string `json:"project,omitempty"`
@@ -1688,11 +1740,13 @@ type CreateServerRequest struct {
 	PlacementGroup *string `json:"placement_group,omitempty"`
 }
 
+// CreateServerResponse:
 type CreateServerResponse struct {
 	// Server:
 	Server *Server `json:"server"`
 }
 
+// CreateSnapshotRequest:
 type CreateSnapshotRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1701,8 +1755,8 @@ type CreateSnapshotRequest struct {
 	// VolumeID: UUID of the volume.
 	VolumeID *string `json:"volume_id,omitempty"`
 	// Tags: Tags of the snapshot.
-	Tags []string `json:"tags"`
-	// Organization: Organization ID of the snapshot.
+	Tags *[]string `json:"tags,omitempty"`
+	// Deprecated: Organization: Organization ID of the snapshot.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID of the snapshot.
 	Project *string `json:"project,omitempty"`
@@ -1717,6 +1771,7 @@ type CreateSnapshotRequest struct {
 	Size *scw.Size `json:"size,omitempty"`
 }
 
+// CreateSnapshotResponse:
 type CreateSnapshotResponse struct {
 	// Snapshot:
 	Snapshot *Snapshot `json:"snapshot"`
@@ -1724,12 +1779,13 @@ type CreateSnapshotResponse struct {
 	Task *Task `json:"task"`
 }
 
+// CreateVolumeRequest:
 type CreateVolumeRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Volume name.
 	Name string `json:"name"`
-	// Organization: Volume Organization ID.
+	// Deprecated: Organization: Volume Organization ID.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Volume Project ID.
 	Project *string `json:"project,omitempty"`
@@ -1745,11 +1801,13 @@ type CreateVolumeRequest struct {
 	BaseSnapshot *string `json:"base_snapshot,omitempty"`
 }
 
+// CreateVolumeResponse:
 type CreateVolumeResponse struct {
 	// Volume:
 	Volume *Volume `json:"volume"`
 }
 
+// DeleteIPRequest:
 type DeleteIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1757,6 +1815,7 @@ type DeleteIPRequest struct {
 	IP string `json:"-"`
 }
 
+// DeleteImageRequest:
 type DeleteImageRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1764,6 +1823,7 @@ type DeleteImageRequest struct {
 	ImageID string `json:"-"`
 }
 
+// DeletePlacementGroupRequest:
 type DeletePlacementGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1771,6 +1831,7 @@ type DeletePlacementGroupRequest struct {
 	PlacementGroupID string `json:"-"`
 }
 
+// DeletePrivateNICRequest:
 type DeletePrivateNICRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1780,6 +1841,7 @@ type DeletePrivateNICRequest struct {
 	PrivateNicID string `json:"-"`
 }
 
+// DeleteSecurityGroupRequest:
 type DeleteSecurityGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1787,6 +1849,7 @@ type DeleteSecurityGroupRequest struct {
 	SecurityGroupID string `json:"-"`
 }
 
+// DeleteSecurityGroupRuleRequest:
 type DeleteSecurityGroupRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1796,6 +1859,7 @@ type DeleteSecurityGroupRuleRequest struct {
 	SecurityGroupRuleID string `json:"-"`
 }
 
+// DeleteServerRequest:
 type DeleteServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1803,6 +1867,7 @@ type DeleteServerRequest struct {
 	ServerID string `json:"-"`
 }
 
+// DeleteServerUserDataRequest:
 type DeleteServerUserDataRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1812,6 +1877,7 @@ type DeleteServerUserDataRequest struct {
 	Key string `json:"-"`
 }
 
+// DeleteSnapshotRequest:
 type DeleteSnapshotRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1819,6 +1885,7 @@ type DeleteSnapshotRequest struct {
 	SnapshotID string `json:"-"`
 }
 
+// DeleteVolumeRequest:
 type DeleteVolumeRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1826,6 +1893,7 @@ type DeleteVolumeRequest struct {
 	VolumeID string `json:"-"`
 }
 
+// ExportSnapshotRequest:
 type ExportSnapshotRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1837,11 +1905,13 @@ type ExportSnapshotRequest struct {
 	SnapshotID string `json:"-"`
 }
 
+// ExportSnapshotResponse:
 type ExportSnapshotResponse struct {
 	// Task:
 	Task *Task `json:"task"`
 }
 
+// GetBootscriptRequest:
 type GetBootscriptRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1849,11 +1919,13 @@ type GetBootscriptRequest struct {
 	BootscriptID string `json:"-"`
 }
 
+// GetBootscriptResponse:
 type GetBootscriptResponse struct {
 	// Bootscript:
 	Bootscript *Bootscript `json:"bootscript"`
 }
 
+// GetDashboardRequest:
 type GetDashboardRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1863,11 +1935,13 @@ type GetDashboardRequest struct {
 	Project *string `json:"project,omitempty"`
 }
 
+// GetDashboardResponse:
 type GetDashboardResponse struct {
 	// Dashboard:
 	Dashboard *Dashboard `json:"dashboard"`
 }
 
+// GetIPRequest:
 type GetIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1875,11 +1949,13 @@ type GetIPRequest struct {
 	IP string `json:"-"`
 }
 
+// GetIPResponse:
 type GetIPResponse struct {
 	// IP:
 	IP *IP `json:"ip"`
 }
 
+// GetImageRequest:
 type GetImageRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1887,11 +1963,13 @@ type GetImageRequest struct {
 	ImageID string `json:"-"`
 }
 
+// GetImageResponse:
 type GetImageResponse struct {
 	// Image:
 	Image *Image `json:"image"`
 }
 
+// GetPlacementGroupRequest:
 type GetPlacementGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1899,11 +1977,13 @@ type GetPlacementGroupRequest struct {
 	PlacementGroupID string `json:"-"`
 }
 
+// GetPlacementGroupResponse:
 type GetPlacementGroupResponse struct {
 	// PlacementGroup:
 	PlacementGroup *PlacementGroup `json:"placement_group"`
 }
 
+// GetPlacementGroupServersRequest:
 type GetPlacementGroupServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1911,11 +1991,13 @@ type GetPlacementGroupServersRequest struct {
 	PlacementGroupID string `json:"-"`
 }
 
+// GetPlacementGroupServersResponse:
 type GetPlacementGroupServersResponse struct {
 	// Servers: Instances attached to the placement group.
 	Servers []*PlacementGroupServer `json:"servers"`
 }
 
+// GetPrivateNICRequest:
 type GetPrivateNICRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1925,11 +2007,13 @@ type GetPrivateNICRequest struct {
 	PrivateNicID string `json:"-"`
 }
 
+// GetPrivateNICResponse:
 type GetPrivateNICResponse struct {
 	// PrivateNic:
 	PrivateNic *PrivateNIC `json:"private_nic"`
 }
 
+// GetSecurityGroupRequest:
 type GetSecurityGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1937,11 +2021,13 @@ type GetSecurityGroupRequest struct {
 	SecurityGroupID string `json:"-"`
 }
 
+// GetSecurityGroupResponse:
 type GetSecurityGroupResponse struct {
 	// SecurityGroup:
 	SecurityGroup *SecurityGroup `json:"security_group"`
 }
 
+// GetSecurityGroupRuleRequest:
 type GetSecurityGroupRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1951,11 +2037,13 @@ type GetSecurityGroupRuleRequest struct {
 	SecurityGroupRuleID string `json:"-"`
 }
 
+// GetSecurityGroupRuleResponse:
 type GetSecurityGroupRuleResponse struct {
 	// Rule:
 	Rule *SecurityGroupRule `json:"rule"`
 }
 
+// GetServerRequest:
 type GetServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1963,11 +2051,13 @@ type GetServerRequest struct {
 	ServerID string `json:"-"`
 }
 
+// GetServerResponse:
 type GetServerResponse struct {
 	// Server:
 	Server *Server `json:"server"`
 }
 
+// GetServerTypesAvailabilityRequest:
 type GetServerTypesAvailabilityRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1977,6 +2067,7 @@ type GetServerTypesAvailabilityRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// GetServerTypesAvailabilityResponse:
 type GetServerTypesAvailabilityResponse struct {
 	// Servers: Map of server types.
 	Servers map[string]*GetServerTypesAvailabilityResponseAvailability `json:"servers"`
@@ -1984,6 +2075,7 @@ type GetServerTypesAvailabilityResponse struct {
 	TotalCount uint32 `json:"total_count"`
 }
 
+// GetSnapshotRequest:
 type GetSnapshotRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1991,11 +2083,13 @@ type GetSnapshotRequest struct {
 	SnapshotID string `json:"-"`
 }
 
+// GetSnapshotResponse:
 type GetSnapshotResponse struct {
 	// Snapshot:
 	Snapshot *Snapshot `json:"snapshot"`
 }
 
+// GetVolumeRequest:
 type GetVolumeRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2003,11 +2097,13 @@ type GetVolumeRequest struct {
 	VolumeID string `json:"-"`
 }
 
+// GetVolumeResponse:
 type GetVolumeResponse struct {
 	// Volume:
 	Volume *Volume `json:"volume"`
 }
 
+// ListBootscriptsRequest:
 type ListBootscriptsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2025,6 +2121,7 @@ type ListBootscriptsRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListBootscriptsResponse:
 type ListBootscriptsResponse struct {
 	// TotalCount: Total number of bootscripts.
 	TotalCount uint32 `json:"total_count"`
@@ -2051,11 +2148,13 @@ func (r *ListBootscriptsResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.Bootscripts)), nil
 }
 
+// ListDefaultSecurityGroupRulesRequest:
 type ListDefaultSecurityGroupRulesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 }
 
+// ListIPsRequest:
 type ListIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2073,6 +2172,7 @@ type ListIPsRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListIPsResponse:
 type ListIPsResponse struct {
 	// TotalCount: Total number of ips.
 	TotalCount uint32 `json:"total_count"`
@@ -2099,6 +2199,7 @@ func (r *ListIPsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.IPs)), nil
 }
 
+// ListImagesRequest:
 type ListImagesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2120,6 +2221,7 @@ type ListImagesRequest struct {
 	Tags *string `json:"tags,omitempty"`
 }
 
+// ListImagesResponse:
 type ListImagesResponse struct {
 	// TotalCount: Total number of images.
 	TotalCount uint32 `json:"total_count"`
@@ -2146,6 +2248,7 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Images)), nil
 }
 
+// ListPlacementGroupsRequest:
 type ListPlacementGroupsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2163,6 +2266,7 @@ type ListPlacementGroupsRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListPlacementGroupsResponse:
 type ListPlacementGroupsResponse struct {
 	// TotalCount: Total number of placement groups.
 	TotalCount uint32 `json:"total_count"`
@@ -2189,6 +2293,7 @@ func (r *ListPlacementGroupsResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.PlacementGroups)), nil
 }
 
+// ListPrivateNICsRequest:
 type ListPrivateNICsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2202,6 +2307,7 @@ type ListPrivateNICsRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListPrivateNICsResponse:
 type ListPrivateNICsResponse struct {
 	// PrivateNics:
 	PrivateNics []*PrivateNIC `json:"private_nics"`
@@ -2228,6 +2334,7 @@ func (r *ListPrivateNICsResponse) UnsafeAppend(res interface{}) (uint64, error) 
 	return uint64(len(results.PrivateNics)), nil
 }
 
+// ListSecurityGroupRulesRequest:
 type ListSecurityGroupRulesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2239,6 +2346,7 @@ type ListSecurityGroupRulesRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListSecurityGroupRulesResponse:
 type ListSecurityGroupRulesResponse struct {
 	// TotalCount: Total number of security groups.
 	TotalCount uint32 `json:"total_count"`
@@ -2265,6 +2373,7 @@ func (r *ListSecurityGroupRulesResponse) UnsafeAppend(res interface{}) (uint32, 
 	return uint32(len(results.Rules)), nil
 }
 
+// ListSecurityGroupsRequest:
 type ListSecurityGroupsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2284,6 +2393,7 @@ type ListSecurityGroupsRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListSecurityGroupsResponse:
 type ListSecurityGroupsResponse struct {
 	// TotalCount: Total number of security groups.
 	TotalCount uint32 `json:"total_count"`
@@ -2310,6 +2420,7 @@ func (r *ListSecurityGroupsResponse) UnsafeAppend(res interface{}) (uint32, erro
 	return uint32(len(results.SecurityGroups)), nil
 }
 
+// ListServerActionsRequest:
 type ListServerActionsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2317,11 +2428,13 @@ type ListServerActionsRequest struct {
 	ServerID string `json:"-"`
 }
 
+// ListServerActionsResponse:
 type ListServerActionsResponse struct {
 	// Actions:
 	Actions []ServerAction `json:"actions"`
 }
 
+// ListServerUserDataRequest:
 type ListServerUserDataRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2329,11 +2442,13 @@ type ListServerUserDataRequest struct {
 	ServerID string `json:"-"`
 }
 
+// ListServerUserDataResponse:
 type ListServerUserDataResponse struct {
 	// UserData:
 	UserData []string `json:"user_data"`
 }
 
+// ListServersRequest:
 type ListServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2365,6 +2480,7 @@ type ListServersRequest struct {
 	PrivateNetworks []string `json:"private_networks,omitempty"`
 }
 
+// ListServersResponse:
 type ListServersResponse struct {
 	// TotalCount: Total number of Instances.
 	TotalCount uint32 `json:"total_count"`
@@ -2391,6 +2507,7 @@ func (r *ListServersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Servers)), nil
 }
 
+// ListServersTypesRequest:
 type ListServersTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2400,6 +2517,7 @@ type ListServersTypesRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListServersTypesResponse:
 type ListServersTypesResponse struct {
 	// TotalCount: Total number of Instance types.
 	TotalCount uint32 `json:"total_count"`
@@ -2407,6 +2525,7 @@ type ListServersTypesResponse struct {
 	Servers map[string]*ServerType `json:"servers"`
 }
 
+// ListSnapshotsRequest:
 type ListSnapshotsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2424,6 +2543,7 @@ type ListSnapshotsRequest struct {
 	Tags *string `json:"tags,omitempty"`
 }
 
+// ListSnapshotsResponse:
 type ListSnapshotsResponse struct {
 	// TotalCount: Total number of snapshots.
 	TotalCount uint32 `json:"total_count"`
@@ -2450,6 +2570,7 @@ func (r *ListSnapshotsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Snapshots)), nil
 }
 
+// ListVolumesRequest:
 type ListVolumesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2469,6 +2590,7 @@ type ListVolumesRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListVolumesResponse:
 type ListVolumesResponse struct {
 	// TotalCount: Total number of volumes.
 	TotalCount uint32 `json:"total_count"`
@@ -2495,6 +2617,7 @@ func (r *ListVolumesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Volumes)), nil
 }
 
+// ListVolumesTypesRequest:
 type ListVolumesTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2504,6 +2627,7 @@ type ListVolumesTypesRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListVolumesTypesResponse:
 type ListVolumesTypesResponse struct {
 	// TotalCount: Total number of volume types.
 	TotalCount uint32 `json:"total_count"`
@@ -2511,6 +2635,7 @@ type ListVolumesTypesResponse struct {
 	Volumes map[string]*VolumeType `json:"volumes"`
 }
 
+// ServerActionRequest:
 type ServerActionRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2526,11 +2651,13 @@ type ServerActionRequest struct {
 	Volumes map[string]*ServerActionRequestVolumeBackupTemplate `json:"volumes"`
 }
 
+// ServerActionResponse:
 type ServerActionResponse struct {
 	// Task:
 	Task *Task `json:"task"`
 }
 
+// SetImageRequest:
 type SetImageRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2544,7 +2671,7 @@ type SetImageRequest struct {
 	CreationDate *time.Time `json:"creation_date,omitempty"`
 	// ModificationDate:
 	ModificationDate *time.Time `json:"modification_date,omitempty"`
-	// DefaultBootscript:
+	// Deprecated: DefaultBootscript:
 	DefaultBootscript *Bootscript `json:"default_bootscript,omitempty"`
 	// ExtraVolumes:
 	ExtraVolumes map[string]*Volume `json:"extra_volumes"`
@@ -2564,6 +2691,7 @@ type SetImageRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 }
 
+// SetPlacementGroupRequest:
 type SetPlacementGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2583,11 +2711,13 @@ type SetPlacementGroupRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 }
 
+// SetPlacementGroupResponse:
 type SetPlacementGroupResponse struct {
 	// PlacementGroup:
 	PlacementGroup *PlacementGroup `json:"placement_group"`
 }
 
+// SetPlacementGroupServersRequest:
 type SetPlacementGroupServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2597,11 +2727,13 @@ type SetPlacementGroupServersRequest struct {
 	Servers []string `json:"servers"`
 }
 
+// SetPlacementGroupServersResponse:
 type SetPlacementGroupServersResponse struct {
 	// Servers: Instances attached to the placement group.
 	Servers []*PlacementGroupServer `json:"servers"`
 }
 
+// SetSecurityGroupRulesRequest:
 type SetSecurityGroupRulesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2611,11 +2743,13 @@ type SetSecurityGroupRulesRequest struct {
 	Rules []*SetSecurityGroupRulesRequestRule `json:"rules"`
 }
 
+// SetSecurityGroupRulesResponse:
 type SetSecurityGroupRulesResponse struct {
 	// Rules:
 	Rules []*SecurityGroupRule `json:"rules"`
 }
 
+// UpdateIPRequest:
 type UpdateIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2631,11 +2765,13 @@ type UpdateIPRequest struct {
 	Server *NullableStringValue `json:"server"`
 }
 
+// UpdateIPResponse:
 type UpdateIPResponse struct {
 	// IP:
 	IP *IP `json:"ip"`
 }
 
+// UpdatePlacementGroupRequest:
 type UpdatePlacementGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2651,11 +2787,13 @@ type UpdatePlacementGroupRequest struct {
 	PolicyType *PlacementGroupPolicyType `json:"policy_type,omitempty"`
 }
 
+// UpdatePlacementGroupResponse:
 type UpdatePlacementGroupResponse struct {
 	// PlacementGroup:
 	PlacementGroup *PlacementGroup `json:"placement_group"`
 }
 
+// UpdatePlacementGroupServersRequest:
 type UpdatePlacementGroupServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2665,11 +2803,13 @@ type UpdatePlacementGroupServersRequest struct {
 	Servers []string `json:"servers"`
 }
 
+// UpdatePlacementGroupServersResponse:
 type UpdatePlacementGroupServersResponse struct {
 	// Servers: Instances attached to the placement group.
 	Servers []*PlacementGroupServer `json:"servers"`
 }
 
+// UpdatePrivateNICRequest:
 type UpdatePrivateNICRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2681,6 +2821,7 @@ type UpdatePrivateNICRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 }
 
+// UpdateServerRequest:
 type UpdateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2694,7 +2835,7 @@ type UpdateServerRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 	// Volumes:
 	Volumes *map[string]*VolumeServerTemplate `json:"volumes,omitempty"`
-	// Bootscript:
+	// Deprecated: Bootscript:
 	Bootscript *string `json:"bootscript,omitempty"`
 	// DynamicIPRequired:
 	DynamicIPRequired *bool `json:"dynamic_ip_required,omitempty"`
@@ -2719,11 +2860,13 @@ type UpdateServerRequest struct {
 	CommercialType *string `json:"commercial_type,omitempty"`
 }
 
+// UpdateServerResponse:
 type UpdateServerResponse struct {
 	// Server:
 	Server *Server `json:"server"`
 }
 
+// UpdateVolumeRequest:
 type UpdateVolumeRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2737,16 +2880,19 @@ type UpdateVolumeRequest struct {
 	Size *scw.Size `json:"size,omitempty"`
 }
 
+// UpdateVolumeResponse:
 type UpdateVolumeResponse struct {
 	// Volume:
 	Volume *Volume `json:"volume"`
 }
 
+// setImageResponse:
 type setImageResponse struct {
 	// Image:
 	Image *Image `json:"image"`
 }
 
+// setSecurityGroupRequest:
 type setSecurityGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2772,7 +2918,7 @@ type setSecurityGroupRequest struct {
 	Organization string `json:"organization"`
 	// Project: Security group Project ID.
 	Project string `json:"project"`
-	// OrganizationDefault: Please use project_default instead.
+	// Deprecated: OrganizationDefault: Please use project_default instead.
 	OrganizationDefault *bool `json:"organization_default,omitempty"`
 	// ProjectDefault: True use this security group for future Instances created in this project.
 	ProjectDefault bool `json:"project_default"`
@@ -2782,11 +2928,13 @@ type setSecurityGroupRequest struct {
 	Stateful bool `json:"stateful"`
 }
 
+// setSecurityGroupResponse:
 type setSecurityGroupResponse struct {
 	// SecurityGroup:
 	SecurityGroup *SecurityGroup `json:"security_group"`
 }
 
+// setSecurityGroupRuleRequest:
 type setSecurityGroupRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2814,11 +2962,13 @@ type setSecurityGroupRuleRequest struct {
 	Editable bool `json:"editable"`
 }
 
+// setSecurityGroupRuleResponse:
 type setSecurityGroupRuleResponse struct {
 	// Rule:
 	Rule *SecurityGroupRule `json:"rule"`
 }
 
+// setServerRequest:
 type setServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2864,7 +3014,7 @@ type setServerRequest struct {
 	Location *ServerLocation `json:"location"`
 	// IPv6: Instance IPv6 address.
 	IPv6 *ServerIPv6 `json:"ipv6"`
-	// Bootscript: Instance bootscript.
+	// Deprecated: Bootscript: Instance bootscript.
 	Bootscript *Bootscript `json:"bootscript,omitempty"`
 	// BootType: Instance boot type.
 	BootType BootType `json:"boot_type"`
@@ -2884,11 +3034,13 @@ type setServerRequest struct {
 	PrivateNics []*PrivateNIC `json:"private_nics"`
 }
 
+// setServerResponse:
 type setServerResponse struct {
 	// Server:
 	Server *Server `json:"server"`
 }
 
+// setSnapshotRequest:
 type setSnapshotRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2918,6 +3070,7 @@ type setSnapshotRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 }
 
+// setSnapshotResponse:
 type setSnapshotResponse struct {
 	// Snapshot:
 	Snapshot *Snapshot `json:"snapshot"`
@@ -3079,7 +3232,7 @@ func NewAPI(client *scw.Client) *API {
 	}
 }
 func (s *API) Zones() []scw.Zone {
-	return []scw.Zone{scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2}
+	return []scw.Zone{scw.ZoneFrPar1, scw.ZoneFrPar2, scw.ZoneFrPar3, scw.ZoneNlAms1, scw.ZoneNlAms2, scw.ZoneNlAms3, scw.ZonePlWaw1, scw.ZonePlWaw2, scw.ZonePlWaw3}
 }
 
 // GetServerTypesAvailability: Get availability for all Instance types.
@@ -5204,7 +5357,7 @@ func (s *API) DeletePrivateNIC(req *DeletePrivateNICRequest, opts ...scw.Request
 	return nil
 }
 
-// ListBootscripts: List bootscripts.
+// Deprecated: ListBootscripts: List bootscripts.
 func (s *API) ListBootscripts(req *ListBootscriptsRequest, opts ...scw.RequestOption) (*ListBootscriptsResponse, error) {
 	var err error
 	if req.Zone == "" {
@@ -5239,7 +5392,7 @@ func (s *API) ListBootscripts(req *ListBootscriptsRequest, opts ...scw.RequestOp
 	return &resp, nil
 }
 
-// GetBootscript: Get details of a bootscript with the specified ID.
+// Deprecated: GetBootscript: Get details of a bootscript with the specified ID.
 func (s *API) GetBootscript(req *GetBootscriptRequest, opts ...scw.RequestOption) (*GetBootscriptResponse, error) {
 	var err error
 	if req.Zone == "" {

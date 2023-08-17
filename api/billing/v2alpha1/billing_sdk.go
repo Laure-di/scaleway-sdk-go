@@ -141,6 +141,7 @@ func (enum *ListInvoicesRequestOrderBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// GetConsumptionResponseConsumption:
 type GetConsumptionResponseConsumption struct {
 	// Value: Monetary value of the consumption.
 	Value *scw.Money `json:"value,omitempty"`
@@ -154,6 +155,7 @@ type GetConsumptionResponseConsumption struct {
 	OperationPath string `json:"operation_path"`
 }
 
+// Invoice:
 type Invoice struct {
 	// ID: Invoice ID.
 	ID string `json:"id"`
@@ -173,6 +175,7 @@ type Invoice struct {
 	Number int32 `json:"number"`
 }
 
+// DownloadInvoiceRequest:
 type DownloadInvoiceRequest struct {
 	// InvoiceID: Invoice ID.
 	InvoiceID string `json:"-"`
@@ -180,11 +183,13 @@ type DownloadInvoiceRequest struct {
 	FileType DownloadInvoiceRequestFileType `json:"file_type"`
 }
 
+// GetConsumptionRequest:
 type GetConsumptionRequest struct {
 	// OrganizationID: Filter by organization ID.
 	OrganizationID string `json:"organization_id"`
 }
 
+// GetConsumptionResponse:
 type GetConsumptionResponse struct {
 	// Consumptions: Detailed consumption list.
 	Consumptions []*GetConsumptionResponseConsumption `json:"consumptions"`
@@ -192,6 +197,7 @@ type GetConsumptionResponse struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// ListInvoicesRequest:
 type ListInvoicesRequest struct {
 	// OrganizationID: Organization ID to filter for, only invoices from this Organization will be returned.
 	OrganizationID *string `json:"organization_id,omitempty"`
@@ -209,6 +215,7 @@ type ListInvoicesRequest struct {
 	OrderBy ListInvoicesRequestOrderBy `json:"order_by"`
 }
 
+// ListInvoicesResponse:
 type ListInvoicesResponse struct {
 	// TotalCount: Total number of invoices.
 	TotalCount uint32 `json:"total_count"`

@@ -268,6 +268,7 @@ func (enum *TagStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Image:
 type Image struct {
 	// ID: UUID of the image.
 	ID string `json:"id"`
@@ -291,6 +292,7 @@ type Image struct {
 	Tags []string `json:"tags"`
 }
 
+// Namespace:
 type Namespace struct {
 	// ID: UUID of the namespace.
 	ID string `json:"id"`
@@ -322,6 +324,7 @@ type Namespace struct {
 	Region scw.Region `json:"region"`
 }
 
+// Tag:
 type Tag struct {
 	// ID: UUID of the tag.
 	ID string `json:"id"`
@@ -339,6 +342,7 @@ type Tag struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// CreateNamespaceRequest:
 type CreateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -346,7 +350,7 @@ type CreateNamespaceRequest struct {
 	Name string `json:"name"`
 	// Description: Description of the namespace.
 	Description string `json:"description"`
-	// OrganizationID: Namespace owner (deprecated).
+	// Deprecated: OrganizationID: Namespace owner (deprecated).
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: Project ID on which the namespace will be created.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -354,6 +358,7 @@ type CreateNamespaceRequest struct {
 	IsPublic bool `json:"is_public"`
 }
 
+// DeleteImageRequest:
 type DeleteImageRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -361,6 +366,7 @@ type DeleteImageRequest struct {
 	ImageID string `json:"-"`
 }
 
+// DeleteNamespaceRequest:
 type DeleteNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -368,15 +374,17 @@ type DeleteNamespaceRequest struct {
 	NamespaceID string `json:"-"`
 }
 
+// DeleteTagRequest:
 type DeleteTagRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TagID: UUID of the tag.
 	TagID string `json:"-"`
-	// Force: If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
+	// Deprecated: Force: If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
 	Force *bool `json:"force,omitempty"`
 }
 
+// GetImageRequest:
 type GetImageRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -384,6 +392,7 @@ type GetImageRequest struct {
 	ImageID string `json:"-"`
 }
 
+// GetNamespaceRequest:
 type GetNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -391,6 +400,7 @@ type GetNamespaceRequest struct {
 	NamespaceID string `json:"-"`
 }
 
+// GetTagRequest:
 type GetTagRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -398,6 +408,7 @@ type GetTagRequest struct {
 	TagID string `json:"-"`
 }
 
+// ListImagesRequest:
 type ListImagesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -417,6 +428,7 @@ type ListImagesRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListImagesResponse:
 type ListImagesResponse struct {
 	// Images: Paginated list of images that match the selected filters.
 	Images []*Image `json:"images"`
@@ -443,6 +455,7 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Images)), nil
 }
 
+// ListNamespacesRequest:
 type ListNamespacesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -460,6 +473,7 @@ type ListNamespacesRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListNamespacesResponse:
 type ListNamespacesResponse struct {
 	// Namespaces: Paginated list of namespaces that match the selected filters.
 	Namespaces []*Namespace `json:"namespaces"`
@@ -486,6 +500,7 @@ func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Namespaces)), nil
 }
 
+// ListTagsRequest:
 type ListTagsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -501,6 +516,7 @@ type ListTagsRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListTagsResponse:
 type ListTagsResponse struct {
 	// Tags: Paginated list of tags that match the selected filters.
 	Tags []*Tag `json:"tags"`
@@ -527,6 +543,7 @@ func (r *ListTagsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tags)), nil
 }
 
+// UpdateImageRequest:
 type UpdateImageRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -536,6 +553,7 @@ type UpdateImageRequest struct {
 	Visibility ImageVisibility `json:"visibility"`
 }
 
+// UpdateNamespaceRequest:
 type UpdateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`

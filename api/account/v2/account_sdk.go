@@ -75,6 +75,7 @@ func (enum *ListProjectsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Project:
 type Project struct {
 	// ID: ID of the Project.
 	ID string `json:"id"`
@@ -90,6 +91,7 @@ type Project struct {
 	Description string `json:"description"`
 }
 
+// CreateProjectRequest:
 type CreateProjectRequest struct {
 	// Name: Name of the Project.
 	Name string `json:"name"`
@@ -99,16 +101,19 @@ type CreateProjectRequest struct {
 	Description *string `json:"description,omitempty"`
 }
 
+// DeleteProjectRequest:
 type DeleteProjectRequest struct {
 	// ProjectID: Project ID of the Project.
 	ProjectID string `json:"-"`
 }
 
+// GetProjectRequest:
 type GetProjectRequest struct {
 	// ProjectID: Project ID of the Project.
 	ProjectID string `json:"-"`
 }
 
+// ListProjectsRequest:
 type ListProjectsRequest struct {
 	// OrganizationID: Organization ID of the Project.
 	OrganizationID string `json:"organization_id"`
@@ -124,6 +129,7 @@ type ListProjectsRequest struct {
 	ProjectIDs []string `json:"project_ids"`
 }
 
+// ListProjectsResponse:
 type ListProjectsResponse struct {
 	// TotalCount: Total number of Projects.
 	TotalCount uint32 `json:"total_count"`
@@ -150,6 +156,7 @@ func (r *ListProjectsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Projects)), nil
 }
 
+// UpdateProjectRequest:
 type UpdateProjectRequest struct {
 	// ProjectID: Project ID of the Project.
 	ProjectID string `json:"-"`
@@ -323,7 +330,7 @@ func NewAPI(client *scw.Client) *API {
 	}
 }
 
-// CreateProject: Deprecated in favor of Account API v3.
+// Deprecated: CreateProject: Deprecated in favor of Account API v3.
 // Generate a new Project for an Organization, specifying its configuration including name and description.
 func (s *API) CreateProject(req *CreateProjectRequest, opts ...scw.RequestOption) (*Project, error) {
 	var err error
@@ -355,7 +362,7 @@ func (s *API) CreateProject(req *CreateProjectRequest, opts ...scw.RequestOption
 	return &resp, nil
 }
 
-// ListProjects: Deprecated in favor of Account API v3.
+// Deprecated: ListProjects: Deprecated in favor of Account API v3.
 // List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
 func (s *API) ListProjects(req *ListProjectsRequest, opts ...scw.RequestOption) (*ListProjectsResponse, error) {
 	var err error
@@ -383,7 +390,7 @@ func (s *API) ListProjects(req *ListProjectsRequest, opts ...scw.RequestOption) 
 	return &resp, nil
 }
 
-// GetProject: Deprecated in favor of Account API v3.
+// Deprecated: GetProject: Deprecated in favor of Account API v3.
 // Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
 func (s *API) GetProject(req *GetProjectRequest, opts ...scw.RequestOption) (*Project, error) {
 	var err error
@@ -410,7 +417,7 @@ func (s *API) GetProject(req *GetProjectRequest, opts ...scw.RequestOption) (*Pr
 	return &resp, nil
 }
 
-// DeleteProject: Deprecated in favor of Account API v3.
+// Deprecated: DeleteProject: Deprecated in favor of Account API v3.
 // Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
 func (s *API) DeleteProject(req *DeleteProjectRequest, opts ...scw.RequestOption) error {
 	var err error
@@ -435,7 +442,7 @@ func (s *API) DeleteProject(req *DeleteProjectRequest, opts ...scw.RequestOption
 	return nil
 }
 
-// UpdateProject: Deprecated in favor of Account API v3.
+// Deprecated: UpdateProject: Deprecated in favor of Account API v3.
 // Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
 func (s *API) UpdateProject(req *UpdateProjectRequest, opts ...scw.RequestOption) (*Project, error) {
 	var err error

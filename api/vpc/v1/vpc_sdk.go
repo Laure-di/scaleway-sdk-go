@@ -71,6 +71,7 @@ func (enum *ListPrivateNetworksRequestOrderBy) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
+// PrivateNetwork:
 type PrivateNetwork struct {
 	// ID: Private Network ID.
 	ID string `json:"id"`
@@ -92,6 +93,7 @@ type PrivateNetwork struct {
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
+// CreatePrivateNetworkRequest:
 type CreatePrivateNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -105,6 +107,7 @@ type CreatePrivateNetworkRequest struct {
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
+// DeletePrivateNetworkRequest:
 type DeletePrivateNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -112,6 +115,7 @@ type DeletePrivateNetworkRequest struct {
 	PrivateNetworkID string `json:"-"`
 }
 
+// GetPrivateNetworkRequest:
 type GetPrivateNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -119,6 +123,7 @@ type GetPrivateNetworkRequest struct {
 	PrivateNetworkID string `json:"-"`
 }
 
+// ListPrivateNetworksRequest:
 type ListPrivateNetworksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -142,6 +147,7 @@ type ListPrivateNetworksRequest struct {
 	IncludeRegional *bool `json:"include_regional,omitempty"`
 }
 
+// ListPrivateNetworksResponse:
 type ListPrivateNetworksResponse struct {
 	// PrivateNetworks:
 	PrivateNetworks []*PrivateNetwork `json:"private_networks"`
@@ -168,6 +174,7 @@ func (r *ListPrivateNetworksResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.PrivateNetworks)), nil
 }
 
+// UpdatePrivateNetworkRequest:
 type UpdatePrivateNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -177,7 +184,7 @@ type UpdatePrivateNetworkRequest struct {
 	Name *string `json:"name,omitempty"`
 	// Tags: Tags for the Private Network.
 	Tags *[]string `json:"tags,omitempty"`
-	// Subnets: Private Network subnets CIDR (deprecated).
+	// Deprecated: Subnets: Private Network subnets CIDR (deprecated).
 	Subnets *[]string `json:"subnets,omitempty"`
 }
 

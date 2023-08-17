@@ -375,6 +375,7 @@ func (enum *PATRuleProtocol) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// DHCP:
 type DHCP struct {
 	// ID: ID of the DHCP config.
 	ID string `json:"id"`
@@ -416,6 +417,7 @@ type DHCP struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// GatewayNetwork:
 type GatewayNetwork struct {
 	// ID: ID of the Public Gateway-Private Network connection.
 	ID string `json:"id"`
@@ -443,6 +445,7 @@ type GatewayNetwork struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// GatewayType:
 type GatewayType struct {
 	// Name: Public Gateway type name.
 	Name string `json:"name"`
@@ -452,6 +455,7 @@ type GatewayType struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// IP:
 type IP struct {
 	// ID: IP address ID.
 	ID string `json:"id"`
@@ -475,6 +479,7 @@ type IP struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// CreateDHCPRequest:
 type CreateDHCPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -508,6 +513,7 @@ type CreateDHCPRequest struct {
 	DNSLocalName *string `json:"dns_local_name,omitempty"`
 }
 
+// DHCPEntry:
 type DHCPEntry struct {
 	// ID: DHCP entry ID.
 	ID string `json:"id"`
@@ -529,6 +535,7 @@ type DHCPEntry struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// Gateway:
 type Gateway struct {
 	// ID: ID of the gateway.
 	ID string `json:"id"`
@@ -568,6 +575,7 @@ type Gateway struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// PATRule:
 type PATRule struct {
 	// ID: PAT rule ID.
 	ID string `json:"id"`
@@ -589,6 +597,7 @@ type PATRule struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// SetDHCPEntriesRequestEntry:
 type SetDHCPEntriesRequestEntry struct {
 	// MacAddress: MAC address to give a static entry to. A matching entry will be upgraded to a reservation, and a matching reservation will be updated.
 	MacAddress string `json:"mac_address"`
@@ -596,6 +605,7 @@ type SetDHCPEntriesRequestEntry struct {
 	IPAddress net.IP `json:"ip_address"`
 }
 
+// SetPATRulesRequestRule:
 type SetPATRulesRequestRule struct {
 	// PublicPort: Public port to listen on. Uniquely identifies the rule, and a matching rule will be updated with the new parameters.
 	PublicPort uint32 `json:"public_port"`
@@ -607,6 +617,7 @@ type SetPATRulesRequestRule struct {
 	Protocol PATRuleProtocol `json:"protocol"`
 }
 
+// CreateDHCPEntryRequest:
 type CreateDHCPEntryRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -618,6 +629,7 @@ type CreateDHCPEntryRequest struct {
 	IPAddress net.IP `json:"ip_address"`
 }
 
+// CreateGatewayNetworkRequest:
 type CreateGatewayNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -637,6 +649,7 @@ type CreateGatewayNetworkRequest struct {
 	EnableDHCP *bool `json:"enable_dhcp,omitempty"`
 }
 
+// CreateGatewayRequest:
 type CreateGatewayRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -660,6 +673,7 @@ type CreateGatewayRequest struct {
 	BastionPort *uint32 `json:"bastion_port,omitempty"`
 }
 
+// CreateIPRequest:
 type CreateIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -669,6 +683,7 @@ type CreateIPRequest struct {
 	Tags []string `json:"tags"`
 }
 
+// CreatePATRuleRequest:
 type CreatePATRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -684,6 +699,7 @@ type CreatePATRuleRequest struct {
 	Protocol PATRuleProtocol `json:"protocol"`
 }
 
+// DeleteDHCPEntryRequest:
 type DeleteDHCPEntryRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -691,6 +707,7 @@ type DeleteDHCPEntryRequest struct {
 	DHCPEntryID string `json:"-"`
 }
 
+// DeleteDHCPRequest:
 type DeleteDHCPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -698,6 +715,7 @@ type DeleteDHCPRequest struct {
 	DHCPID string `json:"-"`
 }
 
+// DeleteGatewayNetworkRequest:
 type DeleteGatewayNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -707,6 +725,7 @@ type DeleteGatewayNetworkRequest struct {
 	CleanupDHCP bool `json:"cleanup_dhcp"`
 }
 
+// DeleteGatewayRequest:
 type DeleteGatewayRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -716,6 +735,7 @@ type DeleteGatewayRequest struct {
 	CleanupDHCP bool `json:"cleanup_dhcp"`
 }
 
+// DeleteIPRequest:
 type DeleteIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -723,6 +743,7 @@ type DeleteIPRequest struct {
 	IPID string `json:"-"`
 }
 
+// DeletePATRuleRequest:
 type DeletePATRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -730,6 +751,7 @@ type DeletePATRuleRequest struct {
 	PatRuleID string `json:"-"`
 }
 
+// GetDHCPEntryRequest:
 type GetDHCPEntryRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -737,6 +759,7 @@ type GetDHCPEntryRequest struct {
 	DHCPEntryID string `json:"-"`
 }
 
+// GetDHCPRequest:
 type GetDHCPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -744,6 +767,7 @@ type GetDHCPRequest struct {
 	DHCPID string `json:"-"`
 }
 
+// GetGatewayNetworkRequest:
 type GetGatewayNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -751,6 +775,7 @@ type GetGatewayNetworkRequest struct {
 	GatewayNetworkID string `json:"-"`
 }
 
+// GetGatewayRequest:
 type GetGatewayRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -758,6 +783,7 @@ type GetGatewayRequest struct {
 	GatewayID string `json:"-"`
 }
 
+// GetIPRequest:
 type GetIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -765,6 +791,7 @@ type GetIPRequest struct {
 	IPID string `json:"-"`
 }
 
+// GetPATRuleRequest:
 type GetPATRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -772,6 +799,7 @@ type GetPATRuleRequest struct {
 	PatRuleID string `json:"-"`
 }
 
+// ListDHCPEntriesRequest:
 type ListDHCPEntriesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -793,6 +821,7 @@ type ListDHCPEntriesRequest struct {
 	Type DHCPEntryType `json:"type"`
 }
 
+// ListDHCPEntriesResponse:
 type ListDHCPEntriesResponse struct {
 	// DHCPEntries: DHCP entries in this page.
 	DHCPEntries []*DHCPEntry `json:"dhcp_entries"`
@@ -819,6 +848,7 @@ func (r *ListDHCPEntriesResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.DHCPEntries)), nil
 }
 
+// ListDHCPsRequest:
 type ListDHCPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -838,6 +868,7 @@ type ListDHCPsRequest struct {
 	HasAddress *net.IP `json:"has_address,omitempty"`
 }
 
+// ListDHCPsResponse:
 type ListDHCPsResponse struct {
 	// Dhcps: First page of DHCP configuration objects.
 	Dhcps []*DHCP `json:"dhcps"`
@@ -864,6 +895,7 @@ func (r *ListDHCPsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Dhcps)), nil
 }
 
+// ListGatewayNetworksRequest:
 type ListGatewayNetworksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -885,6 +917,7 @@ type ListGatewayNetworksRequest struct {
 	Status GatewayNetworkStatus `json:"status"`
 }
 
+// ListGatewayNetworksResponse:
 type ListGatewayNetworksResponse struct {
 	// GatewayNetworks: GatewayNetworks on this page.
 	GatewayNetworks []*GatewayNetwork `json:"gateway_networks"`
@@ -911,16 +944,19 @@ func (r *ListGatewayNetworksResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.GatewayNetworks)), nil
 }
 
+// ListGatewayTypesRequest:
 type ListGatewayTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 }
 
+// ListGatewayTypesResponse:
 type ListGatewayTypesResponse struct {
 	// Types: Available types of Public Gateway.
 	Types []*GatewayType `json:"types"`
 }
 
+// ListGatewaysRequest:
 type ListGatewaysRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -946,6 +982,7 @@ type ListGatewaysRequest struct {
 	PrivateNetworkID *string `json:"private_network_id,omitempty"`
 }
 
+// ListGatewaysResponse:
 type ListGatewaysResponse struct {
 	// Gateways: Gateways on this page.
 	Gateways []*Gateway `json:"gateways"`
@@ -972,6 +1009,7 @@ func (r *ListGatewaysResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Gateways)), nil
 }
 
+// ListIPsRequest:
 type ListIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -993,6 +1031,7 @@ type ListIPsRequest struct {
 	IsFree *bool `json:"is_free,omitempty"`
 }
 
+// ListIPsResponse:
 type ListIPsResponse struct {
 	// IPs: IP addresses on this page.
 	IPs []*IP `json:"ips"`
@@ -1019,6 +1058,7 @@ func (r *ListIPsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.IPs)), nil
 }
 
+// ListPATRulesRequest:
 type ListPATRulesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1036,6 +1076,7 @@ type ListPATRulesRequest struct {
 	Protocol PATRuleProtocol `json:"protocol"`
 }
 
+// ListPATRulesResponse:
 type ListPATRulesResponse struct {
 	// PatRules: Array of PAT rules matching the filter.
 	PatRules []*PATRule `json:"pat_rules"`
@@ -1062,6 +1103,7 @@ func (r *ListPATRulesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.PatRules)), nil
 }
 
+// RefreshSSHKeysRequest:
 type RefreshSSHKeysRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1069,6 +1111,7 @@ type RefreshSSHKeysRequest struct {
 	GatewayID string `json:"-"`
 }
 
+// SetDHCPEntriesRequest:
 type SetDHCPEntriesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1078,11 +1121,13 @@ type SetDHCPEntriesRequest struct {
 	DHCPEntries []*SetDHCPEntriesRequestEntry `json:"dhcp_entries"`
 }
 
+// SetDHCPEntriesResponse:
 type SetDHCPEntriesResponse struct {
 	// DHCPEntries: List of DHCP entries.
 	DHCPEntries []*DHCPEntry `json:"dhcp_entries"`
 }
 
+// SetPATRulesRequest:
 type SetPATRulesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1092,11 +1137,13 @@ type SetPATRulesRequest struct {
 	PatRules []*SetPATRulesRequestRule `json:"pat_rules"`
 }
 
+// SetPATRulesResponse:
 type SetPATRulesResponse struct {
 	// PatRules: List of PAT rules.
 	PatRules []*PATRule `json:"pat_rules"`
 }
 
+// UpdateDHCPEntryRequest:
 type UpdateDHCPEntryRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1106,6 +1153,7 @@ type UpdateDHCPEntryRequest struct {
 	IPAddress *net.IP `json:"ip_address,omitempty"`
 }
 
+// UpdateDHCPRequest:
 type UpdateDHCPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1139,6 +1187,7 @@ type UpdateDHCPRequest struct {
 	DNSLocalName *string `json:"dns_local_name,omitempty"`
 }
 
+// UpdateGatewayNetworkRequest:
 type UpdateGatewayNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1154,6 +1203,7 @@ type UpdateGatewayNetworkRequest struct {
 	Address *scw.IPNet `json:"address,omitempty"`
 }
 
+// UpdateGatewayRequest:
 type UpdateGatewayRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1173,6 +1223,7 @@ type UpdateGatewayRequest struct {
 	EnableSMTP *bool `json:"enable_smtp,omitempty"`
 }
 
+// UpdateIPRequest:
 type UpdateIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1186,6 +1237,7 @@ type UpdateIPRequest struct {
 	GatewayID *string `json:"gateway_id,omitempty"`
 }
 
+// UpdatePATRuleRequest:
 type UpdatePATRuleRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1201,6 +1253,7 @@ type UpdatePATRuleRequest struct {
 	Protocol PATRuleProtocol `json:"protocol"`
 }
 
+// UpgradeGatewayRequest:
 type UpgradeGatewayRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`

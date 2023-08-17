@@ -39,6 +39,7 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
+// LocalImage:
 type LocalImage struct {
 	// ID: Version you will typically use to define an image in an API call.
 	ID string `json:"id"`
@@ -50,6 +51,7 @@ type LocalImage struct {
 	Zone scw.Zone `json:"zone"`
 }
 
+// Organization:
 type Organization struct {
 	// ID:
 	ID string `json:"id"`
@@ -57,6 +59,7 @@ type Organization struct {
 	Name string `json:"name"`
 }
 
+// Version:
 type Version struct {
 	// ID: UUID of this version.
 	ID string `json:"id"`
@@ -70,6 +73,7 @@ type Version struct {
 	LocalImages []*LocalImage `json:"local_images"`
 }
 
+// Image:
 type Image struct {
 	// ID: UUID of this image.
 	ID string `json:"id"`
@@ -97,16 +101,19 @@ type Image struct {
 	CurrentPublicVersion string `json:"current_public_version"`
 }
 
+// GetImageRequest:
 type GetImageRequest struct {
 	// ImageID: Display the image name.
 	ImageID string `json:"-"`
 }
 
+// GetImageResponse:
 type GetImageResponse struct {
 	// Image:
 	Image *Image `json:"image"`
 }
 
+// GetVersionRequest:
 type GetVersionRequest struct {
 	// ImageID:
 	ImageID string `json:"-"`
@@ -114,11 +121,13 @@ type GetVersionRequest struct {
 	VersionID string `json:"-"`
 }
 
+// GetVersionResponse:
 type GetVersionResponse struct {
 	// Version:
 	Version *Version `json:"version"`
 }
 
+// ListImagesRequest:
 type ListImagesRequest struct {
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to display.
 	PerPage *uint32 `json:"per_page,omitempty"`
@@ -126,6 +135,7 @@ type ListImagesRequest struct {
 	Page *int32 `json:"page,omitempty"`
 }
 
+// ListImagesResponse:
 type ListImagesResponse struct {
 	// Images:
 	Images []*Image `json:"images"`
@@ -152,11 +162,13 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Images)), nil
 }
 
+// ListVersionsRequest:
 type ListVersionsRequest struct {
 	// ImageID:
 	ImageID string `json:"-"`
 }
 
+// ListVersionsResponse:
 type ListVersionsResponse struct {
 	// Versions:
 	Versions []*Version `json:"versions"`

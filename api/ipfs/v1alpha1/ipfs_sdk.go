@@ -181,11 +181,13 @@ func (enum *PinStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// PinCIDMeta:
 type PinCIDMeta struct {
 	// ID:
 	ID *string `json:"id,omitempty"`
 }
 
+// PinCID:
 type PinCID struct {
 	// Cid:
 	Cid *string `json:"cid,omitempty"`
@@ -197,6 +199,7 @@ type PinCID struct {
 	Meta *PinCIDMeta `json:"meta"`
 }
 
+// PinInfo:
 type PinInfo struct {
 	// ID:
 	ID *string `json:"id,omitempty"`
@@ -210,6 +213,7 @@ type PinInfo struct {
 	StatusDetails PinDetails `json:"status_details"`
 }
 
+// PinOptions:
 type PinOptions struct {
 	// RequiredZones:
 	RequiredZones []string `json:"required_zones"`
@@ -217,6 +221,7 @@ type PinOptions struct {
 	ReplicationCount uint32 `json:"replication_count"`
 }
 
+// Pin:
 type Pin struct {
 	// PinID:
 	PinID string `json:"pin_id"`
@@ -232,6 +237,7 @@ type Pin struct {
 	Info *PinInfo `json:"info"`
 }
 
+// Volume:
 type Volume struct {
 	// ID:
 	ID string `json:"id"`
@@ -253,6 +259,7 @@ type Volume struct {
 	Size *uint64 `json:"size,omitempty"`
 }
 
+// CreatePinByCIDRequest:
 type CreatePinByCIDRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -268,6 +275,7 @@ type CreatePinByCIDRequest struct {
 	PinOptions *PinOptions `json:"pin_options"`
 }
 
+// CreatePinByURLRequest:
 type CreatePinByURLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -281,6 +289,7 @@ type CreatePinByURLRequest struct {
 	PinOptions *PinOptions `json:"pin_options"`
 }
 
+// CreateVolumeRequest:
 type CreateVolumeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -290,6 +299,7 @@ type CreateVolumeRequest struct {
 	Name string `json:"name"`
 }
 
+// DeletePinRequest:
 type DeletePinRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -299,6 +309,7 @@ type DeletePinRequest struct {
 	PinID string `json:"-"`
 }
 
+// DeleteVolumeRequest:
 type DeleteVolumeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -306,6 +317,7 @@ type DeleteVolumeRequest struct {
 	VolumeID string `json:"-"`
 }
 
+// GetPinRequest:
 type GetPinRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -315,6 +327,7 @@ type GetPinRequest struct {
 	PinID string `json:"-"`
 }
 
+// GetVolumeRequest:
 type GetVolumeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -322,6 +335,7 @@ type GetVolumeRequest struct {
 	VolumeID string `json:"-"`
 }
 
+// ListPinsRequest:
 type ListPinsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -341,6 +355,7 @@ type ListPinsRequest struct {
 	Status PinStatus `json:"status"`
 }
 
+// ListPinsResponse:
 type ListPinsResponse struct {
 	// TotalCount:
 	TotalCount uint64 `json:"total_count"`
@@ -367,6 +382,7 @@ func (r *ListPinsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Pins)), nil
 }
 
+// ListVolumesRequest:
 type ListVolumesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -380,6 +396,7 @@ type ListVolumesRequest struct {
 	OrderBy ListVolumesRequestOrderBy `json:"order_by"`
 }
 
+// ListVolumesResponse:
 type ListVolumesResponse struct {
 	// Volumes:
 	Volumes []*Volume `json:"volumes"`
@@ -406,6 +423,7 @@ func (r *ListVolumesResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Volumes)), nil
 }
 
+// ReplacePinRequest:
 type ReplacePinRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -423,11 +441,13 @@ type ReplacePinRequest struct {
 	PinOptions *PinOptions `json:"pin_options"`
 }
 
+// ReplacePinResponse:
 type ReplacePinResponse struct {
 	// Pin:
 	Pin *Pin `json:"pin"`
 }
 
+// UpdateVolumeRequest:
 type UpdateVolumeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`

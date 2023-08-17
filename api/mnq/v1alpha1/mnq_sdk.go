@@ -157,6 +157,7 @@ func (enum *NamespaceProtocol) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Permissions:
 type Permissions struct {
 	// CanPublish: Defines whether the credentials bearer can publish messages to the service (send messages to SQS queues or publish to SNS topics).
 	CanPublish *bool `json:"can_publish,omitempty"`
@@ -166,6 +167,7 @@ type Permissions struct {
 	CanManage *bool `json:"can_manage,omitempty"`
 }
 
+// CredentialSummarySQSSNSCreds:
 type CredentialSummarySQSSNSCreds struct {
 	// AccessKey: Access key ID.
 	AccessKey string `json:"access_key"`
@@ -173,11 +175,13 @@ type CredentialSummarySQSSNSCreds struct {
 	Permissions *Permissions `json:"permissions"`
 }
 
+// CredentialNATSCredsFile:
 type CredentialNATSCredsFile struct {
 	// Content: Raw content of the NATS credentials file.
 	Content string `json:"content"`
 }
 
+// CredentialSQSSNSCreds:
 type CredentialSQSSNSCreds struct {
 	// AccessKey: Access key ID.
 	AccessKey string `json:"access_key"`
@@ -187,6 +191,7 @@ type CredentialSQSSNSCreds struct {
 	Permissions *Permissions `json:"permissions"`
 }
 
+// CredentialSummary:
 type CredentialSummary struct {
 	// ID: ID of the credentials.
 	ID string `json:"id"`
@@ -200,6 +205,7 @@ type CredentialSummary struct {
 	SqsSnsCredentials *CredentialSummarySQSSNSCreds `json:"sqs_sns_credentials,omitempty"`
 }
 
+// Namespace:
 type Namespace struct {
 	// ID: Namespace ID.
 	ID string `json:"id"`
@@ -219,6 +225,7 @@ type Namespace struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// CreateCredentialRequest:
 type CreateCredentialRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -230,6 +237,7 @@ type CreateCredentialRequest struct {
 	Permissions *Permissions `json:"permissions"`
 }
 
+// CreateNamespaceRequest:
 type CreateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -241,6 +249,7 @@ type CreateNamespaceRequest struct {
 	ProjectID string `json:"project_id"`
 }
 
+// Credential:
 type Credential struct {
 	// ID: ID of the credentials.
 	ID string `json:"id"`
@@ -256,6 +265,7 @@ type Credential struct {
 	SqsSnsCredentials *CredentialSQSSNSCreds `json:"sqs_sns_credentials,omitempty"`
 }
 
+// DeleteCredentialRequest:
 type DeleteCredentialRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -263,6 +273,7 @@ type DeleteCredentialRequest struct {
 	CredentialID string `json:"-"`
 }
 
+// DeleteNamespaceRequest:
 type DeleteNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -270,6 +281,7 @@ type DeleteNamespaceRequest struct {
 	NamespaceID string `json:"-"`
 }
 
+// GetCredentialRequest:
 type GetCredentialRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -277,6 +289,7 @@ type GetCredentialRequest struct {
 	CredentialID string `json:"-"`
 }
 
+// GetNamespaceRequest:
 type GetNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -284,6 +297,7 @@ type GetNamespaceRequest struct {
 	NamespaceID string `json:"-"`
 }
 
+// ListCredentialsRequest:
 type ListCredentialsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -297,6 +311,7 @@ type ListCredentialsRequest struct {
 	OrderBy ListCredentialsRequestOrderBy `json:"order_by"`
 }
 
+// ListCredentialsResponse:
 type ListCredentialsResponse struct {
 	// TotalCount: Total count of existing credentials (matching any filters specified).
 	TotalCount uint32 `json:"total_count"`
@@ -323,6 +338,7 @@ func (r *ListCredentialsResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.Credentials)), nil
 }
 
+// ListNamespacesRequest:
 type ListNamespacesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -338,6 +354,7 @@ type ListNamespacesRequest struct {
 	OrderBy ListNamespacesRequestOrderBy `json:"order_by"`
 }
 
+// ListNamespacesResponse:
 type ListNamespacesResponse struct {
 	// TotalCount: Total count of existing namespaces (matching any filters specified).
 	TotalCount uint32 `json:"total_count"`
@@ -364,6 +381,7 @@ func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Namespaces)), nil
 }
 
+// UpdateCredentialRequest:
 type UpdateCredentialRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -375,6 +393,7 @@ type UpdateCredentialRequest struct {
 	Permissions *Permissions `json:"permissions"`
 }
 
+// UpdateNamespaceRequest:
 type UpdateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`

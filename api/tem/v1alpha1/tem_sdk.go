@@ -128,6 +128,8 @@ const (
 	EmailFlagHardBounce = EmailFlag("hard_bounce")
 	// Refers to an email considered as spam.
 	EmailFlagSpam = EmailFlag("spam")
+	// Refers to an email not delivered because the recipient mailbox is full.
+	EmailFlagMailboxFull = EmailFlag("mailbox_full")
 )
 
 func (enum EmailFlag) String() string {
@@ -281,6 +283,7 @@ func (enum *ListEmailsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// EmailTry:
 type EmailTry struct {
 	// Rank: Rank number of this attempt to send the email.
 	Rank uint32 `json:"rank"`
@@ -292,6 +295,7 @@ type EmailTry struct {
 	Message string `json:"message"`
 }
 
+// DomainStatistics:
 type DomainStatistics struct {
 	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
@@ -303,6 +307,7 @@ type DomainStatistics struct {
 	CanceledCount uint32 `json:"canceled_count"`
 }
 
+// CreateEmailRequestAddress:
 type CreateEmailRequestAddress struct {
 	// Email: Email address.
 	Email string `json:"email"`
@@ -310,6 +315,7 @@ type CreateEmailRequestAddress struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// CreateEmailRequestAttachment:
 type CreateEmailRequestAttachment struct {
 	// Name: Filename of the attachment.
 	Name string `json:"name"`
@@ -319,6 +325,7 @@ type CreateEmailRequestAttachment struct {
 	Content []byte `json:"content"`
 }
 
+// Email:
 type Email struct {
 	// ID: Technical ID of the email.
 	ID string `json:"id"`
@@ -328,7 +335,7 @@ type Email struct {
 	ProjectID string `json:"project_id"`
 	// MailFrom: Email address of the sender.
 	MailFrom string `json:"mail_from"`
-	// RcptTo: Email address of the recipient.
+	// Deprecated: RcptTo: Email address of the recipient.
 	RcptTo *string `json:"rcpt_to,omitempty"`
 	// MailRcpt: Email address of the recipient.
 	MailRcpt string `json:"mail_rcpt"`
@@ -352,6 +359,7 @@ type Email struct {
 	Flags []EmailFlag `json:"flags"`
 }
 
+// DomainLastStatusDkimRecord:
 type DomainLastStatusDkimRecord struct {
 	// Status: Status of the DKIM record's configurartion.
 	Status DomainLastStatusRecordStatus `json:"status"`
@@ -361,6 +369,7 @@ type DomainLastStatusDkimRecord struct {
 	Error *string `json:"error,omitempty"`
 }
 
+// DomainLastStatusSpfRecord:
 type DomainLastStatusSpfRecord struct {
 	// Status: Status of the SPF record's configurartion.
 	Status DomainLastStatusRecordStatus `json:"status"`
@@ -370,6 +379,7 @@ type DomainLastStatusSpfRecord struct {
 	Error *string `json:"error,omitempty"`
 }
 
+// Domain:
 type Domain struct {
 	// ID: ID of the domain.
 	ID string `json:"id"`
@@ -389,7 +399,7 @@ type Domain struct {
 	LastValidAt *time.Time `json:"last_valid_at,omitempty"`
 	// RevokedAt: Date and time of the domain's deletion.
 	RevokedAt *time.Time `json:"revoked_at,omitempty"`
-	// LastError: Error message returned if the last check failed.
+	// Deprecated: LastError: Error message returned if the last check failed.
 	LastError *string `json:"last_error,omitempty"`
 	// SpfConfig: Snippet of the SPF record to register in the DNS zone.
 	SpfConfig string `json:"spf_config"`
@@ -401,6 +411,7 @@ type Domain struct {
 	Region scw.Region `json:"region"`
 }
 
+// CancelEmailRequest:
 type CancelEmailRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -408,6 +419,7 @@ type CancelEmailRequest struct {
 	EmailID string `json:"-"`
 }
 
+// CheckDomainRequest:
 type CheckDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -415,6 +427,7 @@ type CheckDomainRequest struct {
 	DomainID string `json:"-"`
 }
 
+// CreateDomainRequest:
 type CreateDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -426,6 +439,7 @@ type CreateDomainRequest struct {
 	AcceptTos bool `json:"accept_tos"`
 }
 
+// CreateEmailRequest:
 type CreateEmailRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -451,11 +465,13 @@ type CreateEmailRequest struct {
 	SendBefore *time.Time `json:"send_before,omitempty"`
 }
 
+// CreateEmailResponse:
 type CreateEmailResponse struct {
 	// Emails: Single page of emails matching the requested criteria.
 	Emails []*Email `json:"emails"`
 }
 
+// DomainLastStatus:
 type DomainLastStatus struct {
 	// DomainID: The id of the domain.
 	DomainID string `json:"domain_id"`
@@ -467,6 +483,7 @@ type DomainLastStatus struct {
 	DkimRecord *DomainLastStatusDkimRecord `json:"dkim_record"`
 }
 
+// GetDomainLastStatusRequest:
 type GetDomainLastStatusRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -474,6 +491,7 @@ type GetDomainLastStatusRequest struct {
 	DomainID string `json:"-"`
 }
 
+// GetDomainRequest:
 type GetDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -481,6 +499,7 @@ type GetDomainRequest struct {
 	DomainID string `json:"-"`
 }
 
+// GetEmailRequest:
 type GetEmailRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -488,6 +507,7 @@ type GetEmailRequest struct {
 	EmailID string `json:"-"`
 }
 
+// GetStatisticsRequest:
 type GetStatisticsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -503,6 +523,7 @@ type GetStatisticsRequest struct {
 	MailFrom *string `json:"mail_from,omitempty"`
 }
 
+// ListDomainsRequest:
 type ListDomainsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -520,6 +541,7 @@ type ListDomainsRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListDomainsResponse:
 type ListDomainsResponse struct {
 	// TotalCount: Number of domains that match the request (without pagination).
 	TotalCount uint32 `json:"total_count"`
@@ -546,6 +568,7 @@ func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Domains)), nil
 }
 
+// ListEmailsRequest:
 type ListEmailsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -565,7 +588,7 @@ type ListEmailsRequest struct {
 	Until *time.Time `json:"until,omitempty"`
 	// MailFrom: (Optional) List emails sent with this sender's email address.
 	MailFrom *string `json:"mail_from,omitempty"`
-	// MailTo: List emails sent to this recipient's email address.
+	// Deprecated: MailTo: List emails sent to this recipient's email address.
 	MailTo *string `json:"mail_to,omitempty"`
 	// MailRcpt: (Optional) List emails sent to this recipient's email address.
 	MailRcpt *string `json:"mail_rcpt,omitempty"`
@@ -581,6 +604,7 @@ type ListEmailsRequest struct {
 	Flags []EmailFlag `json:"flags"`
 }
 
+// ListEmailsResponse:
 type ListEmailsResponse struct {
 	// TotalCount: Number of emails matching the requested criteria.
 	TotalCount uint32 `json:"total_count"`
@@ -607,6 +631,7 @@ func (r *ListEmailsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Emails)), nil
 }
 
+// RevokeDomainRequest:
 type RevokeDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -614,6 +639,7 @@ type RevokeDomainRequest struct {
 	DomainID string `json:"-"`
 }
 
+// Statistics:
 type Statistics struct {
 	// TotalCount: Total number of emails matching the requested criteria.
 	TotalCount uint32 `json:"total_count"`

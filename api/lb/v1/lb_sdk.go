@@ -837,17 +837,19 @@ func (enum *StickySessionsType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// SubscriberEmailConfig:
 type SubscriberEmailConfig struct {
 	// Email: Email address to send alerts to.
 	Email string `json:"email"`
 }
 
-// Webhook alert of subscriber.
+// SubscriberWebhookConfig: Webhook alert of subscriber.
 type SubscriberWebhookConfig struct {
 	// URI: URI to receive POST requests.
 	URI string `json:"uri"`
 }
 
+// HealthCheckHTTPConfig:
 type HealthCheckHTTPConfig struct {
 	// URI: The HTTP URI to use when performing a health check on backend servers.
 	URI string `json:"uri"`
@@ -859,6 +861,7 @@ type HealthCheckHTTPConfig struct {
 	HostHeader string `json:"host_header"`
 }
 
+// HealthCheckHTTPSConfig:
 type HealthCheckHTTPSConfig struct {
 	// URI: The HTTP URI to use when performing a health check on backend servers.
 	URI string `json:"uri"`
@@ -872,25 +875,31 @@ type HealthCheckHTTPSConfig struct {
 	Sni string `json:"sni"`
 }
 
+// HealthCheckLdapConfig:
 type HealthCheckLdapConfig struct {
 }
 
+// HealthCheckMysqlConfig:
 type HealthCheckMysqlConfig struct {
 	// User: MySQL user to use for the health check.
 	User string `json:"user"`
 }
 
+// HealthCheckPgsqlConfig:
 type HealthCheckPgsqlConfig struct {
 	// User: PostgreSQL user to use for the health check.
 	User string `json:"user"`
 }
 
+// HealthCheckRedisConfig:
 type HealthCheckRedisConfig struct {
 }
 
+// HealthCheckTCPConfig:
 type HealthCheckTCPConfig struct {
 }
 
+// IP:
 type IP struct {
 	// ID: IP address ID.
 	ID string `json:"id"`
@@ -904,12 +913,13 @@ type IP struct {
 	LBID *string `json:"lb_id,omitempty"`
 	// Reverse: Reverse DNS (domain name) of the IP address.
 	Reverse string `json:"reverse"`
-	// Region: The region the IP address is in.
+	// Deprecated: Region: The region the IP address is in.
 	Region *scw.Region `json:"region,omitempty"`
 	// Zone: The zone the IP address is in.
 	Zone scw.Zone `json:"zone"`
 }
 
+// Instance:
 type Instance struct {
 	// ID: Underlying Instance ID.
 	ID string `json:"id"`
@@ -921,13 +931,13 @@ type Instance struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// UpdatedAt: Date on which the Instance was last updated.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// Region: The region the Instance is in.
+	// Deprecated: Region: The region the Instance is in.
 	Region *scw.Region `json:"region,omitempty"`
 	// Zone: The zone the Instance is in.
 	Zone scw.Zone `json:"zone"`
 }
 
-// Subscriber.
+// Subscriber: Subscriber.
 type Subscriber struct {
 	// ID: Subscriber ID.
 	ID string `json:"id"`
@@ -939,6 +949,7 @@ type Subscriber struct {
 	WebhookConfig *SubscriberWebhookConfig `json:"webhook_config,omitempty"`
 }
 
+// HealthCheck:
 type HealthCheck struct {
 	// Port: Port to use for the backend server health check.
 	Port int32 `json:"port"`
@@ -1000,6 +1011,7 @@ func (m HealthCheck) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// LB:
 type LB struct {
 	// ID: Underlying Instance ID.
 	ID string `json:"id"`
@@ -1037,12 +1049,13 @@ type LB struct {
 	PrivateNetworkCount int32 `json:"private_network_count"`
 	// RouteCount: Number of routes configured on the Load Balancer.
 	RouteCount int32 `json:"route_count"`
-	// Region: The region the Load Balancer is in.
+	// Deprecated: Region: The region the Load Balancer is in.
 	Region *scw.Region `json:"region,omitempty"`
 	// Zone: The zone the Load Balancer is in.
 	Zone scw.Zone `json:"zone"`
 }
 
+// ACLActionRedirect:
 type ACLActionRedirect struct {
 	// Type: Redirect type.
 	Type ACLActionRedirectRedirectType `json:"type"`
@@ -1052,6 +1065,7 @@ type ACLActionRedirect struct {
 	Code *int32 `json:"code,omitempty"`
 }
 
+// Backend:
 type Backend struct {
 	// ID: Backend ID.
 	ID string `json:"id"`
@@ -1073,7 +1087,7 @@ type Backend struct {
 	Pool []string `json:"pool"`
 	// LB: Load Balancer the backend is attached to.
 	LB *LB `json:"lb"`
-	// SendProxyV2: Deprecated in favor of proxy_protocol field.
+	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
 	// TimeoutServer: Maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server,omitempty"`
@@ -1141,6 +1155,7 @@ func (m Backend) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// Certificate:
 type Certificate struct {
 	// Type: Certificate type (Let's Encrypt or custom).
 	Type CertificateType `json:"type"`
@@ -1170,6 +1185,7 @@ type Certificate struct {
 	StatusDetails *string `json:"status_details,omitempty"`
 }
 
+// ACLAction:
 type ACLAction struct {
 	// Type: Action to take when incoming traffic matches an ACL filter.
 	Type ACLActionType `json:"type"`
@@ -1177,6 +1193,7 @@ type ACLAction struct {
 	Redirect *ACLActionRedirect `json:"redirect"`
 }
 
+// ACLMatch:
 type ACLMatch struct {
 	// IPSubnet: List of IPs or CIDR v4/v6 addresses to filter for from the client side.
 	IPSubnet []*string `json:"ip_subnet"`
@@ -1190,6 +1207,7 @@ type ACLMatch struct {
 	Invert bool `json:"invert"`
 }
 
+// Frontend:
 type Frontend struct {
 	// ID: Frontend ID.
 	ID string `json:"id"`
@@ -1203,7 +1221,7 @@ type Frontend struct {
 	LB *LB `json:"lb"`
 	// TimeoutClient: Maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client,omitempty"`
-	// Certificate: Certificate, deprecated in favor of certificate_ids array.
+	// Deprecated: Certificate: Certificate, deprecated in favor of certificate_ids array.
 	Certificate *Certificate `json:"certificate,omitempty"`
 	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs []string `json:"certificate_ids"`
@@ -1243,17 +1261,23 @@ func (m Frontend) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// PrivateNetworkDHCPConfig:
 type PrivateNetworkDHCPConfig struct {
+	// IPID:
+	IPID *string `json:"ip_id,omitempty"`
 }
 
+// PrivateNetworkIpamConfig:
 type PrivateNetworkIpamConfig struct {
 }
 
+// PrivateNetworkStaticConfig:
 type PrivateNetworkStaticConfig struct {
-	// IPAddress: Array of a local IP address for the Load Balancer on this Private Network.
-	IPAddress []string `json:"ip_address"`
+	// Deprecated: IPAddress: Array of a local IP address for the Load Balancer on this Private Network.
+	IPAddress *[]string `json:"ip_address,omitempty"`
 }
 
+// RouteMatch:
 type RouteMatch struct {
 	// Sni: Value to match in the Server Name Indication TLS extension (SNI) field from an incoming connection made via an SSL/TLS transport layer. This field should be set for routes on TCP Load Balancers.
 	Sni *string `json:"sni,omitempty"`
@@ -1261,11 +1285,13 @@ type RouteMatch struct {
 	HostHeader *string `json:"host_header,omitempty"`
 }
 
+// CreateCertificateRequestCustomCertificate:
 type CreateCertificateRequestCustomCertificate struct {
 	// CertificateChain: Full PEM-formatted certificate, consisting of the entire certificate chain including public key, private key, and (optionally) Certificate Authorities.
 	CertificateChain string `json:"certificate_chain"`
 }
 
+// CreateCertificateRequestLetsencryptConfig:
 type CreateCertificateRequestLetsencryptConfig struct {
 	// CommonName: Main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address).
 	CommonName string `json:"common_name"`
@@ -1273,6 +1299,7 @@ type CreateCertificateRequestLetsencryptConfig struct {
 	SubjectAlternativeName []string `json:"subject_alternative_name"`
 }
 
+// BackendServerStats:
 type BackendServerStats struct {
 	// InstanceID: ID of your Load Balancer's underlying Instance.
 	InstanceID string `json:"instance_id"`
@@ -1288,6 +1315,7 @@ type BackendServerStats struct {
 	LastHealthCheckStatus BackendServerStatsHealthCheckStatus `json:"last_health_check_status"`
 }
 
+// ACL:
 type ACL struct {
 	// ID: ACL ID.
 	ID string `json:"id"`
@@ -1309,14 +1337,15 @@ type ACL struct {
 	Description string `json:"description"`
 }
 
+// PrivateNetwork:
 type PrivateNetwork struct {
 	// LB: Load Balancer object which is attached to the Private Network.
 	LB *LB `json:"lb"`
-	// StaticConfig: Object containing an array of a local IP address for the Load Balancer on this Private Network.
+	// Deprecated: StaticConfig: Object containing an array of a local IP address for the Load Balancer on this Private Network.
 	StaticConfig *PrivateNetworkStaticConfig `json:"static_config,omitempty"`
-	// DHCPConfig: Defines whether to let DHCP assign IP addresses.
+	// DHCPConfig: Object containing DHCP-assigned IP addresses.
 	DHCPConfig *PrivateNetworkDHCPConfig `json:"dhcp_config,omitempty"`
-	// IpamConfig: For internal use only.
+	// Deprecated: IpamConfig: For internal use only.
 	IpamConfig *PrivateNetworkIpamConfig `json:"ipam_config,omitempty"`
 	// PrivateNetworkID: Private Network ID.
 	PrivateNetworkID string `json:"private_network_id"`
@@ -1328,6 +1357,7 @@ type PrivateNetwork struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// LBType:
 type LBType struct {
 	// Name: Load Balancer commercial offer type name.
 	Name string `json:"name"`
@@ -1335,12 +1365,13 @@ type LBType struct {
 	StockStatus LBTypeStock `json:"stock_status"`
 	// Description: Load Balancer commercial offer type description.
 	Description string `json:"description"`
-	// Region: The region the Load Balancer stock is in.
+	// Deprecated: Region: The region the Load Balancer stock is in.
 	Region *scw.Region `json:"region,omitempty"`
 	// Zone: The zone the Load Balancer stock is in.
 	Zone scw.Zone `json:"zone"`
 }
 
+// Route:
 type Route struct {
 	// ID: Route ID.
 	ID string `json:"id"`
@@ -1356,6 +1387,7 @@ type Route struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// ACLSpec:
 type ACLSpec struct {
 	// Name: ACL name.
 	Name string `json:"name"`
@@ -1369,6 +1401,7 @@ type ACLSpec struct {
 	Description string `json:"description"`
 }
 
+// AddBackendServersRequest:
 type AddBackendServersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1378,6 +1411,7 @@ type AddBackendServersRequest struct {
 	ServerIP []string `json:"server_ip"`
 }
 
+// AttachPrivateNetworkRequest:
 type AttachPrivateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1385,15 +1419,15 @@ type AttachPrivateNetworkRequest struct {
 	LBID string `json:"-"`
 	// PrivateNetworkID: Private Network ID.
 	PrivateNetworkID string `json:"-"`
-	// StaticConfig: Object containing an array of a local IP address for the Load Balancer on this Private Network.
+	// Deprecated: StaticConfig: Object containing an array of a local IP address for the Load Balancer on this Private Network.
 	StaticConfig *PrivateNetworkStaticConfig `json:"static_config,omitempty"`
 	// DHCPConfig: Defines whether to let DHCP assign IP addresses.
 	DHCPConfig *PrivateNetworkDHCPConfig `json:"dhcp_config,omitempty"`
-	// IpamConfig: For internal use only.
+	// Deprecated: IpamConfig: For internal use only.
 	IpamConfig *PrivateNetworkIpamConfig `json:"ipam_config,omitempty"`
 }
 
-// Add an ACL to a Load Balancer frontend.
+// CreateACLRequest: Add an ACL to a Load Balancer frontend.
 type CreateACLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1411,6 +1445,7 @@ type CreateACLRequest struct {
 	Description string `json:"description"`
 }
 
+// CreateBackendRequest:
 type CreateBackendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1432,7 +1467,7 @@ type CreateBackendRequest struct {
 	HealthCheck *HealthCheck `json:"health_check"`
 	// ServerIP: List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
 	ServerIP []string `json:"server_ip"`
-	// SendProxyV2: Deprecated in favor of proxy_protocol field.
+	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
 	// TimeoutServer: Maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server,omitempty"`
@@ -1496,6 +1531,7 @@ func (m CreateBackendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// CreateCertificateRequest:
 type CreateCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1509,6 +1545,7 @@ type CreateCertificateRequest struct {
 	CustomCertificate *CreateCertificateRequestCustomCertificate `json:"custom_certificate,omitempty"`
 }
 
+// CreateFrontendRequest:
 type CreateFrontendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1522,7 +1559,7 @@ type CreateFrontendRequest struct {
 	BackendID string `json:"backend_id"`
 	// TimeoutClient: Maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client,omitempty"`
-	// CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
+	// Deprecated: CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
 	CertificateID *string `json:"certificate_id,omitempty"`
 	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs *[]string `json:"certificate_ids,omitempty"`
@@ -1558,10 +1595,11 @@ func (m CreateFrontendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// CreateIPRequest:
 type CreateIPRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// OrganizationID: Organization ID of the Organization where the IP address should be created.
+	// Deprecated: OrganizationID: Organization ID of the Organization where the IP address should be created.
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: Project ID of the Project where the IP address should be created.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -1571,10 +1609,11 @@ type CreateIPRequest struct {
 	IsIPv6 bool `json:"is_ipv6"`
 }
 
+// CreateLBRequest:
 type CreateLBRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// OrganizationID: Scaleway Organization to create the Load Balancer in.
+	// Deprecated: OrganizationID: Scaleway Organization to create the Load Balancer in.
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: Scaleway Project to create the Load Balancer in.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -1582,7 +1621,7 @@ type CreateLBRequest struct {
 	Name string `json:"name"`
 	// Description: Description for the Load Balancer.
 	Description string `json:"description"`
-	// IPID: ID of an existing flexible IP address to attach to the Load Balancer.
+	// Deprecated: IPID: ID of an existing flexible IP address to attach to the Load Balancer.
 	IPID *string `json:"ip_id,omitempty"`
 	// AssignFlexibleIP: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
 	AssignFlexibleIP *bool `json:"assign_flexible_ip,omitempty"`
@@ -1596,6 +1635,7 @@ type CreateLBRequest struct {
 	SslCompatibilityLevel SSLCompatibilityLevel `json:"ssl_compatibility_level"`
 }
 
+// CreateRouteRequest:
 type CreateRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1607,7 +1647,7 @@ type CreateRouteRequest struct {
 	Match *RouteMatch `json:"match"`
 }
 
-// Create a new alert subscriber (webhook or email).
+// CreateSubscriberRequest: Create a new alert subscriber (webhook or email).
 type CreateSubscriberRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1617,12 +1657,13 @@ type CreateSubscriberRequest struct {
 	EmailConfig *SubscriberEmailConfig `json:"email_config,omitempty"`
 	// WebhookConfig: WebHook URI configuration.
 	WebhookConfig *SubscriberWebhookConfig `json:"webhook_config,omitempty"`
-	// OrganizationID: Organization ID to create the subscriber in.
+	// Deprecated: OrganizationID: Organization ID to create the subscriber in.
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: Project ID to create the subscriber in.
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// DeleteACLRequest:
 type DeleteACLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1630,6 +1671,7 @@ type DeleteACLRequest struct {
 	ACLID string `json:"-"`
 }
 
+// DeleteBackendRequest:
 type DeleteBackendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1637,6 +1679,7 @@ type DeleteBackendRequest struct {
 	BackendID string `json:"-"`
 }
 
+// DeleteCertificateRequest:
 type DeleteCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1644,6 +1687,7 @@ type DeleteCertificateRequest struct {
 	CertificateID string `json:"-"`
 }
 
+// DeleteFrontendRequest:
 type DeleteFrontendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1651,6 +1695,7 @@ type DeleteFrontendRequest struct {
 	FrontendID string `json:"-"`
 }
 
+// DeleteLBRequest:
 type DeleteLBRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1660,6 +1705,7 @@ type DeleteLBRequest struct {
 	ReleaseIP bool `json:"release_ip"`
 }
 
+// DeleteRouteRequest:
 type DeleteRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1667,6 +1713,7 @@ type DeleteRouteRequest struct {
 	RouteID string `json:"-"`
 }
 
+// DeleteSubscriberRequest:
 type DeleteSubscriberRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1674,6 +1721,7 @@ type DeleteSubscriberRequest struct {
 	SubscriberID string `json:"-"`
 }
 
+// DetachPrivateNetworkRequest:
 type DetachPrivateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1683,6 +1731,7 @@ type DetachPrivateNetworkRequest struct {
 	PrivateNetworkID string `json:"-"`
 }
 
+// GetACLRequest:
 type GetACLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1690,6 +1739,7 @@ type GetACLRequest struct {
 	ACLID string `json:"-"`
 }
 
+// GetBackendRequest:
 type GetBackendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1697,6 +1747,7 @@ type GetBackendRequest struct {
 	BackendID string `json:"-"`
 }
 
+// GetCertificateRequest:
 type GetCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1704,6 +1755,7 @@ type GetCertificateRequest struct {
 	CertificateID string `json:"-"`
 }
 
+// GetFrontendRequest:
 type GetFrontendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1711,6 +1763,7 @@ type GetFrontendRequest struct {
 	FrontendID string `json:"-"`
 }
 
+// GetIPRequest:
 type GetIPRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1718,6 +1771,7 @@ type GetIPRequest struct {
 	IPID string `json:"-"`
 }
 
+// GetLBRequest:
 type GetLBRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1725,7 +1779,7 @@ type GetLBRequest struct {
 	LBID string `json:"-"`
 }
 
-// Get Load Balancer stats.
+// GetLBStatsRequest: Get Load Balancer stats.
 type GetLBStatsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1735,6 +1789,7 @@ type GetLBStatsRequest struct {
 	BackendID *string `json:"backend_id,omitempty"`
 }
 
+// GetRouteRequest:
 type GetRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1742,6 +1797,7 @@ type GetRouteRequest struct {
 	RouteID string `json:"-"`
 }
 
+// GetSubscriberRequest:
 type GetSubscriberRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1749,11 +1805,13 @@ type GetSubscriberRequest struct {
 	SubscriberID string `json:"-"`
 }
 
+// LBStats:
 type LBStats struct {
 	// BackendServersStats: List of objects containing Load Balancer statistics.
 	BackendServersStats []*BackendServerStats `json:"backend_servers_stats"`
 }
 
+// ListACLResponse:
 type ListACLResponse struct {
 	// ACLs: List of ACL objects.
 	ACLs []*ACL `json:"acls"`
@@ -1780,6 +1838,7 @@ func (r *ListACLResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.ACLs)), nil
 }
 
+// ListACLsRequest:
 type ListACLsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1795,6 +1854,7 @@ type ListACLsRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListBackendStatsRequest:
 type ListBackendStatsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1808,6 +1868,7 @@ type ListBackendStatsRequest struct {
 	BackendID *string `json:"backend_id,omitempty"`
 }
 
+// ListBackendStatsResponse:
 type ListBackendStatsResponse struct {
 	// BackendServersStats: List of objects containing backend server statistics.
 	BackendServersStats []*BackendServerStats `json:"backend_servers_stats"`
@@ -1834,6 +1895,7 @@ func (r *ListBackendStatsResponse) UnsafeAppend(res interface{}) (uint32, error)
 	return uint32(len(results.BackendServersStats)), nil
 }
 
+// ListBackendsRequest:
 type ListBackendsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1849,6 +1911,7 @@ type ListBackendsRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListBackendsResponse:
 type ListBackendsResponse struct {
 	// Backends: List of backend objects of a given Load Balancer.
 	Backends []*Backend `json:"backends"`
@@ -1875,6 +1938,7 @@ func (r *ListBackendsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Backends)), nil
 }
 
+// ListCertificatesRequest:
 type ListCertificatesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1890,6 +1954,7 @@ type ListCertificatesRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListCertificatesResponse:
 type ListCertificatesResponse struct {
 	// Certificates: List of certificate objects.
 	Certificates []*Certificate `json:"certificates"`
@@ -1916,6 +1981,7 @@ func (r *ListCertificatesResponse) UnsafeAppend(res interface{}) (uint32, error)
 	return uint32(len(results.Certificates)), nil
 }
 
+// ListFrontendsRequest:
 type ListFrontendsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1931,6 +1997,7 @@ type ListFrontendsRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListFrontendsResponse:
 type ListFrontendsResponse struct {
 	// Frontends: List of frontend objects of a given Load Balancer.
 	Frontends []*Frontend `json:"frontends"`
@@ -1957,6 +2024,7 @@ func (r *ListFrontendsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Frontends)), nil
 }
 
+// ListIPsRequest:
 type ListIPsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1972,6 +2040,7 @@ type ListIPsRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListIPsResponse:
 type ListIPsResponse struct {
 	// IPs: List of IP address objects.
 	IPs []*IP `json:"ips"`
@@ -1998,6 +2067,7 @@ func (r *ListIPsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.IPs)), nil
 }
 
+// ListLBPrivateNetworksRequest:
 type ListLBPrivateNetworksRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2011,6 +2081,7 @@ type ListLBPrivateNetworksRequest struct {
 	LBID string `json:"-"`
 }
 
+// ListLBPrivateNetworksResponse:
 type ListLBPrivateNetworksResponse struct {
 	// PrivateNetwork: List of Private Network objects attached to the Load Balancer.
 	PrivateNetwork []*PrivateNetwork `json:"private_network"`
@@ -2037,6 +2108,7 @@ func (r *ListLBPrivateNetworksResponse) UnsafeAppend(res interface{}) (uint32, e
 	return uint32(len(results.PrivateNetwork)), nil
 }
 
+// ListLBTypesRequest:
 type ListLBTypesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2046,6 +2118,7 @@ type ListLBTypesRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListLBTypesResponse:
 type ListLBTypesResponse struct {
 	// LBTypes: List of Load Balancer commercial offer type objects.
 	LBTypes []*LBType `json:"lb_types"`
@@ -2072,6 +2145,7 @@ func (r *ListLBTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.LBTypes)), nil
 }
 
+// ListLBsRequest:
 type ListLBsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2089,6 +2163,7 @@ type ListLBsRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListLBsResponse:
 type ListLBsResponse struct {
 	// LBs: List of Load Balancer objects.
 	LBs []*LB `json:"lbs"`
@@ -2115,6 +2190,7 @@ func (r *ListLBsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.LBs)), nil
 }
 
+// ListRoutesRequest:
 type ListRoutesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2128,6 +2204,7 @@ type ListRoutesRequest struct {
 	FrontendID *string `json:"frontend_id,omitempty"`
 }
 
+// ListRoutesResponse:
 type ListRoutesResponse struct {
 	// Routes: List of route objects.
 	Routes []*Route `json:"routes"`
@@ -2154,6 +2231,7 @@ func (r *ListRoutesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Routes)), nil
 }
 
+// ListSubscriberRequest:
 type ListSubscriberRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2171,6 +2249,7 @@ type ListSubscriberRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListSubscriberResponse:
 type ListSubscriberResponse struct {
 	// Subscribers: List of subscriber objects.
 	Subscribers []*Subscriber `json:"subscribers"`
@@ -2197,6 +2276,7 @@ func (r *ListSubscriberResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Subscribers)), nil
 }
 
+// MigrateLBRequest:
 type MigrateLBRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2206,6 +2286,7 @@ type MigrateLBRequest struct {
 	Type string `json:"type"`
 }
 
+// ReleaseIPRequest:
 type ReleaseIPRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2213,6 +2294,7 @@ type ReleaseIPRequest struct {
 	IPID string `json:"-"`
 }
 
+// RemoveBackendServersRequest:
 type RemoveBackendServersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2222,6 +2304,7 @@ type RemoveBackendServersRequest struct {
 	ServerIP []string `json:"server_ip"`
 }
 
+// SetACLsResponse:
 type SetACLsResponse struct {
 	// ACLs: List of ACL objects.
 	ACLs []*ACL `json:"acls"`
@@ -2248,6 +2331,7 @@ func (r *SetACLsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.ACLs)), nil
 }
 
+// SetBackendServersRequest:
 type SetBackendServersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2257,6 +2341,7 @@ type SetBackendServersRequest struct {
 	ServerIP []string `json:"server_ip"`
 }
 
+// SubscribeToLBRequest:
 type SubscribeToLBRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2266,6 +2351,7 @@ type SubscribeToLBRequest struct {
 	SubscriberID string `json:"subscriber_id"`
 }
 
+// UnsubscribeFromLBRequest:
 type UnsubscribeFromLBRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2273,6 +2359,7 @@ type UnsubscribeFromLBRequest struct {
 	LBID string `json:"-"`
 }
 
+// UpdateACLRequest:
 type UpdateACLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2290,6 +2377,7 @@ type UpdateACLRequest struct {
 	Description *string `json:"description,omitempty"`
 }
 
+// UpdateBackendRequest:
 type UpdateBackendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2307,7 +2395,7 @@ type UpdateBackendRequest struct {
 	StickySessions StickySessionsType `json:"sticky_sessions"`
 	// StickySessionsCookieName: Cookie name for cookie-based sticky sessions.
 	StickySessionsCookieName string `json:"sticky_sessions_cookie_name"`
-	// SendProxyV2: Deprecated in favor of proxy_protocol field.
+	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
 	// TimeoutServer: Maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server,omitempty"`
@@ -2371,6 +2459,7 @@ func (m UpdateBackendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// UpdateCertificateRequest:
 type UpdateCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2380,6 +2469,7 @@ type UpdateCertificateRequest struct {
 	Name string `json:"name"`
 }
 
+// UpdateFrontendRequest:
 type UpdateFrontendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2393,7 +2483,7 @@ type UpdateFrontendRequest struct {
 	BackendID string `json:"backend_id"`
 	// TimeoutClient: Maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client,omitempty"`
-	// CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
+	// Deprecated: CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
 	CertificateID *string `json:"certificate_id,omitempty"`
 	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs *[]string `json:"certificate_ids,omitempty"`
@@ -2429,6 +2519,7 @@ func (m UpdateFrontendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// UpdateHealthCheckRequest:
 type UpdateHealthCheckRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2494,6 +2585,7 @@ func (m UpdateHealthCheckRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// UpdateIPRequest:
 type UpdateIPRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2503,6 +2595,7 @@ type UpdateIPRequest struct {
 	Reverse *string `json:"reverse,omitempty"`
 }
 
+// UpdateLBRequest:
 type UpdateLBRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2518,6 +2611,7 @@ type UpdateLBRequest struct {
 	SslCompatibilityLevel SSLCompatibilityLevel `json:"ssl_compatibility_level"`
 }
 
+// UpdateRouteRequest:
 type UpdateRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2529,6 +2623,7 @@ type UpdateRouteRequest struct {
 	Match *RouteMatch `json:"match"`
 }
 
+// UpdateSubscriberRequest:
 type UpdateSubscriberRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2542,6 +2637,7 @@ type UpdateSubscriberRequest struct {
 	WebhookConfig *SubscriberWebhookConfig `json:"webhook_config,omitempty"`
 }
 
+// ZonedAPIAddBackendServersRequest:
 type ZonedAPIAddBackendServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2551,6 +2647,7 @@ type ZonedAPIAddBackendServersRequest struct {
 	ServerIP []string `json:"server_ip"`
 }
 
+// ZonedAPIAttachPrivateNetworkRequest:
 type ZonedAPIAttachPrivateNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2558,15 +2655,15 @@ type ZonedAPIAttachPrivateNetworkRequest struct {
 	LBID string `json:"-"`
 	// PrivateNetworkID: Private Network ID.
 	PrivateNetworkID string `json:"-"`
-	// StaticConfig: Object containing an array of a local IP address for the Load Balancer on this Private Network.
+	// Deprecated: StaticConfig: Object containing an array of a local IP address for the Load Balancer on this Private Network.
 	StaticConfig *PrivateNetworkStaticConfig `json:"static_config,omitempty"`
 	// DHCPConfig: Defines whether to let DHCP assign IP addresses.
 	DHCPConfig *PrivateNetworkDHCPConfig `json:"dhcp_config,omitempty"`
-	// IpamConfig: For internal use only.
+	// Deprecated: IpamConfig: For internal use only.
 	IpamConfig *PrivateNetworkIpamConfig `json:"ipam_config,omitempty"`
 }
 
-// Add an ACL to a Load Balancer frontend.
+// ZonedAPICreateACLRequest: Add an ACL to a Load Balancer frontend.
 type ZonedAPICreateACLRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2584,6 +2681,7 @@ type ZonedAPICreateACLRequest struct {
 	Description string `json:"description"`
 }
 
+// ZonedAPICreateBackendRequest:
 type ZonedAPICreateBackendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2605,7 +2703,7 @@ type ZonedAPICreateBackendRequest struct {
 	HealthCheck *HealthCheck `json:"health_check"`
 	// ServerIP: List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
 	ServerIP []string `json:"server_ip"`
-	// SendProxyV2: Deprecated in favor of proxy_protocol field.
+	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
 	// TimeoutServer: Maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server,omitempty"`
@@ -2669,6 +2767,7 @@ func (m ZonedAPICreateBackendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// ZonedAPICreateCertificateRequest:
 type ZonedAPICreateCertificateRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2682,6 +2781,7 @@ type ZonedAPICreateCertificateRequest struct {
 	CustomCertificate *CreateCertificateRequestCustomCertificate `json:"custom_certificate,omitempty"`
 }
 
+// ZonedAPICreateFrontendRequest:
 type ZonedAPICreateFrontendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2695,7 +2795,7 @@ type ZonedAPICreateFrontendRequest struct {
 	BackendID string `json:"backend_id"`
 	// TimeoutClient: Maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client,omitempty"`
-	// CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
+	// Deprecated: CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
 	CertificateID *string `json:"certificate_id,omitempty"`
 	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs *[]string `json:"certificate_ids,omitempty"`
@@ -2731,10 +2831,11 @@ func (m ZonedAPICreateFrontendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// ZonedAPICreateIPRequest:
 type ZonedAPICreateIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
-	// OrganizationID: Organization ID of the Organization where the IP address should be created.
+	// Deprecated: OrganizationID: Organization ID of the Organization where the IP address should be created.
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: Project ID of the Project where the IP address should be created.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -2744,10 +2845,11 @@ type ZonedAPICreateIPRequest struct {
 	IsIPv6 bool `json:"is_ipv6"`
 }
 
+// ZonedAPICreateLBRequest:
 type ZonedAPICreateLBRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
-	// OrganizationID: Scaleway Organization to create the Load Balancer in.
+	// Deprecated: OrganizationID: Scaleway Organization to create the Load Balancer in.
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: Scaleway Project to create the Load Balancer in.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -2755,7 +2857,7 @@ type ZonedAPICreateLBRequest struct {
 	Name string `json:"name"`
 	// Description: Description for the Load Balancer.
 	Description string `json:"description"`
-	// IPID: ID of an existing flexible IP address to attach to the Load Balancer.
+	// Deprecated: IPID: ID of an existing flexible IP address to attach to the Load Balancer.
 	IPID *string `json:"ip_id,omitempty"`
 	// AssignFlexibleIP: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
 	AssignFlexibleIP *bool `json:"assign_flexible_ip,omitempty"`
@@ -2769,6 +2871,7 @@ type ZonedAPICreateLBRequest struct {
 	SslCompatibilityLevel SSLCompatibilityLevel `json:"ssl_compatibility_level"`
 }
 
+// ZonedAPICreateRouteRequest:
 type ZonedAPICreateRouteRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2780,7 +2883,7 @@ type ZonedAPICreateRouteRequest struct {
 	Match *RouteMatch `json:"match"`
 }
 
-// Create a new alert subscriber (webhook or email).
+// ZonedAPICreateSubscriberRequest: Create a new alert subscriber (webhook or email).
 type ZonedAPICreateSubscriberRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2790,12 +2893,13 @@ type ZonedAPICreateSubscriberRequest struct {
 	EmailConfig *SubscriberEmailConfig `json:"email_config,omitempty"`
 	// WebhookConfig: WebHook URI configuration.
 	WebhookConfig *SubscriberWebhookConfig `json:"webhook_config,omitempty"`
-	// OrganizationID: Organization ID to create the subscriber in.
+	// Deprecated: OrganizationID: Organization ID to create the subscriber in.
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: Project ID to create the subscriber in.
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ZonedAPIDeleteACLRequest:
 type ZonedAPIDeleteACLRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2803,6 +2907,7 @@ type ZonedAPIDeleteACLRequest struct {
 	ACLID string `json:"-"`
 }
 
+// ZonedAPIDeleteBackendRequest:
 type ZonedAPIDeleteBackendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2810,6 +2915,7 @@ type ZonedAPIDeleteBackendRequest struct {
 	BackendID string `json:"-"`
 }
 
+// ZonedAPIDeleteCertificateRequest:
 type ZonedAPIDeleteCertificateRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2817,6 +2923,7 @@ type ZonedAPIDeleteCertificateRequest struct {
 	CertificateID string `json:"-"`
 }
 
+// ZonedAPIDeleteFrontendRequest:
 type ZonedAPIDeleteFrontendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2824,6 +2931,7 @@ type ZonedAPIDeleteFrontendRequest struct {
 	FrontendID string `json:"-"`
 }
 
+// ZonedAPIDeleteLBRequest:
 type ZonedAPIDeleteLBRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2833,6 +2941,7 @@ type ZonedAPIDeleteLBRequest struct {
 	ReleaseIP bool `json:"release_ip"`
 }
 
+// ZonedAPIDeleteRouteRequest:
 type ZonedAPIDeleteRouteRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2840,6 +2949,7 @@ type ZonedAPIDeleteRouteRequest struct {
 	RouteID string `json:"-"`
 }
 
+// ZonedAPIDeleteSubscriberRequest:
 type ZonedAPIDeleteSubscriberRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2847,6 +2957,7 @@ type ZonedAPIDeleteSubscriberRequest struct {
 	SubscriberID string `json:"-"`
 }
 
+// ZonedAPIDetachPrivateNetworkRequest:
 type ZonedAPIDetachPrivateNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2856,6 +2967,7 @@ type ZonedAPIDetachPrivateNetworkRequest struct {
 	PrivateNetworkID string `json:"-"`
 }
 
+// ZonedAPIGetACLRequest:
 type ZonedAPIGetACLRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2863,6 +2975,7 @@ type ZonedAPIGetACLRequest struct {
 	ACLID string `json:"-"`
 }
 
+// ZonedAPIGetBackendRequest:
 type ZonedAPIGetBackendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2870,6 +2983,7 @@ type ZonedAPIGetBackendRequest struct {
 	BackendID string `json:"-"`
 }
 
+// ZonedAPIGetCertificateRequest:
 type ZonedAPIGetCertificateRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2877,6 +2991,7 @@ type ZonedAPIGetCertificateRequest struct {
 	CertificateID string `json:"-"`
 }
 
+// ZonedAPIGetFrontendRequest:
 type ZonedAPIGetFrontendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2884,6 +2999,7 @@ type ZonedAPIGetFrontendRequest struct {
 	FrontendID string `json:"-"`
 }
 
+// ZonedAPIGetIPRequest:
 type ZonedAPIGetIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2891,6 +3007,7 @@ type ZonedAPIGetIPRequest struct {
 	IPID string `json:"-"`
 }
 
+// ZonedAPIGetLBRequest:
 type ZonedAPIGetLBRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2898,7 +3015,7 @@ type ZonedAPIGetLBRequest struct {
 	LBID string `json:"-"`
 }
 
-// Get Load Balancer stats.
+// ZonedAPIGetLBStatsRequest: Get Load Balancer stats.
 type ZonedAPIGetLBStatsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2908,6 +3025,7 @@ type ZonedAPIGetLBStatsRequest struct {
 	BackendID *string `json:"backend_id,omitempty"`
 }
 
+// ZonedAPIGetRouteRequest:
 type ZonedAPIGetRouteRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2915,6 +3033,7 @@ type ZonedAPIGetRouteRequest struct {
 	RouteID string `json:"-"`
 }
 
+// ZonedAPIGetSubscriberRequest:
 type ZonedAPIGetSubscriberRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2922,6 +3041,7 @@ type ZonedAPIGetSubscriberRequest struct {
 	SubscriberID string `json:"-"`
 }
 
+// ZonedAPIListACLsRequest:
 type ZonedAPIListACLsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2937,6 +3057,7 @@ type ZonedAPIListACLsRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ZonedAPIListBackendStatsRequest:
 type ZonedAPIListBackendStatsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2950,6 +3071,7 @@ type ZonedAPIListBackendStatsRequest struct {
 	BackendID *string `json:"backend_id,omitempty"`
 }
 
+// ZonedAPIListBackendsRequest:
 type ZonedAPIListBackendsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2965,6 +3087,7 @@ type ZonedAPIListBackendsRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ZonedAPIListCertificatesRequest:
 type ZonedAPIListCertificatesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2980,6 +3103,7 @@ type ZonedAPIListCertificatesRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ZonedAPIListFrontendsRequest:
 type ZonedAPIListFrontendsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -2995,6 +3119,7 @@ type ZonedAPIListFrontendsRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ZonedAPIListIPsRequest:
 type ZonedAPIListIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3010,6 +3135,7 @@ type ZonedAPIListIPsRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ZonedAPIListLBPrivateNetworksRequest:
 type ZonedAPIListLBPrivateNetworksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3023,6 +3149,7 @@ type ZonedAPIListLBPrivateNetworksRequest struct {
 	LBID string `json:"-"`
 }
 
+// ZonedAPIListLBTypesRequest:
 type ZonedAPIListLBTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3032,6 +3159,7 @@ type ZonedAPIListLBTypesRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ZonedAPIListLBsRequest:
 type ZonedAPIListLBsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3049,6 +3177,7 @@ type ZonedAPIListLBsRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ZonedAPIListRoutesRequest:
 type ZonedAPIListRoutesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3062,6 +3191,7 @@ type ZonedAPIListRoutesRequest struct {
 	FrontendID *string `json:"frontend_id,omitempty"`
 }
 
+// ZonedAPIListSubscriberRequest:
 type ZonedAPIListSubscriberRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3079,6 +3209,7 @@ type ZonedAPIListSubscriberRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ZonedAPIMigrateLBRequest:
 type ZonedAPIMigrateLBRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3088,6 +3219,7 @@ type ZonedAPIMigrateLBRequest struct {
 	Type string `json:"type"`
 }
 
+// ZonedAPIReleaseIPRequest:
 type ZonedAPIReleaseIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3095,6 +3227,7 @@ type ZonedAPIReleaseIPRequest struct {
 	IPID string `json:"-"`
 }
 
+// ZonedAPIRemoveBackendServersRequest:
 type ZonedAPIRemoveBackendServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3104,6 +3237,7 @@ type ZonedAPIRemoveBackendServersRequest struct {
 	ServerIP []string `json:"server_ip"`
 }
 
+// ZonedAPISetACLsRequest:
 type ZonedAPISetACLsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3113,6 +3247,7 @@ type ZonedAPISetACLsRequest struct {
 	FrontendID string `json:"-"`
 }
 
+// ZonedAPISetBackendServersRequest:
 type ZonedAPISetBackendServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3122,6 +3257,7 @@ type ZonedAPISetBackendServersRequest struct {
 	ServerIP []string `json:"server_ip"`
 }
 
+// ZonedAPISubscribeToLBRequest:
 type ZonedAPISubscribeToLBRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3131,6 +3267,7 @@ type ZonedAPISubscribeToLBRequest struct {
 	SubscriberID string `json:"subscriber_id"`
 }
 
+// ZonedAPIUnsubscribeFromLBRequest:
 type ZonedAPIUnsubscribeFromLBRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3138,6 +3275,7 @@ type ZonedAPIUnsubscribeFromLBRequest struct {
 	LBID string `json:"-"`
 }
 
+// ZonedAPIUpdateACLRequest:
 type ZonedAPIUpdateACLRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3155,6 +3293,7 @@ type ZonedAPIUpdateACLRequest struct {
 	Description *string `json:"description,omitempty"`
 }
 
+// ZonedAPIUpdateBackendRequest:
 type ZonedAPIUpdateBackendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3172,7 +3311,7 @@ type ZonedAPIUpdateBackendRequest struct {
 	StickySessions StickySessionsType `json:"sticky_sessions"`
 	// StickySessionsCookieName: Cookie name for cookie-based sticky sessions.
 	StickySessionsCookieName string `json:"sticky_sessions_cookie_name"`
-	// SendProxyV2: Deprecated in favor of proxy_protocol field.
+	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
 	// TimeoutServer: Maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server,omitempty"`
@@ -3236,6 +3375,7 @@ func (m ZonedAPIUpdateBackendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// ZonedAPIUpdateCertificateRequest:
 type ZonedAPIUpdateCertificateRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3245,6 +3385,7 @@ type ZonedAPIUpdateCertificateRequest struct {
 	Name string `json:"name"`
 }
 
+// ZonedAPIUpdateFrontendRequest:
 type ZonedAPIUpdateFrontendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3258,7 +3399,7 @@ type ZonedAPIUpdateFrontendRequest struct {
 	BackendID string `json:"backend_id"`
 	// TimeoutClient: Maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client,omitempty"`
-	// CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
+	// Deprecated: CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
 	CertificateID *string `json:"certificate_id,omitempty"`
 	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs *[]string `json:"certificate_ids,omitempty"`
@@ -3294,6 +3435,7 @@ func (m ZonedAPIUpdateFrontendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// ZonedAPIUpdateHealthCheckRequest:
 type ZonedAPIUpdateHealthCheckRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3359,6 +3501,7 @@ func (m ZonedAPIUpdateHealthCheckRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
+// ZonedAPIUpdateIPRequest:
 type ZonedAPIUpdateIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3368,6 +3511,7 @@ type ZonedAPIUpdateIPRequest struct {
 	Reverse *string `json:"reverse,omitempty"`
 }
 
+// ZonedAPIUpdateLBRequest:
 type ZonedAPIUpdateLBRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3383,6 +3527,7 @@ type ZonedAPIUpdateLBRequest struct {
 	SslCompatibilityLevel SSLCompatibilityLevel `json:"ssl_compatibility_level"`
 }
 
+// ZonedAPIUpdateRouteRequest:
 type ZonedAPIUpdateRouteRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3394,6 +3539,7 @@ type ZonedAPIUpdateRouteRequest struct {
 	Match *RouteMatch `json:"match"`
 }
 
+// ZonedAPIUpdateSubscriberRequest:
 type ZonedAPIUpdateSubscriberRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -3558,11 +3704,11 @@ type ZonedAPIUpdateSubscriberRequest struct {
 //
 // Load Balancers can be deployed in the following Availability Zones:
 //
-// | Name      | API ID                |
-// |-----------|-----------------------|
-// | Paris     | `fr-par-1` `fr-par-2` |
-// | Amsterdam | `nl-ams-1` `nl-ams-2` |
-// | Warsaw    | `pl-waw-1` `pl-waw-2` |
+// | Name      | API ID                           |
+// |-----------|----------------------------------|
+// | Paris     | `fr-par-1` `fr-par-2`            |
+// | Amsterdam | `nl-ams-1` `nl-ams-2` `nl-ams-3` |
+// | Warsaw    | `pl-waw-1` `pl-waw-2`            |
 //
 // The Scaleway Load Balancer API is a **zoned** API, meaning that each call must specify in its path parameters the Availability Zone for the resources concerned by the call.
 //
@@ -4621,7 +4767,7 @@ func (s *ZonedAPI) DeleteRoute(req *ZonedAPIDeleteRouteRequest, opts ...scw.Requ
 	return nil
 }
 
-// GetLBStats: Get usage statistics of a given Load Balancer.
+// Deprecated: GetLBStats: Get usage statistics of a given Load Balancer.
 func (s *ZonedAPI) GetLBStats(req *ZonedAPIGetLBStatsRequest, opts ...scw.RequestOption) (*LBStats, error) {
 	var err error
 	if req.Zone == "" {
@@ -5470,7 +5616,7 @@ type API struct {
 	client *scw.Client
 }
 
-// NewAPI returns a API object from a Scaleway client.
+// Deprecated: NewAPI returns a API object from a Scaleway client.
 func NewAPI(client *scw.Client) *API {
 	return &API{
 		client: client,
@@ -6515,7 +6661,7 @@ func (s *API) DeleteRoute(req *DeleteRouteRequest, opts ...scw.RequestOption) er
 	return nil
 }
 
-// GetLBStats: Get usage statistics of a given load balancer.
+// Deprecated: GetLBStats: Get usage statistics of a given load balancer.
 func (s *API) GetLBStats(req *GetLBStatsRequest, opts ...scw.RequestOption) (*LBStats, error) {
 	var err error
 	if req.Region == "" {

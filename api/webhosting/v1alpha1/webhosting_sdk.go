@@ -324,6 +324,7 @@ func (enum *OfferQuotaWarning) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// HostingCpanelURLs:
 type HostingCpanelURLs struct {
 	// Dashboard:
 	Dashboard string `json:"dashboard"`
@@ -331,6 +332,7 @@ type HostingCpanelURLs struct {
 	Webmail string `json:"webmail"`
 }
 
+// HostingOption:
 type HostingOption struct {
 	// ID: Option ID.
 	ID string `json:"id"`
@@ -338,6 +340,7 @@ type HostingOption struct {
 	Name string `json:"name"`
 }
 
+// OfferProduct:
 type OfferProduct struct {
 	// Name: Product name.
 	Name string `json:"name"`
@@ -359,6 +362,7 @@ type OfferProduct struct {
 	RAM uint32 `json:"ram"`
 }
 
+// DNSRecord:
 type DNSRecord struct {
 	// Name: Record name.
 	Name string `json:"name"`
@@ -374,6 +378,7 @@ type DNSRecord struct {
 	Status DNSRecordStatus `json:"status"`
 }
 
+// Nameserver:
 type Nameserver struct {
 	// Hostname: Hostname of the nameserver.
 	Hostname string `json:"hostname"`
@@ -383,6 +388,7 @@ type Nameserver struct {
 	IsDefault bool `json:"is_default"`
 }
 
+// Hosting:
 type Hosting struct {
 	// ID: ID of the Web Hosting plan.
 	ID string `json:"id"`
@@ -422,6 +428,7 @@ type Hosting struct {
 	Region scw.Region `json:"region"`
 }
 
+// Offer:
 type Offer struct {
 	// ID: Offer ID.
 	ID string `json:"id"`
@@ -439,6 +446,7 @@ type Offer struct {
 	EndOfLife bool `json:"end_of_life"`
 }
 
+// CreateHostingRequest:
 type CreateHostingRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -456,6 +464,7 @@ type CreateHostingRequest struct {
 	OptionIDs []string `json:"option_ids"`
 }
 
+// DNSRecords:
 type DNSRecords struct {
 	// Records: List of DNS records.
 	Records []*DNSRecord `json:"records"`
@@ -465,6 +474,7 @@ type DNSRecords struct {
 	Status DNSRecordsStatus `json:"status"`
 }
 
+// DeleteHostingRequest:
 type DeleteHostingRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -472,6 +482,7 @@ type DeleteHostingRequest struct {
 	HostingID string `json:"-"`
 }
 
+// GetDomainDNSRecordsRequest:
 type GetDomainDNSRecordsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -479,6 +490,7 @@ type GetDomainDNSRecordsRequest struct {
 	Domain string `json:"-"`
 }
 
+// GetHostingRequest:
 type GetHostingRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -486,6 +498,7 @@ type GetHostingRequest struct {
 	HostingID string `json:"-"`
 }
 
+// ListHostingsRequest:
 type ListHostingsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -507,6 +520,7 @@ type ListHostingsRequest struct {
 	OrganizationID *string `json:"organization_id,omitempty"`
 }
 
+// ListHostingsResponse:
 type ListHostingsResponse struct {
 	// TotalCount: Number of Web Hosting plans returned.
 	TotalCount uint32 `json:"total_count"`
@@ -533,6 +547,7 @@ func (r *ListHostingsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Hostings)), nil
 }
 
+// ListOffersRequest:
 type ListOffersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -546,11 +561,13 @@ type ListOffersRequest struct {
 	HostingID *string `json:"hosting_id,omitempty"`
 }
 
+// ListOffersResponse:
 type ListOffersResponse struct {
 	// Offers: List of offers.
 	Offers []*Offer `json:"offers"`
 }
 
+// RestoreHostingRequest:
 type RestoreHostingRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -558,6 +575,7 @@ type RestoreHostingRequest struct {
 	HostingID string `json:"-"`
 }
 
+// UpdateHostingRequest:
 type UpdateHostingRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`

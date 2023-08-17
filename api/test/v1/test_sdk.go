@@ -159,6 +159,7 @@ func (enum *ListHumansRequestOrderBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Human:
 type Human struct {
 	// ID:
 	ID string `json:"id"`
@@ -192,6 +193,7 @@ type Human struct {
 	ProjectID string `json:"project_id"`
 }
 
+// CreateHumanRequest:
 type CreateHumanRequest struct {
 	// Height:
 	Height float64 `json:"height"`
@@ -209,7 +211,7 @@ type CreateHumanRequest struct {
 	IsHappy bool `json:"is_happy"`
 	// EyesColor:
 	EyesColor EyeColors `json:"eyes_color"`
-	// OrganizationID:
+	// Deprecated: OrganizationID:
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// Name:
 	Name string `json:"name"`
@@ -217,16 +219,19 @@ type CreateHumanRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// DeleteHumanRequest:
 type DeleteHumanRequest struct {
 	// HumanID: UUID of the human you want to delete.
 	HumanID string `json:"-"`
 }
 
+// GetHumanRequest:
 type GetHumanRequest struct {
 	// HumanID: UUID of the human you want to get.
 	HumanID string `json:"-"`
 }
 
+// ListHumansRequest:
 type ListHumansRequest struct {
 	// Page:
 	Page *int32 `json:"page,omitempty"`
@@ -240,6 +245,7 @@ type ListHumansRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListHumansResponse:
 type ListHumansResponse struct {
 	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
@@ -266,11 +272,13 @@ func (r *ListHumansResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Humans)), nil
 }
 
+// RegisterRequest:
 type RegisterRequest struct {
 	// Username:
 	Username string `json:"username"`
 }
 
+// RegisterResponse:
 type RegisterResponse struct {
 	// SecretKey:
 	SecretKey string `json:"secret_key"`
@@ -278,16 +286,19 @@ type RegisterResponse struct {
 	AccessKey string `json:"access_key"`
 }
 
+// RunHumanRequest:
 type RunHumanRequest struct {
 	// HumanID: UUID of the human you want to make run.
 	HumanID string `json:"-"`
 }
 
+// SmokeHumanRequest:
 type SmokeHumanRequest struct {
-	// HumanID: UUID of the human you want to make smoking.
+	// Deprecated: HumanID: UUID of the human you want to make smoking.
 	HumanID *string `json:"-,omitempty"`
 }
 
+// UpdateHumanRequest:
 type UpdateHumanRequest struct {
 	// HumanID: UUID of the human you want to update.
 	HumanID string `json:"-"`
@@ -511,7 +522,7 @@ func (s *API) RunHuman(req *RunHumanRequest, opts ...scw.RequestOption) (*Human,
 	return &resp, nil
 }
 
-// SmokeHuman: Make a human smoke.
+// Deprecated: SmokeHuman: Make a human smoke.
 func (s *API) SmokeHuman(req *SmokeHumanRequest, opts ...scw.RequestOption) (*Human, error) {
 	var err error
 

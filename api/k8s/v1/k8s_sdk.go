@@ -579,6 +579,7 @@ func (enum *Runtime) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MaintenanceWindow:
 type MaintenanceWindow struct {
 	// StartHour: Start time of the two-hour maintenance window.
 	StartHour uint32 `json:"start_hour"`
@@ -586,6 +587,7 @@ type MaintenanceWindow struct {
 	Day MaintenanceWindowDayOfTheWeek `json:"day"`
 }
 
+// PoolUpgradePolicy:
 type PoolUpgradePolicy struct {
 	// MaxUnavailable:
 	MaxUnavailable uint32 `json:"max_unavailable"`
@@ -593,6 +595,7 @@ type PoolUpgradePolicy struct {
 	MaxSurge uint32 `json:"max_surge"`
 }
 
+// CreateClusterRequestPoolConfigUpgradePolicy:
 type CreateClusterRequestPoolConfigUpgradePolicy struct {
 	// MaxUnavailable: The maximum number of nodes that can be not ready at the same time.
 	MaxUnavailable *uint32 `json:"max_unavailable,omitempty"`
@@ -600,6 +603,7 @@ type CreateClusterRequestPoolConfigUpgradePolicy struct {
 	MaxSurge *uint32 `json:"max_surge,omitempty"`
 }
 
+// ClusterAutoUpgrade:
 type ClusterAutoUpgrade struct {
 	// Enabled: Defines whether auto upgrade is enabled for the cluster.
 	Enabled bool `json:"enabled"`
@@ -607,6 +611,7 @@ type ClusterAutoUpgrade struct {
 	MaintenanceWindow *MaintenanceWindow `json:"maintenance_window"`
 }
 
+// ClusterAutoscalerConfig:
 type ClusterAutoscalerConfig struct {
 	// ScaleDownDisabled: Disable the cluster autoscaler.
 	ScaleDownDisabled bool `json:"scale_down_disabled"`
@@ -630,6 +635,7 @@ type ClusterAutoscalerConfig struct {
 	MaxGracefulTerminationSec uint32 `json:"max_graceful_termination_sec"`
 }
 
+// ClusterOpenIDConnectConfig:
 type ClusterOpenIDConnectConfig struct {
 	// IssuerURL: URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
 	IssuerURL string `json:"issuer_url"`
@@ -647,6 +653,7 @@ type ClusterOpenIDConnectConfig struct {
 	RequiredClaim []string `json:"required_claim"`
 }
 
+// Pool:
 type Pool struct {
 	// ID: Pool ID.
 	ID string `json:"id"`
@@ -694,6 +701,7 @@ type Pool struct {
 	Region scw.Region `json:"region"`
 }
 
+// CreateClusterRequestAutoUpgrade:
 type CreateClusterRequestAutoUpgrade struct {
 	// Enable: Defines whether auto upgrade is enabled for the cluster.
 	Enable bool `json:"enable"`
@@ -701,6 +709,7 @@ type CreateClusterRequestAutoUpgrade struct {
 	MaintenanceWindow *MaintenanceWindow `json:"maintenance_window"`
 }
 
+// CreateClusterRequestAutoscalerConfig:
 type CreateClusterRequestAutoscalerConfig struct {
 	// ScaleDownDisabled: Disable the cluster autoscaler.
 	ScaleDownDisabled *bool `json:"scale_down_disabled,omitempty"`
@@ -724,6 +733,7 @@ type CreateClusterRequestAutoscalerConfig struct {
 	MaxGracefulTerminationSec *uint32 `json:"max_graceful_termination_sec,omitempty"`
 }
 
+// CreateClusterRequestOpenIDConnectConfig:
 type CreateClusterRequestOpenIDConnectConfig struct {
 	// IssuerURL: URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
 	IssuerURL string `json:"issuer_url"`
@@ -741,6 +751,7 @@ type CreateClusterRequestOpenIDConnectConfig struct {
 	RequiredClaim *[]string `json:"required_claim,omitempty"`
 }
 
+// CreateClusterRequestPoolConfig:
 type CreateClusterRequestPoolConfig struct {
 	// Name: Name of the pool.
 	Name string `json:"name"`
@@ -774,6 +785,7 @@ type CreateClusterRequestPoolConfig struct {
 	RootVolumeSize *scw.Size `json:"root_volume_size,omitempty"`
 }
 
+// CreatePoolRequestUpgradePolicy:
 type CreatePoolRequestUpgradePolicy struct {
 	// MaxUnavailable:
 	MaxUnavailable *uint32 `json:"max_unavailable,omitempty"`
@@ -781,6 +793,7 @@ type CreatePoolRequestUpgradePolicy struct {
 	MaxSurge *uint32 `json:"max_surge,omitempty"`
 }
 
+// ClusterType:
 type ClusterType struct {
 	// Name: Cluster type name.
 	Name string `json:"name"`
@@ -800,6 +813,7 @@ type ClusterType struct {
 	Dedicated bool `json:"dedicated"`
 }
 
+// Version:
 type Version struct {
 	// Name: Name of the Kubernetes version.
 	Name string `json:"name"`
@@ -809,7 +823,7 @@ type Version struct {
 	Region scw.Region `json:"region"`
 	// AvailableCnis: Supported Container Network Interface (CNI) plugins for this version.
 	AvailableCnis []CNI `json:"available_cnis"`
-	// AvailableIngresses: Supported Ingress Controllers for this version.
+	// Deprecated: AvailableIngresses: Supported Ingress Controllers for this version.
 	AvailableIngresses *[]Ingress `json:"available_ingresses,omitempty"`
 	// AvailableContainerRuntimes: Supported container runtimes for this version.
 	AvailableContainerRuntimes []Runtime `json:"available_container_runtimes"`
@@ -821,6 +835,7 @@ type Version struct {
 	AvailableKubeletArgs map[string]string `json:"available_kubelet_args"`
 }
 
+// Cluster:
 type Cluster struct {
 	// ID: Cluster ID.
 	ID string `json:"id"`
@@ -854,9 +869,9 @@ type Cluster struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// AutoscalerConfig: Autoscaler config for the cluster.
 	AutoscalerConfig *ClusterAutoscalerConfig `json:"autoscaler_config"`
-	// DashboardEnabled: Defines whether the Kubernetes dashboard is enabled for the cluster.
+	// Deprecated: DashboardEnabled: Defines whether the Kubernetes dashboard is enabled for the cluster.
 	DashboardEnabled *bool `json:"dashboard_enabled,omitempty"`
-	// Ingress: Managed Ingress controller used in the cluster (deprecated feature).
+	// Deprecated: Ingress: Managed Ingress controller used in the cluster (deprecated feature).
 	Ingress *Ingress `json:"ingress,omitempty"`
 	// AutoUpgrade: Auto upgrade configuration of the cluster.
 	AutoUpgrade *ClusterAutoUpgrade `json:"auto_upgrade"`
@@ -878,6 +893,7 @@ type Cluster struct {
 	AuditLog bool `json:"audit_log"`
 }
 
+// Node:
 type Node struct {
 	// ID: Node ID.
 	ID string `json:"id"`
@@ -891,11 +907,11 @@ type Node struct {
 	Region scw.Region `json:"region"`
 	// Name: Name of the node.
 	Name string `json:"name"`
-	// PublicIPV4: Public IPv4 address of the node.
+	// Deprecated: PublicIPV4: Public IPv4 address of the node.
 	PublicIPV4 *net.IP `json:"public_ip_v4,omitempty"`
-	// PublicIPV6: Public IPv6 address of the node.
+	// Deprecated: PublicIPV6: Public IPv6 address of the node.
 	PublicIPV6 *net.IP `json:"public_ip_v6,omitempty"`
-	// Conditions: Conditions of the node. These conditions contain the Node Problem Detector conditions, as well as some in house conditions.
+	// Deprecated: Conditions: Conditions of the node. These conditions contain the Node Problem Detector conditions, as well as some in house conditions.
 	Conditions *map[string]string `json:"conditions,omitempty"`
 	// Status: Status of the node.
 	Status NodeStatus `json:"status"`
@@ -907,6 +923,7 @@ type Node struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// UpdateClusterRequestAutoUpgrade:
 type UpdateClusterRequestAutoUpgrade struct {
 	// Enable: Defines whether auto upgrade is enabled for the cluster.
 	Enable *bool `json:"enable,omitempty"`
@@ -914,6 +931,7 @@ type UpdateClusterRequestAutoUpgrade struct {
 	MaintenanceWindow *MaintenanceWindow `json:"maintenance_window"`
 }
 
+// UpdateClusterRequestAutoscalerConfig:
 type UpdateClusterRequestAutoscalerConfig struct {
 	// ScaleDownDisabled: Disable the cluster autoscaler.
 	ScaleDownDisabled *bool `json:"scale_down_disabled,omitempty"`
@@ -937,6 +955,7 @@ type UpdateClusterRequestAutoscalerConfig struct {
 	MaxGracefulTerminationSec *uint32 `json:"max_graceful_termination_sec,omitempty"`
 }
 
+// UpdateClusterRequestOpenIDConnectConfig:
 type UpdateClusterRequestOpenIDConnectConfig struct {
 	// IssuerURL: URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
 	IssuerURL *string `json:"issuer_url,omitempty"`
@@ -954,6 +973,7 @@ type UpdateClusterRequestOpenIDConnectConfig struct {
 	RequiredClaim *[]string `json:"required_claim,omitempty"`
 }
 
+// UpdatePoolRequestUpgradePolicy:
 type UpdatePoolRequestUpgradePolicy struct {
 	// MaxUnavailable:
 	MaxUnavailable *uint32 `json:"max_unavailable,omitempty"`
@@ -961,10 +981,11 @@ type UpdatePoolRequestUpgradePolicy struct {
 	MaxSurge *uint32 `json:"max_surge,omitempty"`
 }
 
+// CreateClusterRequest:
 type CreateClusterRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// OrganizationID: Organization ID in which the cluster will be created.
+	// Deprecated: OrganizationID: Organization ID in which the cluster will be created.
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: Project ID in which the cluster will be created.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -980,9 +1001,9 @@ type CreateClusterRequest struct {
 	Version string `json:"version"`
 	// Cni: Container Network Interface (CNI) plugin running in the cluster.
 	Cni CNI `json:"cni"`
-	// EnableDashboard: Defines whether the Kubernetes Dashboard is enabled in the cluster.
+	// Deprecated: EnableDashboard: Defines whether the Kubernetes Dashboard is enabled in the cluster.
 	EnableDashboard *bool `json:"enable_dashboard,omitempty"`
-	// Ingress: Ingress Controller running in the cluster (deprecated feature).
+	// Deprecated: Ingress: Ingress Controller running in the cluster (deprecated feature).
 	Ingress *Ingress `json:"ingress,omitempty"`
 	// Pools: Pools created along with the cluster.
 	Pools []*CreateClusterRequestPoolConfig `json:"pools"`
@@ -1004,6 +1025,7 @@ type CreateClusterRequest struct {
 	AuditLog bool `json:"audit_log"`
 }
 
+// CreateExternalNodeRequest:
 type CreateExternalNodeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1011,6 +1033,7 @@ type CreateExternalNodeRequest struct {
 	PoolID string `json:"-"`
 }
 
+// CreatePoolRequest:
 type CreatePoolRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1048,6 +1071,7 @@ type CreatePoolRequest struct {
 	RootVolumeSize *scw.Size `json:"root_volume_size,omitempty"`
 }
 
+// DeleteClusterRequest:
 type DeleteClusterRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1057,6 +1081,7 @@ type DeleteClusterRequest struct {
 	WithAdditionalResources bool `json:"with_additional_resources"`
 }
 
+// DeleteNodeRequest:
 type DeleteNodeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1068,6 +1093,7 @@ type DeleteNodeRequest struct {
 	Replace bool `json:"replace"`
 }
 
+// DeletePoolRequest:
 type DeletePoolRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1075,6 +1101,7 @@ type DeletePoolRequest struct {
 	PoolID string `json:"-"`
 }
 
+// ExternalNode:
 type ExternalNode struct {
 	// ID:
 	ID string `json:"id"`
@@ -1094,6 +1121,7 @@ type ExternalNode struct {
 	ExternalIP string `json:"external_ip"`
 }
 
+// GetClusterKubeConfigRequest:
 type GetClusterKubeConfigRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1101,6 +1129,7 @@ type GetClusterKubeConfigRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// GetClusterRequest:
 type GetClusterRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1108,6 +1137,7 @@ type GetClusterRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// GetNodeRequest:
 type GetNodeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1115,6 +1145,7 @@ type GetNodeRequest struct {
 	NodeID string `json:"-"`
 }
 
+// GetPoolRequest:
 type GetPoolRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1122,6 +1153,7 @@ type GetPoolRequest struct {
 	PoolID string `json:"-"`
 }
 
+// GetVersionRequest:
 type GetVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1129,6 +1161,7 @@ type GetVersionRequest struct {
 	VersionName string `json:"-"`
 }
 
+// ListClusterAvailableTypesRequest:
 type ListClusterAvailableTypesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1136,6 +1169,7 @@ type ListClusterAvailableTypesRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// ListClusterAvailableTypesResponse:
 type ListClusterAvailableTypesResponse struct {
 	// ClusterTypes: Available cluster types for the cluster.
 	ClusterTypes []*ClusterType `json:"cluster_types"`
@@ -1162,6 +1196,7 @@ func (r *ListClusterAvailableTypesResponse) UnsafeAppend(res interface{}) (uint3
 	return uint32(len(results.ClusterTypes)), nil
 }
 
+// ListClusterAvailableVersionsRequest:
 type ListClusterAvailableVersionsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1169,11 +1204,13 @@ type ListClusterAvailableVersionsRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// ListClusterAvailableVersionsResponse:
 type ListClusterAvailableVersionsResponse struct {
 	// Versions: Available Kubernetes versions for the cluster.
 	Versions []*Version `json:"versions"`
 }
 
+// ListClusterTypesRequest:
 type ListClusterTypesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1183,6 +1220,7 @@ type ListClusterTypesRequest struct {
 	PageSize *uint32 `json:"page_size,omitempty"`
 }
 
+// ListClusterTypesResponse:
 type ListClusterTypesResponse struct {
 	// TotalCount: Total number of cluster-types.
 	TotalCount uint32 `json:"total_count"`
@@ -1209,6 +1247,7 @@ func (r *ListClusterTypesResponse) UnsafeAppend(res interface{}) (uint32, error)
 	return uint32(len(results.ClusterTypes)), nil
 }
 
+// ListClustersRequest:
 type ListClustersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1230,6 +1269,7 @@ type ListClustersRequest struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// ListClustersResponse:
 type ListClustersResponse struct {
 	// TotalCount: Total number of clusters.
 	TotalCount uint32 `json:"total_count"`
@@ -1256,6 +1296,7 @@ func (r *ListClustersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Clusters)), nil
 }
 
+// ListNodesRequest:
 type ListNodesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1275,6 +1316,7 @@ type ListNodesRequest struct {
 	Status NodeStatus `json:"status"`
 }
 
+// ListNodesResponse:
 type ListNodesResponse struct {
 	// TotalCount: Total number of nodes.
 	TotalCount uint32 `json:"total_count"`
@@ -1301,6 +1343,7 @@ func (r *ListNodesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Nodes)), nil
 }
 
+// ListPoolsRequest:
 type ListPoolsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1318,6 +1361,7 @@ type ListPoolsRequest struct {
 	Status PoolStatus `json:"status"`
 }
 
+// ListPoolsResponse:
 type ListPoolsResponse struct {
 	// TotalCount: Total number of pools that exists for the cluster.
 	TotalCount uint32 `json:"total_count"`
@@ -1344,16 +1388,19 @@ func (r *ListPoolsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Pools)), nil
 }
 
+// ListVersionsRequest:
 type ListVersionsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 }
 
+// ListVersionsResponse:
 type ListVersionsResponse struct {
 	// Versions: Available Kubernetes versions.
 	Versions []*Version `json:"versions"`
 }
 
+// MigrateToPrivateNetworkClusterRequest:
 type MigrateToPrivateNetworkClusterRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1363,6 +1410,7 @@ type MigrateToPrivateNetworkClusterRequest struct {
 	PrivateNetworkID string `json:"private_network_id"`
 }
 
+// RebootNodeRequest:
 type RebootNodeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1370,6 +1418,7 @@ type RebootNodeRequest struct {
 	NodeID string `json:"-"`
 }
 
+// ReplaceNodeRequest:
 type ReplaceNodeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1377,6 +1426,7 @@ type ReplaceNodeRequest struct {
 	NodeID string `json:"-"`
 }
 
+// ResetClusterAdminTokenRequest:
 type ResetClusterAdminTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1384,6 +1434,7 @@ type ResetClusterAdminTokenRequest struct {
 	ClusterID string `json:"-"`
 }
 
+// SetClusterTypeRequest:
 type SetClusterTypeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1393,6 +1444,7 @@ type SetClusterTypeRequest struct {
 	Type string `json:"type"`
 }
 
+// UpdateClusterRequest:
 type UpdateClusterRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1406,9 +1458,9 @@ type UpdateClusterRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 	// AutoscalerConfig: New autoscaler config for the cluster.
 	AutoscalerConfig *UpdateClusterRequestAutoscalerConfig `json:"autoscaler_config"`
-	// EnableDashboard: New value for the Kubernetes Dashboard enablement.
+	// Deprecated: EnableDashboard: New value for the Kubernetes Dashboard enablement.
 	EnableDashboard *bool `json:"enable_dashboard,omitempty"`
-	// Ingress: New Ingress Controller for the cluster (deprecated feature).
+	// Deprecated: Ingress: New Ingress Controller for the cluster (deprecated feature).
 	Ingress *Ingress `json:"ingress,omitempty"`
 	// AutoUpgrade: New auto upgrade configuration for the cluster. Note that all fields need to be set.
 	AutoUpgrade *UpdateClusterRequestAutoUpgrade `json:"auto_upgrade"`
@@ -1424,6 +1476,7 @@ type UpdateClusterRequest struct {
 	AuditLog *bool `json:"audit_log,omitempty"`
 }
 
+// UpdatePoolRequest:
 type UpdatePoolRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1447,6 +1500,7 @@ type UpdatePoolRequest struct {
 	UpgradePolicy *UpdatePoolRequestUpgradePolicy `json:"upgrade_policy"`
 }
 
+// UpgradeClusterRequest:
 type UpgradeClusterRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1458,6 +1512,7 @@ type UpgradeClusterRequest struct {
 	UpgradePools bool `json:"upgrade_pools"`
 }
 
+// UpgradePoolRequest:
 type UpgradePoolRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2387,7 +2442,7 @@ func (s *API) GetNode(req *GetNodeRequest, opts ...scw.RequestOption) (*Node, er
 	return &resp, nil
 }
 
-// ReplaceNode: Replace a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
+// Deprecated: ReplaceNode: Replace a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
 func (s *API) ReplaceNode(req *ReplaceNodeRequest, opts ...scw.RequestOption) (*Node, error) {
 	var err error
 	if req.Region == "" {

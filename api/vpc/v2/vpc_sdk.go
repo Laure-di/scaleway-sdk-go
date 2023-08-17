@@ -103,6 +103,7 @@ func (enum *ListVPCsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Subnet:
 type Subnet struct {
 	// ID: ID of the subnet.
 	ID string `json:"id"`
@@ -114,6 +115,7 @@ type Subnet struct {
 	Subnet scw.IPNet `json:"subnet"`
 }
 
+// PrivateNetwork:
 type PrivateNetwork struct {
 	// ID: Private Network ID.
 	ID string `json:"id"`
@@ -139,6 +141,7 @@ type PrivateNetwork struct {
 	DHCPEnabled bool `json:"dhcp_enabled"`
 }
 
+// VPC:
 type VPC struct {
 	// ID: VPC ID.
 	ID string `json:"id"`
@@ -162,6 +165,7 @@ type VPC struct {
 	PrivateNetworkCount uint32 `json:"private_network_count"`
 }
 
+// AddSubnetsRequest:
 type AddSubnetsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -171,11 +175,13 @@ type AddSubnetsRequest struct {
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
+// AddSubnetsResponse:
 type AddSubnetsResponse struct {
 	// Subnets:
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
+// CreatePrivateNetworkRequest:
 type CreatePrivateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -191,6 +197,7 @@ type CreatePrivateNetworkRequest struct {
 	VpcID *string `json:"vpc_id,omitempty"`
 }
 
+// CreateVPCRequest:
 type CreateVPCRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -202,6 +209,7 @@ type CreateVPCRequest struct {
 	Tags []string `json:"tags"`
 }
 
+// DeletePrivateNetworkRequest:
 type DeletePrivateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -209,6 +217,7 @@ type DeletePrivateNetworkRequest struct {
 	PrivateNetworkID string `json:"-"`
 }
 
+// DeleteSubnetsRequest:
 type DeleteSubnetsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -218,11 +227,13 @@ type DeleteSubnetsRequest struct {
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
+// DeleteSubnetsResponse:
 type DeleteSubnetsResponse struct {
 	// Subnets:
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
+// DeleteVPCRequest:
 type DeleteVPCRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -230,6 +241,7 @@ type DeleteVPCRequest struct {
 	VpcID string `json:"-"`
 }
 
+// EnableDHCPRequest:
 type EnableDHCPRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -237,6 +249,7 @@ type EnableDHCPRequest struct {
 	PrivateNetworkID string `json:"-"`
 }
 
+// GetPrivateNetworkRequest:
 type GetPrivateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -244,6 +257,7 @@ type GetPrivateNetworkRequest struct {
 	PrivateNetworkID string `json:"-"`
 }
 
+// GetVPCRequest:
 type GetVPCRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -251,6 +265,7 @@ type GetVPCRequest struct {
 	VpcID string `json:"-"`
 }
 
+// ListPrivateNetworksRequest:
 type ListPrivateNetworksRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -276,6 +291,7 @@ type ListPrivateNetworksRequest struct {
 	DHCPEnabled *bool `json:"dhcp_enabled,omitempty"`
 }
 
+// ListPrivateNetworksResponse:
 type ListPrivateNetworksResponse struct {
 	// PrivateNetworks:
 	PrivateNetworks []*PrivateNetwork `json:"private_networks"`
@@ -302,6 +318,7 @@ func (r *ListPrivateNetworksResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.PrivateNetworks)), nil
 }
 
+// ListVPCsRequest:
 type ListVPCsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -323,6 +340,7 @@ type ListVPCsRequest struct {
 	IsDefault *bool `json:"is_default,omitempty"`
 }
 
+// ListVPCsResponse:
 type ListVPCsResponse struct {
 	// Vpcs:
 	Vpcs []*VPC `json:"vpcs"`
@@ -349,6 +367,7 @@ func (r *ListVPCsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Vpcs)), nil
 }
 
+// MigrateZonalPrivateNetworksRequest:
 type MigrateZonalPrivateNetworksRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -360,6 +379,7 @@ type MigrateZonalPrivateNetworksRequest struct {
 	PrivateNetworkIDs []string `json:"private_network_ids"`
 }
 
+// SetSubnetsRequest:
 type SetSubnetsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -369,11 +389,13 @@ type SetSubnetsRequest struct {
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
+// SetSubnetsResponse:
 type SetSubnetsResponse struct {
 	// Subnets:
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
+// UpdatePrivateNetworkRequest:
 type UpdatePrivateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -385,6 +407,7 @@ type UpdatePrivateNetworkRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 }
 
+// UpdateVPCRequest:
 type UpdateVPCRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`

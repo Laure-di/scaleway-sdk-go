@@ -524,6 +524,41 @@ func (enum *HostStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+type ListContactsRequestRole string
+
+const (
+	ListContactsRequestRoleUnknownRole = ListContactsRequestRole("unknown_role")
+	// The contact is a domain's owner.
+	ListContactsRequestRoleOwner = ListContactsRequestRole("owner")
+	// The contact is a domain's administrative contact.
+	ListContactsRequestRoleAdministrative = ListContactsRequestRole("administrative")
+	// The contact is a domain's technical contact.
+	ListContactsRequestRoleTechnical = ListContactsRequestRole("technical")
+)
+
+func (enum ListContactsRequestRole) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "unknown_role"
+	}
+	return string(enum)
+}
+
+func (enum ListContactsRequestRole) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListContactsRequestRole) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListContactsRequestRole(ListContactsRequestRole(tmp).String())
+	return nil
+}
+
 type ListDNSZoneRecordsRequestOrderBy string
 
 const (
@@ -1020,6 +1055,7 @@ func (enum *TaskType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// RecordGeoIPConfigMatch:
 type RecordGeoIPConfigMatch struct {
 	// Countries:
 	Countries []string `json:"countries"`
@@ -1029,6 +1065,7 @@ type RecordGeoIPConfigMatch struct {
 	Data string `json:"data"`
 }
 
+// RecordViewConfigView:
 type RecordViewConfigView struct {
 	// Subnet:
 	Subnet string `json:"subnet"`
@@ -1036,6 +1073,7 @@ type RecordViewConfigView struct {
 	Data string `json:"data"`
 }
 
+// RecordWeightedConfigWeightedIP:
 type RecordWeightedConfigWeightedIP struct {
 	// IP:
 	IP net.IP `json:"ip"`
@@ -1043,11 +1081,13 @@ type RecordWeightedConfigWeightedIP struct {
 	Weight uint32 `json:"weight"`
 }
 
+// DSRecordPublicKey:
 type DSRecordPublicKey struct {
 	// Key:
 	Key string `json:"key"`
 }
 
+// RecordGeoIPConfig:
 type RecordGeoIPConfig struct {
 	// Matches:
 	Matches []*RecordGeoIPConfigMatch `json:"matches"`
@@ -1055,6 +1095,7 @@ type RecordGeoIPConfig struct {
 	Default string `json:"default"`
 }
 
+// RecordHTTPServiceConfig:
 type RecordHTTPServiceConfig struct {
 	// IPs:
 	IPs []net.IP `json:"ips"`
@@ -1068,16 +1109,19 @@ type RecordHTTPServiceConfig struct {
 	Strategy RecordHTTPServiceConfigStrategy `json:"strategy"`
 }
 
+// RecordViewConfig:
 type RecordViewConfig struct {
 	// Views:
 	Views []*RecordViewConfigView `json:"views"`
 }
 
+// RecordWeightedConfig:
 type RecordWeightedConfig struct {
 	// WeightedIPs:
 	WeightedIPs []*RecordWeightedConfigWeightedIP `json:"weighted_ips"`
 }
 
+// ContactExtensionFRAssociationInfo:
 type ContactExtensionFRAssociationInfo struct {
 	// PublicationJo:
 	PublicationJo *time.Time `json:"publication_jo,omitempty"`
@@ -1085,11 +1129,13 @@ type ContactExtensionFRAssociationInfo struct {
 	PublicationJoPage uint32 `json:"publication_jo_page"`
 }
 
+// ContactExtensionFRCodeAuthAfnicInfo:
 type ContactExtensionFRCodeAuthAfnicInfo struct {
 	// CodeAuthAfnic:
 	CodeAuthAfnic string `json:"code_auth_afnic"`
 }
 
+// ContactExtensionFRDunsInfo:
 type ContactExtensionFRDunsInfo struct {
 	// DunsID:
 	DunsID string `json:"duns_id"`
@@ -1097,16 +1143,19 @@ type ContactExtensionFRDunsInfo struct {
 	LocalID string `json:"local_id"`
 }
 
+// ContactExtensionFRIndividualInfo:
 type ContactExtensionFRIndividualInfo struct {
 	// WhoisOptIn:
 	WhoisOptIn bool `json:"whois_opt_in"`
 }
 
+// ContactExtensionFRTrademarkInfo:
 type ContactExtensionFRTrademarkInfo struct {
 	// TrademarkInpi:
 	TrademarkInpi string `json:"trademark_inpi"`
 }
 
+// DSRecordDigest:
 type DSRecordDigest struct {
 	// Type:
 	Type DSRecordDigestType `json:"type"`
@@ -1116,6 +1165,7 @@ type DSRecordDigest struct {
 	PublicKey *DSRecordPublicKey `json:"public_key"`
 }
 
+// Record:
 type Record struct {
 	// Data:
 	Data string `json:"data"`
@@ -1141,6 +1191,7 @@ type Record struct {
 	ID string `json:"id"`
 }
 
+// RecordIdentifier:
 type RecordIdentifier struct {
 	// Name:
 	Name string `json:"name"`
@@ -1152,11 +1203,13 @@ type RecordIdentifier struct {
 	TTL *uint32 `json:"ttl,omitempty"`
 }
 
+// ContactExtensionEU:
 type ContactExtensionEU struct {
 	// EuropeanCitizenship:
 	EuropeanCitizenship string `json:"european_citizenship"`
 }
 
+// ContactExtensionFR:
 type ContactExtensionFR struct {
 	// Mode:
 	Mode ContactExtensionFRMode `json:"mode"`
@@ -1172,6 +1225,7 @@ type ContactExtensionFR struct {
 	CodeAuthAfnicInfo *ContactExtensionFRCodeAuthAfnicInfo `json:"code_auth_afnic_info,omitempty"`
 }
 
+// ContactExtensionNL:
 type ContactExtensionNL struct {
 	// LegalForm:
 	LegalForm ContactExtensionNLLegalForm `json:"legal_form"`
@@ -1179,6 +1233,7 @@ type ContactExtensionNL struct {
 	LegalFormRegistrationNumber string `json:"legal_form_registration_number"`
 }
 
+// ContactQuestion:
 type ContactQuestion struct {
 	// Question:
 	Question string `json:"question"`
@@ -1186,6 +1241,7 @@ type ContactQuestion struct {
 	Answer string `json:"answer"`
 }
 
+// TldOffer:
 type TldOffer struct {
 	// Action:
 	Action string `json:"action"`
@@ -1195,6 +1251,7 @@ type TldOffer struct {
 	Price *scw.Money `json:"price,omitempty"`
 }
 
+// DSRecord:
 type DSRecord struct {
 	// KeyID:
 	KeyID uint32 `json:"key_id"`
@@ -1206,14 +1263,17 @@ type DSRecord struct {
 	PublicKey *DSRecordPublicKey `json:"public_key,omitempty"`
 }
 
+// RecordChangeAdd:
 type RecordChangeAdd struct {
 	// Records:
 	Records []*Record `json:"records"`
 }
 
+// RecordChangeClear:
 type RecordChangeClear struct {
 }
 
+// RecordChangeDelete:
 type RecordChangeDelete struct {
 	// ID:
 	ID *string `json:"id,omitempty"`
@@ -1221,6 +1281,7 @@ type RecordChangeDelete struct {
 	IDFields *RecordIdentifier `json:"id_fields,omitempty"`
 }
 
+// RecordChangeSet:
 type RecordChangeSet struct {
 	// ID:
 	ID *string `json:"id,omitempty"`
@@ -1230,6 +1291,7 @@ type RecordChangeSet struct {
 	Records []*Record `json:"records"`
 }
 
+// ImportRawDNSZoneRequestTsigKey:
 type ImportRawDNSZoneRequestTsigKey struct {
 	// Name:
 	Name string `json:"name"`
@@ -1239,6 +1301,7 @@ type ImportRawDNSZoneRequestTsigKey struct {
 	Algorithm string `json:"algorithm"`
 }
 
+// Contact:
 type Contact struct {
 	// ID:
 	ID string `json:"id"`
@@ -1276,7 +1339,7 @@ type Contact struct {
 	Lang std.LanguageCode `json:"lang"`
 	// Resale:
 	Resale bool `json:"resale"`
-	// Questions:
+	// Deprecated: Questions:
 	Questions *[]*ContactQuestion `json:"questions,omitempty"`
 	// ExtensionFr:
 	ExtensionFr *ContactExtensionFR `json:"extension_fr"`
@@ -1292,6 +1355,7 @@ type Contact struct {
 	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
 }
 
+// ContactRolesRoles:
 type ContactRolesRoles struct {
 	// IsOwner:
 	IsOwner bool `json:"is_owner"`
@@ -1301,11 +1365,13 @@ type ContactRolesRoles struct {
 	IsTechnical bool `json:"is_technical"`
 }
 
+// DomainRegistrationStatusExternalDomain:
 type DomainRegistrationStatusExternalDomain struct {
 	// ValidationToken:
 	ValidationToken string `json:"validation_token"`
 }
 
+// DomainRegistrationStatusTransfer:
 type DomainRegistrationStatusTransfer struct {
 	// Status:
 	Status DomainRegistrationStatusTransferStatus `json:"status"`
@@ -1315,6 +1381,7 @@ type DomainRegistrationStatusTransfer struct {
 	VoteNewOwner bool `json:"vote_new_owner"`
 }
 
+// Tld:
 type Tld struct {
 	// Name:
 	Name string `json:"name"`
@@ -1332,6 +1399,7 @@ type Tld struct {
 	Specifications map[string]string `json:"specifications"`
 }
 
+// NewContact:
 type NewContact struct {
 	// LegalForm:
 	LegalForm ContactLegalForm `json:"legal_form"`
@@ -1367,7 +1435,7 @@ type NewContact struct {
 	Lang std.LanguageCode `json:"lang"`
 	// Resale:
 	Resale bool `json:"resale"`
-	// Questions:
+	// Deprecated: Questions:
 	Questions *[]*ContactQuestion `json:"questions,omitempty"`
 	// ExtensionFr:
 	ExtensionFr *ContactExtensionFR `json:"extension_fr"`
@@ -1381,6 +1449,7 @@ type NewContact struct {
 	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
 }
 
+// CheckContactsCompatibilityResponseContactCheckResult:
 type CheckContactsCompatibilityResponseContactCheckResult struct {
 	// Compatible:
 	Compatible bool `json:"compatible"`
@@ -1388,6 +1457,7 @@ type CheckContactsCompatibilityResponseContactCheckResult struct {
 	ErrorMessage *string `json:"error_message,omitempty"`
 }
 
+// DNSZone:
 type DNSZone struct {
 	// Domain:
 	Domain string `json:"domain"`
@@ -1409,6 +1479,7 @@ type DNSZone struct {
 	ProjectID string `json:"project_id"`
 }
 
+// DomainDNSSEC:
 type DomainDNSSEC struct {
 	// Status:
 	Status DomainFeatureStatus `json:"status"`
@@ -1416,6 +1487,7 @@ type DomainDNSSEC struct {
 	DsRecords []*DSRecord `json:"ds_records"`
 }
 
+// RecordChange:
 type RecordChange struct {
 	// Add:
 	Add *RecordChangeAdd `json:"add,omitempty"`
@@ -1427,11 +1499,13 @@ type RecordChange struct {
 	Clear *RecordChangeClear `json:"clear,omitempty"`
 }
 
+// ImportProviderDNSZoneRequestOnlineV1:
 type ImportProviderDNSZoneRequestOnlineV1 struct {
 	// Token:
 	Token string `json:"token"`
 }
 
+// ImportRawDNSZoneRequestAXFRSource:
 type ImportRawDNSZoneRequestAXFRSource struct {
 	// NameServer:
 	NameServer string `json:"name_server"`
@@ -1439,11 +1513,13 @@ type ImportRawDNSZoneRequestAXFRSource struct {
 	TsigKey *ImportRawDNSZoneRequestTsigKey `json:"tsig_key"`
 }
 
+// ImportRawDNSZoneRequestBindSource:
 type ImportRawDNSZoneRequestBindSource struct {
 	// Content:
 	Content string `json:"content"`
 }
 
+// ContactRoles:
 type ContactRoles struct {
 	// Contact:
 	Contact *Contact `json:"contact"`
@@ -1451,6 +1527,7 @@ type ContactRoles struct {
 	Roles map[string]*ContactRolesRoles `json:"roles"`
 }
 
+// Nameserver:
 type Nameserver struct {
 	// Name:
 	Name string `json:"name"`
@@ -1458,6 +1535,7 @@ type Nameserver struct {
 	IP []string `json:"ip"`
 }
 
+// DNSZoneVersion:
 type DNSZoneVersion struct {
 	// ID:
 	ID string `json:"id"`
@@ -1465,6 +1543,7 @@ type DNSZoneVersion struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 
+// Host:
 type Host struct {
 	// Domain:
 	Domain string `json:"domain"`
@@ -1476,6 +1555,7 @@ type Host struct {
 	Status HostStatus `json:"status"`
 }
 
+// DomainSummary:
 type DomainSummary struct {
 	// Domain:
 	Domain string `json:"domain"`
@@ -1505,6 +1585,7 @@ type DomainSummary struct {
 	OrganizationID string `json:"organization_id"`
 }
 
+// RenewableDomain:
 type RenewableDomain struct {
 	// Domain:
 	Domain string `json:"domain"`
@@ -1528,6 +1609,7 @@ type RenewableDomain struct {
 	Tld *Tld `json:"tld"`
 }
 
+// SSLCertificate:
 type SSLCertificate struct {
 	// DNSZone:
 	DNSZone string `json:"dns_zone"`
@@ -1545,6 +1627,7 @@ type SSLCertificate struct {
 	ExpiredAt *time.Time `json:"expired_at,omitempty"`
 }
 
+// Task:
 type Task struct {
 	// ID:
 	ID string `json:"id"`
@@ -1566,6 +1649,7 @@ type Task struct {
 	Message *string `json:"message,omitempty"`
 }
 
+// TransferInDomainRequestTransferRequest:
 type TransferInDomainRequestTransferRequest struct {
 	// Domain:
 	Domain string `json:"domain"`
@@ -1573,6 +1657,7 @@ type TransferInDomainRequestTransferRequest struct {
 	AuthCode string `json:"auth_code"`
 }
 
+// UpdateContactRequestQuestion:
 type UpdateContactRequestQuestion struct {
 	// Question:
 	Question *string `json:"question,omitempty"`
@@ -1580,6 +1665,7 @@ type UpdateContactRequestQuestion struct {
 	Answer *string `json:"answer,omitempty"`
 }
 
+// AvailableDomain:
 type AvailableDomain struct {
 	// Domain:
 	Domain string `json:"domain"`
@@ -1589,6 +1675,7 @@ type AvailableDomain struct {
 	Tld *Tld `json:"tld"`
 }
 
+// CheckContactsCompatibilityResponse:
 type CheckContactsCompatibilityResponse struct {
 	// Compatible:
 	Compatible bool `json:"compatible"`
@@ -1600,14 +1687,17 @@ type CheckContactsCompatibilityResponse struct {
 	TechnicalCheckResult *CheckContactsCompatibilityResponseContactCheckResult `json:"technical_check_result"`
 }
 
+// ClearDNSZoneRecordsRequest:
 type ClearDNSZoneRecordsRequest struct {
 	// DNSZone: DNS zone to clear.
 	DNSZone string `json:"-"`
 }
 
+// ClearDNSZoneRecordsResponse:
 type ClearDNSZoneRecordsResponse struct {
 }
 
+// CloneDNSZoneRequest:
 type CloneDNSZoneRequest struct {
 	// DNSZone: DNS zone to clone.
 	DNSZone string `json:"-"`
@@ -1619,6 +1709,7 @@ type CloneDNSZoneRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// CreateDNSZoneRequest:
 type CreateDNSZoneRequest struct {
 	// Domain: Domain in which to crreate the DNS zone.
 	Domain string `json:"domain"`
@@ -1628,6 +1719,7 @@ type CreateDNSZoneRequest struct {
 	ProjectID string `json:"project_id"`
 }
 
+// CreateSSLCertificateRequest:
 type CreateSSLCertificateRequest struct {
 	// DNSZone:
 	DNSZone string `json:"dns_zone"`
@@ -1635,6 +1727,7 @@ type CreateSSLCertificateRequest struct {
 	AlternativeDNSZones []string `json:"alternative_dns_zones"`
 }
 
+// DeleteDNSZoneRequest:
 type DeleteDNSZoneRequest struct {
 	// DNSZone: DNS zone to delete.
 	DNSZone string `json:"-"`
@@ -1642,25 +1735,31 @@ type DeleteDNSZoneRequest struct {
 	ProjectID string `json:"project_id"`
 }
 
+// DeleteDNSZoneResponse:
 type DeleteDNSZoneResponse struct {
 }
 
+// DeleteDNSZoneTsigKeyRequest:
 type DeleteDNSZoneTsigKeyRequest struct {
 	// DNSZone:
 	DNSZone string `json:"-"`
 }
 
+// DeleteExternalDomainResponse:
 type DeleteExternalDomainResponse struct {
 }
 
+// DeleteSSLCertificateRequest:
 type DeleteSSLCertificateRequest struct {
 	// DNSZone:
 	DNSZone string `json:"-"`
 }
 
+// DeleteSSLCertificateResponse:
 type DeleteSSLCertificateResponse struct {
 }
 
+// Domain:
 type Domain struct {
 	// Domain:
 	Domain string `json:"domain"`
@@ -1700,6 +1799,7 @@ type Domain struct {
 	Tld *Tld `json:"tld"`
 }
 
+// ExportRawDNSZoneRequest:
 type ExportRawDNSZoneRequest struct {
 	// DNSZone: DNS zone to export.
 	DNSZone string `json:"-"`
@@ -1707,11 +1807,13 @@ type ExportRawDNSZoneRequest struct {
 	Format RawFormat `json:"format"`
 }
 
+// GetDNSZoneTsigKeyRequest:
 type GetDNSZoneTsigKeyRequest struct {
 	// DNSZone:
 	DNSZone string `json:"-"`
 }
 
+// GetDNSZoneTsigKeyResponse:
 type GetDNSZoneTsigKeyResponse struct {
 	// Name:
 	Name string `json:"name"`
@@ -1721,26 +1823,31 @@ type GetDNSZoneTsigKeyResponse struct {
 	Algorithm string `json:"algorithm"`
 }
 
+// GetDNSZoneVersionDiffRequest:
 type GetDNSZoneVersionDiffRequest struct {
 	// DNSZoneVersionID:
 	DNSZoneVersionID string `json:"-"`
 }
 
+// GetDNSZoneVersionDiffResponse:
 type GetDNSZoneVersionDiffResponse struct {
 	// Changes:
 	Changes []*RecordChange `json:"changes"`
 }
 
+// GetDomainAuthCodeResponse:
 type GetDomainAuthCodeResponse struct {
 	// AuthCode:
 	AuthCode string `json:"auth_code"`
 }
 
+// GetSSLCertificateRequest:
 type GetSSLCertificateRequest struct {
 	// DNSZone:
 	DNSZone string `json:"-"`
 }
 
+// ImportProviderDNSZoneRequest:
 type ImportProviderDNSZoneRequest struct {
 	// DNSZone:
 	DNSZone string `json:"-"`
@@ -1748,19 +1855,21 @@ type ImportProviderDNSZoneRequest struct {
 	OnlineV1 *ImportProviderDNSZoneRequestOnlineV1 `json:"online_v1,omitempty"`
 }
 
+// ImportProviderDNSZoneResponse:
 type ImportProviderDNSZoneResponse struct {
 	// Records:
 	Records []*Record `json:"records"`
 }
 
+// ImportRawDNSZoneRequest:
 type ImportRawDNSZoneRequest struct {
 	// DNSZone: DNS zone to import.
 	DNSZone string `json:"-"`
-	// Content:
+	// Deprecated: Content:
 	Content *string `json:"content,omitempty"`
 	// ProjectID:
 	ProjectID string `json:"project_id"`
-	// Format:
+	// Deprecated: Format:
 	Format *RawFormat `json:"format,omitempty"`
 	// BindSource: Import a bind file format.
 	BindSource *ImportRawDNSZoneRequestBindSource `json:"bind_source,omitempty"`
@@ -1768,11 +1877,13 @@ type ImportRawDNSZoneRequest struct {
 	AxfrSource *ImportRawDNSZoneRequestAXFRSource `json:"axfr_source,omitempty"`
 }
 
+// ImportRawDNSZoneResponse:
 type ImportRawDNSZoneResponse struct {
 	// Records:
 	Records []*Record `json:"records"`
 }
 
+// ListContactsResponse:
 type ListContactsResponse struct {
 	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
@@ -1799,6 +1910,7 @@ func (r *ListContactsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Contacts)), nil
 }
 
+// ListDNSZoneNameserversRequest:
 type ListDNSZoneNameserversRequest struct {
 	// ProjectID: Project ID on which to filter the returned DNS zone name servers.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -1806,11 +1918,13 @@ type ListDNSZoneNameserversRequest struct {
 	DNSZone string `json:"-"`
 }
 
+// ListDNSZoneNameserversResponse:
 type ListDNSZoneNameserversResponse struct {
 	// Ns: DNS zone name servers returned.
 	Ns []*Nameserver `json:"ns"`
 }
 
+// ListDNSZoneRecordsRequest:
 type ListDNSZoneRecordsRequest struct {
 	// ProjectID: Project ID on which to filter the returned DNS zone records.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -1830,6 +1944,7 @@ type ListDNSZoneRecordsRequest struct {
 	ID *string `json:"id,omitempty"`
 }
 
+// ListDNSZoneRecordsResponse:
 type ListDNSZoneRecordsResponse struct {
 	// TotalCount: Total number of DNS zone records.
 	TotalCount uint32 `json:"total_count"`
@@ -1856,6 +1971,7 @@ func (r *ListDNSZoneRecordsResponse) UnsafeAppend(res interface{}) (uint32, erro
 	return uint32(len(results.Records)), nil
 }
 
+// ListDNSZoneVersionRecordsRequest:
 type ListDNSZoneVersionRecordsRequest struct {
 	// Page: Page number to return, from the paginated results.
 	Page *int32 `json:"page,omitempty"`
@@ -1865,6 +1981,7 @@ type ListDNSZoneVersionRecordsRequest struct {
 	DNSZoneVersionID string `json:"-"`
 }
 
+// ListDNSZoneVersionRecordsResponse:
 type ListDNSZoneVersionRecordsResponse struct {
 	// TotalCount: Total number of DNS zones versions records.
 	TotalCount uint32 `json:"total_count"`
@@ -1891,6 +2008,7 @@ func (r *ListDNSZoneVersionRecordsResponse) UnsafeAppend(res interface{}) (uint3
 	return uint32(len(results.Records)), nil
 }
 
+// ListDNSZoneVersionsRequest:
 type ListDNSZoneVersionsRequest struct {
 	// Page: Page number to return, from the paginated results.
 	Page *int32 `json:"page,omitempty"`
@@ -1900,6 +2018,7 @@ type ListDNSZoneVersionsRequest struct {
 	DNSZone string `json:"-"`
 }
 
+// ListDNSZoneVersionsResponse:
 type ListDNSZoneVersionsResponse struct {
 	// TotalCount: Total number of DNS zones versions.
 	TotalCount uint32 `json:"total_count"`
@@ -1926,6 +2045,7 @@ func (r *ListDNSZoneVersionsResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.Versions)), nil
 }
 
+// ListDNSZonesRequest:
 type ListDNSZonesRequest struct {
 	// OrganizationID: Organization ID on which to filter the returned DNS zones.
 	OrganizationID *string `json:"organization_id,omitempty"`
@@ -1943,6 +2063,7 @@ type ListDNSZonesRequest struct {
 	DNSZone string `json:"dns_zone"`
 }
 
+// ListDNSZonesResponse:
 type ListDNSZonesResponse struct {
 	// TotalCount: Total number of DNS zones matching the requested criteria.
 	TotalCount uint32 `json:"total_count"`
@@ -1969,6 +2090,7 @@ func (r *ListDNSZonesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.DNSZones)), nil
 }
 
+// ListDomainHostsResponse:
 type ListDomainHostsResponse struct {
 	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
@@ -1995,6 +2117,7 @@ func (r *ListDomainHostsResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.Hosts)), nil
 }
 
+// ListDomainsResponse:
 type ListDomainsResponse struct {
 	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
@@ -2021,6 +2144,7 @@ func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Domains)), nil
 }
 
+// ListRenewableDomainsResponse:
 type ListRenewableDomainsResponse struct {
 	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
@@ -2047,6 +2171,7 @@ func (r *ListRenewableDomainsResponse) UnsafeAppend(res interface{}) (uint32, er
 	return uint32(len(results.Domains)), nil
 }
 
+// ListSSLCertificatesRequest:
 type ListSSLCertificatesRequest struct {
 	// DNSZone:
 	DNSZone string `json:"dns_zone"`
@@ -2058,6 +2183,7 @@ type ListSSLCertificatesRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListSSLCertificatesResponse:
 type ListSSLCertificatesResponse struct {
 	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
@@ -2084,6 +2210,7 @@ func (r *ListSSLCertificatesResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.Certificates)), nil
 }
 
+// ListTasksResponse:
 type ListTasksResponse struct {
 	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
@@ -2110,6 +2237,7 @@ func (r *ListTasksResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tasks)), nil
 }
 
+// OrderResponse:
 type OrderResponse struct {
 	// Domains:
 	Domains []string `json:"domains"`
@@ -2123,6 +2251,7 @@ type OrderResponse struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 
+// RefreshDNSZoneRequest:
 type RefreshDNSZoneRequest struct {
 	// DNSZone: DNS zone to refresh.
 	DNSZone string `json:"-"`
@@ -2132,11 +2261,13 @@ type RefreshDNSZoneRequest struct {
 	RecreateSubDNSZone bool `json:"recreate_sub_dns_zone"`
 }
 
+// RefreshDNSZoneResponse:
 type RefreshDNSZoneResponse struct {
 	// DNSZones: DNS zones returned.
 	DNSZones []*DNSZone `json:"dns_zones"`
 }
 
+// RegisterExternalDomainResponse:
 type RegisterExternalDomainResponse struct {
 	// Domain:
 	Domain string `json:"domain"`
@@ -2150,6 +2281,7 @@ type RegisterExternalDomainResponse struct {
 	ProjectID string `json:"project_id"`
 }
 
+// RegistrarAPIBuyDomainsRequest:
 type RegistrarAPIBuyDomainsRequest struct {
 	// Domains:
 	Domains []string `json:"domains"`
@@ -2171,6 +2303,7 @@ type RegistrarAPIBuyDomainsRequest struct {
 	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
 }
 
+// RegistrarAPICheckContactsCompatibilityRequest:
 type RegistrarAPICheckContactsCompatibilityRequest struct {
 	// Domains:
 	Domains []string `json:"domains"`
@@ -2190,6 +2323,7 @@ type RegistrarAPICheckContactsCompatibilityRequest struct {
 	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
 }
 
+// RegistrarAPICreateDomainHostRequest:
 type RegistrarAPICreateDomainHostRequest struct {
 	// Domain:
 	Domain string `json:"-"`
@@ -2199,6 +2333,7 @@ type RegistrarAPICreateDomainHostRequest struct {
 	IPs []net.IP `json:"ips"`
 }
 
+// RegistrarAPIDeleteDomainHostRequest:
 type RegistrarAPIDeleteDomainHostRequest struct {
 	// Domain:
 	Domain string `json:"-"`
@@ -2206,26 +2341,31 @@ type RegistrarAPIDeleteDomainHostRequest struct {
 	Name string `json:"-"`
 }
 
+// RegistrarAPIDeleteExternalDomainRequest:
 type RegistrarAPIDeleteExternalDomainRequest struct {
 	// Domain:
 	Domain string `json:"-"`
 }
 
+// RegistrarAPIDisableDomainAutoRenewRequest:
 type RegistrarAPIDisableDomainAutoRenewRequest struct {
 	// Domain:
 	Domain string `json:"-"`
 }
 
+// RegistrarAPIDisableDomainDNSSECRequest:
 type RegistrarAPIDisableDomainDNSSECRequest struct {
 	// Domain:
 	Domain string `json:"-"`
 }
 
+// RegistrarAPIEnableDomainAutoRenewRequest:
 type RegistrarAPIEnableDomainAutoRenewRequest struct {
 	// Domain:
 	Domain string `json:"-"`
 }
 
+// RegistrarAPIEnableDomainDNSSECRequest:
 type RegistrarAPIEnableDomainDNSSECRequest struct {
 	// Domain:
 	Domain string `json:"-"`
@@ -2233,21 +2373,25 @@ type RegistrarAPIEnableDomainDNSSECRequest struct {
 	DsRecord *DSRecord `json:"ds_record"`
 }
 
+// RegistrarAPIGetContactRequest:
 type RegistrarAPIGetContactRequest struct {
 	// ContactID:
 	ContactID string `json:"-"`
 }
 
+// RegistrarAPIGetDomainAuthCodeRequest:
 type RegistrarAPIGetDomainAuthCodeRequest struct {
 	// Domain:
 	Domain string `json:"-"`
 }
 
+// RegistrarAPIGetDomainRequest:
 type RegistrarAPIGetDomainRequest struct {
 	// Domain:
 	Domain string `json:"-"`
 }
 
+// RegistrarAPIListContactsRequest:
 type RegistrarAPIListContactsRequest struct {
 	// Page:
 	Page *int32 `json:"page,omitempty"`
@@ -2259,8 +2403,13 @@ type RegistrarAPIListContactsRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 	// OrganizationID:
 	OrganizationID *string `json:"organization_id,omitempty"`
+	// Role:
+	Role ListContactsRequestRole `json:"role"`
+	// EmailStatus:
+	EmailStatus ContactEmailStatus `json:"email_status"`
 }
 
+// RegistrarAPIListDomainHostsRequest:
 type RegistrarAPIListDomainHostsRequest struct {
 	// Page:
 	Page *int32 `json:"page,omitempty"`
@@ -2270,6 +2419,7 @@ type RegistrarAPIListDomainHostsRequest struct {
 	Domain string `json:"-"`
 }
 
+// RegistrarAPIListDomainsRequest:
 type RegistrarAPIListDomainsRequest struct {
 	// Page:
 	Page *int32 `json:"page,omitempty"`
@@ -2291,6 +2441,7 @@ type RegistrarAPIListDomainsRequest struct {
 	Domain *string `json:"domain,omitempty"`
 }
 
+// RegistrarAPIListRenewableDomainsRequest:
 type RegistrarAPIListRenewableDomainsRequest struct {
 	// Page:
 	Page *int32 `json:"page,omitempty"`
@@ -2304,6 +2455,7 @@ type RegistrarAPIListRenewableDomainsRequest struct {
 	OrganizationID *string `json:"organization_id,omitempty"`
 }
 
+// RegistrarAPIListTasksRequest:
 type RegistrarAPIListTasksRequest struct {
 	// Page:
 	Page *int32 `json:"page,omitempty"`
@@ -2323,11 +2475,13 @@ type RegistrarAPIListTasksRequest struct {
 	OrderBy ListTasksRequestOrderBy `json:"order_by"`
 }
 
+// RegistrarAPILockDomainTransferRequest:
 type RegistrarAPILockDomainTransferRequest struct {
 	// Domain:
 	Domain string `json:"-"`
 }
 
+// RegistrarAPIRegisterExternalDomainRequest:
 type RegistrarAPIRegisterExternalDomainRequest struct {
 	// Domain:
 	Domain string `json:"domain"`
@@ -2335,6 +2489,7 @@ type RegistrarAPIRegisterExternalDomainRequest struct {
 	ProjectID string `json:"project_id"`
 }
 
+// RegistrarAPIRenewDomainsRequest:
 type RegistrarAPIRenewDomainsRequest struct {
 	// Domains:
 	Domains []string `json:"domains"`
@@ -2344,6 +2499,7 @@ type RegistrarAPIRenewDomainsRequest struct {
 	ForceLateRenewal *bool `json:"force_late_renewal,omitempty"`
 }
 
+// RegistrarAPISearchAvailableDomainsRequest:
 type RegistrarAPISearchAvailableDomainsRequest struct {
 	// Domains: A list of domain to search, TLD is optional.
 	Domains []string `json:"domains"`
@@ -2353,6 +2509,7 @@ type RegistrarAPISearchAvailableDomainsRequest struct {
 	StrictSearch bool `json:"strict_search"`
 }
 
+// RegistrarAPITradeDomainRequest:
 type RegistrarAPITradeDomainRequest struct {
 	// Domain:
 	Domain string `json:"-"`
@@ -2364,6 +2521,7 @@ type RegistrarAPITradeDomainRequest struct {
 	NewOwnerContact *NewContact `json:"new_owner_contact,omitempty"`
 }
 
+// RegistrarAPITransferInDomainRequest:
 type RegistrarAPITransferInDomainRequest struct {
 	// Domains:
 	Domains []*TransferInDomainRequestTransferRequest `json:"domains"`
@@ -2383,11 +2541,13 @@ type RegistrarAPITransferInDomainRequest struct {
 	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
 }
 
+// RegistrarAPIUnlockDomainTransferRequest:
 type RegistrarAPIUnlockDomainTransferRequest struct {
 	// Domain:
 	Domain string `json:"-"`
 }
 
+// RegistrarAPIUpdateContactRequest:
 type RegistrarAPIUpdateContactRequest struct {
 	// ContactID:
 	ContactID string `json:"-"`
@@ -2417,7 +2577,7 @@ type RegistrarAPIUpdateContactRequest struct {
 	Lang std.LanguageCode `json:"lang"`
 	// Resale:
 	Resale *bool `json:"resale,omitempty"`
-	// Questions:
+	// Deprecated: Questions:
 	Questions *[]*UpdateContactRequestQuestion `json:"questions,omitempty"`
 	// ExtensionFr:
 	ExtensionFr *ContactExtensionFR `json:"extension_fr"`
@@ -2431,6 +2591,7 @@ type RegistrarAPIUpdateContactRequest struct {
 	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
 }
 
+// RegistrarAPIUpdateDomainHostRequest:
 type RegistrarAPIUpdateDomainHostRequest struct {
 	// Domain:
 	Domain string `json:"-"`
@@ -2440,6 +2601,7 @@ type RegistrarAPIUpdateDomainHostRequest struct {
 	IPs *[]string `json:"ips,omitempty"`
 }
 
+// RegistrarAPIUpdateDomainRequest:
 type RegistrarAPIUpdateDomainRequest struct {
 	// Domain:
 	Domain string `json:"-"`
@@ -2457,19 +2619,23 @@ type RegistrarAPIUpdateDomainRequest struct {
 	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
 }
 
+// RestoreDNSZoneVersionRequest:
 type RestoreDNSZoneVersionRequest struct {
 	// DNSZoneVersionID:
 	DNSZoneVersionID string `json:"-"`
 }
 
+// RestoreDNSZoneVersionResponse:
 type RestoreDNSZoneVersionResponse struct {
 }
 
+// SearchAvailableDomainsResponse:
 type SearchAvailableDomainsResponse struct {
 	// AvailableDomains: Array of available domains.
 	AvailableDomains []*AvailableDomain `json:"available_domains"`
 }
 
+// UpdateDNSZoneNameserversRequest:
 type UpdateDNSZoneNameserversRequest struct {
 	// DNSZone: DNS zone in which to update the DNS zone name servers.
 	DNSZone string `json:"-"`
@@ -2477,11 +2643,13 @@ type UpdateDNSZoneNameserversRequest struct {
 	Ns []*Nameserver `json:"ns"`
 }
 
+// UpdateDNSZoneNameserversResponse:
 type UpdateDNSZoneNameserversResponse struct {
 	// Ns: DNS zone name servers returned.
 	Ns []*Nameserver `json:"ns"`
 }
 
+// UpdateDNSZoneRecordsRequest:
 type UpdateDNSZoneRecordsRequest struct {
 	// DNSZone: DNS zone in which to update the DNS zone records.
 	DNSZone string `json:"-"`
@@ -2495,11 +2663,13 @@ type UpdateDNSZoneRecordsRequest struct {
 	Serial *uint64 `json:"serial,omitempty"`
 }
 
+// UpdateDNSZoneRecordsResponse:
 type UpdateDNSZoneRecordsResponse struct {
 	// Records: DNS zone records returned.
 	Records []*Record `json:"records"`
 }
 
+// UpdateDNSZoneRequest:
 type UpdateDNSZoneRequest struct {
 	// DNSZone: DNS zone to update.
 	DNSZone string `json:"-"`
@@ -4192,6 +4362,8 @@ func (s *RegistrarAPI) ListContacts(req *RegistrarAPIListContactsRequest, opts .
 	parameter.AddToQuery(query, "domain", req.Domain)
 	parameter.AddToQuery(query, "project_id", req.ProjectID)
 	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
+	parameter.AddToQuery(query, "role", req.Role)
+	parameter.AddToQuery(query, "email_status", req.EmailStatus)
 
 	scwReq := &scw.ScalewayRequest{
 		Method: "GET",

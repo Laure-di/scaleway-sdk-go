@@ -619,6 +619,7 @@ func (enum *TriggerStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// SecretHashedValue:
 type SecretHashedValue struct {
 	// Key:
 	Key string `json:"key"`
@@ -626,6 +627,7 @@ type SecretHashedValue struct {
 	HashedValue string `json:"hashed_value"`
 }
 
+// TriggerMnqNatsClientConfig:
 type TriggerMnqNatsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
@@ -639,6 +641,7 @@ type TriggerMnqNatsClientConfig struct {
 	MnqCredentialID *string `json:"mnq_credential_id,omitempty"`
 }
 
+// TriggerMnqSqsClientConfig:
 type TriggerMnqSqsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
@@ -652,6 +655,7 @@ type TriggerMnqSqsClientConfig struct {
 	MnqCredentialID *string `json:"mnq_credential_id,omitempty"`
 }
 
+// TriggerSqsClientConfig:
 type TriggerSqsClientConfig struct {
 	// Endpoint:
 	Endpoint string `json:"endpoint"`
@@ -663,6 +667,7 @@ type TriggerSqsClientConfig struct {
 	SecretKey string `json:"secret_key"`
 }
 
+// Secret:
 type Secret struct {
 	// Key:
 	Key string `json:"key"`
@@ -670,6 +675,7 @@ type Secret struct {
 	Value *string `json:"value,omitempty"`
 }
 
+// CreateTriggerRequestMnqNatsClientConfig:
 type CreateTriggerRequestMnqNatsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
@@ -681,6 +687,7 @@ type CreateTriggerRequestMnqNatsClientConfig struct {
 	MnqRegion string `json:"mnq_region"`
 }
 
+// CreateTriggerRequestMnqSqsClientConfig:
 type CreateTriggerRequestMnqSqsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
@@ -692,6 +699,7 @@ type CreateTriggerRequestMnqSqsClientConfig struct {
 	MnqRegion string `json:"mnq_region"`
 }
 
+// CreateTriggerRequestSqsClientConfig:
 type CreateTriggerRequestSqsClientConfig struct {
 	// Endpoint:
 	Endpoint string `json:"endpoint"`
@@ -703,6 +711,7 @@ type CreateTriggerRequestSqsClientConfig struct {
 	SecretKey string `json:"secret_key"`
 }
 
+// Container:
 type Container struct {
 	// ID: UUID of the container.
 	ID string `json:"id"`
@@ -750,6 +759,7 @@ type Container struct {
 	Region scw.Region `json:"region"`
 }
 
+// Cron:
 type Cron struct {
 	// ID: UUID of the cron.
 	ID string `json:"id"`
@@ -765,6 +775,7 @@ type Cron struct {
 	Name string `json:"name"`
 }
 
+// Domain:
 type Domain struct {
 	// ID: UUID of the domain.
 	ID string `json:"id"`
@@ -780,6 +791,7 @@ type Domain struct {
 	ErrorMessage *string `json:"error_message,omitempty"`
 }
 
+// Log:
 type Log struct {
 	// Message:
 	Message string `json:"message"`
@@ -795,6 +807,7 @@ type Log struct {
 	Stream LogStream `json:"stream"`
 }
 
+// Namespace:
 type Namespace struct {
 	// ID: UUID of the namespace.
 	ID string `json:"id"`
@@ -822,6 +835,7 @@ type Namespace struct {
 	Region scw.Region `json:"region"`
 }
 
+// Token:
 type Token struct {
 	// ID: UUID of the token.
 	ID string `json:"id"`
@@ -831,7 +845,7 @@ type Token struct {
 	ContainerID *string `json:"container_id,omitempty"`
 	// NamespaceID: UUID of the namespace the token belongs to.
 	NamespaceID *string `json:"namespace_id,omitempty"`
-	// PublicKey: Public key of the token.
+	// Deprecated: PublicKey: Public key of the token.
 	PublicKey *string `json:"public_key,omitempty"`
 	// Status: Status of the token.
 	Status TokenStatus `json:"status"`
@@ -841,6 +855,7 @@ type Token struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// Trigger:
 type Trigger struct {
 	// ID:
 	ID string `json:"id"`
@@ -864,6 +879,7 @@ type Trigger struct {
 	ScwNatsConfig *TriggerMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
 }
 
+// UpdateTriggerRequestSqsClientConfig:
 type UpdateTriggerRequestSqsClientConfig struct {
 	// AccessKey:
 	AccessKey *string `json:"access_key,omitempty"`
@@ -871,6 +887,7 @@ type UpdateTriggerRequestSqsClientConfig struct {
 	SecretKey *string `json:"secret_key,omitempty"`
 }
 
+// CreateContainerRequest:
 type CreateContainerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -898,7 +915,7 @@ type CreateContainerRequest struct {
 	RegistryImage *string `json:"registry_image,omitempty"`
 	// MaxConcurrency: Number of maximum concurrent executions of the container.
 	MaxConcurrency *uint32 `json:"max_concurrency,omitempty"`
-	// DomainName: Domain name associated with the container.
+	// Deprecated: DomainName: Domain name associated with the container.
 	DomainName *string `json:"domain_name,omitempty"`
 	// Protocol: Protocol the container uses.
 	Protocol ContainerProtocol `json:"protocol"`
@@ -912,6 +929,7 @@ type CreateContainerRequest struct {
 	HTTPOption ContainerHTTPOption `json:"http_option"`
 }
 
+// CreateCronRequest:
 type CreateCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -925,6 +943,7 @@ type CreateCronRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// CreateDomainRequest:
 type CreateDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -934,6 +953,7 @@ type CreateDomainRequest struct {
 	ContainerID string `json:"container_id"`
 }
 
+// CreateNamespaceRequest:
 type CreateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -949,6 +969,7 @@ type CreateNamespaceRequest struct {
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 }
 
+// CreateTokenRequest:
 type CreateTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -962,6 +983,7 @@ type CreateTokenRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// CreateTriggerRequest:
 type CreateTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -979,6 +1001,7 @@ type CreateTriggerRequest struct {
 	ScwNatsConfig *CreateTriggerRequestMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
 }
 
+// DeleteContainerRequest:
 type DeleteContainerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -986,6 +1009,7 @@ type DeleteContainerRequest struct {
 	ContainerID string `json:"-"`
 }
 
+// DeleteCronRequest:
 type DeleteCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -993,6 +1017,7 @@ type DeleteCronRequest struct {
 	CronID string `json:"-"`
 }
 
+// DeleteDomainRequest:
 type DeleteDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1000,6 +1025,7 @@ type DeleteDomainRequest struct {
 	DomainID string `json:"-"`
 }
 
+// DeleteNamespaceRequest:
 type DeleteNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1007,6 +1033,7 @@ type DeleteNamespaceRequest struct {
 	NamespaceID string `json:"-"`
 }
 
+// DeleteTokenRequest:
 type DeleteTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1014,6 +1041,7 @@ type DeleteTokenRequest struct {
 	TokenID string `json:"-"`
 }
 
+// DeleteTriggerRequest:
 type DeleteTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1021,6 +1049,7 @@ type DeleteTriggerRequest struct {
 	TriggerID string `json:"-"`
 }
 
+// DeployContainerRequest:
 type DeployContainerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1028,6 +1057,7 @@ type DeployContainerRequest struct {
 	ContainerID string `json:"-"`
 }
 
+// GetContainerRequest:
 type GetContainerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1035,6 +1065,7 @@ type GetContainerRequest struct {
 	ContainerID string `json:"-"`
 }
 
+// GetCronRequest:
 type GetCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1042,6 +1073,7 @@ type GetCronRequest struct {
 	CronID string `json:"-"`
 }
 
+// GetDomainRequest:
 type GetDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1049,6 +1081,7 @@ type GetDomainRequest struct {
 	DomainID string `json:"-"`
 }
 
+// GetNamespaceRequest:
 type GetNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1056,6 +1089,7 @@ type GetNamespaceRequest struct {
 	NamespaceID string `json:"-"`
 }
 
+// GetTokenRequest:
 type GetTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1063,6 +1097,7 @@ type GetTokenRequest struct {
 	TokenID string `json:"-"`
 }
 
+// GetTriggerRequest:
 type GetTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1070,6 +1105,7 @@ type GetTriggerRequest struct {
 	TriggerID string `json:"-"`
 }
 
+// IssueJWTRequest:
 type IssueJWTRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1081,6 +1117,7 @@ type IssueJWTRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// ListContainersRequest:
 type ListContainersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1100,6 +1137,7 @@ type ListContainersRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListContainersResponse:
 type ListContainersResponse struct {
 	// Containers: Array of containers.
 	Containers []*Container `json:"containers"`
@@ -1126,6 +1164,7 @@ func (r *ListContainersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Containers)), nil
 }
 
+// ListCronsRequest:
 type ListCronsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1139,6 +1178,7 @@ type ListCronsRequest struct {
 	ContainerID string `json:"container_id"`
 }
 
+// ListCronsResponse:
 type ListCronsResponse struct {
 	// Crons: Array of crons.
 	Crons []*Cron `json:"crons"`
@@ -1165,6 +1205,7 @@ func (r *ListCronsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Crons)), nil
 }
 
+// ListDomainsRequest:
 type ListDomainsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1178,6 +1219,7 @@ type ListDomainsRequest struct {
 	ContainerID string `json:"container_id"`
 }
 
+// ListDomainsResponse:
 type ListDomainsResponse struct {
 	// Domains: Array of domains.
 	Domains []*Domain `json:"domains"`
@@ -1204,6 +1246,7 @@ func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Domains)), nil
 }
 
+// ListLogsRequest:
 type ListLogsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1217,6 +1260,7 @@ type ListLogsRequest struct {
 	OrderBy ListLogsRequestOrderBy `json:"order_by"`
 }
 
+// ListLogsResponse:
 type ListLogsResponse struct {
 	// Logs:
 	Logs []*Log `json:"logs"`
@@ -1243,6 +1287,7 @@ func (r *ListLogsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Logs)), nil
 }
 
+// ListNamespacesRequest:
 type ListNamespacesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1260,6 +1305,7 @@ type ListNamespacesRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListNamespacesResponse:
 type ListNamespacesResponse struct {
 	// Namespaces: Array of the namespaces.
 	Namespaces []*Namespace `json:"namespaces"`
@@ -1286,6 +1332,7 @@ func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Namespaces)), nil
 }
 
+// ListTokensRequest:
 type ListTokensRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1301,6 +1348,7 @@ type ListTokensRequest struct {
 	NamespaceID *string `json:"namespace_id,omitempty"`
 }
 
+// ListTokensResponse:
 type ListTokensResponse struct {
 	// Tokens:
 	Tokens []*Token `json:"tokens"`
@@ -1327,6 +1375,7 @@ func (r *ListTokensResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tokens)), nil
 }
 
+// ListTriggersRequest:
 type ListTriggersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1344,6 +1393,7 @@ type ListTriggersRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListTriggersResponse:
 type ListTriggersResponse struct {
 	// Triggers:
 	Triggers []*Trigger `json:"triggers"`
@@ -1370,6 +1420,7 @@ func (r *ListTriggersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Triggers)), nil
 }
 
+// UpdateContainerRequest:
 type UpdateContainerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1397,7 +1448,7 @@ type UpdateContainerRequest struct {
 	RegistryImage *string `json:"registry_image,omitempty"`
 	// MaxConcurrency: Number of maximum concurrent executions of the container.
 	MaxConcurrency *uint32 `json:"max_concurrency,omitempty"`
-	// DomainName:
+	// Deprecated: DomainName:
 	DomainName *string `json:"domain_name,omitempty"`
 	// Protocol:
 	Protocol ContainerProtocol `json:"protocol"`
@@ -1411,6 +1462,7 @@ type UpdateContainerRequest struct {
 	HTTPOption ContainerHTTPOption `json:"http_option"`
 }
 
+// UpdateCronRequest:
 type UpdateCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1426,6 +1478,7 @@ type UpdateCronRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// UpdateNamespaceRequest:
 type UpdateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -1439,6 +1492,7 @@ type UpdateNamespaceRequest struct {
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 }
 
+// UpdateTriggerRequest:
 type UpdateTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
@@ -2400,7 +2454,7 @@ func (s *API) DeleteDomain(req *DeleteDomainRequest, opts ...scw.RequestOption) 
 	return &resp, nil
 }
 
-// IssueJWT:
+// Deprecated: IssueJWT:
 func (s *API) IssueJWT(req *IssueJWTRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
 	if req.Region == "" {

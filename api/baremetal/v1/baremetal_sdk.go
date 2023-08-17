@@ -517,6 +517,7 @@ func (enum *SettingType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// OSOSField:
 type OSOSField struct {
 	// Editable:
 	Editable bool `json:"editable"`
@@ -526,6 +527,7 @@ type OSOSField struct {
 	DefaultValue *string `json:"default_value,omitempty"`
 }
 
+// CPU:
 type CPU struct {
 	// Name: Name of the CPU.
 	Name string `json:"name"`
@@ -539,6 +541,7 @@ type CPU struct {
 	Benchmark string `json:"benchmark"`
 }
 
+// Disk:
 type Disk struct {
 	// Capacity: Capacity of the disk in bytes.
 	Capacity scw.Size `json:"capacity"`
@@ -546,6 +549,7 @@ type Disk struct {
 	Type string `json:"type"`
 }
 
+// Memory:
 type Memory struct {
 	// Capacity: Capacity of the memory in bytes.
 	Capacity scw.Size `json:"capacity"`
@@ -557,6 +561,7 @@ type Memory struct {
 	IsEcc bool `json:"is_ecc"`
 }
 
+// OfferOptionOffer:
 type OfferOptionOffer struct {
 	// ID: ID of the option.
 	ID string `json:"id"`
@@ -575,6 +580,7 @@ type OfferOptionOffer struct {
 	OsID *string `json:"os_id,omitempty"`
 }
 
+// PersistentMemory:
 type PersistentMemory struct {
 	// Capacity: Capacity of the memory in bytes.
 	Capacity scw.Size `json:"capacity"`
@@ -584,6 +590,7 @@ type PersistentMemory struct {
 	Frequency uint32 `json:"frequency"`
 }
 
+// RaidController:
 type RaidController struct {
 	// Model:
 	Model string `json:"model"`
@@ -591,6 +598,7 @@ type RaidController struct {
 	RaidLevel []string `json:"raid_level"`
 }
 
+// IP:
 type IP struct {
 	// ID: ID of the IP.
 	ID string `json:"id"`
@@ -606,6 +614,7 @@ type IP struct {
 	ReverseStatusMessage string `json:"reverse_status_message"`
 }
 
+// ServerInstall:
 type ServerInstall struct {
 	// OsID: ID of the OS.
 	OsID string `json:"os_id"`
@@ -623,6 +632,7 @@ type ServerInstall struct {
 	ServiceURL string `json:"service_url"`
 }
 
+// ServerOption:
 type ServerOption struct {
 	// ID: ID of the option.
 	ID string `json:"id"`
@@ -636,6 +646,7 @@ type ServerOption struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// ServerRescueServer:
 type ServerRescueServer struct {
 	// User: Rescue user name.
 	User string `json:"user"`
@@ -643,6 +654,7 @@ type ServerRescueServer struct {
 	Password string `json:"password"`
 }
 
+// CreateServerRequestInstall:
 type CreateServerRequestInstall struct {
 	// OsID: ID of the OS to installation on the server.
 	OsID string `json:"os_id"`
@@ -662,6 +674,7 @@ type CreateServerRequestInstall struct {
 	UserData *scw.File `json:"user_data,omitempty"`
 }
 
+// OS:
 type OS struct {
 	// ID: ID of the OS.
 	ID string `json:"id"`
@@ -689,6 +702,7 @@ type OS struct {
 	Allowed bool `json:"allowed"`
 }
 
+// Offer:
 type Offer struct {
 	// ID: ID of the offer.
 	ID string `json:"id"`
@@ -736,6 +750,7 @@ type Offer struct {
 	Tags []string `json:"tags"`
 }
 
+// Option:
 type Option struct {
 	// ID: ID of the option.
 	ID string `json:"id"`
@@ -745,6 +760,7 @@ type Option struct {
 	Manageable bool `json:"manageable"`
 }
 
+// ServerEvent:
 type ServerEvent struct {
 	// ID: ID of the server to which the action will be applied.
 	ID string `json:"id"`
@@ -756,6 +772,7 @@ type ServerEvent struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 
+// ServerPrivateNetwork:
 type ServerPrivateNetwork struct {
 	// ID: The Private Network ID.
 	ID string `json:"id"`
@@ -775,6 +792,7 @@ type ServerPrivateNetwork struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// Server:
 type Server struct {
 	// ID: ID of the server.
 	ID string `json:"id"`
@@ -816,6 +834,7 @@ type Server struct {
 	RescueServer *ServerRescueServer `json:"rescue_server"`
 }
 
+// Setting:
 type Setting struct {
 	// ID: ID of the setting.
 	ID string `json:"id"`
@@ -827,6 +846,7 @@ type Setting struct {
 	Enabled bool `json:"enabled"`
 }
 
+// AddOptionServerRequest:
 type AddOptionServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -838,6 +858,7 @@ type AddOptionServerRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// BMCAccess:
 type BMCAccess struct {
 	// URL: URL to access to the server console.
 	URL string `json:"url"`
@@ -849,12 +870,13 @@ type BMCAccess struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
+// CreateServerRequest:
 type CreateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OfferID: Offer ID of the new server.
 	OfferID string `json:"offer_id"`
-	// OrganizationID: Organization ID with which the server will be created.
+	// Deprecated: OrganizationID: Organization ID with which the server will be created.
 	OrganizationID *string `json:"organization_id,omitempty"`
 	// ProjectID: Project ID with which the server will be created.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -870,6 +892,7 @@ type CreateServerRequest struct {
 	OptionIDs []string `json:"option_ids"`
 }
 
+// DeleteOptionServerRequest:
 type DeleteOptionServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -879,6 +902,7 @@ type DeleteOptionServerRequest struct {
 	OptionID string `json:"-"`
 }
 
+// DeleteServerRequest:
 type DeleteServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -886,6 +910,7 @@ type DeleteServerRequest struct {
 	ServerID string `json:"-"`
 }
 
+// GetBMCAccessRequest:
 type GetBMCAccessRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -893,6 +918,7 @@ type GetBMCAccessRequest struct {
 	ServerID string `json:"-"`
 }
 
+// GetOSRequest:
 type GetOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -900,6 +926,7 @@ type GetOSRequest struct {
 	OsID string `json:"-"`
 }
 
+// GetOfferRequest:
 type GetOfferRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -907,6 +934,7 @@ type GetOfferRequest struct {
 	OfferID string `json:"-"`
 }
 
+// GetOptionRequest:
 type GetOptionRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -914,6 +942,7 @@ type GetOptionRequest struct {
 	OptionID string `json:"-"`
 }
 
+// GetServerMetricsRequest:
 type GetServerMetricsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -921,11 +950,13 @@ type GetServerMetricsRequest struct {
 	ServerID string `json:"-"`
 }
 
+// GetServerMetricsResponse:
 type GetServerMetricsResponse struct {
 	// Pings: Timeseries object representing pings on the server.
 	Pings *scw.TimeSeries `json:"pings,omitempty"`
 }
 
+// GetServerRequest:
 type GetServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -933,6 +964,7 @@ type GetServerRequest struct {
 	ServerID string `json:"-"`
 }
 
+// InstallServerRequest:
 type InstallServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -956,6 +988,7 @@ type InstallServerRequest struct {
 	UserData *scw.File `json:"user_data,omitempty"`
 }
 
+// ListOSRequest:
 type ListOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -967,6 +1000,7 @@ type ListOSRequest struct {
 	OfferID *string `json:"offer_id,omitempty"`
 }
 
+// ListOSResponse:
 type ListOSResponse struct {
 	// TotalCount: Total count of matching OS.
 	TotalCount uint32 `json:"total_count"`
@@ -993,6 +1027,7 @@ func (r *ListOSResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Os)), nil
 }
 
+// ListOffersRequest:
 type ListOffersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1004,6 +1039,7 @@ type ListOffersRequest struct {
 	SubscriptionPeriod OfferSubscriptionPeriod `json:"subscription_period"`
 }
 
+// ListOffersResponse:
 type ListOffersResponse struct {
 	// TotalCount: Total count of matching offers.
 	TotalCount uint32 `json:"total_count"`
@@ -1030,6 +1066,7 @@ func (r *ListOffersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Offers)), nil
 }
 
+// ListOptionsRequest:
 type ListOptionsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1043,6 +1080,7 @@ type ListOptionsRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// ListOptionsResponse:
 type ListOptionsResponse struct {
 	// TotalCount: Total count of matching options.
 	TotalCount uint32 `json:"total_count"`
@@ -1069,6 +1107,7 @@ func (r *ListOptionsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Options)), nil
 }
 
+// ListServerEventsRequest:
 type ListServerEventsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1082,6 +1121,7 @@ type ListServerEventsRequest struct {
 	OrderBy ListServerEventsRequestOrderBy `json:"order_by"`
 }
 
+// ListServerEventsResponse:
 type ListServerEventsResponse struct {
 	// TotalCount: Total count of matching events.
 	TotalCount uint32 `json:"total_count"`
@@ -1108,6 +1148,7 @@ func (r *ListServerEventsResponse) UnsafeAppend(res interface{}) (uint32, error)
 	return uint32(len(results.Events)), nil
 }
 
+// ListServerPrivateNetworksResponse:
 type ListServerPrivateNetworksResponse struct {
 	// ServerPrivateNetworks:
 	ServerPrivateNetworks []*ServerPrivateNetwork `json:"server_private_networks"`
@@ -1134,6 +1175,7 @@ func (r *ListServerPrivateNetworksResponse) UnsafeAppend(res interface{}) (uint3
 	return uint32(len(results.ServerPrivateNetworks)), nil
 }
 
+// ListServersRequest:
 type ListServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1157,6 +1199,7 @@ type ListServersRequest struct {
 	OptionID *string `json:"option_id,omitempty"`
 }
 
+// ListServersResponse:
 type ListServersResponse struct {
 	// TotalCount: Total count of matching servers.
 	TotalCount uint32 `json:"total_count"`
@@ -1183,6 +1226,7 @@ func (r *ListServersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Servers)), nil
 }
 
+// ListSettingsRequest:
 type ListSettingsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1196,6 +1240,7 @@ type ListSettingsRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// ListSettingsResponse:
 type ListSettingsResponse struct {
 	// TotalCount: Total count of matching settings.
 	TotalCount uint32 `json:"total_count"`
@@ -1222,6 +1267,7 @@ func (r *ListSettingsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Settings)), nil
 }
 
+// PrivateNetworkAPIAddServerPrivateNetworkRequest:
 type PrivateNetworkAPIAddServerPrivateNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1231,6 +1277,7 @@ type PrivateNetworkAPIAddServerPrivateNetworkRequest struct {
 	PrivateNetworkID string `json:"private_network_id"`
 }
 
+// PrivateNetworkAPIDeleteServerPrivateNetworkRequest:
 type PrivateNetworkAPIDeleteServerPrivateNetworkRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1240,6 +1287,7 @@ type PrivateNetworkAPIDeleteServerPrivateNetworkRequest struct {
 	PrivateNetworkID string `json:"-"`
 }
 
+// PrivateNetworkAPIListServerPrivateNetworksRequest:
 type PrivateNetworkAPIListServerPrivateNetworksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1259,6 +1307,7 @@ type PrivateNetworkAPIListServerPrivateNetworksRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
+// PrivateNetworkAPISetServerPrivateNetworksRequest:
 type PrivateNetworkAPISetServerPrivateNetworksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1268,6 +1317,7 @@ type PrivateNetworkAPISetServerPrivateNetworksRequest struct {
 	PrivateNetworkIDs []string `json:"private_network_ids"`
 }
 
+// RebootServerRequest:
 type RebootServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1277,11 +1327,13 @@ type RebootServerRequest struct {
 	BootType ServerBootType `json:"boot_type"`
 }
 
+// SetServerPrivateNetworksResponse:
 type SetServerPrivateNetworksResponse struct {
 	// ServerPrivateNetworks:
 	ServerPrivateNetworks []*ServerPrivateNetwork `json:"server_private_networks"`
 }
 
+// StartBMCAccessRequest:
 type StartBMCAccessRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1291,6 +1343,7 @@ type StartBMCAccessRequest struct {
 	IP net.IP `json:"ip"`
 }
 
+// StartServerRequest:
 type StartServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1300,6 +1353,7 @@ type StartServerRequest struct {
 	BootType ServerBootType `json:"boot_type"`
 }
 
+// StopBMCAccessRequest:
 type StopBMCAccessRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1307,6 +1361,7 @@ type StopBMCAccessRequest struct {
 	ServerID string `json:"-"`
 }
 
+// StopServerRequest:
 type StopServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1314,6 +1369,7 @@ type StopServerRequest struct {
 	ServerID string `json:"-"`
 }
 
+// UpdateIPRequest:
 type UpdateIPRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1325,6 +1381,7 @@ type UpdateIPRequest struct {
 	Reverse *string `json:"reverse,omitempty"`
 }
 
+// UpdateServerRequest:
 type UpdateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
@@ -1338,6 +1395,7 @@ type UpdateServerRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 }
 
+// UpdateSettingRequest:
 type UpdateSettingRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`

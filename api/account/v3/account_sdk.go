@@ -75,6 +75,7 @@ func (enum *ListProjectsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Project:
 type Project struct {
 	// ID: ID of the Project.
 	ID string `json:"id"`
@@ -90,6 +91,7 @@ type Project struct {
 	Description string `json:"description"`
 }
 
+// ListProjectsResponse:
 type ListProjectsResponse struct {
 	// TotalCount: Total number of Projects.
 	TotalCount uint64 `json:"total_count"`
@@ -116,6 +118,7 @@ func (r *ListProjectsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Projects)), nil
 }
 
+// ProjectAPICreateProjectRequest:
 type ProjectAPICreateProjectRequest struct {
 	// Name: Name of the Project.
 	Name string `json:"name"`
@@ -125,16 +128,19 @@ type ProjectAPICreateProjectRequest struct {
 	Description string `json:"description"`
 }
 
+// ProjectAPIDeleteProjectRequest:
 type ProjectAPIDeleteProjectRequest struct {
 	// ProjectID: Project ID of the Project.
 	ProjectID string `json:"-"`
 }
 
+// ProjectAPIGetProjectRequest:
 type ProjectAPIGetProjectRequest struct {
 	// ProjectID: Project ID of the Project.
 	ProjectID string `json:"-"`
 }
 
+// ProjectAPIListProjectsRequest:
 type ProjectAPIListProjectsRequest struct {
 	// OrganizationID: Organization ID of the Project.
 	OrganizationID string `json:"organization_id"`
@@ -150,6 +156,7 @@ type ProjectAPIListProjectsRequest struct {
 	ProjectIDs []string `json:"project_ids"`
 }
 
+// ProjectAPIUpdateProjectRequest:
 type ProjectAPIUpdateProjectRequest struct {
 	// ProjectID: Project ID of the Project.
 	ProjectID string `json:"-"`
