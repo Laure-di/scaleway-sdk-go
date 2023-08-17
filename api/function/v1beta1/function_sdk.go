@@ -39,18 +39,6 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-// API: serverless Functions API.
-type API struct {
-	client *scw.Client
-}
-
-// NewAPI returns a API object from a Scaleway client.
-func NewAPI(client *scw.Client) *API {
-	return &API{
-		client: client,
-	}
-}
-
 type CronStatus string
 
 const (
@@ -552,35 +540,6 @@ func (enum *NamespaceStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type NullValue string
-
-const (
-	NullValueNULLVALUE = NullValue("NULL_VALUE")
-)
-
-func (enum NullValue) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "NULL_VALUE"
-	}
-	return string(enum)
-}
-
-func (enum NullValue) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *NullValue) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = NullValue(NullValue(tmp).String())
-	return nil
-}
-
 type RuntimeStatus string
 
 const (
@@ -715,2050 +674,526 @@ func (enum *TriggerStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type CreateTriggerRequestMnqNatsClientConfig struct {
+type SecretHashedValue struct {
+	// Key:
+	Key string `json:"key"`
+	// HashedValue:
+	HashedValue string `json:"hashed_value"`
+}
+
+type TriggerMnqNatsClientConfig struct {
+	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
-
+	// Subject:
 	Subject string `json:"subject"`
-
+	// MnqProjectID:
 	MnqProjectID string `json:"mnq_project_id"`
+	// MnqRegion:
+	MnqRegion string `json:"mnq_region"`
+	// MnqCredentialID:
+	MnqCredentialID *string `json:"mnq_credential_id,omitempty"`
+}
 
+type TriggerMnqSqsClientConfig struct {
+	// MnqNamespaceID:
+	MnqNamespaceID string `json:"mnq_namespace_id"`
+	// Queue:
+	Queue string `json:"queue"`
+	// MnqProjectID:
+	MnqProjectID string `json:"mnq_project_id"`
+	// MnqRegion:
+	MnqRegion string `json:"mnq_region"`
+	// MnqCredentialID:
+	MnqCredentialID *string `json:"mnq_credential_id,omitempty"`
+}
+
+type TriggerSqsClientConfig struct {
+	// Endpoint:
+	Endpoint string `json:"endpoint"`
+	// QueueURL:
+	QueueURL string `json:"queue_url"`
+	// AccessKey:
+	AccessKey string `json:"access_key"`
+	// SecretKey:
+	SecretKey string `json:"secret_key"`
+}
+
+type Secret struct {
+	// Key:
+	Key string `json:"key"`
+	// Value:
+	Value *string `json:"value,omitempty"`
+}
+
+type CreateTriggerRequestMnqNatsClientConfig struct {
+	// MnqNamespaceID:
+	MnqNamespaceID string `json:"mnq_namespace_id"`
+	// Subject:
+	Subject string `json:"subject"`
+	// MnqProjectID:
+	MnqProjectID string `json:"mnq_project_id"`
+	// MnqRegion:
 	MnqRegion string `json:"mnq_region"`
 }
 
 type CreateTriggerRequestMnqSqsClientConfig struct {
+	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
-
+	// Queue:
 	Queue string `json:"queue"`
-
+	// MnqProjectID:
 	MnqProjectID string `json:"mnq_project_id"`
-
+	// MnqRegion:
 	MnqRegion string `json:"mnq_region"`
 }
 
 type CreateTriggerRequestSqsClientConfig struct {
+	// Endpoint:
 	Endpoint string `json:"endpoint"`
-
+	// QueueURL:
 	QueueURL string `json:"queue_url"`
-
+	// AccessKey:
 	AccessKey string `json:"access_key"`
-
+	// SecretKey:
 	SecretKey string `json:"secret_key"`
 }
 
-// Cron: cron.
 type Cron struct {
 	// ID: UUID of the cron.
 	ID string `json:"id"`
 	// FunctionID: UUID of the function the cron applies to.
 	FunctionID string `json:"function_id"`
-	// Schedule: schedule of the cron.
+	// Schedule: Schedule of the cron.
 	Schedule string `json:"schedule"`
-	// Args: arguments to pass with the cron.
-	Args *scw.JSONObject `json:"args"`
-	// Status: status of the cron.
-	// Default value: unknown
+	// Args: Arguments to pass with the cron.
+	Args *scw.JSONObject `json:"args,omitempty"`
+	// Status: Status of the cron.
 	Status CronStatus `json:"status"`
-	// Name: name of the cron.
+	// Name: Name of the cron.
 	Name string `json:"name"`
 }
 
-// Domain: domain.
 type Domain struct {
 	// ID: UUID of the domain.
 	ID string `json:"id"`
-	// Hostname: hostname associated with the function.
+	// Hostname: Hostname associated with the function.
 	Hostname string `json:"hostname"`
 	// FunctionID: UUID of the function the domain is associated with.
 	FunctionID string `json:"function_id"`
 	// URL: URL of the function.
 	URL string `json:"url"`
-	// Status: state of the doamin.
-	// Default value: unknown
+	// Status: State of the doamin.
 	Status DomainStatus `json:"status"`
-	// ErrorMessage: error message if the domain is in "error" state.
-	ErrorMessage *string `json:"error_message"`
+	// ErrorMessage: Error message if the domain is in "error" state.
+	ErrorMessage *string `json:"error_message,omitempty"`
 }
 
-type DownloadURL struct {
-	URL string `json:"url"`
-
-	Headers map[string]*[]string `json:"headers"`
+type Runtime struct {
+	// Name:
+	Name string `json:"name"`
+	// Language:
+	Language string `json:"language"`
+	// Version:
+	Version string `json:"version"`
+	// DefaultHandler:
+	DefaultHandler string `json:"default_handler"`
+	// CodeSample:
+	CodeSample string `json:"code_sample"`
+	// Status:
+	Status RuntimeStatus `json:"status"`
+	// StatusMessage:
+	StatusMessage string `json:"status_message"`
+	// Extension:
+	Extension string `json:"extension"`
+	// Implementation:
+	Implementation string `json:"implementation"`
+	// LogoURL:
+	LogoURL string `json:"logo_url"`
 }
 
-// Function: function.
 type Function struct {
 	// ID: UUID of the function.
 	ID string `json:"id"`
-	// Name: name of the function.
+	// Name: Name of the function.
 	Name string `json:"name"`
 	// NamespaceID: UUID of the namespace the function belongs to.
 	NamespaceID string `json:"namespace_id"`
-	// Status: status of the function.
-	// Default value: unknown
+	// Status: Status of the function.
 	Status FunctionStatus `json:"status"`
-	// EnvironmentVariables: environment variables of the function.
+	// EnvironmentVariables: Environment variables of the function.
 	EnvironmentVariables map[string]string `json:"environment_variables"`
-	// MinScale: minimum number of instances to scale the function to.
+	// MinScale: Minimum number of instances to scale the function to.
 	MinScale uint32 `json:"min_scale"`
-	// MaxScale: maximum number of instances to scale the function to.
+	// MaxScale: Maximum number of instances to scale the function to.
 	MaxScale uint32 `json:"max_scale"`
-	// Runtime: runtime of the function.
-	// Default value: unknown_runtime
+	// Runtime: Runtime of the function.
 	Runtime FunctionRuntime `json:"runtime"`
-	// MemoryLimit: memory limit of the function in MB.
+	// MemoryLimit: Memory limit of the function in MB.
 	MemoryLimit uint32 `json:"memory_limit"`
 	// CPULimit: CPU limit of the function.
 	CPULimit uint32 `json:"cpu_limit"`
-	// Timeout: request processing time limit for the function.
-	Timeout *scw.Duration `json:"timeout"`
-	// Handler: handler to use for the function.
+	// Timeout: Request processing time limit for the function.
+	Timeout *scw.Duration `json:"timeout,omitempty"`
+	// Handler: Handler to use for the function.
 	Handler string `json:"handler"`
-	// ErrorMessage: error message if the function is in "error" state.
-	ErrorMessage *string `json:"error_message"`
-	// BuildMessage: description of the current build step.
-	BuildMessage *string `json:"build_message"`
-	// Privacy: privacy setting of the function.
-	// Default value: unknown_privacy
+	// ErrorMessage: Error message if the function is in "error" state.
+	ErrorMessage *string `json:"error_message,omitempty"`
+	// BuildMessage: Description of the current build step.
+	BuildMessage *string `json:"build_message,omitempty"`
+	// Privacy: Privacy setting of the function.
 	Privacy FunctionPrivacy `json:"privacy"`
-	// Description: description of the function.
-	Description *string `json:"description"`
-	// DomainName: domain name associated with the function.
+	// Description: Description of the function.
+	Description *string `json:"description,omitempty"`
+	// DomainName: Domain name associated with the function.
 	DomainName string `json:"domain_name"`
-	// SecretEnvironmentVariables: secret environment variables of the function.
+	// SecretEnvironmentVariables: Secret environment variables of the function.
 	SecretEnvironmentVariables []*SecretHashedValue `json:"secret_environment_variables"`
-	// Region: region in which the function is deployed.
+	// Region: Region in which the function is deployed.
 	Region scw.Region `json:"region"`
-	// HTTPOption: configuration for handling of HTTP and HTTPS requests.
-	// Possible values:
+	// HTTPOption: Possible values:
 	//  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
 	//  - enabled: Serve both HTTP and HTTPS traffic.
-	// Default value: enabled
 	HTTPOption FunctionHTTPOption `json:"http_option"`
-
+	// RuntimeMessage:
 	RuntimeMessage string `json:"runtime_message"`
 }
 
-// ListCronsResponse: list crons response.
-type ListCronsResponse struct {
-	// Crons: array of crons.
-	Crons []*Cron `json:"crons"`
-	// TotalCount: total number of crons.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// ListDomainsResponse: list domains response.
-type ListDomainsResponse struct {
-	// Domains: array of domains.
-	Domains []*Domain `json:"domains"`
-	// TotalCount: total number of domains.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// ListFunctionRuntimesResponse: list function runtimes response.
-type ListFunctionRuntimesResponse struct {
-	// Runtimes: array of runtimes available.
-	Runtimes []*Runtime `json:"runtimes"`
-	// TotalCount: total number of runtimes.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// ListFunctionsResponse: list functions response.
-type ListFunctionsResponse struct {
-	// Functions: array of functions.
-	Functions []*Function `json:"functions"`
-	// TotalCount: total number of functions.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// ListLogsResponse: list logs response.
-type ListLogsResponse struct {
-	// Logs: array of logs.
-	Logs []*Log `json:"logs"`
-	// TotalCount: total number of logs.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// ListNamespacesResponse: list namespaces response.
-type ListNamespacesResponse struct {
-	Namespaces []*Namespace `json:"namespaces"`
-	// TotalCount: total number of namespaces.
-	TotalCount uint32 `json:"total_count"`
-}
-
-type ListTokensResponse struct {
-	Tokens []*Token `json:"tokens"`
-
-	TotalCount uint32 `json:"total_count"`
-}
-
-type ListTriggersResponse struct {
-	Triggers []*Trigger `json:"triggers"`
-
-	TotalCount uint32 `json:"total_count"`
-}
-
-// Log: log.
 type Log struct {
-	// Message: message of the log.
+	// Message: Message of the log.
 	Message string `json:"message"`
-	// Timestamp: timestamp of the log.
-	Timestamp *time.Time `json:"timestamp"`
+	// Timestamp: Timestamp of the log.
+	Timestamp *time.Time `json:"timestamp,omitempty"`
 	// ID: UUID of the log.
 	ID string `json:"id"`
-	// Level: severity of the log (info, debug, error etc.).
+	// Level: Severity of the log (info, debug, error etc.).
 	Level string `json:"level"`
-	// Source: source of the log (core runtime or user code).
+	// Source: Source of the log (core runtime or user code).
 	Source string `json:"source"`
-	// Stream: can be stdout or stderr.
-	// Default value: unknown
+	// Stream: Can be stdout or stderr.
 	Stream LogStream `json:"stream"`
 }
 
-// Namespace: namespace.
 type Namespace struct {
 	// ID: UUID of the namespace.
 	ID string `json:"id"`
-	// Name: name of the namespace.
+	// Name: Name of the namespace.
 	Name string `json:"name"`
-	// EnvironmentVariables: environment variables of the namespace.
+	// EnvironmentVariables: Environment variables of the namespace.
 	EnvironmentVariables map[string]string `json:"environment_variables"`
 	// OrganizationID: UUID of the Organization the namespace belongs to.
 	OrganizationID string `json:"organization_id"`
 	// ProjectID: UUID of the Project the namespace belongs to.
 	ProjectID string `json:"project_id"`
-	// Status: status of the namespace.
-	// Default value: unknown
+	// Status: Status of the namespace.
 	Status NamespaceStatus `json:"status"`
 	// RegistryNamespaceID: UUID of the registry namespace.
 	RegistryNamespaceID string `json:"registry_namespace_id"`
-	// ErrorMessage: error message if the namespace is in "error" state.
-	ErrorMessage *string `json:"error_message"`
-	// RegistryEndpoint: registry endpoint of the namespace.
+	// ErrorMessage: Error message if the namespace is in "error" state.
+	ErrorMessage *string `json:"error_message,omitempty"`
+	// RegistryEndpoint: Registry endpoint of the namespace.
 	RegistryEndpoint string `json:"registry_endpoint"`
-	// Description: description of the namespace.
-	Description *string `json:"description"`
-	// SecretEnvironmentVariables: secret environment variables of the namespace.
+	// Description: Description of the namespace.
+	Description *string `json:"description,omitempty"`
+	// SecretEnvironmentVariables: Secret environment variables of the namespace.
 	SecretEnvironmentVariables []*SecretHashedValue `json:"secret_environment_variables"`
-	// Region: region in which the namespace is located.
+	// Region: Region in which the namespace is located.
 	Region scw.Region `json:"region"`
 }
 
-type Runtime struct {
-	Name string `json:"name"`
-
-	Language string `json:"language"`
-
-	Version string `json:"version"`
-
-	DefaultHandler string `json:"default_handler"`
-
-	CodeSample string `json:"code_sample"`
-	// Status: default value: unknown_status
-	Status RuntimeStatus `json:"status"`
-
-	StatusMessage string `json:"status_message"`
-
-	Extension string `json:"extension"`
-
-	Implementation string `json:"implementation"`
-
-	LogoURL string `json:"logo_url"`
-}
-
-type Secret struct {
-	Key string `json:"key"`
-
-	Value *string `json:"value"`
-}
-
-type SecretHashedValue struct {
-	Key string `json:"key"`
-
-	HashedValue string `json:"hashed_value"`
-}
-
-// Token: token.
 type Token struct {
 	// ID: UUID of the token.
 	ID string `json:"id"`
-	// Token: string of the token.
+	// Token: String of the token.
 	Token string `json:"token"`
 	// FunctionID: UUID of the function the token is associated with.
-	// Precisely one of FunctionID, NamespaceID must be set.
 	FunctionID *string `json:"function_id,omitempty"`
 	// NamespaceID: UUID of the namespace the token is assoicated with.
-	// Precisely one of FunctionID, NamespaceID must be set.
 	NamespaceID *string `json:"namespace_id,omitempty"`
-	// Deprecated: PublicKey: public key of the token.
+	// PublicKey: Public key of the token.
 	PublicKey *string `json:"public_key,omitempty"`
-	// Status: status of the token.
-	// Default value: unknown
+	// Status: Status of the token.
 	Status TokenStatus `json:"status"`
-	// Description: description of the token.
-	Description *string `json:"description"`
-	// ExpiresAt: date on which the token expires.
-	ExpiresAt *time.Time `json:"expires_at"`
+	// Description: Description of the token.
+	Description *string `json:"description,omitempty"`
+	// ExpiresAt: Date on which the token expires.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
 type Trigger struct {
+	// ID:
 	ID string `json:"id"`
-
+	// Name:
 	Name string `json:"name"`
-
+	// Description:
 	Description string `json:"description"`
-	// InputType: default value: unknown_input_type
+	// InputType:
 	InputType TriggerInputType `json:"input_type"`
-	// Status: default value: unknown_status
+	// Status:
 	Status TriggerStatus `json:"status"`
-
-	ErrorMessage *string `json:"error_message"`
-
+	// ErrorMessage:
+	ErrorMessage *string `json:"error_message,omitempty"`
+	// FunctionID:
 	FunctionID string `json:"function_id"`
-
-	// Precisely one of ScwNatsConfig, ScwSqsConfig, SqsConfig must be set.
+	// ScwSqsConfig:
 	ScwSqsConfig *TriggerMnqSqsClientConfig `json:"scw_sqs_config,omitempty"`
-
-	// Precisely one of ScwNatsConfig, ScwSqsConfig, SqsConfig must be set.
+	// SqsConfig:
 	SqsConfig *TriggerSqsClientConfig `json:"sqs_config,omitempty"`
-
-	// Precisely one of ScwNatsConfig, ScwSqsConfig, SqsConfig must be set.
+	// ScwNatsConfig:
 	ScwNatsConfig *TriggerMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
 }
 
-type TriggerMnqNatsClientConfig struct {
-	MnqNamespaceID string `json:"mnq_namespace_id"`
-
-	Subject string `json:"subject"`
-
-	MnqProjectID string `json:"mnq_project_id"`
-
-	MnqRegion string `json:"mnq_region"`
-
-	MnqCredentialID *string `json:"mnq_credential_id"`
-}
-
-type TriggerMnqSqsClientConfig struct {
-	MnqNamespaceID string `json:"mnq_namespace_id"`
-
-	Queue string `json:"queue"`
-
-	MnqProjectID string `json:"mnq_project_id"`
-
-	MnqRegion string `json:"mnq_region"`
-
-	MnqCredentialID *string `json:"mnq_credential_id"`
-}
-
-type TriggerSqsClientConfig struct {
-	Endpoint string `json:"endpoint"`
-
-	QueueURL string `json:"queue_url"`
-
-	AccessKey string `json:"access_key"`
-
-	SecretKey string `json:"secret_key"`
-}
-
 type UpdateTriggerRequestSqsClientConfig struct {
-	AccessKey *string `json:"access_key"`
-
-	SecretKey *string `json:"secret_key"`
-}
-
-// UploadURL: upload url.
-type UploadURL struct {
-	// URL: upload URL to upload the function to.
-	URL string `json:"url"`
-	// Headers: HTTP headers.
-	Headers map[string]*[]string `json:"headers"`
-}
-
-// Service API
-
-// Regions list localities the api is available in
-func (s *API) Regions() []scw.Region {
-	return []scw.Region{scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw}
-}
-
-type ListNamespacesRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// Page: page number.
-	Page *int32 `json:"-"`
-	// PageSize: number of namespaces per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: order of the namespaces.
-	// Default value: created_at_asc
-	OrderBy ListNamespacesRequestOrderBy `json:"-"`
-	// Name: name of the namespace.
-	Name *string `json:"-"`
-	// OrganizationID: UUID of the Organization the namespace belongs to.
-	OrganizationID *string `json:"-"`
-	// ProjectID: UUID of the Project the namespace belongs to.
-	ProjectID *string `json:"-"`
-}
-
-// ListNamespaces: list all your namespaces.
-// List all existing namespaces in the specified region.
-func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "name", req.Name)
-	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListNamespacesResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetNamespaceRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// NamespaceID: UUID of the namespace.
-	NamespaceID string `json:"-"`
-}
-
-// GetNamespace: get a namespace.
-// Get the namespace associated with the specified ID.
-func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.NamespaceID) == "" {
-		return nil, errors.New("field NamespaceID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces/" + fmt.Sprint(req.NamespaceID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Namespace
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type CreateNamespaceRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-
-	Name string `json:"name"`
-	// EnvironmentVariables: environment variables of the namespace.
-	EnvironmentVariables *map[string]string `json:"environment_variables"`
-	// ProjectID: UUID of the project in which the namespace will be created.
-	ProjectID string `json:"project_id"`
-	// Description: description of the namespace.
-	Description *string `json:"description"`
-	// SecretEnvironmentVariables: secret environment variables of the namespace.
-	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
-}
-
-// CreateNamespace: create a new namespace.
-// Create a new namespace in a specified Organization or Project.
-func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
-	var err error
-
-	if req.ProjectID == "" {
-		defaultProjectID, _ := s.client.GetDefaultProjectID()
-		req.ProjectID = defaultProjectID
-	}
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if req.Name == "" {
-		req.Name = namegenerator.GetRandomName("ns")
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Namespace
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type UpdateNamespaceRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// NamespaceID: UUID of the namespapce.
-	NamespaceID string `json:"-"`
-	// EnvironmentVariables: environment variables of the namespace.
-	EnvironmentVariables *map[string]string `json:"environment_variables"`
-	// Description: description of the namespace.
-	Description *string `json:"description"`
-	// SecretEnvironmentVariables: secret environment variables of the namespace.
-	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
-}
-
-// UpdateNamespace: update an existing namespace.
-// Update the namespace associated with the specified ID.
-func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.NamespaceID) == "" {
-		return nil, errors.New("field NamespaceID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PATCH",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces/" + fmt.Sprint(req.NamespaceID) + "",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Namespace
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type DeleteNamespaceRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// NamespaceID: UUID of the namespace.
-	NamespaceID string `json:"-"`
-}
-
-// DeleteNamespace: delete an existing namespace.
-// Delete the namespace associated with the specified ID.
-func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.NamespaceID) == "" {
-		return nil, errors.New("field NamespaceID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces/" + fmt.Sprint(req.NamespaceID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Namespace
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListFunctionsRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// Page: page number.
-	Page *int32 `json:"-"`
-	// PageSize: number of functions per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: order of the functions.
-	// Default value: created_at_asc
-	OrderBy ListFunctionsRequestOrderBy `json:"-"`
-	// NamespaceID: UUID of the namespace the function belongs to.
-	NamespaceID string `json:"-"`
-	// Name: name of the function.
-	Name *string `json:"-"`
-	// OrganizationID: UUID of the Organziation the function belongs to.
-	OrganizationID *string `json:"-"`
-	// ProjectID: UUID of the Project the function belongs to.
-	ProjectID *string `json:"-"`
-}
-
-// ListFunctions: list all your functions.
-func (s *API) ListFunctions(req *ListFunctionsRequest, opts ...scw.RequestOption) (*ListFunctionsResponse, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "namespace_id", req.NamespaceID)
-	parameter.AddToQuery(query, "name", req.Name)
-	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListFunctionsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetFunctionRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// FunctionID: UUID of the function.
-	FunctionID string `json:"-"`
-}
-
-// GetFunction: get a function.
-// Get the function associated with the specified ID.
-func (s *API) GetFunction(req *GetFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.FunctionID) == "" {
-		return nil, errors.New("field FunctionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Function
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type CreateFunctionRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// Name: name of the function to create.
-	Name string `json:"name"`
-	// NamespaceID: UUID of the namespace the function will be created in.
-	NamespaceID string `json:"namespace_id"`
-	// EnvironmentVariables: environment variables of the function.
-	EnvironmentVariables *map[string]string `json:"environment_variables"`
-	// MinScale: minumum number of instances to scale the function to.
-	MinScale *uint32 `json:"min_scale"`
-	// MaxScale: maximum number of instances to scale the function to.
-	MaxScale *uint32 `json:"max_scale"`
-	// Runtime: runtime to use with the function.
-	// Default value: unknown_runtime
-	Runtime FunctionRuntime `json:"runtime"`
-	// MemoryLimit: memory limit of the function in MB.
-	MemoryLimit *uint32 `json:"memory_limit"`
-	// Timeout: request processing time limit for the function.
-	Timeout *scw.Duration `json:"timeout"`
-	// Handler: handler to use with the function.
-	Handler *string `json:"handler"`
-	// Privacy: privacy setting of the function.
-	// Default value: unknown_privacy
-	Privacy FunctionPrivacy `json:"privacy"`
-	// Description: description of the function.
-	Description *string `json:"description"`
-
-	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
-	// HTTPOption: configure how HTTP and HTTPS requests are handled.
-	// Possible values:
-	//  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
-	//  - enabled: Serve both HTTP and HTTPS traffic.
-	// Default value: enabled
-	HTTPOption FunctionHTTPOption `json:"http_option"`
-}
-
-// CreateFunction: create a new function.
-// Create a new function in the specified region for a specified Organization or Project.
-func (s *API) CreateFunction(req *CreateFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if req.Name == "" {
-		req.Name = namegenerator.GetRandomName("fn")
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Function
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type UpdateFunctionRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// FunctionID: UUID of the function to update.
-	FunctionID string `json:"-"`
-	// EnvironmentVariables: environment variables of the function to update.
-	EnvironmentVariables *map[string]string `json:"environment_variables"`
-	// MinScale: minumum number of instances to scale the function to.
-	MinScale *uint32 `json:"min_scale"`
-	// MaxScale: maximum number of instances to scale the function to.
-	MaxScale *uint32 `json:"max_scale"`
-	// Runtime: runtime to use with the function.
-	// Default value: unknown_runtime
-	Runtime FunctionRuntime `json:"runtime"`
-	// MemoryLimit: memory limit of the function in MB.
-	MemoryLimit *uint32 `json:"memory_limit"`
-	// Timeout: processing time limit for the function.
-	Timeout *scw.Duration `json:"timeout"`
-	// Redeploy: redeploy failed function.
-	Redeploy *bool `json:"redeploy"`
-	// Handler: handler to use with the function.
-	Handler *string `json:"handler"`
-	// Privacy: privacy setting of the function.
-	// Default value: unknown_privacy
-	Privacy FunctionPrivacy `json:"privacy"`
-	// Description: description of the function.
-	Description *string `json:"description"`
-	// SecretEnvironmentVariables: secret environment variables of the function.
-	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
-	// HTTPOption: configure how HTTP and HTTPS requests are handled.
-	// Possible values:
-	//  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
-	//  - enabled: Serve both HTTP and HTTPS traffic.
-	// Default value: enabled
-	HTTPOption FunctionHTTPOption `json:"http_option"`
-}
-
-// UpdateFunction: update an existing function.
-// Update the function associated with the specified ID.
-func (s *API) UpdateFunction(req *UpdateFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.FunctionID) == "" {
-		return nil, errors.New("field FunctionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PATCH",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Function
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type DeleteFunctionRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// FunctionID: UUID of the function to delete.
-	FunctionID string `json:"-"`
-}
-
-// DeleteFunction: delete a function.
-// Delete the function associated with the specified ID.
-func (s *API) DeleteFunction(req *DeleteFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.FunctionID) == "" {
-		return nil, errors.New("field FunctionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Function
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type DeployFunctionRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// FunctionID: UUID of the function to deploy.
-	FunctionID string `json:"-"`
-}
-
-// DeployFunction: deploy a function.
-// Deploy a function associated with the specified ID.
-func (s *API) DeployFunction(req *DeployFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.FunctionID) == "" {
-		return nil, errors.New("field FunctionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "/deploy",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Function
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListFunctionRuntimesRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-}
-
-// ListFunctionRuntimes: list function runtimes.
-// List available function runtimes.
-func (s *API) ListFunctionRuntimes(req *ListFunctionRuntimesRequest, opts ...scw.RequestOption) (*ListFunctionRuntimesResponse, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/runtimes",
-		Headers: http.Header{},
-	}
-
-	var resp ListFunctionRuntimesResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetFunctionUploadURLRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// FunctionID: UUID of the function to get the upload URL for.
-	FunctionID string `json:"-"`
-	// ContentLength: size of the archive to upload in bytes.
-	ContentLength uint64 `json:"-"`
-}
-
-// GetFunctionUploadURL: get an upload URL of a function.
-// Get an upload URL of a function associated with the specified ID.
-func (s *API) GetFunctionUploadURL(req *GetFunctionUploadURLRequest, opts ...scw.RequestOption) (*UploadURL, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "content_length", req.ContentLength)
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.FunctionID) == "" {
-		return nil, errors.New("field FunctionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "/upload-url",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp UploadURL
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetFunctionDownloadURLRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// FunctionID: UUID of the function to get the the download URL for.
-	FunctionID string `json:"-"`
-}
-
-// GetFunctionDownloadURL: get a download URL of a function.
-// Get a download URL for a function associated with the specified ID.
-func (s *API) GetFunctionDownloadURL(req *GetFunctionDownloadURLRequest, opts ...scw.RequestOption) (*DownloadURL, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.FunctionID) == "" {
-		return nil, errors.New("field FunctionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "/download-url",
-		Headers: http.Header{},
-	}
-
-	var resp DownloadURL
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListCronsRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// Page: page number.
-	Page *int32 `json:"-"`
-	// PageSize: number of crons per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: order of the crons.
-	// Default value: created_at_asc
-	OrderBy ListCronsRequestOrderBy `json:"-"`
-	// FunctionID: UUID of the function.
-	FunctionID string `json:"-"`
-}
-
-// ListCrons: list all crons.
-// List all the cronjobs in a specified region.
-func (s *API) ListCrons(req *ListCronsRequest, opts ...scw.RequestOption) (*ListCronsResponse, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "function_id", req.FunctionID)
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListCronsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetCronRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// CronID: UUID of the cron to get.
-	CronID string `json:"-"`
-}
-
-// GetCron: get a cron.
-// Get the cron associated with the specified ID.
-func (s *API) GetCron(req *GetCronRequest, opts ...scw.RequestOption) (*Cron, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.CronID) == "" {
-		return nil, errors.New("field CronID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons/" + fmt.Sprint(req.CronID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Cron
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
+	// AccessKey:
+	AccessKey *string `json:"access_key,omitempty"`
+	// SecretKey:
+	SecretKey *string `json:"secret_key,omitempty"`
 }
 
 type CreateCronRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to use the cron with.
 	FunctionID string `json:"function_id"`
-	// Schedule: schedule of the cron in UNIX cron format.
+	// Schedule: Schedule of the cron in UNIX cron format.
 	Schedule string `json:"schedule"`
-	// Args: arguments to use with the cron.
-	Args *scw.JSONObject `json:"args"`
-	// Name: name of the cron.
-	Name *string `json:"name"`
-}
-
-// CreateCron: create a new cron.
-// Create a new cronjob for a function with the specified ID.
-func (s *API) CreateCron(req *CreateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Cron
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type UpdateCronRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// CronID: UUID of the cron to update.
-	CronID string `json:"-"`
-	// FunctionID: UUID of the function to use the cron with.
-	FunctionID *string `json:"function_id"`
-	// Schedule: schedule of the cron in UNIX cron format.
-	Schedule *string `json:"schedule"`
-	// Args: arguments to use with the cron.
-	Args *scw.JSONObject `json:"args"`
-	// Name: name of the cron.
-	Name *string `json:"name"`
-}
-
-// UpdateCron: update an existing cron.
-// Update the cron associated with the specified ID.
-func (s *API) UpdateCron(req *UpdateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.CronID) == "" {
-		return nil, errors.New("field CronID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PATCH",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons/" + fmt.Sprint(req.CronID) + "",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Cron
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type DeleteCronRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// CronID: UUID of the cron to delete.
-	CronID string `json:"-"`
-}
-
-// DeleteCron: delete an existing cron.
-// Delete the cron associated with the specified ID.
-func (s *API) DeleteCron(req *DeleteCronRequest, opts ...scw.RequestOption) (*Cron, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.CronID) == "" {
-		return nil, errors.New("field CronID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons/" + fmt.Sprint(req.CronID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Cron
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListLogsRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// FunctionID: UUID of the function to get the logs for.
-	FunctionID string `json:"-"`
-	// Page: page number.
-	Page *int32 `json:"-"`
-	// PageSize: number of logs per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: order of the logs.
-	// Default value: timestamp_desc
-	OrderBy ListLogsRequestOrderBy `json:"-"`
-}
-
-// ListLogs: list application logs.
-// List the application logs of the function with the specified ID.
-func (s *API) ListLogs(req *ListLogsRequest, opts ...scw.RequestOption) (*ListLogsResponse, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.FunctionID) == "" {
-		return nil, errors.New("field FunctionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "/logs",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListLogsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListDomainsRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// Page: page number.
-	Page *int32 `json:"-"`
-	// PageSize: number of domains per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: order of the domains.
-	// Default value: created_at_asc
-	OrderBy ListDomainsRequestOrderBy `json:"-"`
-	// FunctionID: UUID of the function the domain is assoicated with.
-	FunctionID string `json:"-"`
-}
-
-// ListDomains: list all domain name bindings.
-// List all domain name bindings in a specified region.
-func (s *API) ListDomains(req *ListDomainsRequest, opts ...scw.RequestOption) (*ListDomainsResponse, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "function_id", req.FunctionID)
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/domains",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListDomainsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetDomainRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// DomainID: UUID of the domain to get.
-	DomainID string `json:"-"`
-}
-
-// GetDomain: get a domain name binding.
-// Get a domain name binding for the function with the specified ID.
-func (s *API) GetDomain(req *GetDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.DomainID) == "" {
-		return nil, errors.New("field DomainID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/domains/" + fmt.Sprint(req.DomainID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
+	// Args: Arguments to use with the cron.
+	Args *scw.JSONObject `json:"args,omitempty"`
+	// Name: Name of the cron.
+	Name *string `json:"name,omitempty"`
 }
 
 type CreateDomainRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+	// Region:
 	Region scw.Region `json:"-"`
-	// Hostname: hostame to create.
+	// Hostname: Hostame to create.
 	Hostname string `json:"hostname"`
 	// FunctionID: UUID of the function to associate the domain with.
 	FunctionID string `json:"function_id"`
 }
 
-// CreateDomain: create a domain name binding.
-// Create a domain name binding for the function with the specified ID.
-func (s *API) CreateDomain(req *CreateDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
+type CreateFunctionRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Name: Name of the function to create.
+	Name string `json:"name"`
+	// NamespaceID: UUID of the namespace the function will be created in.
+	NamespaceID string `json:"namespace_id"`
+	// EnvironmentVariables: Environment variables of the function.
+	EnvironmentVariables *map[string]string `json:"environment_variables,omitempty"`
+	// MinScale: Minumum number of instances to scale the function to.
+	MinScale *uint32 `json:"min_scale,omitempty"`
+	// MaxScale: Maximum number of instances to scale the function to.
+	MaxScale *uint32 `json:"max_scale,omitempty"`
+	// Runtime: Runtime to use with the function.
+	Runtime FunctionRuntime `json:"runtime"`
+	// MemoryLimit: Memory limit of the function in MB.
+	MemoryLimit *uint32 `json:"memory_limit,omitempty"`
+	// Timeout: Request processing time limit for the function.
+	Timeout *scw.Duration `json:"timeout,omitempty"`
+	// Handler: Handler to use with the function.
+	Handler *string `json:"handler,omitempty"`
+	// Privacy: Privacy setting of the function.
+	Privacy FunctionPrivacy `json:"privacy"`
+	// Description: Description of the function.
+	Description *string `json:"description,omitempty"`
+	// DomainName: Domain name associated with the function.
+	DomainName *string `json:"domain_name,omitempty"`
+	// SecretEnvironmentVariables:
+	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
+	// HTTPOption: Possible values:
+	//  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+	//  - enabled: Serve both HTTP and HTTPS traffic.
+	HTTPOption FunctionHTTPOption `json:"http_option"`
+}
 
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
+type CreateNamespaceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Name:
+	Name string `json:"name"`
+	// EnvironmentVariables: Environment variables of the namespace.
+	EnvironmentVariables *map[string]string `json:"environment_variables,omitempty"`
+	// ProjectID: UUID of the project in which the namespace will be created.
+	ProjectID string `json:"project_id"`
+	// Description: Description of the namespace.
+	Description *string `json:"description,omitempty"`
+	// SecretEnvironmentVariables: Secret environment variables of the namespace.
+	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
+}
 
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
+type CreateTokenRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// FunctionID: UUID of the function to associate the token with.
+	FunctionID *string `json:"function_id,omitempty"`
+	// NamespaceID: UUID of the namespace to associate the token with.
+	NamespaceID *string `json:"namespace_id,omitempty"`
+	// Description: Description of the token.
+	Description *string `json:"description,omitempty"`
+	// ExpiresAt: Date on which the token expires.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+}
 
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/domains",
-		Headers: http.Header{},
-	}
+type CreateTriggerRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Name:
+	Name string `json:"name"`
+	// Description:
+	Description *string `json:"description,omitempty"`
+	// FunctionID:
+	FunctionID string `json:"function_id"`
+	// ScwSqsConfig:
+	ScwSqsConfig *CreateTriggerRequestMnqSqsClientConfig `json:"scw_sqs_config,omitempty"`
+	// SqsConfig:
+	SqsConfig *CreateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
+	// ScwNatsConfig:
+	ScwNatsConfig *CreateTriggerRequestMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
+}
 
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
+type DeleteCronRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// CronID: UUID of the cron to delete.
+	CronID string `json:"-"`
 }
 
 type DeleteDomainRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+	// Region:
 	Region scw.Region `json:"-"`
 	// DomainID: UUID of the domain to delete.
 	DomainID string `json:"-"`
 }
 
-// DeleteDomain: delete a domain name binding.
-// Delete a domain name binding for the function with the specified ID.
-func (s *API) DeleteDomain(req *DeleteDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.DomainID) == "" {
-		return nil, errors.New("field DomainID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/domains/" + fmt.Sprint(req.DomainID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type IssueJWTRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+type DeleteFunctionRequest struct {
+	// Region:
 	Region scw.Region `json:"-"`
-
-	FunctionID *string `json:"-"`
-
-	NamespaceID *string `json:"-"`
-
-	ExpiresAt *time.Time `json:"-"`
+	// FunctionID: UUID of the function to delete.
+	FunctionID string `json:"-"`
 }
 
-// Deprecated
-func (s *API) IssueJWT(req *IssueJWTRequest, opts ...scw.RequestOption) (*Token, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "function_id", req.FunctionID)
-	parameter.AddToQuery(query, "namespace_id", req.NamespaceID)
-	parameter.AddToQuery(query, "expires_at", req.ExpiresAt)
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/issue-jwt",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp Token
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type CreateTokenRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+type DeleteNamespaceRequest struct {
+	// Region:
 	Region scw.Region `json:"-"`
-	// FunctionID: UUID of the function to associate the token with.
-	// Precisely one of FunctionID, NamespaceID must be set.
-	FunctionID *string `json:"function_id,omitempty"`
-	// NamespaceID: UUID of the namespace to associate the token with.
-	// Precisely one of FunctionID, NamespaceID must be set.
-	NamespaceID *string `json:"namespace_id,omitempty"`
-	// Description: description of the token.
-	Description *string `json:"description"`
-	// ExpiresAt: date on which the token expires.
-	ExpiresAt *time.Time `json:"expires_at"`
-}
-
-// CreateToken: create a new revocable token.
-func (s *API) CreateToken(req *CreateTokenRequest, opts ...scw.RequestOption) (*Token, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/tokens",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Token
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetTokenRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// TokenID: UUID of the token to get.
-	TokenID string `json:"-"`
-}
-
-// GetToken: get a token.
-func (s *API) GetToken(req *GetTokenRequest, opts ...scw.RequestOption) (*Token, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.TokenID) == "" {
-		return nil, errors.New("field TokenID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/tokens/" + fmt.Sprint(req.TokenID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Token
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListTokensRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-	// Page: page number.
-	Page *int32 `json:"-"`
-	// PageSize: number of tokens per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: sort order for the tokens.
-	// Default value: created_at_asc
-	OrderBy ListTokensRequestOrderBy `json:"-"`
-	// FunctionID: UUID of the function the token is assoicated with.
-	FunctionID *string `json:"-"`
-	// NamespaceID: UUID of the namespace the token is associated with.
-	NamespaceID *string `json:"-"`
-}
-
-// ListTokens: list all tokens.
-func (s *API) ListTokens(req *ListTokensRequest, opts ...scw.RequestOption) (*ListTokensResponse, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "function_id", req.FunctionID)
-	parameter.AddToQuery(query, "namespace_id", req.NamespaceID)
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/tokens",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListTokensResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
+	// NamespaceID: UUID of the namespace.
+	NamespaceID string `json:"-"`
 }
 
 type DeleteTokenRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+	// Region:
 	Region scw.Region `json:"-"`
 	// TokenID: UUID of the token to delete.
 	TokenID string `json:"-"`
 }
 
-// DeleteToken: delete a token.
-func (s *API) DeleteToken(req *DeleteTokenRequest, opts ...scw.RequestOption) (*Token, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.TokenID) == "" {
-		return nil, errors.New("field TokenID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/tokens/" + fmt.Sprint(req.TokenID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Token
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type CreateTriggerRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+type DeleteTriggerRequest struct {
+	// Region:
 	Region scw.Region `json:"-"`
-
-	Name string `json:"name"`
-
-	Description *string `json:"description"`
-
-	FunctionID string `json:"function_id"`
-
-	// Precisely one of ScwNatsConfig, ScwSqsConfig, SqsConfig must be set.
-	ScwSqsConfig *CreateTriggerRequestMnqSqsClientConfig `json:"scw_sqs_config,omitempty"`
-
-	// Precisely one of ScwNatsConfig, ScwSqsConfig, SqsConfig must be set.
-	SqsConfig *CreateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
-
-	// Precisely one of ScwNatsConfig, ScwSqsConfig, SqsConfig must be set.
-	ScwNatsConfig *CreateTriggerRequestMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
+	// TriggerID:
+	TriggerID string `json:"-"`
 }
 
-func (s *API) CreateTrigger(req *CreateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
-	var err error
+type DeployFunctionRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// FunctionID: UUID of the function to deploy.
+	FunctionID string `json:"-"`
+}
 
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
+type DownloadURL struct {
+	// URL:
+	URL string `json:"url"`
+	// Headers:
+	Headers map[string]*[]string `json:"headers"`
+}
 
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
+type GetCronRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// CronID: UUID of the cron to get.
+	CronID string `json:"-"`
+}
 
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers",
-		Headers: http.Header{},
-	}
+type GetDomainRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DomainID: UUID of the domain to get.
+	DomainID string `json:"-"`
+}
 
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
+type GetFunctionDownloadURLRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// FunctionID: UUID of the function to get the the download URL for.
+	FunctionID string `json:"-"`
+}
 
-	var resp Trigger
+type GetFunctionRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// FunctionID: UUID of the function.
+	FunctionID string `json:"-"`
+}
 
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
+type GetFunctionUploadURLRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// FunctionID: UUID of the function to get the upload URL for.
+	FunctionID string `json:"-"`
+	// ContentLength:
+	ContentLength uint64 `json:"content_length"`
+}
+
+type GetNamespaceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NamespaceID: UUID of the namespace.
+	NamespaceID string `json:"-"`
+}
+
+type GetTokenRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// TokenID: UUID of the token to get.
+	TokenID string `json:"-"`
 }
 
 type GetTriggerRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+	// Region:
 	Region scw.Region `json:"-"`
-
+	// TriggerID:
 	TriggerID string `json:"-"`
 }
 
-func (s *API) GetTrigger(req *GetTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.TriggerID) == "" {
-		return nil, errors.New("field TriggerID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers/" + fmt.Sprint(req.TriggerID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Trigger
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListTriggersRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+type IssueJWTRequest struct {
+	// Region:
 	Region scw.Region `json:"-"`
-
-	Page *int32 `json:"-"`
-
-	PageSize *uint32 `json:"-"`
-	// OrderBy: default value: created_at_asc
-	OrderBy ListTriggersRequestOrderBy `json:"-"`
-
-	FunctionID *string `json:"-"`
-
-	NamespaceID *string `json:"-"`
-
-	ProjectID *string `json:"-"`
+	// FunctionID:
+	FunctionID *string `json:"function_id,omitempty"`
+	// NamespaceID:
+	NamespaceID *string `json:"namespace_id,omitempty"`
+	// ExpiresAt:
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
-func (s *API) ListTriggers(req *ListTriggersRequest, opts ...scw.RequestOption) (*ListTriggersResponse, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "function_id", req.FunctionID)
-	parameter.AddToQuery(query, "namespace_id", req.NamespaceID)
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListTriggersResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type UpdateTriggerRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
+type ListCronsRequest struct {
+	// Region:
 	Region scw.Region `json:"-"`
-
-	TriggerID string `json:"-"`
-
-	Name *string `json:"name"`
-
-	Description *string `json:"description"`
-
-	// Precisely one of SqsConfig must be set.
-	SqsConfig *UpdateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
+	// Page: Page number.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Number of crons per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy: Order of the crons.
+	OrderBy ListCronsRequestOrderBy `json:"order_by"`
+	// FunctionID: UUID of the function.
+	FunctionID string `json:"function_id"`
 }
 
-func (s *API) UpdateTrigger(req *UpdateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.TriggerID) == "" {
-		return nil, errors.New("field TriggerID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PATCH",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers/" + fmt.Sprint(req.TriggerID) + "",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Trigger
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type DeleteTriggerRequest struct {
-	// Region: region to target. If none is passed will use default region from the config.
-	Region scw.Region `json:"-"`
-
-	TriggerID string `json:"-"`
-}
-
-func (s *API) DeleteTrigger(req *DeleteTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
-	var err error
-
-	if req.Region == "" {
-		defaultRegion, _ := s.client.GetDefaultRegion()
-		req.Region = defaultRegion
-	}
-
-	if fmt.Sprint(req.Region) == "" {
-		return nil, errors.New("field Region cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.TriggerID) == "" {
-		return nil, errors.New("field TriggerID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers/" + fmt.Sprint(req.TriggerID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Trigger
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListNamespacesResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListNamespacesResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Namespaces = append(r.Namespaces, results.Namespaces...)
-	r.TotalCount += uint32(len(results.Namespaces))
-	return uint32(len(results.Namespaces)), nil
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListFunctionsResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListFunctionsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListFunctionsResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Functions = append(r.Functions, results.Functions...)
-	r.TotalCount += uint32(len(results.Functions))
-	return uint32(len(results.Functions)), nil
+type ListCronsResponse struct {
+	// Crons: Array of crons.
+	Crons []*Cron `json:"crons"`
+	// TotalCount: Total number of crons.
+	TotalCount uint32 `json:"total_count"`
 }
 
 // UnsafeGetTotalCount should not be used
@@ -2780,23 +1215,24 @@ func (r *ListCronsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Crons)), nil
 }
 
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListLogsResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
+type ListDomainsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Number of domains per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy: Order of the domains.
+	OrderBy ListDomainsRequestOrderBy `json:"order_by"`
+	// FunctionID: UUID of the function the domain is assoicated with.
+	FunctionID string `json:"function_id"`
 }
 
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListLogsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListLogsResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Logs = append(r.Logs, results.Logs...)
-	r.TotalCount += uint32(len(results.Logs))
-	return uint32(len(results.Logs)), nil
+type ListDomainsResponse struct {
+	// Domains: Array of domains.
+	Domains []*Domain `json:"domains"`
+	// TotalCount: Total number of domains.
+	TotalCount uint32 `json:"total_count"`
 }
 
 // UnsafeGetTotalCount should not be used
@@ -2818,6 +1254,186 @@ func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Domains)), nil
 }
 
+type ListFunctionRuntimesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+}
+
+type ListFunctionRuntimesResponse struct {
+	// Runtimes: Array of runtimes available.
+	Runtimes []*Runtime `json:"runtimes"`
+	// TotalCount: Total number of runtimes.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListFunctionRuntimesResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListFunctionRuntimesResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListFunctionRuntimesResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Runtimes = append(r.Runtimes, results.Runtimes...)
+	r.TotalCount += uint32(len(results.Runtimes))
+	return uint32(len(results.Runtimes)), nil
+}
+
+type ListFunctionsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Number of functions per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy: Order of the functions.
+	OrderBy ListFunctionsRequestOrderBy `json:"order_by"`
+	// NamespaceID: UUID of the namespace the function belongs to.
+	NamespaceID string `json:"namespace_id"`
+	// Name: Name of the function.
+	Name *string `json:"name,omitempty"`
+	// OrganizationID: UUID of the Organziation the function belongs to.
+	OrganizationID *string `json:"organization_id,omitempty"`
+	// ProjectID: UUID of the Project the function belongs to.
+	ProjectID *string `json:"project_id,omitempty"`
+}
+
+type ListFunctionsResponse struct {
+	// Functions: Array of functions.
+	Functions []*Function `json:"functions"`
+	// TotalCount: Total number of functions.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListFunctionsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListFunctionsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListFunctionsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Functions = append(r.Functions, results.Functions...)
+	r.TotalCount += uint32(len(results.Functions))
+	return uint32(len(results.Functions)), nil
+}
+
+type ListLogsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// FunctionID: UUID of the function to get the logs for.
+	FunctionID string `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Number of logs per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy: Order of the logs.
+	OrderBy ListLogsRequestOrderBy `json:"order_by"`
+}
+
+type ListLogsResponse struct {
+	// Logs: Array of logs.
+	Logs []*Log `json:"logs"`
+	// TotalCount: Total number of logs.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListLogsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListLogsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListLogsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Logs = append(r.Logs, results.Logs...)
+	r.TotalCount += uint32(len(results.Logs))
+	return uint32(len(results.Logs)), nil
+}
+
+type ListNamespacesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Number of namespaces per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy: Order of the namespaces.
+	OrderBy ListNamespacesRequestOrderBy `json:"order_by"`
+	// Name: Name of the namespace.
+	Name *string `json:"name,omitempty"`
+	// OrganizationID: UUID of the Organization the namespace belongs to.
+	OrganizationID *string `json:"organization_id,omitempty"`
+	// ProjectID: UUID of the Project the namespace belongs to.
+	ProjectID *string `json:"project_id,omitempty"`
+}
+
+type ListNamespacesResponse struct {
+	// Namespaces:
+	Namespaces []*Namespace `json:"namespaces"`
+	// TotalCount: Total number of namespaces.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListNamespacesResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListNamespacesResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Namespaces = append(r.Namespaces, results.Namespaces...)
+	r.TotalCount += uint32(len(results.Namespaces))
+	return uint32(len(results.Namespaces)), nil
+}
+
+type ListTokensRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Number of tokens per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy: Sort order for the tokens.
+	OrderBy ListTokensRequestOrderBy `json:"order_by"`
+	// FunctionID: UUID of the function the token is assoicated with.
+	FunctionID *string `json:"function_id,omitempty"`
+	// NamespaceID: UUID of the namespace the token is associated with.
+	NamespaceID *string `json:"namespace_id,omitempty"`
+}
+
+type ListTokensResponse struct {
+	// Tokens:
+	Tokens []*Token `json:"tokens"`
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+}
+
 // UnsafeGetTotalCount should not be used
 // Internal usage only
 func (r *ListTokensResponse) UnsafeGetTotalCount() uint32 {
@@ -2837,6 +1453,30 @@ func (r *ListTokensResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tokens)), nil
 }
 
+type ListTriggersRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page:
+	Page *int32 `json:"page,omitempty"`
+	// PageSize:
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy:
+	OrderBy ListTriggersRequestOrderBy `json:"order_by"`
+	// FunctionID:
+	FunctionID *string `json:"function_id,omitempty"`
+	// NamespaceID:
+	NamespaceID *string `json:"namespace_id,omitempty"`
+	// ProjectID:
+	ProjectID *string `json:"project_id,omitempty"`
+}
+
+type ListTriggersResponse struct {
+	// Triggers:
+	Triggers []*Trigger `json:"triggers"`
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+}
+
 // UnsafeGetTotalCount should not be used
 // Internal usage only
 func (r *ListTriggersResponse) UnsafeGetTotalCount() uint32 {
@@ -2854,4 +1494,1538 @@ func (r *ListTriggersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Triggers = append(r.Triggers, results.Triggers...)
 	r.TotalCount += uint32(len(results.Triggers))
 	return uint32(len(results.Triggers)), nil
+}
+
+type UpdateCronRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// CronID: UUID of the cron to update.
+	CronID string `json:"-"`
+	// FunctionID: UUID of the function to use the cron with.
+	FunctionID *string `json:"function_id,omitempty"`
+	// Schedule: Schedule of the cron in UNIX cron format.
+	Schedule *string `json:"schedule,omitempty"`
+	// Args: Arguments to use with the cron.
+	Args *scw.JSONObject `json:"args,omitempty"`
+	// Name: Name of the cron.
+	Name *string `json:"name,omitempty"`
+}
+
+type UpdateFunctionRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// FunctionID: UUID of the function to update.
+	FunctionID string `json:"-"`
+	// EnvironmentVariables: Environment variables of the function to update.
+	EnvironmentVariables *map[string]string `json:"environment_variables,omitempty"`
+	// MinScale: Minumum number of instances to scale the function to.
+	MinScale *uint32 `json:"min_scale,omitempty"`
+	// MaxScale: Maximum number of instances to scale the function to.
+	MaxScale *uint32 `json:"max_scale,omitempty"`
+	// Runtime: Runtime to use with the function.
+	Runtime FunctionRuntime `json:"runtime"`
+	// MemoryLimit: Memory limit of the function in MB.
+	MemoryLimit *uint32 `json:"memory_limit,omitempty"`
+	// Timeout: Processing time limit for the function.
+	Timeout *scw.Duration `json:"timeout,omitempty"`
+	// Redeploy: Redeploy failed function.
+	Redeploy *bool `json:"redeploy,omitempty"`
+	// Handler: Handler to use with the function.
+	Handler *string `json:"handler,omitempty"`
+	// Privacy: Privacy setting of the function.
+	Privacy FunctionPrivacy `json:"privacy"`
+	// Description: Description of the function.
+	Description *string `json:"description,omitempty"`
+	// DomainName: Domain name associated with the function.
+	DomainName *string `json:"domain_name,omitempty"`
+	// SecretEnvironmentVariables: Secret environment variables of the function.
+	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
+	// HTTPOption: Possible values:
+	//  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+	//  - enabled: Serve both HTTP and HTTPS traffic.
+	HTTPOption FunctionHTTPOption `json:"http_option"`
+}
+
+type UpdateNamespaceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NamespaceID: UUID of the namespapce.
+	NamespaceID string `json:"-"`
+	// EnvironmentVariables: Environment variables of the namespace.
+	EnvironmentVariables *map[string]string `json:"environment_variables,omitempty"`
+	// Description: Description of the namespace.
+	Description *string `json:"description,omitempty"`
+	// SecretEnvironmentVariables: Secret environment variables of the namespace.
+	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
+}
+
+type UpdateTriggerRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// TriggerID:
+	TriggerID string `json:"-"`
+	// Name:
+	Name *string `json:"name,omitempty"`
+	// Description:
+	Description *string `json:"description,omitempty"`
+	// SqsConfig:
+	SqsConfig *UpdateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
+}
+
+type UploadURL struct {
+	// URL: Upload URL to upload the function to.
+	URL string `json:"url"`
+	// Headers: HTTP headers.
+	Headers map[string]*[]string `json:"headers"`
+}
+
+// Deploying applications to the cloud becomes simpler with Serverless Functions. Instead of provisioning and maintaining servers, you just need to install a "function" of your business logic on the Scaleway cloud platform. The platform executes this function on demand, managing resource allocation for you. If the system needs to accommodate a hundred simultaneous requests, it creates a hundred (or more) copies of your service. Conversely, if demand drops to two concurrent requests, it destroys the unneeded ones. You only pay for the resources your functions use when they need them.
+//
+// The benefits of Scaleway Serverless Functions include:
+//
+// * Saving money while code is not running, as functions are only executed when an event is triggered
+// * Auto-scalability:
+//   - Scaling up and down automatically based on user configuration (e.g., min: 0, max: 100 replicas of my function).
+//   - Scaling to zero when the function is not executed, which saves money for the user and computing resources for the cloud provider.
+//
+// * Endpoint-only scaling.
+//
+// ### Deploying functions
+//
+// This page explains how to use the Scaleway Serverless Functions API, including a quickstart and the full API documentation. However we provide several
+// ways to deploy functions: [Function Deployment Methods](https://www.scaleway.com/en/docs/serverless/functions/reference-content/deploy-function/).
+//
+// ## Concepts
+//
+// Refer to our [dedicated concepts](https://www.scaleway.com/en/docs/serverless/functions/concepts/) page to find definitions of all terminology related to Scaleway Serverless Functions.
+//
+// ## Quickstart
+//
+// <Message type="note">
+//
+//	For functions concepts and advanced documentation, please refer to [Scaleway Quickstart for Functions](https://www.scaleway.com/en/docs/serverless/functions/quickstart/).
+//
+// </Message>
+//
+// (switchcolumn)
+// (switchcolumn)
+//
+//  1. Configure your environment variables.
+//     ```bash
+//     export SCW_ACCESS_KEY="<Secret key of your token>"
+//     export SCW_DEFAULT_REGION="<choose your location (fr-par/nl-ams/pl-waw)>"
+//     export SCW_DEFAULT_PROJECT_ID="<your project ID>"
+//     ```
+//     <Message type="note">
+//     A namespace is a project that allows you to group your functions. Functions in the same namespace can share environment variables and access tokens, defined at the namespace level.
+//     </Message>
+//
+//  2. Set the name for your namespce and set your Project ID.
+//     ```bash
+//     curl -X POST \
+//     "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/namespaces" \
+//     -H "accept: application/json" \
+//     -H "X-Auth-Token: $SCW_ACCESS_KEY" \
+//     -H "Content-Type: application/json" \
+//     -d '{
+//     name: your-namespace-name, \
+//     project_id: "$SCW_DEFAULT_PROJECT_ID", \
+//     environment_variables: \
+//     {
+//     YOUR_VARIABLE: content
+//     } \
+//     }'
+//     ```
+//  3. Copy the `id` field of the response to use in the next steps. For the sake of simplicity, we will save the ID to a variable, which we will use in the following examples.
+//     ```bash
+//     export SCW_NAMESPACE_ID="<your namespace id>"
+//     ```
+//
+//  4. Edit the POST request payload that we will use in the next step to create a function. Modify the values in the example according to your needs, using the information in the table to help.
+//     ```
+//     {
+//     "name": "string",
+//     "namespace_id": "string",
+//     "environment_variables": {
+//     "<key>": "string"
+//     },
+//     "min_scale": "integer",
+//     "max_scale": "integer",
+//     "runtime": "unknown_runtime",
+//     "memory_limit": "integer",
+//     "timeout": "2.5s",
+//     "handler": "string",
+//     "privacy": "unknown_privacy",
+//     "description": "string",
+//     "secret_environment_variables": [
+//     {
+//     "key": "string",
+//     "value": "string"
+//     }
+//     ],
+//     "http_option": "enabled"
+//     }
+//     ```
+//
+//     | Parameter        | Description                                                        |
+//     | :--------------- | :----------------------------------------------------------------- |
+//     | `name`           | The name of your function |
+//     | `namespace_id`   | ID of the namespace in which you want to create your function |
+//     | `runtime`        | Your function's runtime, check the supported runtimes above |
+//     | `environment_variables` | **NULLABLE** Environment variables of the function. |
+//     | `memory_limit`   |**NULLABLE** Memory (in MB) allocated to your function, see the table of memory/CPU allocation above (increasing the memory limit will increase the cost of your function executions as we allocate more resources to your functions). |
+//     | `min_scale`      | **NULLABLE** Minimum replicas for your function, defaults to `0`, **Note** that a function is `billed` when it gets executed, and using a `min_scale` greater than 0 will cause your function to run all the time. |
+//     | `max_scale`      | **NULLABLE** Maximum replicas for your function (defaults to `20`), our system will scale your functions automatically based on incoming workload, but will never scale the number of replicas above the configured `max_scale`. |
+//     | `timeout`        | **NULLABLE** Holds the max duration (in seconds) the function is allowed for responding to a request |
+//     | `description`    | **NULLABLE** Description of the function. |
+//     | `handler`        | **NULLABLE** More details with examples in each language/runtime section below |
+//
+// Note that the meaning of the value set in `handler` will change depending on the `runtime` parameter:
+// *  `Node`, `PHP` and `Python` runtimes: `handler` is the path to the function file, followed by the name of the function to call. For example, `src/handler.handle` specifies a function file at `src/handler.js`, `src/handler.php` and `src/handler.py` respectively, with a function called `handle`.
+// * `Go` and `Rust` runtimes: `handler` is the path to the package containing the handler. For example, `my_handler` specifies that the function file is located in a `my_handler` directory. The functions must then be part of a `main` package, exposing a `main` function.
+//
+//	<Message type="note">
+//	  All parameters, except the ones marked with `nullable` are **required**.
+//	</Message>
+//
+//  5. Run the following command to create your function. Make sure you include the payload you edited in the previous step.
+//     ```bash
+//     curl -X POST \
+//     -H "X-Auth-Token: $SCW_SECRET_ACCESS_KEY"\
+//     "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions"\
+//     -d '{
+//     name: function-name, \
+//     namespace_id: "$SCW_NAMESPACE_ID", \
+//     memory_limit: 128, \
+//     min_scale: 0, \
+//     max_scale: 20, \
+//     runtime: node16", \
+//     handler: handler.myHandler \
+//     }'
+//     export SCW_FUNCTION_ID = "<your-function-id>"
+//     ```
+//
+// 6. Upload your code from the console or directly via the API. Refer to our documentation [How to package your function dependencies and upload it as a zip-file](https://www.scaleway.com/en/docs/serverless/functions/how-to/package-function-dependencies-in-zip/) for more information.
+//
+//  7. Run the following command to deploy your function.
+//     ```bash
+//     curl -X POST \
+//     -H "X-Auth-Token: $SCW_ACCESS_KEY" "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions/$SCW_FUNCTION_ID/deploy" \
+//     -d "{}"
+//     ```
+//     <Message type="note">
+//     The process may take some minutes, as we have to build your source code into an executable function (wrapped by our runtimes), and deploy it to the Scaleway cloud platform.
+//     </Message>
+//
+//  8. Retrieve your function's HTTP(s) endpoint with the following command once your function has been properly deployed.
+//     ```bash
+//     curl -X GET \
+//     -H "X-Auth-Token: $SCW_ACCESS_KEY" "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/functions/$SCW_FUNCTION_ID"
+//     export FUNCTION_ENDPOINT="<endpoint>"
+//     ```
+//
+//  9. Call your function via its endpoint.
+//     ```bash
+//     curl -X GET "$FUNCTION_ENDPOINT"
+//     ```
+//
+//  10. (optional) Destroy the namespace (along with all functions and crons) by using the following call.
+//     ```bash
+//     curl -s \
+//     -H "X-Auth-Token: $SCW_ACCESS_KEY" -X DELETE "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/namespaces/$SCW_NAMESPACE_ID"
+//     ```
+//
+// (switchcolumn)
+// <Message type="requirement">
+//
+//	To perform the following steps, you must first ensure that:
+//	- You have a [Scaleway account](https://console.scaleway.com/)
+//	- You have created an [API key](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/identity-and-access-management/iam/reference-content/permission-sets/) to perform the actions described on this page
+//	- You have [installed `curl`](https://curl.se/download.html)
+//	- You have [installed `jq`](https://stedolan.github.io/jq/) to improve readability of the API outputs
+//
+// </Message>
+// (switchcolumn)
+//
+// ## Technical information
+//
+// - Functions are fully isolated environments
+// - Scaling to zero (save money and computing resources while code is not executed)
+// - High Availability and Scalability (Automated and configurable, each function may scale automatically according to incoming workloads)
+// - Different programming languages supported
+// - Multiple event sources:
+//   - HTTP (request on our Gateway will execute the function)
+//   - CRON (time-based job, runs according to configurable cron schedule)
+//
+// - Integrated with the Scaleway Container Registry product
+//   - Each of your functions namespace has an associated registry namespace
+//   - All your functions are available as docker image in this registry namespace
+//   - Each version of your function matches a tag of this image
+//
+// ### Token management
+//
+// To get all tokens associated with a function:
+//
+// ```bash
+// export SECRET_KEY=<your_secret_key>
+// export SCW_DEFAULT_REGION="<Scaleway default region>"
+// export SCW_FUNCTION_ID=<funcion_id_you_want_to_inspect>
+//
+//	curl -X GET \
+//	  "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/tokens?function_id=$SCW_FUNCTION_ID" \
+//	  -H "accept: application/json" \
+//	  -H "X-Auth-Token: $SECRET_KEY" \
+//	  -H "Content-Type: application/json"
+//
+// ```
+//
+// <Message type="note">
+//
+//	Tokens can only be read at creation time, and are not stored, hence they can not be retrieved if lost.
+//
+// </Message>
+//
+// To generate a token for a function:
+//
+// ```bash
+// export SCW_SECRET_KEY="<API secret key>"
+// export SCW_DEFAULT_REGION="<Scaleway default region>"
+// export SCW_FUNCTION_ID=<funcion_id_you_want_to_add_token>
+// export EXPIRE_AT=$(date -d "+90 days" +%Y-%m-%dT%H:%M:%S.000Z)
+//
+//	curl -X POST \
+//	  "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/tokens" \
+//	  -H "accept: application/json" \
+//	  -H "X-Auth-Token: $SECRET_KEY" \
+//	  -H "Content-Type: application/json" \
+//	  -d '{
+//	      descrption:desc, \
+//	      expire_at:"$EXPIRE_AT", \
+//	      function_id:"$SCW_FUNCTION_ID"
+//	      }'
+//
+// ```
+//
+// <Message type="tip">
+//
+//	`expire_at` is optional, and in this example is set to 90 days from today (see `EXPIRE_AT`). If you don't set `expire_at`, your token will never expire.
+//
+// </Message>
+//
+// To revoke a token you need to delete it:
+//
+// ```bash
+// export SCW_ACCESS_KEY="<API access key>"
+// export SCW_SECRET_KEY="<API secret key>"
+// export TOKEN_ID=<token_you_want_to_delete>
+//
+//	curl -X DELETE \
+//	  "https://api.scaleway.com/functions/v1beta1/regions/$SCW_DEFAULT_REGION/tokens/$SCW_ACCESS_KEY" \
+//	  -H "accept: application/json" \
+//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
+//	  -H "Content-Type: application/json"
+//
+// ```
+//
+// ### Authentication
+//
+// By default, new functions are `public` meaning that no credentials are required to invoke functions.
+//
+// A function can be `private` or `public`. This can be configured through the `privacy` parameter.
+//
+// Calling a `private` function without authentication will return HTTP code `403`.
+//
+// ### Authentication for private functions
+//
+// A `private` function will:
+//
+// - Reject a call without an `X-Auth-Token` header, returning HTTP status Code `403`
+// - Validate the token _before_ invoking your code if it is provided via the `X-Auth-Token` header
+//
+// For example, to execute a private function by providing a token using `curl`, you may run the following command:
+//
+// ```bash
+//
+//	curl \
+//	  -H "X-Auth-Token: <generated-token>" <your-function-host>
+//
+// ```
+//
+// ### Logs
+//
+// Functions and containers output logs can be retrieved from the endpoint GET `/logs`. You need to pass its ID as a `function_id` parameter.
+// ### Pagination
+//
+// Most listing requests receive a paginated response. Requests against paginated endpoints accept two `query` arguments:
+//
+// - `page`, a positive integer to choose which page to return.
+// - `page_size`, an positive integer lower or equal to 100 to select the number of items to return per page. The default value is `20`.
+//
+// Paginated endpoints usually also accept filters to search and sort results. These filters are documented along each endpoint documentation.
+//
+// ### Regions
+//
+// Serverless Functions is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:
+//
+// * `fr-par`
+// * `nl-ams`
+// * `pl-waw`
+//
+// ## Technical limitations
+// ### Supported runtimes and function lifecyle
+//
+// You can find all information about runtimes and functions in the [Functions' lifecycle reference page](https://www.scaleway.com/en/docs/compute/functions/reference-content/functions-lifecycle/).
+// ## Going further
+//
+// For more help using Scaleway Serverless functions, check out the following resources:
+//
+// - Our [main documentation](https://www.scaleway.com/en/docs/serverless/functions/)
+// - The #serverless-functions channel on our [[Slack Community](https://www.scaleway.com/en/docs/tutorials/scaleway-slack-community/)
+// - Our [support ticketing system](https://www.scaleway.com/en/docs/console/my-account/how-to/open-a-support-ticket)
+//
+// ### Local testing
+//
+// Scaleway provides a number of open-source tools for offline testing. The details can be found in the [local testing docs](https://www.scaleway.com/en/docs/serverless/functions/reference-content/local-testing/).
+type API struct {
+	client *scw.Client
+}
+
+// NewAPI returns a API object from a Scaleway client.
+func NewAPI(client *scw.Client) *API {
+	return &API{
+		client: client,
+	}
+}
+func (s *API) Regions() []scw.Region {
+	return []scw.Region{scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw}
+}
+
+// ListNamespaces: List all existing namespaces in the specified region.
+func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "name", req.Name)
+	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces",
+		Query:  query,
+	}
+
+	var resp ListNamespacesResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetNamespace: Get the namespace associated with the specified ID.
+func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.NamespaceID) == "" {
+		return nil, errors.New("field NamespaceID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces/" + fmt.Sprint(req.NamespaceID) + "",
+	}
+
+	var resp Namespace
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateNamespace: Create a new namespace in a specified Organization or Project.
+func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	if req.Name == "" {
+		req.Name = namegenerator.GetRandomName("ns")
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Namespace
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateNamespace: Update the namespace associated with the specified ID.
+func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.NamespaceID) == "" {
+		return nil, errors.New("field NamespaceID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces/" + fmt.Sprint(req.NamespaceID) + "",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Namespace
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteNamespace: Delete the namespace associated with the specified ID.
+func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.NamespaceID) == "" {
+		return nil, errors.New("field NamespaceID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/namespaces/" + fmt.Sprint(req.NamespaceID) + "",
+	}
+
+	var resp Namespace
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListFunctions: List all your functions.
+func (s *API) ListFunctions(req *ListFunctionsRequest, opts ...scw.RequestOption) (*ListFunctionsResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "namespace_id", req.NamespaceID)
+	parameter.AddToQuery(query, "name", req.Name)
+	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions",
+		Query:  query,
+	}
+
+	var resp ListFunctionsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetFunction: Get the function associated with the specified ID.
+func (s *API) GetFunction(req *GetFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.FunctionID) == "" {
+		return nil, errors.New("field FunctionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "",
+	}
+
+	var resp Function
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateFunction: Create a new function in the specified region for a specified Organization or Project.
+func (s *API) CreateFunction(req *CreateFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if req.Name == "" {
+		req.Name = namegenerator.GetRandomName("fn")
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Function
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateFunction: Update the function associated with the specified ID.
+func (s *API) UpdateFunction(req *UpdateFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.FunctionID) == "" {
+		return nil, errors.New("field FunctionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Function
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteFunction: Delete the function associated with the specified ID.
+func (s *API) DeleteFunction(req *DeleteFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.FunctionID) == "" {
+		return nil, errors.New("field FunctionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "",
+	}
+
+	var resp Function
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeployFunction: Deploy a function associated with the specified ID.
+func (s *API) DeployFunction(req *DeployFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.FunctionID) == "" {
+		return nil, errors.New("field FunctionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "/deploy",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Function
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListFunctionRuntimes: List available function runtimes.
+func (s *API) ListFunctionRuntimes(req *ListFunctionRuntimesRequest, opts ...scw.RequestOption) (*ListFunctionRuntimesResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/runtimes",
+	}
+
+	var resp ListFunctionRuntimesResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetFunctionUploadURL: Get an upload URL of a function associated with the specified ID.
+func (s *API) GetFunctionUploadURL(req *GetFunctionUploadURLRequest, opts ...scw.RequestOption) (*UploadURL, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "content_length", req.ContentLength)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.FunctionID) == "" {
+		return nil, errors.New("field FunctionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "/upload-url",
+		Query:  query,
+	}
+
+	var resp UploadURL
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetFunctionDownloadURL: Get a download URL for a function associated with the specified ID.
+func (s *API) GetFunctionDownloadURL(req *GetFunctionDownloadURLRequest, opts ...scw.RequestOption) (*DownloadURL, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.FunctionID) == "" {
+		return nil, errors.New("field FunctionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "/download-url",
+	}
+
+	var resp DownloadURL
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListCrons: List all the cronjobs in a specified region.
+func (s *API) ListCrons(req *ListCronsRequest, opts ...scw.RequestOption) (*ListCronsResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "function_id", req.FunctionID)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons",
+		Query:  query,
+	}
+
+	var resp ListCronsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetCron: Get the cron associated with the specified ID.
+func (s *API) GetCron(req *GetCronRequest, opts ...scw.RequestOption) (*Cron, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.CronID) == "" {
+		return nil, errors.New("field CronID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons/" + fmt.Sprint(req.CronID) + "",
+	}
+
+	var resp Cron
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateCron: Create a new cronjob for a function with the specified ID.
+func (s *API) CreateCron(req *CreateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Cron
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateCron: Update the cron associated with the specified ID.
+func (s *API) UpdateCron(req *UpdateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.CronID) == "" {
+		return nil, errors.New("field CronID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons/" + fmt.Sprint(req.CronID) + "",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Cron
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteCron: Delete the cron associated with the specified ID.
+func (s *API) DeleteCron(req *DeleteCronRequest, opts ...scw.RequestOption) (*Cron, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.CronID) == "" {
+		return nil, errors.New("field CronID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/crons/" + fmt.Sprint(req.CronID) + "",
+	}
+
+	var resp Cron
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListLogs: List the application logs of the function with the specified ID.
+func (s *API) ListLogs(req *ListLogsRequest, opts ...scw.RequestOption) (*ListLogsResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.FunctionID) == "" {
+		return nil, errors.New("field FunctionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/functions/" + fmt.Sprint(req.FunctionID) + "/logs",
+		Query:  query,
+	}
+
+	var resp ListLogsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListDomains: List all domain name bindings in a specified region.
+func (s *API) ListDomains(req *ListDomainsRequest, opts ...scw.RequestOption) (*ListDomainsResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "function_id", req.FunctionID)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/domains",
+		Query:  query,
+	}
+
+	var resp ListDomainsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetDomain: Get a domain name binding for the function with the specified ID.
+func (s *API) GetDomain(req *GetDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.DomainID) == "" {
+		return nil, errors.New("field DomainID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/domains/" + fmt.Sprint(req.DomainID) + "",
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateDomain: Create a domain name binding for the function with the specified ID.
+func (s *API) CreateDomain(req *CreateDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/domains",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteDomain: Delete a domain name binding for the function with the specified ID.
+func (s *API) DeleteDomain(req *DeleteDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.DomainID) == "" {
+		return nil, errors.New("field DomainID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/domains/" + fmt.Sprint(req.DomainID) + "",
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// IssueJWT:
+func (s *API) IssueJWT(req *IssueJWTRequest, opts ...scw.RequestOption) (*Token, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "expires_at", req.ExpiresAt)
+	parameter.AddToQuery(query, "function_id", req.FunctionID)
+	parameter.AddToQuery(query, "namespace_id", req.NamespaceID)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/issue-jwt",
+		Query:  query,
+	}
+
+	var resp Token
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateToken: Create a new revocable token.
+func (s *API) CreateToken(req *CreateTokenRequest, opts ...scw.RequestOption) (*Token, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/tokens",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Token
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetToken: Get a token.
+func (s *API) GetToken(req *GetTokenRequest, opts ...scw.RequestOption) (*Token, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.TokenID) == "" {
+		return nil, errors.New("field TokenID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/tokens/" + fmt.Sprint(req.TokenID) + "",
+	}
+
+	var resp Token
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListTokens: List all tokens.
+func (s *API) ListTokens(req *ListTokensRequest, opts ...scw.RequestOption) (*ListTokensResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "function_id", req.FunctionID)
+	parameter.AddToQuery(query, "namespace_id", req.NamespaceID)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/tokens",
+		Query:  query,
+	}
+
+	var resp ListTokensResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteToken: Delete a token.
+func (s *API) DeleteToken(req *DeleteTokenRequest, opts ...scw.RequestOption) (*Token, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.TokenID) == "" {
+		return nil, errors.New("field TokenID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/tokens/" + fmt.Sprint(req.TokenID) + "",
+	}
+
+	var resp Token
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateTrigger:
+func (s *API) CreateTrigger(req *CreateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Trigger
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetTrigger:
+func (s *API) GetTrigger(req *GetTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.TriggerID) == "" {
+		return nil, errors.New("field TriggerID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers/" + fmt.Sprint(req.TriggerID) + "",
+	}
+
+	var resp Trigger
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListTriggers:
+func (s *API) ListTriggers(req *ListTriggersRequest, opts ...scw.RequestOption) (*ListTriggersResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	defaultProjectID, exist := s.client.GetDefaultProjectID()
+	if exist && req.FunctionID == nil && req.NamespaceID == nil && req.ProjectID == nil {
+		req.ProjectID = &defaultProjectID
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "function_id", req.FunctionID)
+	parameter.AddToQuery(query, "namespace_id", req.NamespaceID)
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers",
+		Query:  query,
+	}
+
+	var resp ListTriggersResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateTrigger:
+func (s *API) UpdateTrigger(req *UpdateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.TriggerID) == "" {
+		return nil, errors.New("field TriggerID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers/" + fmt.Sprint(req.TriggerID) + "",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Trigger
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteTrigger:
+func (s *API) DeleteTrigger(req *DeleteTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.TriggerID) == "" {
+		return nil, errors.New("field TriggerID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/functions/v1beta1/regions/" + fmt.Sprint(req.Region) + "/triggers/" + fmt.Sprint(req.TriggerID) + "",
+	}
+
+	var resp Trigger
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
 }

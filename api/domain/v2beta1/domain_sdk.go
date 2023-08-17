@@ -19,6 +19,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/internal/parameter"
 	"github.com/scaleway/scaleway-sdk-go/namegenerator"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	std "github.com/scaleway/scaleway-sdk-go/api/std"
 )
 
 // always import dependencies
@@ -38,32 +39,6 @@ var (
 	_ = parameter.AddToQuery
 	_ = namegenerator.GetRandomName
 )
-
-// API: domains and DNS API.
-// Manage your domains, DNS zones and records with the Domains and DNS API.
-type API struct {
-	client *scw.Client
-}
-
-// NewAPI returns a API object from a Scaleway client.
-func NewAPI(client *scw.Client) *API {
-	return &API{
-		client: client,
-	}
-}
-
-// RegistrarAPI: domains and DNS - Registrar API.
-// Manage your domains and contacts.
-type RegistrarAPI struct {
-	client *scw.Client
-}
-
-// NewRegistrarAPI returns a RegistrarAPI object from a Scaleway client.
-func NewRegistrarAPI(client *scw.Client) *RegistrarAPI {
-	return &RegistrarAPI{
-		client: client,
-	}
-}
 
 type ContactEmailStatus string
 
@@ -254,7 +229,7 @@ func (enum *ContactLegalForm) UnmarshalJSON(data []byte) error {
 type DNSZoneStatus string
 
 const (
-	// If unspecified, the DNS zone's status is unknown by default
+	// If unspecified, the DNS zone's status is unknown by default.
 	DNSZoneStatusUnknown = DNSZoneStatus("unknown")
 	// The DNS zone is active and healthy.
 	DNSZoneStatusActive = DNSZoneStatus("active")
@@ -549,73 +524,6 @@ func (enum *HostStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type LanguageCode string
-
-const (
-	LanguageCodeUnknownLanguageCode = LanguageCode("unknown_language_code")
-	LanguageCodeEnUS                = LanguageCode("en_US")
-	LanguageCodeFrFR                = LanguageCode("fr_FR")
-	LanguageCodeDeDE                = LanguageCode("de_DE")
-)
-
-func (enum LanguageCode) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "unknown_language_code"
-	}
-	return string(enum)
-}
-
-func (enum LanguageCode) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *LanguageCode) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = LanguageCode(LanguageCode(tmp).String())
-	return nil
-}
-
-type ListContactsRequestRole string
-
-const (
-	ListContactsRequestRoleUnknownRole = ListContactsRequestRole("unknown_role")
-	// The contact is a domain's owner.
-	ListContactsRequestRoleOwner = ListContactsRequestRole("owner")
-	// The contact is a domain's administrative contact.
-	ListContactsRequestRoleAdministrative = ListContactsRequestRole("administrative")
-	// The contact is a domain's technical contact.
-	ListContactsRequestRoleTechnical = ListContactsRequestRole("technical")
-)
-
-func (enum ListContactsRequestRole) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "unknown_role"
-	}
-	return string(enum)
-}
-
-func (enum ListContactsRequestRole) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListContactsRequestRole) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListContactsRequestRole(ListContactsRequestRole(tmp).String())
-	return nil
-}
-
 type ListDNSZoneRecordsRequestOrderBy string
 
 const (
@@ -687,9 +595,9 @@ func (enum *ListDNSZonesRequestOrderBy) UnmarshalJSON(data []byte) error {
 type ListDomainsRequestOrderBy string
 
 const (
-	// Order by domain name (ascending)
+	// Order by domain name (ascending).
 	ListDomainsRequestOrderByDomainAsc = ListDomainsRequestOrderBy("domain_asc")
-	// Order by domain name (descending)
+	// Order by domain name (descending).
 	ListDomainsRequestOrderByDomainDesc = ListDomainsRequestOrderBy("domain_desc")
 )
 
@@ -719,9 +627,9 @@ func (enum *ListDomainsRequestOrderBy) UnmarshalJSON(data []byte) error {
 type ListRenewableDomainsRequestOrderBy string
 
 const (
-	// Order by domain name (ascending)
+	// Order by domain name (ascending).
 	ListRenewableDomainsRequestOrderByDomainAsc = ListRenewableDomainsRequestOrderBy("domain_asc")
-	// Order by domain name (descending)
+	// Order by domain name (descending).
 	ListRenewableDomainsRequestOrderByDomainDesc = ListRenewableDomainsRequestOrderBy("domain_desc")
 )
 
@@ -751,21 +659,21 @@ func (enum *ListRenewableDomainsRequestOrderBy) UnmarshalJSON(data []byte) error
 type ListTasksRequestOrderBy string
 
 const (
-	// Order by domain name (descending)
+	// Order by domain name (descending).
 	ListTasksRequestOrderByDomainDesc = ListTasksRequestOrderBy("domain_desc")
-	// Order by domain name (ascending)
+	// Order by domain name (ascending).
 	ListTasksRequestOrderByDomainAsc = ListTasksRequestOrderBy("domain_asc")
-	// Order by type (ascending)
+	// Order by type (ascending).
 	ListTasksRequestOrderByTypeAsc = ListTasksRequestOrderBy("type_asc")
-	// Order by type (descending)
+	// Order by type (descending).
 	ListTasksRequestOrderByTypeDesc = ListTasksRequestOrderBy("type_desc")
-	// Order by status (ascending)
+	// Order by status (ascending).
 	ListTasksRequestOrderByStatusAsc = ListTasksRequestOrderBy("status_asc")
-	// Order by status (descending)
+	// Order by status (descending).
 	ListTasksRequestOrderByStatusDesc = ListTasksRequestOrderBy("status_desc")
-	// Order by updated date (ascending)
+	// Order by updated date (ascending).
 	ListTasksRequestOrderByUpdatedAtAsc = ListTasksRequestOrderBy("updated_at_asc")
-	// Order by updated date (descending)
+	// Order by updated date (descending).
 	ListTasksRequestOrderByUpdatedAtDesc = ListTasksRequestOrderBy("updated_at_desc")
 )
 
@@ -797,7 +705,7 @@ type RawFormat string
 const (
 	// If unspecified, the format is unknown by default.
 	RawFormatUnknownRawFormat = RawFormat("unknown_raw_format")
-	// Export the DNS zone in text bind format
+	// Export the DNS zone in text bind format.
 	RawFormatBind = RawFormat("bind")
 )
 
@@ -879,7 +787,7 @@ const (
 	RecordTypeMX = RecordType("MX")
 	// Specifies nameservers for a domain. Example: 'ns1.yourcompany.com'.
 	RecordTypeNS = RecordType("NS")
-	//  A reverse pointer is used to specify the hostname that belongs to an IP or an IPv6 address. Example: 'www.yourcompany.com.'.
+	// A reverse pointer is used to specify the hostname that belongs to an IP or an IPv6 address. Example: 'www.yourcompany.com.'.
 	RecordTypePTR = RecordType("PTR")
 	// A 'Certification Authority Authorization' record is used to specify certificate authorities that may issue certificates for a domain. Example: '0 issue ca.yourcompany.com'.
 	RecordTypeCAA = RecordType("CAA")
@@ -1112,569 +1020,194 @@ func (enum *TaskType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type AvailableDomain struct {
-	Domain string `json:"domain"`
-
-	Available bool `json:"available"`
-
-	Tld *Tld `json:"tld"`
+type RecordGeoIPConfigMatch struct {
+	// Countries:
+	Countries []string `json:"countries"`
+	// Continents:
+	Continents []string `json:"continents"`
+	// Data:
+	Data string `json:"data"`
 }
 
-// CheckContactsCompatibilityResponse: check contacts compatibility response.
-type CheckContactsCompatibilityResponse struct {
-	Compatible bool `json:"compatible"`
-
-	OwnerCheckResult *CheckContactsCompatibilityResponseContactCheckResult `json:"owner_check_result"`
-
-	AdministrativeCheckResult *CheckContactsCompatibilityResponseContactCheckResult `json:"administrative_check_result"`
-
-	TechnicalCheckResult *CheckContactsCompatibilityResponseContactCheckResult `json:"technical_check_result"`
+type RecordViewConfigView struct {
+	// Subnet:
+	Subnet string `json:"subnet"`
+	// Data:
+	Data string `json:"data"`
 }
 
-type CheckContactsCompatibilityResponseContactCheckResult struct {
-	Compatible bool `json:"compatible"`
-
-	ErrorMessage *string `json:"error_message"`
+type RecordWeightedConfigWeightedIP struct {
+	// IP:
+	IP net.IP `json:"ip"`
+	// Weight:
+	Weight uint32 `json:"weight"`
 }
 
-// ClearDNSZoneRecordsResponse: clear dns zone records response.
-type ClearDNSZoneRecordsResponse struct {
+type DSRecordPublicKey struct {
+	// Key:
+	Key string `json:"key"`
 }
 
-// Contact: contact.
-type Contact struct {
-	ID string `json:"id"`
-	// LegalForm: default value: legal_form_unknown
-	LegalForm ContactLegalForm `json:"legal_form"`
-
-	Firstname string `json:"firstname"`
-
-	Lastname string `json:"lastname"`
-
-	CompanyName string `json:"company_name"`
-
-	Email string `json:"email"`
-
-	EmailAlt string `json:"email_alt"`
-
-	PhoneNumber string `json:"phone_number"`
-
-	FaxNumber string `json:"fax_number"`
-
-	AddressLine1 string `json:"address_line_1"`
-
-	AddressLine2 string `json:"address_line_2"`
-
-	Zip string `json:"zip"`
-
-	City string `json:"city"`
-
-	Country string `json:"country"`
-
-	VatIdentificationCode string `json:"vat_identification_code"`
-
-	CompanyIdentificationCode string `json:"company_identification_code"`
-	// Lang: default value: unknown_language_code
-	Lang LanguageCode `json:"lang"`
-
-	Resale bool `json:"resale"`
-	// Deprecated
-	Questions *[]*ContactQuestion `json:"questions,omitempty"`
-
-	ExtensionFr *ContactExtensionFR `json:"extension_fr"`
-
-	ExtensionEu *ContactExtensionEU `json:"extension_eu"`
-
-	WhoisOptIn bool `json:"whois_opt_in"`
-	// EmailStatus: default value: email_status_unknown
-	EmailStatus ContactEmailStatus `json:"email_status"`
-
-	State string `json:"state"`
-
-	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
+type RecordGeoIPConfig struct {
+	// Matches:
+	Matches []*RecordGeoIPConfigMatch `json:"matches"`
+	// Default:
+	Default string `json:"default"`
 }
 
-type ContactExtensionEU struct {
-	EuropeanCitizenship string `json:"european_citizenship"`
+type RecordHTTPServiceConfig struct {
+	// IPs:
+	IPs []net.IP `json:"ips"`
+	// MustContain:
+	MustContain *string `json:"must_contain,omitempty"`
+	// URL:
+	URL string `json:"url"`
+	// UserAgent:
+	UserAgent *string `json:"user_agent,omitempty"`
+	// Strategy:
+	Strategy RecordHTTPServiceConfigStrategy `json:"strategy"`
 }
 
-type ContactExtensionFR struct {
-	// Mode: default value: mode_unknown
-	Mode ContactExtensionFRMode `json:"mode"`
+type RecordViewConfig struct {
+	// Views:
+	Views []*RecordViewConfigView `json:"views"`
+}
 
-	// Precisely one of AssociationInfo, CodeAuthAfnicInfo, DunsInfo, IndividualInfo, TrademarkInfo must be set.
-	IndividualInfo *ContactExtensionFRIndividualInfo `json:"individual_info,omitempty"`
-
-	// Precisely one of AssociationInfo, CodeAuthAfnicInfo, DunsInfo, IndividualInfo, TrademarkInfo must be set.
-	DunsInfo *ContactExtensionFRDunsInfo `json:"duns_info,omitempty"`
-
-	// Precisely one of AssociationInfo, CodeAuthAfnicInfo, DunsInfo, IndividualInfo, TrademarkInfo must be set.
-	AssociationInfo *ContactExtensionFRAssociationInfo `json:"association_info,omitempty"`
-
-	// Precisely one of AssociationInfo, CodeAuthAfnicInfo, DunsInfo, IndividualInfo, TrademarkInfo must be set.
-	TrademarkInfo *ContactExtensionFRTrademarkInfo `json:"trademark_info,omitempty"`
-
-	// Precisely one of AssociationInfo, CodeAuthAfnicInfo, DunsInfo, IndividualInfo, TrademarkInfo must be set.
-	CodeAuthAfnicInfo *ContactExtensionFRCodeAuthAfnicInfo `json:"code_auth_afnic_info,omitempty"`
+type RecordWeightedConfig struct {
+	// WeightedIPs:
+	WeightedIPs []*RecordWeightedConfigWeightedIP `json:"weighted_ips"`
 }
 
 type ContactExtensionFRAssociationInfo struct {
-	PublicationJo *time.Time `json:"publication_jo"`
-
+	// PublicationJo:
+	PublicationJo *time.Time `json:"publication_jo,omitempty"`
+	// PublicationJoPage:
 	PublicationJoPage uint32 `json:"publication_jo_page"`
 }
 
 type ContactExtensionFRCodeAuthAfnicInfo struct {
+	// CodeAuthAfnic:
 	CodeAuthAfnic string `json:"code_auth_afnic"`
 }
 
 type ContactExtensionFRDunsInfo struct {
+	// DunsID:
 	DunsID string `json:"duns_id"`
-
+	// LocalID:
 	LocalID string `json:"local_id"`
 }
 
 type ContactExtensionFRIndividualInfo struct {
+	// WhoisOptIn:
 	WhoisOptIn bool `json:"whois_opt_in"`
 }
 
 type ContactExtensionFRTrademarkInfo struct {
+	// TrademarkInpi:
 	TrademarkInpi string `json:"trademark_inpi"`
 }
 
-type ContactExtensionNL struct {
-	// LegalForm: default value: legal_form_unknown
-	LegalForm ContactExtensionNLLegalForm `json:"legal_form"`
+type DSRecordDigest struct {
+	// Type:
+	Type DSRecordDigestType `json:"type"`
+	// Digest:
+	Digest string `json:"digest"`
+	// PublicKey:
+	PublicKey *DSRecordPublicKey `json:"public_key"`
+}
 
+type Record struct {
+	// Data:
+	Data string `json:"data"`
+	// Name:
+	Name string `json:"name"`
+	// Priority:
+	Priority uint32 `json:"priority"`
+	// TTL:
+	TTL uint32 `json:"ttl"`
+	// Type:
+	Type RecordType `json:"type"`
+	// Comment:
+	Comment *string `json:"comment,omitempty"`
+	// GeoIPConfig:
+	GeoIPConfig *RecordGeoIPConfig `json:"geo_ip_config,omitempty"`
+	// HTTPServiceConfig:
+	HTTPServiceConfig *RecordHTTPServiceConfig `json:"http_service_config,omitempty"`
+	// WeightedConfig:
+	WeightedConfig *RecordWeightedConfig `json:"weighted_config,omitempty"`
+	// ViewConfig:
+	ViewConfig *RecordViewConfig `json:"view_config,omitempty"`
+	// ID:
+	ID string `json:"id"`
+}
+
+type RecordIdentifier struct {
+	// Name:
+	Name string `json:"name"`
+	// Type:
+	Type RecordType `json:"type"`
+	// Data:
+	Data *string `json:"data,omitempty"`
+	// TTL:
+	TTL *uint32 `json:"ttl,omitempty"`
+}
+
+type ContactExtensionEU struct {
+	// EuropeanCitizenship:
+	EuropeanCitizenship string `json:"european_citizenship"`
+}
+
+type ContactExtensionFR struct {
+	// Mode:
+	Mode ContactExtensionFRMode `json:"mode"`
+	// IndividualInfo:
+	IndividualInfo *ContactExtensionFRIndividualInfo `json:"individual_info,omitempty"`
+	// DunsInfo:
+	DunsInfo *ContactExtensionFRDunsInfo `json:"duns_info,omitempty"`
+	// AssociationInfo:
+	AssociationInfo *ContactExtensionFRAssociationInfo `json:"association_info,omitempty"`
+	// TrademarkInfo:
+	TrademarkInfo *ContactExtensionFRTrademarkInfo `json:"trademark_info,omitempty"`
+	// CodeAuthAfnicInfo:
+	CodeAuthAfnicInfo *ContactExtensionFRCodeAuthAfnicInfo `json:"code_auth_afnic_info,omitempty"`
+}
+
+type ContactExtensionNL struct {
+	// LegalForm:
+	LegalForm ContactExtensionNLLegalForm `json:"legal_form"`
+	// LegalFormRegistrationNumber:
 	LegalFormRegistrationNumber string `json:"legal_form_registration_number"`
 }
 
 type ContactQuestion struct {
+	// Question:
 	Question string `json:"question"`
-
+	// Answer:
 	Answer string `json:"answer"`
 }
 
-type ContactRoles struct {
-	Contact *Contact `json:"contact"`
-
-	Roles map[string]*ContactRolesRoles `json:"roles"`
-}
-
-type ContactRolesRoles struct {
-	IsOwner bool `json:"is_owner"`
-
-	IsAdministrative bool `json:"is_administrative"`
-
-	IsTechnical bool `json:"is_technical"`
-}
-
-type DNSZone struct {
-	Domain string `json:"domain"`
-
-	Subdomain string `json:"subdomain"`
-
-	Ns []string `json:"ns"`
-
-	NsDefault []string `json:"ns_default"`
-
-	NsMaster []string `json:"ns_master"`
-	// Status: default value: unknown
-	Status DNSZoneStatus `json:"status"`
-
-	Message *string `json:"message"`
-
-	UpdatedAt *time.Time `json:"updated_at"`
-
-	ProjectID string `json:"project_id"`
-}
-
-type DNSZoneVersion struct {
-	ID string `json:"id"`
-
-	CreatedAt *time.Time `json:"created_at"`
+type TldOffer struct {
+	// Action:
+	Action string `json:"action"`
+	// OperationPath:
+	OperationPath string `json:"operation_path"`
+	// Price:
+	Price *scw.Money `json:"price,omitempty"`
 }
 
 type DSRecord struct {
+	// KeyID:
 	KeyID uint32 `json:"key_id"`
-	// Algorithm: default value: rsamd5
+	// Algorithm:
 	Algorithm DSRecordAlgorithm `json:"algorithm"`
-
-	// Precisely one of Digest, PublicKey must be set.
+	// Digest:
 	Digest *DSRecordDigest `json:"digest,omitempty"`
-
-	// Precisely one of Digest, PublicKey must be set.
+	// PublicKey:
 	PublicKey *DSRecordPublicKey `json:"public_key,omitempty"`
 }
 
-type DSRecordDigest struct {
-	// Type: default value: sha_1
-	Type DSRecordDigestType `json:"type"`
-
-	Digest string `json:"digest"`
-
-	PublicKey *DSRecordPublicKey `json:"public_key"`
-}
-
-type DSRecordPublicKey struct {
-	Key string `json:"key"`
-}
-
-// DeleteDNSZoneResponse: delete dns zone response.
-type DeleteDNSZoneResponse struct {
-}
-
-// DeleteExternalDomainResponse: delete external domain response.
-type DeleteExternalDomainResponse struct {
-}
-
-// DeleteSSLCertificateResponse: delete ssl certificate response.
-type DeleteSSLCertificateResponse struct {
-}
-
-// Domain: domain.
-type Domain struct {
-	Domain string `json:"domain"`
-
-	OrganizationID string `json:"organization_id"`
-
-	ProjectID string `json:"project_id"`
-	// AutoRenewStatus: default value: feature_status_unknown
-	AutoRenewStatus DomainFeatureStatus `json:"auto_renew_status"`
-
-	Dnssec *DomainDNSSEC `json:"dnssec"`
-
-	EppCode []string `json:"epp_code"`
-
-	ExpiredAt *time.Time `json:"expired_at"`
-
-	UpdatedAt *time.Time `json:"updated_at"`
-
-	Registrar string `json:"registrar"`
-
-	IsExternal bool `json:"is_external"`
-	// Status: default value: status_unknown
-	Status DomainStatus `json:"status"`
-
-	DNSZones []*DNSZone `json:"dns_zones"`
-
-	OwnerContact *Contact `json:"owner_contact"`
-
-	TechnicalContact *Contact `json:"technical_contact"`
-
-	AdministrativeContact *Contact `json:"administrative_contact"`
-
-	// Precisely one of ExternalDomainRegistrationStatus, TransferRegistrationStatus must be set.
-	ExternalDomainRegistrationStatus *DomainRegistrationStatusExternalDomain `json:"external_domain_registration_status,omitempty"`
-
-	// Precisely one of ExternalDomainRegistrationStatus, TransferRegistrationStatus must be set.
-	TransferRegistrationStatus *DomainRegistrationStatusTransfer `json:"transfer_registration_status,omitempty"`
-
-	Tld *Tld `json:"tld"`
-}
-
-type DomainDNSSEC struct {
-	// Status: default value: feature_status_unknown
-	Status DomainFeatureStatus `json:"status"`
-
-	DsRecords []*DSRecord `json:"ds_records"`
-}
-
-type DomainRegistrationStatusExternalDomain struct {
-	ValidationToken string `json:"validation_token"`
-}
-
-type DomainRegistrationStatusTransfer struct {
-	// Status: default value: status_unknown
-	Status DomainRegistrationStatusTransferStatus `json:"status"`
-
-	VoteCurrentOwner bool `json:"vote_current_owner"`
-
-	VoteNewOwner bool `json:"vote_new_owner"`
-}
-
-type DomainSummary struct {
-	Domain string `json:"domain"`
-
-	ProjectID string `json:"project_id"`
-	// AutoRenewStatus: default value: feature_status_unknown
-	AutoRenewStatus DomainFeatureStatus `json:"auto_renew_status"`
-	// DnssecStatus: default value: feature_status_unknown
-	DnssecStatus DomainFeatureStatus `json:"dnssec_status"`
-
-	EppCode []string `json:"epp_code"`
-
-	ExpiredAt *time.Time `json:"expired_at"`
-
-	UpdatedAt *time.Time `json:"updated_at"`
-
-	Registrar string `json:"registrar"`
-
-	IsExternal bool `json:"is_external"`
-	// Status: default value: status_unknown
-	Status DomainStatus `json:"status"`
-
-	// Precisely one of ExternalDomainRegistrationStatus, TransferRegistrationStatus must be set.
-	ExternalDomainRegistrationStatus *DomainRegistrationStatusExternalDomain `json:"external_domain_registration_status,omitempty"`
-
-	// Precisely one of ExternalDomainRegistrationStatus, TransferRegistrationStatus must be set.
-	TransferRegistrationStatus *DomainRegistrationStatusTransfer `json:"transfer_registration_status,omitempty"`
-
-	OrganizationID string `json:"organization_id"`
-}
-
-// GetDNSZoneTsigKeyResponse: get dns zone tsig key response.
-type GetDNSZoneTsigKeyResponse struct {
-	Name string `json:"name"`
-
-	Key string `json:"key"`
-
-	Algorithm string `json:"algorithm"`
-}
-
-// GetDNSZoneVersionDiffResponse: get dns zone version diff response.
-type GetDNSZoneVersionDiffResponse struct {
-	Changes []*RecordChange `json:"changes"`
-}
-
-// GetDomainAuthCodeResponse: get domain auth code response.
-type GetDomainAuthCodeResponse struct {
-	AuthCode string `json:"auth_code"`
-}
-
-type Host struct {
-	Domain string `json:"domain"`
-
-	Name string `json:"name"`
-
-	IPs []net.IP `json:"ips"`
-	// Status: default value: unknown_status
-	Status HostStatus `json:"status"`
-}
-
-type ImportProviderDNSZoneRequestOnlineV1 struct {
-	Token string `json:"token"`
-}
-
-// ImportProviderDNSZoneResponse: import provider dns zone response.
-type ImportProviderDNSZoneResponse struct {
-	Records []*Record `json:"records"`
-}
-
-type ImportRawDNSZoneRequestAXFRSource struct {
-	NameServer string `json:"name_server"`
-
-	TsigKey *ImportRawDNSZoneRequestTsigKey `json:"tsig_key"`
-}
-
-type ImportRawDNSZoneRequestBindSource struct {
-	Content string `json:"content"`
-}
-
-type ImportRawDNSZoneRequestTsigKey struct {
-	Name string `json:"name"`
-
-	Key string `json:"key"`
-
-	Algorithm string `json:"algorithm"`
-}
-
-// ImportRawDNSZoneResponse: import raw dns zone response.
-type ImportRawDNSZoneResponse struct {
-	Records []*Record `json:"records"`
-}
-
-// ListContactsResponse: list contacts response.
-type ListContactsResponse struct {
-	TotalCount uint32 `json:"total_count"`
-
-	Contacts []*ContactRoles `json:"contacts"`
-}
-
-// ListDNSZoneNameserversResponse: list dns zone nameservers response.
-type ListDNSZoneNameserversResponse struct {
-	// Ns: DNS zone name servers returned.
-	Ns []*Nameserver `json:"ns"`
-}
-
-// ListDNSZoneRecordsResponse: list dns zone records response.
-type ListDNSZoneRecordsResponse struct {
-	// TotalCount: total number of DNS zone records.
-	TotalCount uint32 `json:"total_count"`
-	// Records: paginated returned DNS zone records.
-	Records []*Record `json:"records"`
-}
-
-// ListDNSZoneVersionRecordsResponse: list dns zone version records response.
-type ListDNSZoneVersionRecordsResponse struct {
-	// TotalCount: total number of DNS zones versions records.
-	TotalCount uint32 `json:"total_count"`
-
-	Records []*Record `json:"records"`
-}
-
-// ListDNSZoneVersionsResponse: list dns zone versions response.
-type ListDNSZoneVersionsResponse struct {
-	// TotalCount: total number of DNS zones versions.
-	TotalCount uint32 `json:"total_count"`
-
-	Versions []*DNSZoneVersion `json:"versions"`
-}
-
-// ListDNSZonesResponse: list dns zones response.
-type ListDNSZonesResponse struct {
-	// TotalCount: total number of DNS zones matching the requested criteria.
-	TotalCount uint32 `json:"total_count"`
-	// DNSZones: paginated returned DNS zones.
-	DNSZones []*DNSZone `json:"dns_zones"`
-}
-
-// ListDomainHostsResponse: list domain hosts response.
-type ListDomainHostsResponse struct {
-	TotalCount uint32 `json:"total_count"`
-
-	Hosts []*Host `json:"hosts"`
-}
-
-// ListDomainsResponse: list domains response.
-type ListDomainsResponse struct {
-	TotalCount uint32 `json:"total_count"`
-
-	Domains []*DomainSummary `json:"domains"`
-}
-
-// ListRenewableDomainsResponse: list renewable domains response.
-type ListRenewableDomainsResponse struct {
-	TotalCount uint32 `json:"total_count"`
-
-	Domains []*RenewableDomain `json:"domains"`
-}
-
-// ListSSLCertificatesResponse: list ssl certificates response.
-type ListSSLCertificatesResponse struct {
-	TotalCount uint32 `json:"total_count"`
-
-	Certificates []*SSLCertificate `json:"certificates"`
-}
-
-// ListTasksResponse: list tasks response.
-type ListTasksResponse struct {
-	TotalCount uint32 `json:"total_count"`
-
-	Tasks []*Task `json:"tasks"`
-}
-
-type Nameserver struct {
-	Name string `json:"name"`
-
-	IP []string `json:"ip"`
-}
-
-type NewContact struct {
-	// LegalForm: default value: legal_form_unknown
-	LegalForm ContactLegalForm `json:"legal_form"`
-
-	Firstname string `json:"firstname"`
-
-	Lastname string `json:"lastname"`
-
-	CompanyName *string `json:"company_name"`
-
-	Email string `json:"email"`
-
-	EmailAlt *string `json:"email_alt"`
-
-	PhoneNumber string `json:"phone_number"`
-
-	FaxNumber *string `json:"fax_number"`
-
-	AddressLine1 string `json:"address_line_1"`
-
-	AddressLine2 *string `json:"address_line_2"`
-
-	Zip string `json:"zip"`
-
-	City string `json:"city"`
-
-	Country string `json:"country"`
-
-	VatIdentificationCode *string `json:"vat_identification_code"`
-
-	CompanyIdentificationCode *string `json:"company_identification_code"`
-	// Lang: default value: unknown_language_code
-	Lang LanguageCode `json:"lang"`
-
-	Resale bool `json:"resale"`
-	// Deprecated
-	Questions *[]*ContactQuestion `json:"questions,omitempty"`
-
-	ExtensionFr *ContactExtensionFR `json:"extension_fr"`
-
-	ExtensionEu *ContactExtensionEU `json:"extension_eu"`
-
-	WhoisOptIn bool `json:"whois_opt_in"`
-
-	State *string `json:"state"`
-
-	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
-}
-
-type OrderResponse struct {
-	Domains []string `json:"domains"`
-
-	OrganizationID string `json:"organization_id"`
-
-	ProjectID string `json:"project_id"`
-
-	TaskID string `json:"task_id"`
-
-	CreatedAt *time.Time `json:"created_at"`
-}
-
-type Record struct {
-	Data string `json:"data"`
-
-	Name string `json:"name"`
-
-	Priority uint32 `json:"priority"`
-
-	TTL uint32 `json:"ttl"`
-	// Type: default value: unknown
-	Type RecordType `json:"type"`
-
-	Comment *string `json:"comment"`
-
-	// Precisely one of GeoIPConfig, HTTPServiceConfig, ViewConfig, WeightedConfig must be set.
-	GeoIPConfig *RecordGeoIPConfig `json:"geo_ip_config,omitempty"`
-
-	// Precisely one of GeoIPConfig, HTTPServiceConfig, ViewConfig, WeightedConfig must be set.
-	HTTPServiceConfig *RecordHTTPServiceConfig `json:"http_service_config,omitempty"`
-
-	// Precisely one of GeoIPConfig, HTTPServiceConfig, ViewConfig, WeightedConfig must be set.
-	WeightedConfig *RecordWeightedConfig `json:"weighted_config,omitempty"`
-
-	// Precisely one of GeoIPConfig, HTTPServiceConfig, ViewConfig, WeightedConfig must be set.
-	ViewConfig *RecordViewConfig `json:"view_config,omitempty"`
-
-	ID string `json:"id"`
-}
-
-type RecordChange struct {
-
-	// Precisely one of Add, Clear, Delete, Set must be set.
-	Add *RecordChangeAdd `json:"add,omitempty"`
-
-	// Precisely one of Add, Clear, Delete, Set must be set.
-	Set *RecordChangeSet `json:"set,omitempty"`
-
-	// Precisely one of Add, Clear, Delete, Set must be set.
-	Delete *RecordChangeDelete `json:"delete,omitempty"`
-
-	// Precisely one of Add, Clear, Delete, Set must be set.
-	Clear *RecordChangeClear `json:"clear,omitempty"`
-}
-
 type RecordChangeAdd struct {
+	// Records:
 	Records []*Record `json:"records"`
 }
 
@@ -1682,612 +1215,389 @@ type RecordChangeClear struct {
 }
 
 type RecordChangeDelete struct {
-
-	// Precisely one of ID, IDFields must be set.
+	// ID:
 	ID *string `json:"id,omitempty"`
-
-	// Precisely one of ID, IDFields must be set.
+	// IDFields:
 	IDFields *RecordIdentifier `json:"id_fields,omitempty"`
 }
 
 type RecordChangeSet struct {
-
-	// Precisely one of ID, IDFields must be set.
+	// ID:
 	ID *string `json:"id,omitempty"`
-
-	// Precisely one of ID, IDFields must be set.
+	// IDFields:
 	IDFields *RecordIdentifier `json:"id_fields,omitempty"`
-
+	// Records:
 	Records []*Record `json:"records"`
 }
 
-type RecordGeoIPConfig struct {
-	Matches []*RecordGeoIPConfigMatch `json:"matches"`
-
-	Default string `json:"default"`
-}
-
-type RecordGeoIPConfigMatch struct {
-	Countries []string `json:"countries"`
-
-	Continents []string `json:"continents"`
-
-	Data string `json:"data"`
-}
-
-type RecordHTTPServiceConfig struct {
-	IPs []net.IP `json:"ips"`
-
-	MustContain *string `json:"must_contain"`
-
-	URL string `json:"url"`
-
-	UserAgent *string `json:"user_agent"`
-	// Strategy: default value: random
-	Strategy RecordHTTPServiceConfigStrategy `json:"strategy"`
-}
-
-type RecordIdentifier struct {
+type ImportRawDNSZoneRequestTsigKey struct {
+	// Name:
 	Name string `json:"name"`
-	// Type: default value: unknown
-	Type RecordType `json:"type"`
-
-	Data *string `json:"data"`
-
-	TTL *uint32 `json:"ttl"`
+	// Key:
+	Key string `json:"key"`
+	// Algorithm:
+	Algorithm string `json:"algorithm"`
 }
 
-type RecordViewConfig struct {
-	Views []*RecordViewConfigView `json:"views"`
-}
-
-type RecordViewConfigView struct {
-	Subnet string `json:"subnet"`
-
-	Data string `json:"data"`
-}
-
-type RecordWeightedConfig struct {
-	WeightedIPs []*RecordWeightedConfigWeightedIP `json:"weighted_ips"`
-}
-
-type RecordWeightedConfigWeightedIP struct {
-	IP net.IP `json:"ip"`
-
-	Weight uint32 `json:"weight"`
-}
-
-// RefreshDNSZoneResponse: refresh dns zone response.
-type RefreshDNSZoneResponse struct {
-	// DNSZones: DNS zones returned.
-	DNSZones []*DNSZone `json:"dns_zones"`
-}
-
-type RegisterExternalDomainResponse struct {
-	Domain string `json:"domain"`
-
-	OrganizationID string `json:"organization_id"`
-
-	ValidationToken string `json:"validation_token"`
-
-	CreatedAt *time.Time `json:"created_at"`
-
-	ProjectID string `json:"project_id"`
-}
-
-type RenewableDomain struct {
-	Domain string `json:"domain"`
-
-	ProjectID string `json:"project_id"`
-
-	OrganizationID string `json:"organization_id"`
-	// Status: default value: unknown
-	Status RenewableDomainStatus `json:"status"`
-
-	RenewableDurationInYears *int32 `json:"renewable_duration_in_years"`
-
-	ExpiredAt *time.Time `json:"expired_at"`
-
-	LimitRenewAt *time.Time `json:"limit_renew_at"`
-
-	LimitRedemptionAt *time.Time `json:"limit_redemption_at"`
-
-	EstimatedDeleteAt *time.Time `json:"estimated_delete_at"`
-
-	Tld *Tld `json:"tld"`
-}
-
-// RestoreDNSZoneVersionResponse: restore dns zone version response.
-type RestoreDNSZoneVersionResponse struct {
-}
-
-type SSLCertificate struct {
-	DNSZone string `json:"dns_zone"`
-
-	AlternativeDNSZones []string `json:"alternative_dns_zones"`
-	// Status: default value: unknown
-	Status SSLCertificateStatus `json:"status"`
-
-	PrivateKey string `json:"private_key"`
-
-	CertificateChain string `json:"certificate_chain"`
-
-	CreatedAt *time.Time `json:"created_at"`
-
-	ExpiredAt *time.Time `json:"expired_at"`
-}
-
-// SearchAvailableDomainsResponse: search available domains response.
-type SearchAvailableDomainsResponse struct {
-	// AvailableDomains: array of available domains.
-	AvailableDomains []*AvailableDomain `json:"available_domains"`
-}
-
-type Task struct {
+type Contact struct {
+	// ID:
 	ID string `json:"id"`
+	// LegalForm:
+	LegalForm ContactLegalForm `json:"legal_form"`
+	// Firstname:
+	Firstname string `json:"firstname"`
+	// Lastname:
+	Lastname string `json:"lastname"`
+	// CompanyName:
+	CompanyName string `json:"company_name"`
+	// Email:
+	Email string `json:"email"`
+	// EmailAlt:
+	EmailAlt string `json:"email_alt"`
+	// PhoneNumber:
+	PhoneNumber string `json:"phone_number"`
+	// FaxNumber:
+	FaxNumber string `json:"fax_number"`
+	// AddressLine1:
+	AddressLine1 string `json:"address_line_1"`
+	// AddressLine2:
+	AddressLine2 string `json:"address_line_2"`
+	// Zip:
+	Zip string `json:"zip"`
+	// City:
+	City string `json:"city"`
+	// Country:
+	Country string `json:"country"`
+	// VatIDentificationCode:
+	VatIDentificationCode string `json:"vat_identification_code"`
+	// CompanyIDentificationCode:
+	CompanyIDentificationCode string `json:"company_identification_code"`
+	// Lang:
+	Lang std.LanguageCode `json:"lang"`
+	// Resale:
+	Resale bool `json:"resale"`
+	// Questions:
+	Questions *[]*ContactQuestion `json:"questions,omitempty"`
+	// ExtensionFr:
+	ExtensionFr *ContactExtensionFR `json:"extension_fr"`
+	// ExtensionEu:
+	ExtensionEu *ContactExtensionEU `json:"extension_eu"`
+	// WhoisOptIn:
+	WhoisOptIn bool `json:"whois_opt_in"`
+	// EmailStatus:
+	EmailStatus ContactEmailStatus `json:"email_status"`
+	// State:
+	State string `json:"state"`
+	// ExtensionNl:
+	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
+}
 
-	ProjectID string `json:"project_id"`
+type ContactRolesRoles struct {
+	// IsOwner:
+	IsOwner bool `json:"is_owner"`
+	// IsAdministrative:
+	IsAdministrative bool `json:"is_administrative"`
+	// IsTechnical:
+	IsTechnical bool `json:"is_technical"`
+}
 
-	OrganizationID string `json:"organization_id"`
+type DomainRegistrationStatusExternalDomain struct {
+	// ValidationToken:
+	ValidationToken string `json:"validation_token"`
+}
 
-	Domain *string `json:"domain"`
-	// Type: default value: unknown
-	Type TaskType `json:"type"`
-	// Status: default value: unavailable
-	Status TaskStatus `json:"status"`
-
-	StartedAt *time.Time `json:"started_at"`
-
-	UpdatedAt *time.Time `json:"updated_at"`
-
-	Message *string `json:"message"`
+type DomainRegistrationStatusTransfer struct {
+	// Status:
+	Status DomainRegistrationStatusTransferStatus `json:"status"`
+	// VoteCurrentOwner:
+	VoteCurrentOwner bool `json:"vote_current_owner"`
+	// VoteNewOwner:
+	VoteNewOwner bool `json:"vote_new_owner"`
 }
 
 type Tld struct {
+	// Name:
 	Name string `json:"name"`
-
+	// DnssecSupport:
 	DnssecSupport bool `json:"dnssec_support"`
-
+	// DurationInYearsMin:
 	DurationInYearsMin uint32 `json:"duration_in_years_min"`
-
+	// DurationInYearsMax:
 	DurationInYearsMax uint32 `json:"duration_in_years_max"`
-
-	IdnSupport bool `json:"idn_support"`
-
+	// IDnSupport:
+	IDnSupport bool `json:"idn_support"`
+	// Offers:
 	Offers map[string]*TldOffer `json:"offers"`
-
+	// Specifications:
 	Specifications map[string]string `json:"specifications"`
 }
 
-type TldOffer struct {
-	Action string `json:"action"`
+type NewContact struct {
+	// LegalForm:
+	LegalForm ContactLegalForm `json:"legal_form"`
+	// Firstname:
+	Firstname string `json:"firstname"`
+	// Lastname:
+	Lastname string `json:"lastname"`
+	// CompanyName:
+	CompanyName *string `json:"company_name,omitempty"`
+	// Email:
+	Email string `json:"email"`
+	// EmailAlt:
+	EmailAlt *string `json:"email_alt,omitempty"`
+	// PhoneNumber:
+	PhoneNumber string `json:"phone_number"`
+	// FaxNumber:
+	FaxNumber *string `json:"fax_number,omitempty"`
+	// AddressLine1:
+	AddressLine1 string `json:"address_line_1"`
+	// AddressLine2:
+	AddressLine2 *string `json:"address_line_2,omitempty"`
+	// Zip:
+	Zip string `json:"zip"`
+	// City:
+	City string `json:"city"`
+	// Country:
+	Country string `json:"country"`
+	// VatIDentificationCode:
+	VatIDentificationCode *string `json:"vat_identification_code,omitempty"`
+	// CompanyIDentificationCode:
+	CompanyIDentificationCode *string `json:"company_identification_code,omitempty"`
+	// Lang:
+	Lang std.LanguageCode `json:"lang"`
+	// Resale:
+	Resale bool `json:"resale"`
+	// Questions:
+	Questions *[]*ContactQuestion `json:"questions,omitempty"`
+	// ExtensionFr:
+	ExtensionFr *ContactExtensionFR `json:"extension_fr"`
+	// ExtensionEu:
+	ExtensionEu *ContactExtensionEU `json:"extension_eu"`
+	// WhoisOptIn:
+	WhoisOptIn bool `json:"whois_opt_in"`
+	// State:
+	State *string `json:"state,omitempty"`
+	// ExtensionNl:
+	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
+}
 
-	OperationPath string `json:"operation_path"`
+type CheckContactsCompatibilityResponseContactCheckResult struct {
+	// Compatible:
+	Compatible bool `json:"compatible"`
+	// ErrorMessage:
+	ErrorMessage *string `json:"error_message,omitempty"`
+}
 
-	Price *scw.Money `json:"price"`
+type DNSZone struct {
+	// Domain:
+	Domain string `json:"domain"`
+	// Subdomain:
+	Subdomain string `json:"subdomain"`
+	// Ns:
+	Ns []string `json:"ns"`
+	// NsDefault:
+	NsDefault []string `json:"ns_default"`
+	// NsMaster:
+	NsMaster []string `json:"ns_master"`
+	// Status:
+	Status DNSZoneStatus `json:"status"`
+	// Message:
+	Message *string `json:"message,omitempty"`
+	// UpdatedAt:
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+}
+
+type DomainDNSSEC struct {
+	// Status:
+	Status DomainFeatureStatus `json:"status"`
+	// DsRecords:
+	DsRecords []*DSRecord `json:"ds_records"`
+}
+
+type RecordChange struct {
+	// Add:
+	Add *RecordChangeAdd `json:"add,omitempty"`
+	// Set:
+	Set *RecordChangeSet `json:"set,omitempty"`
+	// Delete:
+	Delete *RecordChangeDelete `json:"delete,omitempty"`
+	// Clear:
+	Clear *RecordChangeClear `json:"clear,omitempty"`
+}
+
+type ImportProviderDNSZoneRequestOnlineV1 struct {
+	// Token:
+	Token string `json:"token"`
+}
+
+type ImportRawDNSZoneRequestAXFRSource struct {
+	// NameServer:
+	NameServer string `json:"name_server"`
+	// TsigKey:
+	TsigKey *ImportRawDNSZoneRequestTsigKey `json:"tsig_key"`
+}
+
+type ImportRawDNSZoneRequestBindSource struct {
+	// Content:
+	Content string `json:"content"`
+}
+
+type ContactRoles struct {
+	// Contact:
+	Contact *Contact `json:"contact"`
+	// Roles:
+	Roles map[string]*ContactRolesRoles `json:"roles"`
+}
+
+type Nameserver struct {
+	// Name:
+	Name string `json:"name"`
+	// IP:
+	IP []string `json:"ip"`
+}
+
+type DNSZoneVersion struct {
+	// ID:
+	ID string `json:"id"`
+	// CreatedAt:
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+}
+
+type Host struct {
+	// Domain:
+	Domain string `json:"domain"`
+	// Name:
+	Name string `json:"name"`
+	// IPs:
+	IPs []net.IP `json:"ips"`
+	// Status:
+	Status HostStatus `json:"status"`
+}
+
+type DomainSummary struct {
+	// Domain:
+	Domain string `json:"domain"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// AutoRenewStatus:
+	AutoRenewStatus DomainFeatureStatus `json:"auto_renew_status"`
+	// DnssecStatus:
+	DnssecStatus DomainFeatureStatus `json:"dnssec_status"`
+	// EppCode:
+	EppCode []string `json:"epp_code"`
+	// ExpiredAt:
+	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+	// UpdatedAt:
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// Registrar:
+	Registrar string `json:"registrar"`
+	// IsExternal:
+	IsExternal bool `json:"is_external"`
+	// Status:
+	Status DomainStatus `json:"status"`
+	// ExternalDomainRegistrationStatus:
+	ExternalDomainRegistrationStatus *DomainRegistrationStatusExternalDomain `json:"external_domain_registration_status,omitempty"`
+	// TransferRegistrationStatus:
+	TransferRegistrationStatus *DomainRegistrationStatusTransfer `json:"transfer_registration_status,omitempty"`
+	// OrganizationID:
+	OrganizationID string `json:"organization_id"`
+}
+
+type RenewableDomain struct {
+	// Domain:
+	Domain string `json:"domain"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// OrganizationID:
+	OrganizationID string `json:"organization_id"`
+	// Status:
+	Status RenewableDomainStatus `json:"status"`
+	// RenewableDurationInYears:
+	RenewableDurationInYears *int32 `json:"renewable_duration_in_years,omitempty"`
+	// ExpiredAt:
+	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+	// LimitRenewAt:
+	LimitRenewAt *time.Time `json:"limit_renew_at,omitempty"`
+	// LimitRedemptionAt:
+	LimitRedemptionAt *time.Time `json:"limit_redemption_at,omitempty"`
+	// EstimatedDeleteAt:
+	EstimatedDeleteAt *time.Time `json:"estimated_delete_at,omitempty"`
+	// Tld:
+	Tld *Tld `json:"tld"`
+}
+
+type SSLCertificate struct {
+	// DNSZone:
+	DNSZone string `json:"dns_zone"`
+	// AlternativeDNSZones:
+	AlternativeDNSZones []string `json:"alternative_dns_zones"`
+	// Status:
+	Status SSLCertificateStatus `json:"status"`
+	// PrivateKey:
+	PrivateKey string `json:"private_key"`
+	// CertificateChain:
+	CertificateChain string `json:"certificate_chain"`
+	// CreatedAt:
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// ExpiredAt:
+	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+}
+
+type Task struct {
+	// ID:
+	ID string `json:"id"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// OrganizationID:
+	OrganizationID string `json:"organization_id"`
+	// Domain:
+	Domain *string `json:"domain,omitempty"`
+	// Type:
+	Type TaskType `json:"type"`
+	// Status:
+	Status TaskStatus `json:"status"`
+	// StartedAt:
+	StartedAt *time.Time `json:"started_at,omitempty"`
+	// UpdatedAt:
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// Message:
+	Message *string `json:"message,omitempty"`
 }
 
 type TransferInDomainRequestTransferRequest struct {
+	// Domain:
 	Domain string `json:"domain"`
-
+	// AuthCode:
 	AuthCode string `json:"auth_code"`
 }
 
 type UpdateContactRequestQuestion struct {
-	Question *string `json:"question"`
-
-	Answer *string `json:"answer"`
+	// Question:
+	Question *string `json:"question,omitempty"`
+	// Answer:
+	Answer *string `json:"answer,omitempty"`
 }
 
-// UpdateDNSZoneNameserversResponse: update dns zone nameservers response.
-type UpdateDNSZoneNameserversResponse struct {
-	// Ns: DNS zone name servers returned.
-	Ns []*Nameserver `json:"ns"`
-}
-
-// UpdateDNSZoneRecordsResponse: update dns zone records response.
-type UpdateDNSZoneRecordsResponse struct {
-	// Records: DNS zone records returned.
-	Records []*Record `json:"records"`
-}
-
-// Service API
-
-type ListDNSZonesRequest struct {
-	// OrganizationID: organization ID on which to filter the returned DNS zones.
-	OrganizationID *string `json:"-"`
-	// ProjectID: project ID on which to filter the returned DNS zones.
-	ProjectID *string `json:"-"`
-	// OrderBy: sort order of the returned DNS zones.
-	// Default value: domain_asc
-	OrderBy ListDNSZonesRequestOrderBy `json:"-"`
-	// Page: page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: maximum number of DNS zones to return per page.
-	PageSize *uint32 `json:"-"`
-	// Domain: domain on which to filter the returned DNS zones.
-	Domain string `json:"-"`
-	// DNSZone: DNS zone on which to filter the returned DNS zones.
-	DNSZone string `json:"-"`
-}
-
-// ListDNSZones: list DNS zones.
-// Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
-func (s *API) ListDNSZones(req *ListDNSZonesRequest, opts ...scw.RequestOption) (*ListDNSZonesResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "domain", req.Domain)
-	parameter.AddToQuery(query, "dns_zone", req.DNSZone)
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/dns-zones",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListDNSZonesResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type CreateDNSZoneRequest struct {
-	// Domain: domain in which to crreate the DNS zone.
+type AvailableDomain struct {
+	// Domain:
 	Domain string `json:"domain"`
-	// Subdomain: subdomain of the DNS zone to create.
-	Subdomain string `json:"subdomain"`
-	// ProjectID: project ID in which to create the DNS zone.
-	ProjectID string `json:"project_id"`
+	// Available:
+	Available bool `json:"available"`
+	// Tld:
+	Tld *Tld `json:"tld"`
 }
 
-// CreateDNSZone: create a DNS zone.
-// Create a new DNS zone specified by the domain name, the subdomain and the Project ID.
-func (s *API) CreateDNSZone(req *CreateDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
-	var err error
-
-	if req.ProjectID == "" {
-		defaultProjectID, _ := s.client.GetDefaultProjectID()
-		req.ProjectID = defaultProjectID
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/dns-zones",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp DNSZone
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type UpdateDNSZoneRequest struct {
-	// DNSZone: DNS zone to update.
-	DNSZone string `json:"-"`
-	// NewDNSZone: name of the new DNS zone to create.
-	NewDNSZone *string `json:"new_dns_zone"`
-	// ProjectID: project ID in which to create the new DNS zone.
-	ProjectID string `json:"project_id"`
-}
-
-// UpdateDNSZone: update a DNS zone.
-// Update the name and/or the Organizations for a DNS zone.
-func (s *API) UpdateDNSZone(req *UpdateDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
-	var err error
-
-	if req.ProjectID == "" {
-		defaultProjectID, _ := s.client.GetDefaultProjectID()
-		req.ProjectID = defaultProjectID
-	}
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PATCH",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp DNSZone
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type CloneDNSZoneRequest struct {
-	// DNSZone: DNS zone to clone.
-	DNSZone string `json:"-"`
-	// DestDNSZone: destination DNS zone in which to clone the chosen DNS zone.
-	DestDNSZone string `json:"dest_dns_zone"`
-	// Overwrite: specifies whether or not the destination DNS zone will be overwritten.
-	Overwrite bool `json:"overwrite"`
-	// ProjectID: project ID of the destination DNS zone.
-	ProjectID *string `json:"project_id"`
-}
-
-// CloneDNSZone: clone a DNS zone.
-// Clone an existing DNS zone with all its records into a new DNS zone.
-func (s *API) CloneDNSZone(req *CloneDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/clone",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp DNSZone
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type DeleteDNSZoneRequest struct {
-	// DNSZone: DNS zone to delete.
-	DNSZone string `json:"-"`
-	// ProjectID: project ID of the DNS zone to delete.
-	ProjectID string `json:"-"`
-}
-
-// DeleteDNSZone: delete a DNS zone.
-// Delete a DNS zone and all its records.
-func (s *API) DeleteDNSZone(req *DeleteDNSZoneRequest, opts ...scw.RequestOption) (*DeleteDNSZoneResponse, error) {
-	var err error
-
-	if req.ProjectID == "" {
-		defaultProjectID, _ := s.client.GetDefaultProjectID()
-		req.ProjectID = defaultProjectID
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp DeleteDNSZoneResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListDNSZoneRecordsRequest struct {
-	// DNSZone: DNS zone on which to filter the returned DNS zone records.
-	DNSZone string `json:"-"`
-	// ProjectID: project ID on which to filter the returned DNS zone records.
-	ProjectID *string `json:"-"`
-	// OrderBy: sort order of the returned DNS zone records.
-	// Default value: name_asc
-	OrderBy ListDNSZoneRecordsRequestOrderBy `json:"-"`
-	// Page: page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: maximum number of DNS zone records per page.
-	PageSize *uint32 `json:"-"`
-	// Name: name on which to filter the returned DNS zone records.
-	Name string `json:"-"`
-	// Type: record type on which to filter the returned DNS zone records.
-	// Default value: unknown
-	Type RecordType `json:"-"`
-	// ID: record ID on which to filter the returned DNS zone records.
-	ID *string `json:"-"`
-}
-
-// ListDNSZoneRecords: list records within a DNS zone.
-// Retrieve a list of DNS records within a DNS zone that has default name servers.
-// You can filter records by type and name.
-func (s *API) ListDNSZoneRecords(req *ListDNSZoneRecordsRequest, opts ...scw.RequestOption) (*ListDNSZoneRecordsResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "name", req.Name)
-	parameter.AddToQuery(query, "type", req.Type)
-	parameter.AddToQuery(query, "id", req.ID)
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/records",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListDNSZoneRecordsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type UpdateDNSZoneRecordsRequest struct {
-	// DNSZone: DNS zone in which to update the DNS zone records.
-	DNSZone string `json:"-"`
-	// Changes: changes made to the records.
-	Changes []*RecordChange `json:"changes"`
-	// ReturnAllRecords: specifies whether or not to return all the records.
-	ReturnAllRecords *bool `json:"return_all_records"`
-	// DisallowNewZoneCreation: disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
-	DisallowNewZoneCreation bool `json:"disallow_new_zone_creation"`
-	// Serial: use the provided serial (0) instead of the auto-increment serial.
-	Serial *uint64 `json:"serial"`
-}
-
-// UpdateDNSZoneRecords: update records within a DNS zone.
-// Update records within a DNS zone that has default name servers and perform several actions on your records.
-//
-// Actions include:
-//   - add: allows you to add a new record or add a new IP to an existing A record, for example
-//   - set: allows you to edit a record or edit an IP from an existing A record, for example
-//   - delete: allows you to delete a record or delete an IP from an existing A record, for example
-//   - clear: allows you to delete all records from a DNS zone
-//
-// All edits will be versioned.
-func (s *API) UpdateDNSZoneRecords(req *UpdateDNSZoneRecordsRequest, opts ...scw.RequestOption) (*UpdateDNSZoneRecordsResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PATCH",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/records",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp UpdateDNSZoneRecordsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListDNSZoneNameserversRequest struct {
-	// DNSZone: DNS zone on which to filter the returned DNS zone name servers.
-	DNSZone string `json:"-"`
-	// ProjectID: project ID on which to filter the returned DNS zone name servers.
-	ProjectID *string `json:"-"`
-}
-
-// ListDNSZoneNameservers: list name servers within a DNS zone.
-// Retrieve a list of name servers within a DNS zone and their optional glue records.
-func (s *API) ListDNSZoneNameservers(req *ListDNSZoneNameserversRequest, opts ...scw.RequestOption) (*ListDNSZoneNameserversResponse, error) {
-	var err error
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/nameservers",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListDNSZoneNameserversResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type UpdateDNSZoneNameserversRequest struct {
-	// DNSZone: DNS zone in which to update the DNS zone name servers.
-	DNSZone string `json:"-"`
-	// Ns: new DNS zone name servers.
-	Ns []*Nameserver `json:"ns"`
-}
-
-// UpdateDNSZoneNameservers: update name servers within a DNS zone.
-// Update name servers within a DNS zone and set optional glue records.
-func (s *API) UpdateDNSZoneNameservers(req *UpdateDNSZoneNameserversRequest, opts ...scw.RequestOption) (*UpdateDNSZoneNameserversResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PUT",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/nameservers",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp UpdateDNSZoneNameserversResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
+type CheckContactsCompatibilityResponse struct {
+	// Compatible:
+	Compatible bool `json:"compatible"`
+	// OwnerCheckResult:
+	OwnerCheckResult *CheckContactsCompatibilityResponseContactCheckResult `json:"owner_check_result"`
+	// AdministrativeCheckResult:
+	AdministrativeCheckResult *CheckContactsCompatibilityResponseContactCheckResult `json:"administrative_check_result"`
+	// TechnicalCheckResult:
+	TechnicalCheckResult *CheckContactsCompatibilityResponseContactCheckResult `json:"technical_check_result"`
 }
 
 type ClearDNSZoneRecordsRequest struct {
@@ -2295,1745 +1605,179 @@ type ClearDNSZoneRecordsRequest struct {
 	DNSZone string `json:"-"`
 }
 
-// ClearDNSZoneRecords: clear records within a DNS zone.
-// Delete all records within a DNS zone that has default name servers.<br/>
-// All edits will be versioned.
-func (s *API) ClearDNSZoneRecords(req *ClearDNSZoneRecordsRequest, opts ...scw.RequestOption) (*ClearDNSZoneRecordsResponse, error) {
-	var err error
+type ClearDNSZoneRecordsResponse struct {
+}
 
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
+type CloneDNSZoneRequest struct {
+	// DNSZone: DNS zone to clone.
+	DNSZone string `json:"-"`
+	// DestDNSZone: Destination DNS zone in which to clone the chosen DNS zone.
+	DestDNSZone string `json:"dest_dns_zone"`
+	// Overwrite: Specifies whether or not the destination DNS zone will be overwritten.
+	Overwrite bool `json:"overwrite"`
+	// ProjectID: Project ID of the destination DNS zone.
+	ProjectID *string `json:"project_id,omitempty"`
+}
 
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/records",
-		Headers: http.Header{},
-	}
+type CreateDNSZoneRequest struct {
+	// Domain: Domain in which to crreate the DNS zone.
+	Domain string `json:"domain"`
+	// Subdomain: Subdomain of the DNS zone to create.
+	Subdomain string `json:"subdomain"`
+	// ProjectID: Project ID in which to create the DNS zone.
+	ProjectID string `json:"project_id"`
+}
 
-	var resp ClearDNSZoneRecordsResponse
+type CreateSSLCertificateRequest struct {
+	// DNSZone:
+	DNSZone string `json:"dns_zone"`
+	// AlternativeDNSZones:
+	AlternativeDNSZones []string `json:"alternative_dns_zones"`
+}
 
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
+type DeleteDNSZoneRequest struct {
+	// DNSZone: DNS zone to delete.
+	DNSZone string `json:"-"`
+	// ProjectID: Project ID of the DNS zone to delete.
+	ProjectID string `json:"project_id"`
+}
+
+type DeleteDNSZoneResponse struct {
+}
+
+type DeleteDNSZoneTsigKeyRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+}
+
+type DeleteExternalDomainResponse struct {
+}
+
+type DeleteSSLCertificateRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+}
+
+type DeleteSSLCertificateResponse struct {
+}
+
+type Domain struct {
+	// Domain:
+	Domain string `json:"domain"`
+	// OrganizationID:
+	OrganizationID string `json:"organization_id"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// AutoRenewStatus:
+	AutoRenewStatus DomainFeatureStatus `json:"auto_renew_status"`
+	// Dnssec:
+	Dnssec *DomainDNSSEC `json:"dnssec"`
+	// EppCode:
+	EppCode []string `json:"epp_code"`
+	// ExpiredAt:
+	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+	// UpdatedAt:
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// Registrar:
+	Registrar string `json:"registrar"`
+	// IsExternal:
+	IsExternal bool `json:"is_external"`
+	// Status:
+	Status DomainStatus `json:"status"`
+	// DNSZones:
+	DNSZones []*DNSZone `json:"dns_zones"`
+	// OwnerContact:
+	OwnerContact *Contact `json:"owner_contact"`
+	// TechnicalContact:
+	TechnicalContact *Contact `json:"technical_contact"`
+	// AdministrativeContact:
+	AdministrativeContact *Contact `json:"administrative_contact"`
+	// ExternalDomainRegistrationStatus:
+	ExternalDomainRegistrationStatus *DomainRegistrationStatusExternalDomain `json:"external_domain_registration_status,omitempty"`
+	// TransferRegistrationStatus:
+	TransferRegistrationStatus *DomainRegistrationStatusTransfer `json:"transfer_registration_status,omitempty"`
+	// Tld:
+	Tld *Tld `json:"tld"`
 }
 
 type ExportRawDNSZoneRequest struct {
 	// DNSZone: DNS zone to export.
 	DNSZone string `json:"-"`
 	// Format: DNS zone format.
-	// Default value: bind
-	Format RawFormat `json:"-"`
+	Format RawFormat `json:"format"`
 }
 
-// ExportRawDNSZone: export a raw DNS zone.
-// Export a DNS zone with default name servers, in a specific format.
-func (s *API) ExportRawDNSZone(req *ExportRawDNSZoneRequest, opts ...scw.RequestOption) (*scw.File, error) {
-	var err error
+type GetDNSZoneTsigKeyRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+}
 
-	query := url.Values{}
-	parameter.AddToQuery(query, "format", req.Format)
+type GetDNSZoneTsigKeyResponse struct {
+	// Name:
+	Name string `json:"name"`
+	// Key:
+	Key string `json:"key"`
+	// Algorithm:
+	Algorithm string `json:"algorithm"`
+}
 
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
+type GetDNSZoneVersionDiffRequest struct {
+	// DNSZoneVersionID:
+	DNSZoneVersionID string `json:"-"`
+}
 
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/raw",
-		Query:   query,
-		Headers: http.Header{},
-	}
+type GetDNSZoneVersionDiffResponse struct {
+	// Changes:
+	Changes []*RecordChange `json:"changes"`
+}
 
-	var resp scw.File
+type GetDomainAuthCodeResponse struct {
+	// AuthCode:
+	AuthCode string `json:"auth_code"`
+}
 
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
+type GetSSLCertificateRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+}
+
+type ImportProviderDNSZoneRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+	// OnlineV1:
+	OnlineV1 *ImportProviderDNSZoneRequestOnlineV1 `json:"online_v1,omitempty"`
+}
+
+type ImportProviderDNSZoneResponse struct {
+	// Records:
+	Records []*Record `json:"records"`
 }
 
 type ImportRawDNSZoneRequest struct {
 	// DNSZone: DNS zone to import.
 	DNSZone string `json:"-"`
-	// Deprecated
+	// Content:
 	Content *string `json:"content,omitempty"`
-
+	// ProjectID:
 	ProjectID string `json:"project_id"`
-	// Deprecated: Format: default value: unknown_raw_format
+	// Format:
 	Format *RawFormat `json:"format,omitempty"`
-	// BindSource: import a bind file format.
-	// Precisely one of AxfrSource, BindSource must be set.
+	// BindSource: Import a bind file format.
 	BindSource *ImportRawDNSZoneRequestBindSource `json:"bind_source,omitempty"`
-	// AxfrSource: import from the name server given with TSIG, to use or not.
-	// Precisely one of AxfrSource, BindSource must be set.
+	// AxfrSource: Import from the name server given with TSIG, to use or not.
 	AxfrSource *ImportRawDNSZoneRequestAXFRSource `json:"axfr_source,omitempty"`
 }
 
-// ImportRawDNSZone: import a raw DNS zone.
-// Import and replace the format of records from a given provider, with default name servers.
-func (s *API) ImportRawDNSZone(req *ImportRawDNSZoneRequest, opts ...scw.RequestOption) (*ImportRawDNSZoneResponse, error) {
-	var err error
-
-	if req.ProjectID == "" {
-		defaultProjectID, _ := s.client.GetDefaultProjectID()
-		req.ProjectID = defaultProjectID
-	}
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/raw",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp ImportRawDNSZoneResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ImportProviderDNSZoneRequest struct {
-	DNSZone string `json:"-"`
-
-	// Precisely one of OnlineV1 must be set.
-	OnlineV1 *ImportProviderDNSZoneRequestOnlineV1 `json:"online_v1,omitempty"`
-}
-
-// ImportProviderDNSZone: import a DNS zone from another provider.
-// Import and replace the format of records from a given provider, with default name servers.
-func (s *API) ImportProviderDNSZone(req *ImportProviderDNSZoneRequest, opts ...scw.RequestOption) (*ImportProviderDNSZoneResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/import-provider",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp ImportProviderDNSZoneResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RefreshDNSZoneRequest struct {
-	// DNSZone: DNS zone to refresh.
-	DNSZone string `json:"-"`
-	// RecreateDNSZone: specifies whether or not to recreate the DNS zone.
-	RecreateDNSZone bool `json:"recreate_dns_zone"`
-	// RecreateSubDNSZone: specifies whether or not to recreate the sub DNS zone.
-	RecreateSubDNSZone bool `json:"recreate_sub_dns_zone"`
-}
-
-// RefreshDNSZone: refresh a DNS zone.
-// Refresh an SOA DNS zone to reload the records in the DNS zone and update the SOA serial.
-// You can recreate the given DNS zone and its sub DNS zone if needed.
-func (s *API) RefreshDNSZone(req *RefreshDNSZoneRequest, opts ...scw.RequestOption) (*RefreshDNSZoneResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/refresh",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp RefreshDNSZoneResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListDNSZoneVersionsRequest struct {
-	DNSZone string `json:"-"`
-	// Page: page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: maximum number of DNS zones versions per page.
-	PageSize *uint32 `json:"-"`
-}
-
-// ListDNSZoneVersions: list versions of a DNS zone.
-// Retrieve a list of a DNS zone's versions.<br/>
-// The maximum version count is 100. If the count reaches this limit, the oldest version will be deleted after each new modification.
-func (s *API) ListDNSZoneVersions(req *ListDNSZoneVersionsRequest, opts ...scw.RequestOption) (*ListDNSZoneVersionsResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/versions",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListDNSZoneVersionsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListDNSZoneVersionRecordsRequest struct {
-	DNSZoneVersionID string `json:"-"`
-	// Page: page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: maximum number of DNS zones versions records per page.
-	PageSize *uint32 `json:"-"`
-}
-
-// ListDNSZoneVersionRecords: list records from a given version of a specific DNS zone.
-// Retrieve a list of records from a specific DNS zone version.
-func (s *API) ListDNSZoneVersionRecords(req *ListDNSZoneVersionRecordsRequest, opts ...scw.RequestOption) (*ListDNSZoneVersionRecordsResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-
-	if fmt.Sprint(req.DNSZoneVersionID) == "" {
-		return nil, errors.New("field DNSZoneVersionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/dns-zones/version/" + fmt.Sprint(req.DNSZoneVersionID) + "",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListDNSZoneVersionRecordsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetDNSZoneVersionDiffRequest struct {
-	DNSZoneVersionID string `json:"-"`
-}
-
-// GetDNSZoneVersionDiff: access differences from a specific DNS zone version.
-// Access a previous DNS zone version to see the differences from another specific version.
-func (s *API) GetDNSZoneVersionDiff(req *GetDNSZoneVersionDiffRequest, opts ...scw.RequestOption) (*GetDNSZoneVersionDiffResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZoneVersionID) == "" {
-		return nil, errors.New("field DNSZoneVersionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/dns-zones/version/" + fmt.Sprint(req.DNSZoneVersionID) + "/diff",
-		Headers: http.Header{},
-	}
-
-	var resp GetDNSZoneVersionDiffResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RestoreDNSZoneVersionRequest struct {
-	DNSZoneVersionID string `json:"-"`
-}
-
-// RestoreDNSZoneVersion: restore a DNS zone version.
-// Restore and activate a version of a specific DNS zone.
-func (s *API) RestoreDNSZoneVersion(req *RestoreDNSZoneVersionRequest, opts ...scw.RequestOption) (*RestoreDNSZoneVersionResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZoneVersionID) == "" {
-		return nil, errors.New("field DNSZoneVersionID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/dns-zones/version/" + fmt.Sprint(req.DNSZoneVersionID) + "/restore",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp RestoreDNSZoneVersionResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetSSLCertificateRequest struct {
-	DNSZone string `json:"-"`
-}
-
-// GetSSLCertificate: get a DNS zone's TLS certificate.
-// Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns `no certificate found`.
-func (s *API) GetSSLCertificate(req *GetSSLCertificateRequest, opts ...scw.RequestOption) (*SSLCertificate, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/ssl-certificates/" + fmt.Sprint(req.DNSZone) + "",
-		Headers: http.Header{},
-	}
-
-	var resp SSLCertificate
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type CreateSSLCertificateRequest struct {
-	DNSZone string `json:"dns_zone"`
-
-	AlternativeDNSZones []string `json:"alternative_dns_zones"`
-}
-
-// CreateSSLCertificate: create or get the DNS zone's TLS certificate.
-// Create a new TLS certificate or retrieve information about an existing TLS certificate.
-func (s *API) CreateSSLCertificate(req *CreateSSLCertificateRequest, opts ...scw.RequestOption) (*SSLCertificate, error) {
-	var err error
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/ssl-certificates",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp SSLCertificate
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type ListSSLCertificatesRequest struct {
-	DNSZone string `json:"-"`
-
-	Page *int32 `json:"-"`
-
-	PageSize *uint32 `json:"-"`
-
-	ProjectID *string `json:"-"`
-}
-
-// ListSSLCertificates: list a user's TLS certificates.
-// List all the TLS certificates a user has created, specified by the user's Project ID and the DNS zone.
-func (s *API) ListSSLCertificates(req *ListSSLCertificatesRequest, opts ...scw.RequestOption) (*ListSSLCertificatesResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "dns_zone", req.DNSZone)
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/ssl-certificates",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListSSLCertificatesResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type DeleteSSLCertificateRequest struct {
-	DNSZone string `json:"-"`
-}
-
-// DeleteSSLCertificate: delete a TLS certificate.
-// Delete an existing TLS certificate specified by its DNS zone. Deleting a TLS certificate is permanent and cannot be undone.
-func (s *API) DeleteSSLCertificate(req *DeleteSSLCertificateRequest, opts ...scw.RequestOption) (*DeleteSSLCertificateResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/domain/v2beta1/ssl-certificates/" + fmt.Sprint(req.DNSZone) + "",
-		Headers: http.Header{},
-	}
-
-	var resp DeleteSSLCertificateResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type GetDNSZoneTsigKeyRequest struct {
-	DNSZone string `json:"-"`
-}
-
-// GetDNSZoneTsigKey: get the DNS zone's TSIG key.
-// Retrieve information about the TSIG key of a given DNS zone to allow AXFR requests.
-func (s *API) GetDNSZoneTsigKey(req *GetDNSZoneTsigKeyRequest, opts ...scw.RequestOption) (*GetDNSZoneTsigKeyResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return nil, errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/tsig-key",
-		Headers: http.Header{},
-	}
-
-	var resp GetDNSZoneTsigKeyResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type DeleteDNSZoneTsigKeyRequest struct {
-	DNSZone string `json:"-"`
-}
-
-// DeleteDNSZoneTsigKey: delete the DNS zone's TSIG key.
-// Delete an existing TSIG key specified by its DNS zone. Deleting a TSIG key is permanent and cannot be undone.
-func (s *API) DeleteDNSZoneTsigKey(req *DeleteDNSZoneTsigKeyRequest, opts ...scw.RequestOption) error {
-	var err error
-
-	if fmt.Sprint(req.DNSZone) == "" {
-		return errors.New("field DNSZone cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/tsig-key",
-		Headers: http.Header{},
-	}
-
-	err = s.client.Do(scwReq, nil, opts...)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// Service RegistrarAPI
-
-type RegistrarAPIListTasksRequest struct {
-	Page *int32 `json:"-"`
-
-	PageSize *uint32 `json:"-"`
-
-	ProjectID *string `json:"-"`
-
-	OrganizationID *string `json:"-"`
-
-	Domain *string `json:"-"`
-
-	Types []TaskType `json:"-"`
-
-	Statuses []TaskStatus `json:"-"`
-	// OrderBy: default value: domain_desc
-	OrderBy ListTasksRequestOrderBy `json:"-"`
-}
-
-// ListTasks: list tasks.
-// List all operations performed on the account.
-// You can filter the list of tasks by domain name.
-func (s *RegistrarAPI) ListTasks(req *RegistrarAPIListTasksRequest, opts ...scw.RequestOption) (*ListTasksResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
-	parameter.AddToQuery(query, "domain", req.Domain)
-	parameter.AddToQuery(query, "types", req.Types)
-	parameter.AddToQuery(query, "statuses", req.Statuses)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/tasks",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListTasksResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIBuyDomainsRequest struct {
-	Domains []string `json:"domains"`
-
-	DurationInYears uint32 `json:"duration_in_years"`
-
-	ProjectID string `json:"project_id"`
-
-	// Precisely one of OwnerContact, OwnerContactID must be set.
-	OwnerContactID *string `json:"owner_contact_id,omitempty"`
-
-	// Precisely one of OwnerContact, OwnerContactID must be set.
-	OwnerContact *NewContact `json:"owner_contact,omitempty"`
-
-	// Precisely one of AdministrativeContact, AdministrativeContactID must be set.
-	AdministrativeContactID *string `json:"administrative_contact_id,omitempty"`
-
-	// Precisely one of AdministrativeContact, AdministrativeContactID must be set.
-	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
-
-	// Precisely one of TechnicalContact, TechnicalContactID must be set.
-	TechnicalContactID *string `json:"technical_contact_id,omitempty"`
-
-	// Precisely one of TechnicalContact, TechnicalContactID must be set.
-	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
-}
-
-// BuyDomains: purchase domains.
-// Request the registration of domain names.
-// You can provide a domain's already existing contact or a new contact.
-func (s *RegistrarAPI) BuyDomains(req *RegistrarAPIBuyDomainsRequest, opts ...scw.RequestOption) (*OrderResponse, error) {
-	var err error
-
-	if req.ProjectID == "" {
-		defaultProjectID, _ := s.client.GetDefaultProjectID()
-		req.ProjectID = defaultProjectID
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/buy-domains",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp OrderResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIRenewDomainsRequest struct {
-	Domains []string `json:"domains"`
-
-	DurationInYears uint32 `json:"duration_in_years"`
-
-	ForceLateRenewal *bool `json:"force_late_renewal"`
-}
-
-// RenewDomains: renew domains.
-// Request the renewal of one or more domain names.
-func (s *RegistrarAPI) RenewDomains(req *RegistrarAPIRenewDomainsRequest, opts ...scw.RequestOption) (*OrderResponse, error) {
-	var err error
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/renew-domains",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp OrderResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPITransferInDomainRequest struct {
-	Domains []*TransferInDomainRequestTransferRequest `json:"domains"`
-
-	ProjectID string `json:"project_id"`
-
-	// Precisely one of OwnerContact, OwnerContactID must be set.
-	OwnerContactID *string `json:"owner_contact_id,omitempty"`
-
-	// Precisely one of OwnerContact, OwnerContactID must be set.
-	OwnerContact *NewContact `json:"owner_contact,omitempty"`
-
-	// Precisely one of AdministrativeContact, AdministrativeContactID must be set.
-	AdministrativeContactID *string `json:"administrative_contact_id,omitempty"`
-
-	// Precisely one of AdministrativeContact, AdministrativeContactID must be set.
-	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
-
-	// Precisely one of TechnicalContact, TechnicalContactID must be set.
-	TechnicalContactID *string `json:"technical_contact_id,omitempty"`
-
-	// Precisely one of TechnicalContact, TechnicalContactID must be set.
-	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
-}
-
-// TransferInDomain: transfer a domain.
-// Request the transfer of a domain from another registrar to Scaleway Domains and DNS.
-func (s *RegistrarAPI) TransferInDomain(req *RegistrarAPITransferInDomainRequest, opts ...scw.RequestOption) (*OrderResponse, error) {
-	var err error
-
-	if req.ProjectID == "" {
-		defaultProjectID, _ := s.client.GetDefaultProjectID()
-		req.ProjectID = defaultProjectID
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/domains/transfer-domains",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp OrderResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPITradeDomainRequest struct {
-	Domain string `json:"-"`
-
-	ProjectID *string `json:"project_id"`
-
-	// Precisely one of NewOwnerContact, NewOwnerContactID must be set.
-	NewOwnerContactID *string `json:"new_owner_contact_id,omitempty"`
-
-	// Precisely one of NewOwnerContact, NewOwnerContactID must be set.
-	NewOwnerContact *NewContact `json:"new_owner_contact,omitempty"`
-}
-
-// TradeDomain: trade a domain's contact.
-// Request to change a domain's contact owner.<br/>
-// If you specify the `organization_id` of the domain's new owner, the contact will change from the current owner's Scaleway account to the new owner's Scaleway account.<br/>
-// If the new owner's current contact information is not available, the first ever contact they have created for previous domains is taken into account to operate the change.<br/>
-// If the new owner has never created a contact to register domains before, an error message displays.
-func (s *RegistrarAPI) TradeDomain(req *RegistrarAPITradeDomainRequest, opts ...scw.RequestOption) (*OrderResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/trade",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp OrderResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIRegisterExternalDomainRequest struct {
-	Domain string `json:"domain"`
-
-	ProjectID string `json:"project_id"`
-}
-
-// RegisterExternalDomain: register an external domain.
-// Request the registration of an external domain name.
-func (s *RegistrarAPI) RegisterExternalDomain(req *RegistrarAPIRegisterExternalDomainRequest, opts ...scw.RequestOption) (*RegisterExternalDomainResponse, error) {
-	var err error
-
-	if req.ProjectID == "" {
-		defaultProjectID, _ := s.client.GetDefaultProjectID()
-		req.ProjectID = defaultProjectID
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/external-domains",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp RegisterExternalDomainResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIDeleteExternalDomainRequest struct {
-	Domain string `json:"-"`
-}
-
-// DeleteExternalDomain: delete an external domain.
-// Delete an external domain name.
-func (s *RegistrarAPI) DeleteExternalDomain(req *RegistrarAPIDeleteExternalDomainRequest, opts ...scw.RequestOption) (*DeleteExternalDomainResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/domain/v2beta1/external-domains/" + fmt.Sprint(req.Domain) + "",
-		Headers: http.Header{},
-	}
-
-	var resp DeleteExternalDomainResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPICheckContactsCompatibilityRequest struct {
-	Domains []string `json:"domains"`
-
-	Tlds []string `json:"tlds"`
-
-	// Precisely one of OwnerContact, OwnerContactID must be set.
-	OwnerContactID *string `json:"owner_contact_id,omitempty"`
-
-	// Precisely one of OwnerContact, OwnerContactID must be set.
-	OwnerContact *NewContact `json:"owner_contact,omitempty"`
-
-	// Precisely one of AdministrativeContact, AdministrativeContactID must be set.
-	AdministrativeContactID *string `json:"administrative_contact_id,omitempty"`
-
-	// Precisely one of AdministrativeContact, AdministrativeContactID must be set.
-	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
-
-	// Precisely one of TechnicalContact, TechnicalContactID must be set.
-	TechnicalContactID *string `json:"technical_contact_id,omitempty"`
-
-	// Precisely one of TechnicalContact, TechnicalContactID must be set.
-	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
-}
-
-// CheckContactsCompatibility: check if contacts are compatible with a domain or a TLD.
-// Check whether contacts are compatible with a domain or a TLD.
-// If contacts are not compatible with either the domain or the TLD, the information that needs to be corrected is returned.
-func (s *RegistrarAPI) CheckContactsCompatibility(req *RegistrarAPICheckContactsCompatibilityRequest, opts ...scw.RequestOption) (*CheckContactsCompatibilityResponse, error) {
-	var err error
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/check-contacts-compatibility",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp CheckContactsCompatibilityResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIListContactsRequest struct {
-	Page *int32 `json:"-"`
-
-	PageSize *uint32 `json:"-"`
-
-	Domain *string `json:"-"`
-
-	ProjectID *string `json:"-"`
-
-	OrganizationID *string `json:"-"`
-	// Role: default value: unknown_role
-	Role ListContactsRequestRole `json:"-"`
-	// EmailStatus: default value: email_status_unknown
-	EmailStatus ContactEmailStatus `json:"-"`
-}
-
-// ListContacts: list contacts.
-// Retrieve the list of contacts and their associated domains and roles.
-// You can filter the list by domain name.
-func (s *RegistrarAPI) ListContacts(req *RegistrarAPIListContactsRequest, opts ...scw.RequestOption) (*ListContactsResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "domain", req.Domain)
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
-	parameter.AddToQuery(query, "role", req.Role)
-	parameter.AddToQuery(query, "email_status", req.EmailStatus)
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/contacts",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListContactsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIGetContactRequest struct {
-	ContactID string `json:"-"`
-}
-
-// GetContact: get a contact.
-// Retrieve a contact's details from the registrar using the given contact's ID.
-func (s *RegistrarAPI) GetContact(req *RegistrarAPIGetContactRequest, opts ...scw.RequestOption) (*Contact, error) {
-	var err error
-
-	if fmt.Sprint(req.ContactID) == "" {
-		return nil, errors.New("field ContactID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/contacts/" + fmt.Sprint(req.ContactID) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Contact
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIUpdateContactRequest struct {
-	ContactID string `json:"-"`
-
-	Email *string `json:"email"`
-
-	EmailAlt *string `json:"email_alt"`
-
-	PhoneNumber *string `json:"phone_number"`
-
-	FaxNumber *string `json:"fax_number"`
-
-	AddressLine1 *string `json:"address_line_1"`
-
-	AddressLine2 *string `json:"address_line_2"`
-
-	Zip *string `json:"zip"`
-
-	City *string `json:"city"`
-
-	Country *string `json:"country"`
-
-	VatIdentificationCode *string `json:"vat_identification_code"`
-
-	CompanyIdentificationCode *string `json:"company_identification_code"`
-	// Lang: default value: unknown_language_code
-	Lang LanguageCode `json:"lang"`
-
-	Resale *bool `json:"resale"`
-	// Deprecated
-	Questions *[]*UpdateContactRequestQuestion `json:"questions,omitempty"`
-
-	ExtensionFr *ContactExtensionFR `json:"extension_fr"`
-
-	ExtensionEu *ContactExtensionEU `json:"extension_eu"`
-
-	WhoisOptIn *bool `json:"whois_opt_in"`
-
-	State *string `json:"state"`
-
-	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
-}
-
-// UpdateContact: update contact.
-// Edit the contact's information.
-func (s *RegistrarAPI) UpdateContact(req *RegistrarAPIUpdateContactRequest, opts ...scw.RequestOption) (*Contact, error) {
-	var err error
-
-	if fmt.Sprint(req.ContactID) == "" {
-		return nil, errors.New("field ContactID cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PATCH",
-		Path:    "/domain/v2beta1/contacts/" + fmt.Sprint(req.ContactID) + "",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Contact
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIListDomainsRequest struct {
-	Page *int32 `json:"-"`
-
-	PageSize *uint32 `json:"-"`
-	// OrderBy: default value: domain_asc
-	OrderBy ListDomainsRequestOrderBy `json:"-"`
-
-	Registrar *string `json:"-"`
-	// Status: default value: status_unknown
-	Status DomainStatus `json:"-"`
-
-	ProjectID *string `json:"-"`
-
-	OrganizationID *string `json:"-"`
-
-	IsExternal *bool `json:"-"`
-
-	Domain *string `json:"-"`
-}
-
-// ListDomains: list domains.
-// Retrieve the list of domains you own.
-func (s *RegistrarAPI) ListDomains(req *RegistrarAPIListDomainsRequest, opts ...scw.RequestOption) (*ListDomainsResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "registrar", req.Registrar)
-	parameter.AddToQuery(query, "status", req.Status)
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
-	parameter.AddToQuery(query, "is_external", req.IsExternal)
-	parameter.AddToQuery(query, "domain", req.Domain)
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/domains",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListDomainsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIListRenewableDomainsRequest struct {
-	Page *int32 `json:"-"`
-
-	PageSize *uint32 `json:"-"`
-	// OrderBy: default value: domain_asc
-	OrderBy ListRenewableDomainsRequestOrderBy `json:"-"`
-
-	ProjectID *string `json:"-"`
-
-	OrganizationID *string `json:"-"`
-}
-
-// ListRenewableDomains: list domains that can be renewed.
-// Retrieve the list of domains you own that can be renewed. You can also see the maximum renewal duration in years for your domains that are renewable.
-func (s *RegistrarAPI) ListRenewableDomains(req *RegistrarAPIListRenewableDomainsRequest, opts ...scw.RequestOption) (*ListRenewableDomainsResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-	parameter.AddToQuery(query, "order_by", req.OrderBy)
-	parameter.AddToQuery(query, "project_id", req.ProjectID)
-	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/renewable-domains",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListRenewableDomainsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIGetDomainRequest struct {
-	Domain string `json:"-"`
-}
-
-// GetDomain: get domain.
-// Retrieve a specific domain and display the domain's information.
-func (s *RegistrarAPI) GetDomain(req *RegistrarAPIGetDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIUpdateDomainRequest struct {
-	Domain string `json:"-"`
-
-	// Precisely one of TechnicalContact, TechnicalContactID must be set.
-	TechnicalContactID *string `json:"technical_contact_id,omitempty"`
-
-	// Precisely one of TechnicalContact, TechnicalContactID must be set.
-	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
-
-	// Precisely one of OwnerContact, OwnerContactID must be set.
-	OwnerContactID *string `json:"owner_contact_id,omitempty"`
-
-	// Precisely one of OwnerContact, OwnerContactID must be set.
-	OwnerContact *NewContact `json:"owner_contact,omitempty"`
-
-	// Precisely one of AdministrativeContact, AdministrativeContactID must be set.
-	AdministrativeContactID *string `json:"administrative_contact_id,omitempty"`
-
-	// Precisely one of AdministrativeContact, AdministrativeContactID must be set.
-	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
-}
-
-// UpdateDomain: update a domain's contacts.
-// Update contacts for a specific domain or create a new contact.<br/>
-// If you add the same contact for multiple roles (owner, administrative, technical), only one ID will be created and used for all of the roles.
-func (s *RegistrarAPI) UpdateDomain(req *RegistrarAPIUpdateDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PATCH",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPILockDomainTransferRequest struct {
-	Domain string `json:"-"`
-}
-
-// LockDomainTransfer: lock the transfer of a domain.
-// Lock the transfer of a domain. This means that the domain cannot be transferred and the authorization code cannot be requested to your current registrar.
-func (s *RegistrarAPI) LockDomainTransfer(req *RegistrarAPILockDomainTransferRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/lock-transfer",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIUnlockDomainTransferRequest struct {
-	Domain string `json:"-"`
-}
-
-// UnlockDomainTransfer: unlock the transfer of a domain.
-// Unlock the transfer of a domain. This means that the domain can be transferred and the authorization code can be requested to your current registrar.
-func (s *RegistrarAPI) UnlockDomainTransfer(req *RegistrarAPIUnlockDomainTransferRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/unlock-transfer",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIEnableDomainAutoRenewRequest struct {
-	Domain string `json:"-"`
-}
-
-// EnableDomainAutoRenew: enable auto renew.
-// Enable the `auto renew` feature for a domain. This means the domain will be automatically renewed before its expiry date.
-func (s *RegistrarAPI) EnableDomainAutoRenew(req *RegistrarAPIEnableDomainAutoRenewRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/enable-auto-renew",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIDisableDomainAutoRenewRequest struct {
-	Domain string `json:"-"`
-}
-
-// DisableDomainAutoRenew: disable auto renew.
-// Disable the `auto renew` feature for a domain. This means the domain will not be renewed before its expiry date.
-func (s *RegistrarAPI) DisableDomainAutoRenew(req *RegistrarAPIDisableDomainAutoRenewRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/disable-auto-renew",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIGetDomainAuthCodeRequest struct {
-	Domain string `json:"-"`
-}
-
-// GetDomainAuthCode: get a domain's authorization code.
-// Retrieve the authorization code to tranfer an unlocked domain. The output returns an error if the domain is locked.
-// Some TLDs may have a different procedure to retrieve the authorization code. In that case, the information displays in the message field.
-func (s *RegistrarAPI) GetDomainAuthCode(req *RegistrarAPIGetDomainAuthCodeRequest, opts ...scw.RequestOption) (*GetDomainAuthCodeResponse, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/auth-code",
-		Headers: http.Header{},
-	}
-
-	var resp GetDomainAuthCodeResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIEnableDomainDNSSECRequest struct {
-	Domain string `json:"-"`
-
-	DsRecord *DSRecord `json:"ds_record"`
-}
-
-// EnableDomainDNSSEC: update domain DNSSEC.
-// If your domain has the default Scaleway NS and uses another registrar, you have to update the DS record manually.
-func (s *RegistrarAPI) EnableDomainDNSSEC(req *RegistrarAPIEnableDomainDNSSECRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/enable-dnssec",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIDisableDomainDNSSECRequest struct {
-	Domain string `json:"-"`
-}
-
-// DisableDomainDNSSEC: disable a domain's DNSSEC.
-// Disable DNSSEC for a domain.
-func (s *RegistrarAPI) DisableDomainDNSSEC(req *RegistrarAPIDisableDomainDNSSECRequest, opts ...scw.RequestOption) (*Domain, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/disable-dnssec",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Domain
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPISearchAvailableDomainsRequest struct {
-	// Domains: a list of domain to search, TLD is optional.
-	Domains []string `json:"-"`
-	// Tlds: array of tlds to search on.
-	Tlds []string `json:"-"`
-	// StrictSearch: search exact match.
-	StrictSearch bool `json:"-"`
-}
-
-// SearchAvailableDomains: search available domains.
-// Search a domain or a maximum of 10 domains that are available.
-//
-// If the TLD list is empty or not set, the search returns the results from the most popular TLDs.
-func (s *RegistrarAPI) SearchAvailableDomains(req *RegistrarAPISearchAvailableDomainsRequest, opts ...scw.RequestOption) (*SearchAvailableDomainsResponse, error) {
-	var err error
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "domains", req.Domains)
-	parameter.AddToQuery(query, "tlds", req.Tlds)
-	parameter.AddToQuery(query, "strict_search", req.StrictSearch)
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/search-domains",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp SearchAvailableDomainsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPICreateDomainHostRequest struct {
-	Domain string `json:"-"`
-
-	Name string `json:"name"`
-
-	IPs []net.IP `json:"ips"`
-}
-
-// CreateDomainHost: create a hostname for a domain.
-// Create a hostname for a domain with glue IPs.
-func (s *RegistrarAPI) CreateDomainHost(req *RegistrarAPICreateDomainHostRequest, opts ...scw.RequestOption) (*Host, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "POST",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/hosts",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Host
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIListDomainHostsRequest struct {
-	Domain string `json:"-"`
-
-	Page *int32 `json:"-"`
-
-	PageSize *uint32 `json:"-"`
-}
-
-// ListDomainHosts: list a domain's hostnames.
-// List a domain's hostnames using their glue IPs.
-func (s *RegistrarAPI) ListDomainHosts(req *RegistrarAPIListDomainHostsRequest, opts ...scw.RequestOption) (*ListDomainHostsResponse, error) {
-	var err error
-
-	defaultPageSize, exist := s.client.GetDefaultPageSize()
-	if (req.PageSize == nil || *req.PageSize == 0) && exist {
-		req.PageSize = &defaultPageSize
-	}
-
-	query := url.Values{}
-	parameter.AddToQuery(query, "page", req.Page)
-	parameter.AddToQuery(query, "page_size", req.PageSize)
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "GET",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/hosts",
-		Query:   query,
-		Headers: http.Header{},
-	}
-
-	var resp ListDomainHostsResponse
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIUpdateDomainHostRequest struct {
-	Domain string `json:"-"`
-
-	Name string `json:"-"`
-
-	IPs *[]string `json:"ips"`
-}
-
-// UpdateDomainHost: update a domain's hostname.
-// Update a domain's hostname with glue IPs.
-func (s *RegistrarAPI) UpdateDomainHost(req *RegistrarAPIUpdateDomainHostRequest, opts ...scw.RequestOption) (*Host, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.Name) == "" {
-		return nil, errors.New("field Name cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "PATCH",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/hosts/" + fmt.Sprint(req.Name) + "",
-		Headers: http.Header{},
-	}
-
-	err = scwReq.SetBody(req)
-	if err != nil {
-		return nil, err
-	}
-
-	var resp Host
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-type RegistrarAPIDeleteDomainHostRequest struct {
-	Domain string `json:"-"`
-
-	Name string `json:"-"`
-}
-
-// DeleteDomainHost: delete a domain's hostname.
-func (s *RegistrarAPI) DeleteDomainHost(req *RegistrarAPIDeleteDomainHostRequest, opts ...scw.RequestOption) (*Host, error) {
-	var err error
-
-	if fmt.Sprint(req.Domain) == "" {
-		return nil, errors.New("field Domain cannot be empty in request")
-	}
-
-	if fmt.Sprint(req.Name) == "" {
-		return nil, errors.New("field Name cannot be empty in request")
-	}
-
-	scwReq := &scw.ScalewayRequest{
-		Method:  "DELETE",
-		Path:    "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/hosts/" + fmt.Sprint(req.Name) + "",
-		Headers: http.Header{},
-	}
-
-	var resp Host
-
-	err = s.client.Do(scwReq, &resp, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &resp, nil
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListDNSZonesResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListDNSZonesResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListDNSZonesResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.DNSZones = append(r.DNSZones, results.DNSZones...)
-	r.TotalCount += uint32(len(results.DNSZones))
-	return uint32(len(results.DNSZones)), nil
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListDNSZoneRecordsResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListDNSZoneRecordsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListDNSZoneRecordsResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Records = append(r.Records, results.Records...)
-	r.TotalCount += uint32(len(results.Records))
-	return uint32(len(results.Records)), nil
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListDNSZoneVersionsResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListDNSZoneVersionsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListDNSZoneVersionsResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Versions = append(r.Versions, results.Versions...)
-	r.TotalCount += uint32(len(results.Versions))
-	return uint32(len(results.Versions)), nil
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListDNSZoneVersionRecordsResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListDNSZoneVersionRecordsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListDNSZoneVersionRecordsResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Records = append(r.Records, results.Records...)
-	r.TotalCount += uint32(len(results.Records))
-	return uint32(len(results.Records)), nil
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListSSLCertificatesResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListSSLCertificatesResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListSSLCertificatesResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Certificates = append(r.Certificates, results.Certificates...)
-	r.TotalCount += uint32(len(results.Certificates))
-	return uint32(len(results.Certificates)), nil
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListTasksResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListTasksResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListTasksResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Tasks = append(r.Tasks, results.Tasks...)
-	r.TotalCount += uint32(len(results.Tasks))
-	return uint32(len(results.Tasks)), nil
+type ImportRawDNSZoneResponse struct {
+	// Records:
+	Records []*Record `json:"records"`
+}
+
+type ListContactsResponse struct {
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+	// Contacts:
+	Contacts []*ContactRoles `json:"contacts"`
 }
 
 // UnsafeGetTotalCount should not be used
@@ -4055,6 +1799,209 @@ func (r *ListContactsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Contacts)), nil
 }
 
+type ListDNSZoneNameserversRequest struct {
+	// ProjectID: Project ID on which to filter the returned DNS zone name servers.
+	ProjectID *string `json:"project_id,omitempty"`
+	// DNSZone: DNS zone on which to filter the returned DNS zone name servers.
+	DNSZone string `json:"-"`
+}
+
+type ListDNSZoneNameserversResponse struct {
+	// Ns: DNS zone name servers returned.
+	Ns []*Nameserver `json:"ns"`
+}
+
+type ListDNSZoneRecordsRequest struct {
+	// ProjectID: Project ID on which to filter the returned DNS zone records.
+	ProjectID *string `json:"project_id,omitempty"`
+	// OrderBy: Sort order of the returned DNS zone records.
+	OrderBy ListDNSZoneRecordsRequestOrderBy `json:"order_by"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Maximum number of DNS zone records per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// DNSZone: DNS zone on which to filter the returned DNS zone records.
+	DNSZone string `json:"-"`
+	// Name: Name on which to filter the returned DNS zone records.
+	Name string `json:"name"`
+	// Type: Record type on which to filter the returned DNS zone records.
+	Type RecordType `json:"type"`
+	// ID: Record ID on which to filter the returned DNS zone records.
+	ID *string `json:"id,omitempty"`
+}
+
+type ListDNSZoneRecordsResponse struct {
+	// TotalCount: Total number of DNS zone records.
+	TotalCount uint32 `json:"total_count"`
+	// Records: Paginated returned DNS zone records.
+	Records []*Record `json:"records"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListDNSZoneRecordsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListDNSZoneRecordsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListDNSZoneRecordsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Records = append(r.Records, results.Records...)
+	r.TotalCount += uint32(len(results.Records))
+	return uint32(len(results.Records)), nil
+}
+
+type ListDNSZoneVersionRecordsRequest struct {
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Maximum number of DNS zones versions records per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// DNSZoneVersionID:
+	DNSZoneVersionID string `json:"-"`
+}
+
+type ListDNSZoneVersionRecordsResponse struct {
+	// TotalCount: Total number of DNS zones versions records.
+	TotalCount uint32 `json:"total_count"`
+	// Records:
+	Records []*Record `json:"records"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListDNSZoneVersionRecordsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListDNSZoneVersionRecordsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListDNSZoneVersionRecordsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Records = append(r.Records, results.Records...)
+	r.TotalCount += uint32(len(results.Records))
+	return uint32(len(results.Records)), nil
+}
+
+type ListDNSZoneVersionsRequest struct {
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Maximum number of DNS zones versions per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// DNSZone:
+	DNSZone string `json:"-"`
+}
+
+type ListDNSZoneVersionsResponse struct {
+	// TotalCount: Total number of DNS zones versions.
+	TotalCount uint32 `json:"total_count"`
+	// Versions:
+	Versions []*DNSZoneVersion `json:"versions"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListDNSZoneVersionsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListDNSZoneVersionsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListDNSZoneVersionsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Versions = append(r.Versions, results.Versions...)
+	r.TotalCount += uint32(len(results.Versions))
+	return uint32(len(results.Versions)), nil
+}
+
+type ListDNSZonesRequest struct {
+	// OrganizationID: Organization ID on which to filter the returned DNS zones.
+	OrganizationID *string `json:"organization_id,omitempty"`
+	// ProjectID: Project ID on which to filter the returned DNS zones.
+	ProjectID *string `json:"project_id,omitempty"`
+	// OrderBy: Sort order of the returned DNS zones.
+	OrderBy ListDNSZonesRequestOrderBy `json:"order_by"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"page,omitempty"`
+	// PageSize: Maximum number of DNS zones to return per page.
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// Domain: Domain on which to filter the returned DNS zones.
+	Domain string `json:"domain"`
+	// DNSZone: DNS zone on which to filter the returned DNS zones.
+	DNSZone string `json:"dns_zone"`
+}
+
+type ListDNSZonesResponse struct {
+	// TotalCount: Total number of DNS zones matching the requested criteria.
+	TotalCount uint32 `json:"total_count"`
+	// DNSZones: Paginated returned DNS zones.
+	DNSZones []*DNSZone `json:"dns_zones"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListDNSZonesResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListDNSZonesResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListDNSZonesResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.DNSZones = append(r.DNSZones, results.DNSZones...)
+	r.TotalCount += uint32(len(results.DNSZones))
+	return uint32(len(results.DNSZones)), nil
+}
+
+type ListDomainHostsResponse struct {
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+	// Hosts:
+	Hosts []*Host `json:"hosts"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListDomainHostsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListDomainHostsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListDomainHostsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Hosts = append(r.Hosts, results.Hosts...)
+	r.TotalCount += uint32(len(results.Hosts))
+	return uint32(len(results.Hosts)), nil
+}
+
+type ListDomainsResponse struct {
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+	// Domains:
+	Domains []*DomainSummary `json:"domains"`
+}
+
 // UnsafeGetTotalCount should not be used
 // Internal usage only
 func (r *ListDomainsResponse) UnsafeGetTotalCount() uint32 {
@@ -4072,6 +2019,13 @@ func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Domains = append(r.Domains, results.Domains...)
 	r.TotalCount += uint32(len(results.Domains))
 	return uint32(len(results.Domains)), nil
+}
+
+type ListRenewableDomainsResponse struct {
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+	// Domains:
+	Domains []*RenewableDomain `json:"domains"`
 }
 
 // UnsafeGetTotalCount should not be used
@@ -4093,21 +2047,2644 @@ func (r *ListRenewableDomainsResponse) UnsafeAppend(res interface{}) (uint32, er
 	return uint32(len(results.Domains)), nil
 }
 
+type ListSSLCertificatesRequest struct {
+	// DNSZone:
+	DNSZone string `json:"dns_zone"`
+	// Page:
+	Page *int32 `json:"page,omitempty"`
+	// PageSize:
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// ProjectID:
+	ProjectID *string `json:"project_id,omitempty"`
+}
+
+type ListSSLCertificatesResponse struct {
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+	// Certificates:
+	Certificates []*SSLCertificate `json:"certificates"`
+}
+
 // UnsafeGetTotalCount should not be used
 // Internal usage only
-func (r *ListDomainHostsResponse) UnsafeGetTotalCount() uint32 {
+func (r *ListSSLCertificatesResponse) UnsafeGetTotalCount() uint32 {
 	return r.TotalCount
 }
 
 // UnsafeAppend should not be used
 // Internal usage only
-func (r *ListDomainHostsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListDomainHostsResponse)
+func (r *ListSSLCertificatesResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListSSLCertificatesResponse)
 	if !ok {
 		return 0, errors.New("%T type cannot be appended to type %T", res, r)
 	}
 
-	r.Hosts = append(r.Hosts, results.Hosts...)
-	r.TotalCount += uint32(len(results.Hosts))
-	return uint32(len(results.Hosts)), nil
+	r.Certificates = append(r.Certificates, results.Certificates...)
+	r.TotalCount += uint32(len(results.Certificates))
+	return uint32(len(results.Certificates)), nil
+}
+
+type ListTasksResponse struct {
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+	// Tasks:
+	Tasks []*Task `json:"tasks"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListTasksResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListTasksResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListTasksResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Tasks = append(r.Tasks, results.Tasks...)
+	r.TotalCount += uint32(len(results.Tasks))
+	return uint32(len(results.Tasks)), nil
+}
+
+type OrderResponse struct {
+	// Domains:
+	Domains []string `json:"domains"`
+	// OrganizationID:
+	OrganizationID string `json:"organization_id"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// TaskID:
+	TaskID string `json:"task_id"`
+	// CreatedAt:
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+}
+
+type RefreshDNSZoneRequest struct {
+	// DNSZone: DNS zone to refresh.
+	DNSZone string `json:"-"`
+	// RecreateDNSZone: Specifies whether or not to recreate the DNS zone.
+	RecreateDNSZone bool `json:"recreate_dns_zone"`
+	// RecreateSubDNSZone: Specifies whether or not to recreate the sub DNS zone.
+	RecreateSubDNSZone bool `json:"recreate_sub_dns_zone"`
+}
+
+type RefreshDNSZoneResponse struct {
+	// DNSZones: DNS zones returned.
+	DNSZones []*DNSZone `json:"dns_zones"`
+}
+
+type RegisterExternalDomainResponse struct {
+	// Domain:
+	Domain string `json:"domain"`
+	// OrganizationID:
+	OrganizationID string `json:"organization_id"`
+	// ValidationToken:
+	ValidationToken string `json:"validation_token"`
+	// CreatedAt:
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+}
+
+type RegistrarAPIBuyDomainsRequest struct {
+	// Domains:
+	Domains []string `json:"domains"`
+	// DurationInYears:
+	DurationInYears uint32 `json:"duration_in_years"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// OwnerContactID:
+	OwnerContactID *string `json:"owner_contact_id,omitempty"`
+	// OwnerContact:
+	OwnerContact *NewContact `json:"owner_contact,omitempty"`
+	// AdministrativeContactID:
+	AdministrativeContactID *string `json:"administrative_contact_id,omitempty"`
+	// AdministrativeContact:
+	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
+	// TechnicalContactID:
+	TechnicalContactID *string `json:"technical_contact_id,omitempty"`
+	// TechnicalContact:
+	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
+}
+
+type RegistrarAPICheckContactsCompatibilityRequest struct {
+	// Domains:
+	Domains []string `json:"domains"`
+	// Tlds:
+	Tlds []string `json:"tlds"`
+	// OwnerContactID:
+	OwnerContactID *string `json:"owner_contact_id,omitempty"`
+	// OwnerContact:
+	OwnerContact *NewContact `json:"owner_contact,omitempty"`
+	// AdministrativeContactID:
+	AdministrativeContactID *string `json:"administrative_contact_id,omitempty"`
+	// AdministrativeContact:
+	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
+	// TechnicalContactID:
+	TechnicalContactID *string `json:"technical_contact_id,omitempty"`
+	// TechnicalContact:
+	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
+}
+
+type RegistrarAPICreateDomainHostRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+	// Name:
+	Name string `json:"name"`
+	// IPs:
+	IPs []net.IP `json:"ips"`
+}
+
+type RegistrarAPIDeleteDomainHostRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+	// Name:
+	Name string `json:"-"`
+}
+
+type RegistrarAPIDeleteExternalDomainRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+}
+
+type RegistrarAPIDisableDomainAutoRenewRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+}
+
+type RegistrarAPIDisableDomainDNSSECRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+}
+
+type RegistrarAPIEnableDomainAutoRenewRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+}
+
+type RegistrarAPIEnableDomainDNSSECRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+	// DsRecord:
+	DsRecord *DSRecord `json:"ds_record"`
+}
+
+type RegistrarAPIGetContactRequest struct {
+	// ContactID:
+	ContactID string `json:"-"`
+}
+
+type RegistrarAPIGetDomainAuthCodeRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+}
+
+type RegistrarAPIGetDomainRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+}
+
+type RegistrarAPIListContactsRequest struct {
+	// Page:
+	Page *int32 `json:"page,omitempty"`
+	// PageSize:
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// Domain:
+	Domain *string `json:"domain,omitempty"`
+	// ProjectID:
+	ProjectID *string `json:"project_id,omitempty"`
+	// OrganizationID:
+	OrganizationID *string `json:"organization_id,omitempty"`
+}
+
+type RegistrarAPIListDomainHostsRequest struct {
+	// Page:
+	Page *int32 `json:"page,omitempty"`
+	// PageSize:
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// Domain:
+	Domain string `json:"-"`
+}
+
+type RegistrarAPIListDomainsRequest struct {
+	// Page:
+	Page *int32 `json:"page,omitempty"`
+	// PageSize:
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy:
+	OrderBy ListDomainsRequestOrderBy `json:"order_by"`
+	// Registrar:
+	Registrar *string `json:"registrar,omitempty"`
+	// Status:
+	Status DomainStatus `json:"status"`
+	// ProjectID:
+	ProjectID *string `json:"project_id,omitempty"`
+	// OrganizationID:
+	OrganizationID *string `json:"organization_id,omitempty"`
+	// IsExternal:
+	IsExternal *bool `json:"is_external,omitempty"`
+	// Domain:
+	Domain *string `json:"domain,omitempty"`
+}
+
+type RegistrarAPIListRenewableDomainsRequest struct {
+	// Page:
+	Page *int32 `json:"page,omitempty"`
+	// PageSize:
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// OrderBy:
+	OrderBy ListRenewableDomainsRequestOrderBy `json:"order_by"`
+	// ProjectID:
+	ProjectID *string `json:"project_id,omitempty"`
+	// OrganizationID:
+	OrganizationID *string `json:"organization_id,omitempty"`
+}
+
+type RegistrarAPIListTasksRequest struct {
+	// Page:
+	Page *int32 `json:"page,omitempty"`
+	// PageSize:
+	PageSize *uint32 `json:"page_size,omitempty"`
+	// ProjectID:
+	ProjectID *string `json:"project_id,omitempty"`
+	// OrganizationID:
+	OrganizationID *string `json:"organization_id,omitempty"`
+	// Domain:
+	Domain *string `json:"domain,omitempty"`
+	// Types:
+	Types []TaskType `json:"types"`
+	// Statuses:
+	Statuses []TaskStatus `json:"statuses"`
+	// OrderBy:
+	OrderBy ListTasksRequestOrderBy `json:"order_by"`
+}
+
+type RegistrarAPILockDomainTransferRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+}
+
+type RegistrarAPIRegisterExternalDomainRequest struct {
+	// Domain:
+	Domain string `json:"domain"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+}
+
+type RegistrarAPIRenewDomainsRequest struct {
+	// Domains:
+	Domains []string `json:"domains"`
+	// DurationInYears:
+	DurationInYears uint32 `json:"duration_in_years"`
+	// ForceLateRenewal:
+	ForceLateRenewal *bool `json:"force_late_renewal,omitempty"`
+}
+
+type RegistrarAPISearchAvailableDomainsRequest struct {
+	// Domains: A list of domain to search, TLD is optional.
+	Domains []string `json:"domains"`
+	// Tlds: Array of tlds to search on.
+	Tlds []string `json:"tlds"`
+	// StrictSearch: Search exact match.
+	StrictSearch bool `json:"strict_search"`
+}
+
+type RegistrarAPITradeDomainRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+	// ProjectID:
+	ProjectID *string `json:"project_id,omitempty"`
+	// NewOwnerContactID:
+	NewOwnerContactID *string `json:"new_owner_contact_id,omitempty"`
+	// NewOwnerContact:
+	NewOwnerContact *NewContact `json:"new_owner_contact,omitempty"`
+}
+
+type RegistrarAPITransferInDomainRequest struct {
+	// Domains:
+	Domains []*TransferInDomainRequestTransferRequest `json:"domains"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// OwnerContactID:
+	OwnerContactID *string `json:"owner_contact_id,omitempty"`
+	// OwnerContact:
+	OwnerContact *NewContact `json:"owner_contact,omitempty"`
+	// AdministrativeContactID:
+	AdministrativeContactID *string `json:"administrative_contact_id,omitempty"`
+	// AdministrativeContact:
+	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
+	// TechnicalContactID:
+	TechnicalContactID *string `json:"technical_contact_id,omitempty"`
+	// TechnicalContact:
+	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
+}
+
+type RegistrarAPIUnlockDomainTransferRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+}
+
+type RegistrarAPIUpdateContactRequest struct {
+	// ContactID:
+	ContactID string `json:"-"`
+	// Email:
+	Email *string `json:"email,omitempty"`
+	// EmailAlt:
+	EmailAlt *string `json:"email_alt,omitempty"`
+	// PhoneNumber:
+	PhoneNumber *string `json:"phone_number,omitempty"`
+	// FaxNumber:
+	FaxNumber *string `json:"fax_number,omitempty"`
+	// AddressLine1:
+	AddressLine1 *string `json:"address_line_1,omitempty"`
+	// AddressLine2:
+	AddressLine2 *string `json:"address_line_2,omitempty"`
+	// Zip:
+	Zip *string `json:"zip,omitempty"`
+	// City:
+	City *string `json:"city,omitempty"`
+	// Country:
+	Country *string `json:"country,omitempty"`
+	// VatIDentificationCode:
+	VatIDentificationCode *string `json:"vat_identification_code,omitempty"`
+	// CompanyIDentificationCode:
+	CompanyIDentificationCode *string `json:"company_identification_code,omitempty"`
+	// Lang:
+	Lang std.LanguageCode `json:"lang"`
+	// Resale:
+	Resale *bool `json:"resale,omitempty"`
+	// Questions:
+	Questions *[]*UpdateContactRequestQuestion `json:"questions,omitempty"`
+	// ExtensionFr:
+	ExtensionFr *ContactExtensionFR `json:"extension_fr"`
+	// ExtensionEu:
+	ExtensionEu *ContactExtensionEU `json:"extension_eu"`
+	// WhoisOptIn:
+	WhoisOptIn *bool `json:"whois_opt_in,omitempty"`
+	// State:
+	State *string `json:"state,omitempty"`
+	// ExtensionNl:
+	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
+}
+
+type RegistrarAPIUpdateDomainHostRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+	// Name:
+	Name string `json:"-"`
+	// IPs:
+	IPs *[]string `json:"ips,omitempty"`
+}
+
+type RegistrarAPIUpdateDomainRequest struct {
+	// Domain:
+	Domain string `json:"-"`
+	// TechnicalContactID:
+	TechnicalContactID *string `json:"technical_contact_id,omitempty"`
+	// TechnicalContact:
+	TechnicalContact *NewContact `json:"technical_contact,omitempty"`
+	// OwnerContactID:
+	OwnerContactID *string `json:"owner_contact_id,omitempty"`
+	// OwnerContact:
+	OwnerContact *NewContact `json:"owner_contact,omitempty"`
+	// AdministrativeContactID:
+	AdministrativeContactID *string `json:"administrative_contact_id,omitempty"`
+	// AdministrativeContact:
+	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
+}
+
+type RestoreDNSZoneVersionRequest struct {
+	// DNSZoneVersionID:
+	DNSZoneVersionID string `json:"-"`
+}
+
+type RestoreDNSZoneVersionResponse struct {
+}
+
+type SearchAvailableDomainsResponse struct {
+	// AvailableDomains: Array of available domains.
+	AvailableDomains []*AvailableDomain `json:"available_domains"`
+}
+
+type UpdateDNSZoneNameserversRequest struct {
+	// DNSZone: DNS zone in which to update the DNS zone name servers.
+	DNSZone string `json:"-"`
+	// Ns: New DNS zone name servers.
+	Ns []*Nameserver `json:"ns"`
+}
+
+type UpdateDNSZoneNameserversResponse struct {
+	// Ns: DNS zone name servers returned.
+	Ns []*Nameserver `json:"ns"`
+}
+
+type UpdateDNSZoneRecordsRequest struct {
+	// DNSZone: DNS zone in which to update the DNS zone records.
+	DNSZone string `json:"-"`
+	// Changes: Changes made to the records.
+	Changes []*RecordChange `json:"changes"`
+	// ReturnAllRecords: Specifies whether or not to return all the records.
+	ReturnAllRecords *bool `json:"return_all_records,omitempty"`
+	// DisallowNewZoneCreation: Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
+	DisallowNewZoneCreation bool `json:"disallow_new_zone_creation"`
+	// Serial: Use the provided serial (0) instead of the auto-increment serial.
+	Serial *uint64 `json:"serial,omitempty"`
+}
+
+type UpdateDNSZoneRecordsResponse struct {
+	// Records: DNS zone records returned.
+	Records []*Record `json:"records"`
+}
+
+type UpdateDNSZoneRequest struct {
+	// DNSZone: DNS zone to update.
+	DNSZone string `json:"-"`
+	// NewDNSZone: Name of the new DNS zone to create.
+	NewDNSZone *string `json:"new_dns_zone,omitempty"`
+	// ProjectID: Project ID in which to create the new DNS zone.
+	ProjectID string `json:"project_id"`
+}
+
+// The Domains and DNS API documentation allows you to configure and manage your domains' DNS zones and records. You can also use dynamic records to optimize and easily use your infrastructure as code.
+// Read our [reference content documentation](https://www.scaleway.com/en/docs/network/domains-and-dns/reference-content/) for more information about domains.
+//
+// Refer to the [Domains and DNS Registrar API documentation](https://www.scaleway.com/en/developers/api/domains-and-dns/registrar-api/) to find out how to buy,transfer and manage your domains and contacts (DNSSEC included).
+//
+// (switchcolumn)
+// (switchcolumn)
+// ## Concepts
+//
+// Refer to our [dedicated concepts page](https://www.scaleway.com/en/docs/network/domains-and-dns/concepts/) to find definitions of the different terms referring to Scaleway Domains and DNS.
+//
+// (switchcolumn)
+// (switchcolumn)
+// ## Quickstart
+//
+// 1. **Configure your environment variables.**
+//
+//	<Message type="note">
+//	This is an optional step that seeks to simplify your usage of the API.
+//	</Message>
+//
+//	```bash
+//	export SCW_ACCESS_KEY="<API access key>"
+//	export SCW_SECRET_KEY="<API secret key>"
+//	export SCW_PROJECT_ID="<Scaleway Project ID>"
+//	```
+//
+// 2. **Register an external domain.**
+//
+//	Run the following command to register your domain:
+//
+//	```bash
+//	curl https://api.scaleway.com/domain/v2beta1/external-domains \
+//	  -X POST \
+//	  -H "Content-Type: application/json" \
+//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
+//	  -d '{
+//	    "domain": "my-external-domain.test",
+//	    "project_id": "<Scaleway Project ID>"
+//	}'
+//	```
+//
+// 3. **Set up a TXT record.**
+//
+//	<Message type="important">
+//	  After you register your external domain, you must set up a TXT record **within 48 hours**. This step is optional if you have an internal domain.
+//	</Message>
+//
+//	Set up your TXT record as explained in **step 4** of our [documentation on how to add an external domain](https://www.scaleway.com/en/docs/network/domains-and-dns/how-to/add-external-domain/) to confirm you are the owner of the domain registered.
+//
+//	<Message type="note">
+//	  You will receive a confirmation email once your domain is validated. Your domain will then be available on the API.
+//	</Message>
+//
+// 4. **Update your DNS name servers.**
+//
+//	[Update your DNS name servers](https://www.scaleway.com/en/docs/network/domains-and-dns/how-to/manage-nameservers-internal-domain) to Scaleway's DNS name servers: `ns0.dom.scw.cloud` and `ns1.dom.scw.cloud`.
+//
+//	- For your domain: update the name servers at your registrar to point your domain to Scaleway's DNS servers
+//	- For your subdomain: update the name servers at your parent DNS server to point your subdomain to Scaleway's DNS servers
+//
+// 5. **Set up your domain's DNSSEC.**
+//
+//	You need to set up your domain's DNSSEC on the registry by your registrar and on the DNS server with the same information.
+//
+//	To set up the DNSSEC:
+//	* use the [Registrar API](https://www.scaleway.com/en/developers/api/domains-and-dns/registrar-api/#path-domains-update-domain-dnssec) `EnableDomainDNSSEC` to generate the setup on the DNS servers
+//	* if your domain is not registered on Scaleway but on another registrar, use the DS or public key information to configure the DNSSEC on your registrar
+//
+//	<Message type="tip">
+//	  You can remove your DNSSEC settings on your registrar before you migrate to our service. You will be able to set it up again afterwards.
+//	</Message>
+//
+// 6. **List your domains.**
+//
+//	Run the following command to retrieve the list of your domains:
+//
+//	```bash
+//	curl https://api.scaleway.com/domain/v2beta1/domains \
+//	  -H "X-Auth-Token: $SCW_SECRET_KEY"
+//	```
+//
+//	The following output displays:
+//
+//	```bash
+//	{
+//	  "total_count": 1,
+//	  "domains": [
+//	    {
+//	      "domain": "domain-external.test",
+//	      "organization_id": "<Scaleway Organization ID>",
+//	      "project_id": "<Scaleway Project ID>",
+//	      "auto_renew_status": "disabled",
+//	      "dnssec_status": "disabled",
+//	      "epp_code": [],
+//	      "expired_at": null,
+//	      "updated_at": "1970-01-01T00:00:00Z",
+//	      "registrar": "EXTERNAL",
+//	      "is_external": true,
+//	      "status": "active"
+//	    }
+//	  ]
+//	}
+//	```
+//
+// 7. **List the zones you can manage.**
+//
+//	Run the following command to list the DNS zones you can manage:
+//
+//	```bash
+//	curl https://api.scaleway.com/domain/v2beta1/dns-zones/ \
+//	  -H "X-Auth-Token: $SCW_SECRET_KEY"
+//	```
+//	An output similar to the following displays:
+//
+//	```bash
+//	{
+//	  "total_count": 3,
+//	  "dns_zones": [
+//	    {
+//	      "domain": "domain-external.test",
+//	      "subdomain": "",
+//	      "ns": [
+//	        "ns0.dom.scw.cloud",
+//	        "ns1.dom.scw.cloud"
+//	      ],
+//	      "ns_default": [
+//	        "ns0.dom.scw.cloud",
+//	        "ns1.dom.scw.cloud"
+//	      ],
+//	      "ns_master": [],
+//	      "status": "active",
+//	      "message": null,
+//	      "updated_at": "2022-06-21T01:34:55Z",
+//	      "project_id": "<Scaleway Project ID>"
+//	    },
+//	    {
+//	      "domain": "domain-external.test",
+//	      "subdomain": "test-zone",
+//	      "ns": [
+//	        "ns0.dom.scw.cloud",
+//	        "ns1.dom.scw.cloud"
+//	      ],
+//	      "ns_default": [
+//	        "ns0.dom.scw.cloud",
+//	        "ns1.dom.scw.cloud"
+//	      ],
+//	      "ns_master": [],
+//	      "status": "active",
+//	      "message": null,
+//	      "updated_at": "2022-06-21T01:34:55Z",
+//	      "project_id": "<Scaleway Project ID>"
+//	    },
+//	    {
+//	      "domain": "other-domain-external.test",
+//	      "subdomain": "",
+//	      "ns": [
+//	        "ns0.dom.scw.cloud",
+//	        "ns1.dom.scw.cloud"
+//	      ],
+//	      "ns_default": [
+//	        "ns0.dom.scw.cloud",
+//	        "ns1.dom.scw.cloud"
+//	      ],
+//	      "ns_master": [],
+//	      "status": "active",
+//	      "message": null,
+//	      "updated_at": "2022-06-21T01:34:55Z",
+//	      "project_id": "<Scaleway Project ID>"
+//	    }
+//	  ]
+//	}
+//
+//	```
+//
+// 8. **Update a zone's record(s).**
+//
+//	<Message type="important">
+//	  - The `clear` command clears all your records. You will have to setup your records again
+//	  - If the zone you want to update does not exist but is included in a managed zone, the API will create the new (sub) zone
+//	</Message>
+//
+//	Run the following command to update a zone's record:
+//
+//	```bash
+//	curl https://api.scaleway.com/domain/v2beta1/dns-zones/subdomain.domain-external.test/records \
+//	  -X PATCH \
+//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
+//	  -d '{
+//	    "changes": [
+//	      {
+//	        "clear": {}
+//	      },
+//	      {
+//	        "add": {
+//	          "records": [
+//	            {
+//	              "name": "test1",
+//	              "data": "127.0.0.1",
+//	              "type": "A",
+//	              "ttl": 3600
+//	            },
+//	            {
+//	              "name": "test2",
+//	              "data": "127.0.0.1",
+//	              "type": "A",
+//	              "ttl": 3600
+//	            }
+//	          ]
+//	        }
+//	      },
+//	      {
+//	        "set": {
+//	          "id_fields": {
+//	            "type": "A",
+//	            "name": "test2"
+//	          },
+//	          "records": [
+//	            {
+//	              "name": "test2",
+//	              "data": "127.0.0.2",
+//	              "type": "A",
+//	              "ttl": 3600
+//	            }
+//	          ]
+//	        }
+//	      },
+//	      {
+//	        "add": {
+//	          "records": [
+//	            {
+//	              "name": "test3",
+//	              "data": "127.0.0.3",
+//	              "type": "A",
+//	              "ttl": 3600
+//	            },
+//	            {
+//	              "name": "test3",
+//	              "data": "127.0.0.4",
+//	              "type": "A",
+//	              "ttl": 3600
+//	            }
+//	          ]
+//	        }
+//	      },
+//	      {
+//	        "delete": {
+//	          "id_fields": {
+//	            "name": "test3",
+//	            "data": "127.0.0.4",
+//	            "type": "A",
+//	            "ttl": 3600
+//	          }
+//	        }
+//	      }
+//	    ]
+//	  }'
+//	```
+//
+//	An output similar to the following displays:
+//
+//	```bash
+//	{
+//	  "records": [
+//	    {
+//	      "id": "<UUID>",
+//	      "data": "127.0.0.1",
+//	      "name": "test1",
+//	      "priority": 0,
+//	      "ttl": 3600,
+//	      "type": "A"
+//	    },
+//	    {
+//	      "id": "<UUID>",
+//	      "data": "127.0.0.1",
+//	      "name": "test2",
+//	      "priority": 0,
+//	      "ttl": 3600,
+//	      "type": "A"
+//	    },
+//	    {
+//	      "id": "<UUID>",
+//	      "data": "127.0.0.2",
+//	      "name": "test2",
+//	      "priority": 0,
+//	      "ttl": 3600,
+//	      "type": "A"
+//	    },
+//	    {
+//	      "id": "<UUID>",
+//	      "data": "127.0.0.3",
+//	      "name": "test3",
+//	      "priority": 0,
+//	      "ttl": 3600,
+//	      "type": "A"
+//	    }
+//	  ]
+//	}
+//	```
+//
+// 9. **Enable DNSSEC for external domains.**
+//
+//   - Run the following command if you have not set up DNSSEC at your registrar:
+//
+//     ```bash
+//     curl https://api.scaleway.com/domain/v2beta1/domains/example.com/enable-dnssec \
+//     -X POST \
+//     -H "Content-Type: application/json" \
+//     -H "X-Auth-Token: $SCW_SECRET_KEY" \
+//     -d '{}'
+//     ```
+//     An output similar to the following displays:
+//
+//     ```json
+//     {
+//     "domain":{
+//     "domain":"example.fr",
+//     "auto_renew_status":"enabled",
+//     "dnssec_status":"disabled",
+//     "ds_records":[
+//     {
+//     "key_id":49071,
+//     "algorithm":"ecdsap256sha256",
+//     "digest":{
+//     "type":"sha_384",
+//     "digest":"c14421f739e35b62e3383d5972263f93610dea31da48a1990453752cf1b4f4f0314f75ecd0bc9061c51ee41ec7692204"
+//     }
+//     }
+//     ],
+//     "epp":[
+//     "clientTransferProhibited"
+//     ],
+//     "expired_at":"2021-04-04T12:46:29Z",
+//     "updated_at":"2020-07-07T13:24:27Z",
+//     "registrar":"EXTERNAL",
+//     "is_external":true,
+//     "status":"active",
+//     "......"
+//     }
+//     ```
+//
+//     <Message type="important">
+//     Set up the information returned under `ds_records` in the output, in your registrar to configure DNSSEC for your external domain.
+//     </Message>
+//
+//   - Run the following command if you have already set up DNSSEC at your registrar:
+//
+//     ```bash
+//     curl https://api.scaleway.com/domain/v2beta1/domains/example.com/enable-dnssec \
+//     -X POST \
+//     -H "Content-Type: application/json" \
+//     -H "X-Auth-Token: $SCW_SECRET_KEY" \
+//     -d '{
+//     "ds_record": {
+//     "algorithm": "rsamd5",
+//     "digest":
+//     {
+//     "type": "sha_1",
+//     "digest": "ABCD"
+//     }
+//     }
+//     }'
+//     ```
+//
+// 10. **Enable DNSSEC for internal domains.**
+//
+//	Find out how to enable DNSSEC for your internal domains in our [dedicated documentation](https://www.scaleway.com/en/docs/network/domains-and-dns/how-to/configure-dnssec-internal-domain/).
+//
+// (switchcolumn)
+// <Message type="requirement">
+// - You have a [Scaleway account](https://console.scaleway.com/)
+// - You have [created an API key](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/identity-and-access-management/iam/reference-content/permission-sets/) to perform the actions described on this page
+// - You have your [Organization ID](https://console.scaleway.com/organization/settings)
+// - You have [installed `curl`](https://curl.se/download.html)
+// </Message>
+// (switchcolumn)
+//
+// ## Technical information
+//
+// ### Regional availability
+//
+// Scaleway Domains and DNS is currently available globally. Find out about [product availability in our dedicated documentation](https://www.scaleway.com/en/docs/console/my-account/reference-content/products-availability).
+//
+// ### Format
+//
+// - The format of record names is always in "short" format (i.e."test" instead of the FQDN "test.mydomain.com")
+// - If a data value is not in RFC format, quotes will be added for `TXT`records. If `CNAME`records are not in FQDDN, the zone will be added
+// ## Technical limitations
+//
+// - Only the owner of a domain can use and configure it with Domains and DNS
+// - Each zone supports the creation of sub-zones, which inherit the parent's Project ID
+// - We provide the following record types: `A`, `AAAA`, `CNAME`, `CAA`, `DNAME`, `MX`, `NAPTR`, `NS`, `SRV`, `TLSA` and `TXT`
+// - We support the following dynamic records: `http(s)` `health check` and `views`
+//
+// ## Going futher
+//
+// For more information about Domains and DNS, you can check out the following pages:
+//
+// - [Domains and DNS Documentation](https://www.scaleway.com/en/docs/network/domains-and-dns/)
+// - [Scaleway Slack Community](http://slack.scaleway.com) join the #domains channel
+// - [Contact our support team](https://console.scaleway.com/support/tickets)
+//
+// ### Test if the service is up
+//
+// Run the following command to test if an `http` or `https` service is up on a provided list of IPs:
+//
+// ```bash
+//
+//	curl https://api.scaleway.com/domain/v2beta1/dns-zones/dom.example.com/records \
+//	  -X PATCH \
+//	  -H "Content-Type: application/json" \
+//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
+//	  -d '{
+//	    "return_all_records": false,
+//	    "changes": [
+//	      {
+//	        "add": {
+//	          "records": [
+//	            {
+//	              "name": "service-www",
+//	              "data": "10.51.2.8",
+//	              "type": "A",
+//	              "ttl": 600,
+//	              "http_service_config": {
+//	                "ips": [
+//	                  "10.51.2.8",
+//	                  "10.51.3.7",
+//	                  "10.51.2.9"
+//	                ],
+//	                "must_contain": "I am fine",
+//	                "url": "https://www.domain-test.test"
+//	              }
+//	            }
+//	          ]
+//	        }
+//	      }
+//	    ]
+//	  }'
+//
+// ```
+//
+// <Message type="note">
+//
+//	An IP is considered healthy if the query response contains the text specified in `must_contain`. The record type can be one of `A` and `AAAA`.
+//
+// </Message>
+//
+// ### View
+//
+// Run the following command to view responses depending on the requester's or resolver's IP:
+//
+// ```bash
+//
+//	curl https://api.scaleway.com/domain/v2beta1/dns-zones/dom.example.com/records \
+//	  -X PATCH \
+//	  -H "Content-Type: application/json" \
+//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
+//	  -d '{
+//	    "return_all_records": false,
+//	    "changes": [
+//	      {
+//	        "set": {
+//	          "id_fields": {
+//	            "name": "test",
+//	            "type": "CNAME"
+//	          },
+//	          "records": [
+//	            {
+//	              "name": "test",
+//	              "data": "default-domain.com.",
+//	              "type": "CNAME",
+//	              "ttl": 600,
+//	              "view_config": {
+//	                "views": [
+//	                  {
+//	                    "subnet": "10.51.0.0/16",
+//	                    "data": "filtered-domain.com."
+//	                  }
+//	                ]
+//	              }
+//	            }
+//	          ]
+//	        }
+//	      }
+//	    ]
+//	  }'
+//
+// ```
+// <Message type="note">
+//
+//	Record types include `A`, `AAAA`, `CNAME` and `TXT`.
+//
+// </Message>
+type API struct {
+	client *scw.Client
+}
+
+// NewAPI returns a API object from a Scaleway client.
+func NewAPI(client *scw.Client) *API {
+	return &API{
+		client: client,
+	}
+}
+
+// ListDNSZones: Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
+func (s *API) ListDNSZones(req *ListDNSZonesRequest, opts ...scw.RequestOption) (*ListDNSZonesResponse, error) {
+	var err error
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "domain", req.Domain)
+	parameter.AddToQuery(query, "dns_zone", req.DNSZone)
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/dns-zones",
+		Query:  query,
+	}
+
+	var resp ListDNSZonesResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateDNSZone: Create a new DNS zone specified by the domain name, the subdomain and the Project ID.
+func (s *API) CreateDNSZone(req *CreateDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
+	var err error
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/dns-zones",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp DNSZone
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateDNSZone: Update the name and/or the Organizations for a DNS zone.
+func (s *API) UpdateDNSZone(req *UpdateDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
+	var err error
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp DNSZone
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CloneDNSZone: Clone an existing DNS zone with all its records into a new DNS zone.
+func (s *API) CloneDNSZone(req *CloneDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/clone",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp DNSZone
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteDNSZone: Delete a DNS zone and all its records.
+func (s *API) DeleteDNSZone(req *DeleteDNSZoneRequest, opts ...scw.RequestOption) (*DeleteDNSZoneResponse, error) {
+	var err error
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "",
+		Query:  query,
+	}
+
+	var resp DeleteDNSZoneResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListDNSZoneRecords: Retrieve a list of DNS records within a DNS zone that has default name servers.
+// You can filter records by type and name.
+func (s *API) ListDNSZoneRecords(req *ListDNSZoneRecordsRequest, opts ...scw.RequestOption) (*ListDNSZoneRecordsResponse, error) {
+	var err error
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "name", req.Name)
+	parameter.AddToQuery(query, "type", req.Type)
+	parameter.AddToQuery(query, "id", req.ID)
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/records",
+		Query:  query,
+	}
+
+	var resp ListDNSZoneRecordsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateDNSZoneRecords: Update records within a DNS zone that has default name servers and perform several actions on your records.
+//
+// Actions include:
+//   - add: allows you to add a new record or add a new IP to an existing A record, for example
+//   - set: allows you to edit a record or edit an IP from an existing A record, for example
+//   - delete: allows you to delete a record or delete an IP from an existing A record, for example
+//   - clear: allows you to delete all records from a DNS zone
+//
+// All edits will be versioned.
+func (s *API) UpdateDNSZoneRecords(req *UpdateDNSZoneRecordsRequest, opts ...scw.RequestOption) (*UpdateDNSZoneRecordsResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/records",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp UpdateDNSZoneRecordsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListDNSZoneNameservers: Retrieve a list of name servers within a DNS zone and their optional glue records.
+func (s *API) ListDNSZoneNameservers(req *ListDNSZoneNameserversRequest, opts ...scw.RequestOption) (*ListDNSZoneNameserversResponse, error) {
+	var err error
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/nameservers",
+		Query:  query,
+	}
+
+	var resp ListDNSZoneNameserversResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateDNSZoneNameservers: Update name servers within a DNS zone and set optional glue records.
+func (s *API) UpdateDNSZoneNameservers(req *UpdateDNSZoneNameserversRequest, opts ...scw.RequestOption) (*UpdateDNSZoneNameserversResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PUT",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/nameservers",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp UpdateDNSZoneNameserversResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ClearDNSZoneRecords: Delete all records within a DNS zone that has default name servers.<br/>
+// All edits will be versioned.
+func (s *API) ClearDNSZoneRecords(req *ClearDNSZoneRecordsRequest, opts ...scw.RequestOption) (*ClearDNSZoneRecordsResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/records",
+	}
+
+	var resp ClearDNSZoneRecordsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ExportRawDNSZone: Export a DNS zone with default name servers, in a specific format.
+func (s *API) ExportRawDNSZone(req *ExportRawDNSZoneRequest, opts ...scw.RequestOption) (*scw.File, error) {
+	var err error
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "format", req.Format)
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/raw",
+		Query:  query,
+	}
+
+	var resp scw.File
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ImportRawDNSZone: Import and replace the format of records from a given provider, with default name servers.
+func (s *API) ImportRawDNSZone(req *ImportRawDNSZoneRequest, opts ...scw.RequestOption) (*ImportRawDNSZoneResponse, error) {
+	var err error
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/raw",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp ImportRawDNSZoneResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ImportProviderDNSZone: Import and replace the format of records from a given provider, with default name servers.
+func (s *API) ImportProviderDNSZone(req *ImportProviderDNSZoneRequest, opts ...scw.RequestOption) (*ImportProviderDNSZoneResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/import-provider",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp ImportProviderDNSZoneResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// RefreshDNSZone: Refresh an SOA DNS zone to reload the records in the DNS zone and update the SOA serial.
+// You can recreate the given DNS zone and its sub DNS zone if needed.
+func (s *API) RefreshDNSZone(req *RefreshDNSZoneRequest, opts ...scw.RequestOption) (*RefreshDNSZoneResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/refresh",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp RefreshDNSZoneResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListDNSZoneVersions: Retrieve a list of a DNS zone's versions.<br/>
+// The maximum version count is 100. If the count reaches this limit, the oldest version will be deleted after each new modification.
+func (s *API) ListDNSZoneVersions(req *ListDNSZoneVersionsRequest, opts ...scw.RequestOption) (*ListDNSZoneVersionsResponse, error) {
+	var err error
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/versions",
+		Query:  query,
+	}
+
+	var resp ListDNSZoneVersionsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListDNSZoneVersionRecords: Retrieve a list of records from a specific DNS zone version.
+func (s *API) ListDNSZoneVersionRecords(req *ListDNSZoneVersionRecordsRequest, opts ...scw.RequestOption) (*ListDNSZoneVersionRecordsResponse, error) {
+	var err error
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+
+	if fmt.Sprint(req.DNSZoneVersionID) == "" {
+		return nil, errors.New("field DNSZoneVersionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/dns-zones/version/" + fmt.Sprint(req.DNSZoneVersionID) + "",
+		Query:  query,
+	}
+
+	var resp ListDNSZoneVersionRecordsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetDNSZoneVersionDiff: Access a previous DNS zone version to see the differences from another specific version.
+func (s *API) GetDNSZoneVersionDiff(req *GetDNSZoneVersionDiffRequest, opts ...scw.RequestOption) (*GetDNSZoneVersionDiffResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZoneVersionID) == "" {
+		return nil, errors.New("field DNSZoneVersionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/dns-zones/version/" + fmt.Sprint(req.DNSZoneVersionID) + "/diff",
+	}
+
+	var resp GetDNSZoneVersionDiffResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// RestoreDNSZoneVersion: Restore and activate a version of a specific DNS zone.
+func (s *API) RestoreDNSZoneVersion(req *RestoreDNSZoneVersionRequest, opts ...scw.RequestOption) (*RestoreDNSZoneVersionResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZoneVersionID) == "" {
+		return nil, errors.New("field DNSZoneVersionID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/dns-zones/version/" + fmt.Sprint(req.DNSZoneVersionID) + "/restore",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp RestoreDNSZoneVersionResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetSSLCertificate: Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns `no certificate found`.
+func (s *API) GetSSLCertificate(req *GetSSLCertificateRequest, opts ...scw.RequestOption) (*SSLCertificate, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/ssl-certificates/" + fmt.Sprint(req.DNSZone) + "",
+	}
+
+	var resp SSLCertificate
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateSSLCertificate: Create a new TLS certificate or retrieve information about an existing TLS certificate.
+func (s *API) CreateSSLCertificate(req *CreateSSLCertificateRequest, opts ...scw.RequestOption) (*SSLCertificate, error) {
+	var err error
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/ssl-certificates",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp SSLCertificate
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListSSLCertificates: List all the TLS certificates a user has created, specified by the user's Project ID and the DNS zone.
+func (s *API) ListSSLCertificates(req *ListSSLCertificatesRequest, opts ...scw.RequestOption) (*ListSSLCertificatesResponse, error) {
+	var err error
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "dns_zone", req.DNSZone)
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/ssl-certificates",
+		Query:  query,
+	}
+
+	var resp ListSSLCertificatesResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteSSLCertificate: Delete an existing TLS certificate specified by its DNS zone. Deleting a TLS certificate is permanent and cannot be undone.
+func (s *API) DeleteSSLCertificate(req *DeleteSSLCertificateRequest, opts ...scw.RequestOption) (*DeleteSSLCertificateResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/domain/v2beta1/ssl-certificates/" + fmt.Sprint(req.DNSZone) + "",
+	}
+
+	var resp DeleteSSLCertificateResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetDNSZoneTsigKey: Retrieve information about the TSIG key of a given DNS zone to allow AXFR requests.
+func (s *API) GetDNSZoneTsigKey(req *GetDNSZoneTsigKeyRequest, opts ...scw.RequestOption) (*GetDNSZoneTsigKeyResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return nil, errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/tsig-key",
+	}
+
+	var resp GetDNSZoneTsigKeyResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteDNSZoneTsigKey: Delete an existing TSIG key specified by its DNS zone. Deleting a TSIG key is permanent and cannot be undone.
+func (s *API) DeleteDNSZoneTsigKey(req *DeleteDNSZoneTsigKeyRequest, opts ...scw.RequestOption) error {
+	var err error
+
+	if fmt.Sprint(req.DNSZone) == "" {
+		return errors.New("field DNSZone cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/domain/v2beta1/dns-zones/" + fmt.Sprint(req.DNSZone) + "/tsig-key",
+	}
+
+	err = s.client.Do(scwReq, nil, opts...)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// The Domains and DNS registrar API documentation allows you to buy, transfer and manage your domains and contacts (DNSSEC included) as a simple client or a reseller.
+//
+// Read our [reference content documentation for more information about domains](https://www.scaleway.com/en/docs/network/domains-and-dns/reference-content/).
+//
+// (switchcolumn)
+// (switchcolumn)
+// ## Concepts
+//
+// Refer to our [dedicated concepts page](https://www.scaleway.com/en/docs/network/domains-and-dns/concepts/) to find definitions of the different terms referring to Scaleway Domains and DNS.
+//
+// (switchcolumn)
+// (switchcolumn)
+// ## Quickstart
+//
+// 1. **Configure your environment variables.**
+//
+//	<Message type="note">
+//	This is an optional step that seeks to simplify your usage of the API.
+//	</Message>
+//
+//	```bash
+//	export SCW_ACCESS_KEY="<API access key>"
+//	export SCW_SECRET_KEY="<API secret key>"
+//	export SCW_PROJECT_ID="<Scaleway Project ID>"
+//	```
+//
+// 2. **Get information about your domains.**
+//
+//		<Message type="important">
+//	      You must specify the domain you want to get information for if you want to get information about one specific domain.
+//	    </Message>
+//
+//		Run the following command to get information about your domains:
+//
+//		```bash
+//		curl https://api.scaleway.com/domain/v2beta1/search-domains?domains=domain-example.fr \
+//		-H "X-Auth-Token: $secret_key"
+//		```
+//
+//		An output similar to the following displays:
+//
+//		```bash
+//		{
+//			"available_domains": [
+//				{
+//					"domain": "domain-example.fr",
+//					"available": true,
+//					"tld": {
+//						"name": "fr",
+//						"dnssec_support": true,
+//						"duration_in_years_min": 1,
+//						"duration_in_years_max": 10,
+//						"idn_support": true,
+//						"offers": {
+//							"create": {
+//								"action": "create",
+//								"operation_path": "/network/domain/domains/fr/register",
+//								"price": {
+//									"currency_code": "EUR",
+//									"units": 123,
+//									"nanos": 456000000
+//								}
+//							},
+//							"late_renew": {
+//								"action": "late_renew",
+//								"operation_path": "/network/domain/domains/fr/late_renew",
+//								"price": {
+//									"currency_code": "EUR",
+//									"units": 123,
+//									"nanos": 456000000
+//								}
+//							},
+//							"renew": {
+//								"action": "renew",
+//								"operation_path": "/network/domain/domains/fr/renew",
+//								"price": {
+//									"currency_code": "EUR",
+//									"units": 123,
+//									"nanos": 456000000
+//								}
+//							},
+//							"trade": {
+//								"action": "trade",
+//								"operation_path": "/network/domain/domains/fr/trade",
+//								"price": {
+//									"currency_code": "EUR",
+//									"units": 123,
+//									"nanos": 456000000
+//								}
+//							},
+//							"transfer": {
+//								"action": "transfer",
+//								"operation_path": "/network/domain/domains/fr/transfer",
+//								"price": {
+//									"currency_code": "EUR",
+//									"units": 123,
+//									"nanos": 456000000
+//								}
+//							}
+//						},
+//						"specifications": {
+//							"afnic": "1",
+//							"grace_period": "1",
+//							"transfer_without_contact": "1"
+//						}
+//					}
+//				}
+//			]
+//		}
+//		```
+//		<Message type="note">
+//
+//		 - `available` indicates wether the domain is available to be ordered and created at the registry
+//		 - `tld` indicates wether TLD is supported, the different actions and prices available. If TLD is not supported, `null` is returned in the output
+//		 - `offers` indicates the different actions and prices available
+//		 - `specifications` includes tags to indicate TLD specifications
+//		 - `currency_code` indicates the available currency. Currently only euro is available
+//		 - `units` and `nanos` compose the price
+//	    </Message>
+//
+// 3. **Manage an external domain.**
+//
+//	Refer to the Domains and DNS API documentation to find out [how to register and manage an external domain](https://www.scaleway.com/en/developers/api/domains-and-dns/#quickstart).
+//
+// 4. **Purchase a domain.**
+//
+//	Run the following command to purchase a domain:
+//
+//	```bash
+//	curl https://api.scaleway.com/domain/v2beta1/buy-domains \
+//	-X POST \
+//	-H "X-Auth-Token: $SCW_SECRET_KEY" \
+//	-d '{
+//		"domains": [
+//			"my_domain.fr"
+//		],
+//		"project_id": "$project_id",
+//		"duration_in_years": 1,
+//		"owner_contact": {
+//			"legal_form": "individual",
+//			"country": "FR",
+//			"lastname": "DOE",
+//			"firstname": "John",
+//			"city": "Lille",
+//			"address_line_1": "37 rue de la barre",
+//			"zip": "59800",
+//			"email": "email@mail.fr",
+//			"country": "FR",
+//			"phone_number": "0123456789",
+//			"resale": true,
+//			"extension_fr": {
+//				"mode": "individual",
+//				"individual_info": {
+//					"whois_opt_in": true
+//				}
+//			}
+//		}
+//	}
+//	```
+//	<Message type="note">
+//
+//	`extension_fr.individual_info.whois_opt_in` returns `false` if the information of the domain's owner is anonymous. It returns `true` if the information of the domain's owner is published in whois.
+//	</Message>
+//
+// 4. **List your domains.**
+//
+//	Run the following command to list your domains:
+//
+//	```bash
+//	curl https://api.scaleway.com/domain/v2beta1/domains \
+//	-H "X-Auth-Token: $SCW_SECRET_KEY"
+//	```
+//	An output similar to the following displays:
+//
+//	```bash
+//	{
+//	"total_count": 1,
+//	"domains": [
+//		{
+//		"domain": "my_domain.fr",
+//		"project_id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxxxx",
+//		"organization_id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxxxx",
+//		"auto_renew_status": "disabled",
+//		"dnssec_status": "disabled",
+//		"epp_code": [
+//			"clientTransferProhibited"
+//		],
+//		"expired_at": "1970-01-01T00:00:00Z",
+//		"updated_at": "1970-01-01T00:00:00Z",
+//		"registrar": "SCALEWAY",
+//		"is_external": false,
+//		"status": "active"
+//		}
+//	]
+//	}
+//	```
+//
+// 5. **Enable DNSSEC for external domains.**
+//
+//   - Run the following command if you have not set up DNSSEC at your registrar:
+//
+//     ```bash
+//     curl https://api.scaleway.com/domain/v2beta1/domains/example.com/enable-dnssec \
+//     -X POST \
+//     -H "Content-Type: application/json" \
+//     -H "X-Auth-Token: $SCW_SECRET_KEY" \
+//     -d '{}'
+//     ```
+//     An output similar to the following displays:
+//
+//     ```json
+//     {
+//     "domain":{
+//     "domain":"example.fr",
+//     "auto_renew_status":"enabled",
+//     "dnssec_status":"disabled",
+//     "ds_records":[
+//     {
+//     "key_id":49071,
+//     "algorithm":"ecdsap256sha256",
+//     "digest":{
+//     "type":"sha_384",
+//     "digest":"c14421f739e35b62e3383d5972263f93610dea31da48a1990453752cf1b4f4f0314f75ecd0bc9061c51ee41ec7692204"
+//     }
+//     }
+//     ],
+//     "epp":[
+//     "clientTransferProhibited"
+//     ],
+//     "expired_at":"2021-04-04T12:46:29Z",
+//     "updated_at":"2020-07-07T13:24:27Z",
+//     "registrar":"EXTERNAL",
+//     "is_external":true,
+//     "status":"active",
+//     "......"
+//     }
+//     ```
+//
+//     <Message type="important">
+//     Set up the information returned under `ds_records` in the output, in your registrar to configure DNSSEC for your external domain.
+//     </Message>
+//
+//   - Run the following command if you have already set up DNSSEC at your registrar:
+//
+//     ```bash
+//     curl https://api.scaleway.com/domain/v2beta1/domains/example.com/enable-dnssec \
+//     -X POST \
+//     -H "Content-Type: application/json" \
+//     -H "X-Auth-Token: $SCW_SECRET_KEY" \
+//     -d '{
+//     "ds_record": {
+//     "algorithm": "rsamd5",
+//     "digest":
+//     {
+//     "type": "sha_1",
+//     "digest": "ABCD"
+//     }
+//     }
+//     }'
+//     ```
+//
+// 6. **Enable DNSSEC for internal domains.**
+//
+//	    Find out how to enable DNSSEC for your internal domains in our [dedicated documentation](https://www.scaleway.com/en/docs/network/domains-and-dns/how-to/configure-dnssec-internal-domain/).
+//
+//		<Message type="important">
+//		 If your DNS service is managed by Scaleway, no other information is required from you you will need to provide the DS or public key information.
+//		</Message>
+//
+// (switchcolumn)
+// <Message type="requirement">
+// - You have a [Scaleway account](https://console.scaleway.com/)
+// - You have [created an API key](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/identity-and-access-management/iam/reference-content/permission-sets/) to perform the actions described on this page
+// - You have your [Organization ID](https://console.scaleway.com/organization/settings)
+// - You are the owner of your domain
+// - You have [installed `curl`](https://curl.se/download.html)
+// </Message>
+// (switchcolumn)
+//
+// ## Technical information
+//
+// ### Regional availability
+//
+// Scaleway Domains and DNS is currently available globally. Find out about [product availability in our dedicated documentation](https://www.scaleway.com/en/docs/console/my-account/reference-content/products-availability).
+//
+// ## Technical limitations
+//
+// - Only the owner of a domain can use and configure it with Domains and DNS
+// - Each zone supports the creation of sub-zones, which inherit the parent's Project ID
+//
+// ## Going futher
+//
+// For more information about Domains and DNS, you can check out the following pages:
+//
+// - [Domains and DNS Documentation](https://www.scaleway.com/en/docs/network/domains-and-dns/)
+// - [Scaleway Slack Community](http://slack.scaleway.com) join the #domains channel
+// - [Contact our support team](https://console.scaleway.com/support/tickets).
+type RegistrarAPI struct {
+	client *scw.Client
+}
+
+// NewRegistrarAPI returns a RegistrarAPI object from a Scaleway client.
+func NewRegistrarAPI(client *scw.Client) *RegistrarAPI {
+	return &RegistrarAPI{
+		client: client,
+	}
+}
+
+// ListTasks: List all operations performed on the account.
+// You can filter the list of tasks by domain name.
+func (s *RegistrarAPI) ListTasks(req *RegistrarAPIListTasksRequest, opts ...scw.RequestOption) (*ListTasksResponse, error) {
+	var err error
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
+	parameter.AddToQuery(query, "domain", req.Domain)
+	parameter.AddToQuery(query, "types", req.Types)
+	parameter.AddToQuery(query, "statuses", req.Statuses)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/tasks",
+		Query:  query,
+	}
+
+	var resp ListTasksResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// BuyDomains: Request the registration of domain names.
+// You can provide a domain's already existing contact or a new contact.
+func (s *RegistrarAPI) BuyDomains(req *RegistrarAPIBuyDomainsRequest, opts ...scw.RequestOption) (*OrderResponse, error) {
+	var err error
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/buy-domains",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp OrderResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// RenewDomains: Request the renewal of one or more domain names.
+func (s *RegistrarAPI) RenewDomains(req *RegistrarAPIRenewDomainsRequest, opts ...scw.RequestOption) (*OrderResponse, error) {
+	var err error
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/renew-domains",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp OrderResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// TransferInDomain: Request the transfer of a domain from another registrar to Scaleway Domains and DNS.
+func (s *RegistrarAPI) TransferInDomain(req *RegistrarAPITransferInDomainRequest, opts ...scw.RequestOption) (*OrderResponse, error) {
+	var err error
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/domains/transfer-domains",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp OrderResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// TradeDomain: Request to change a domain's contact owner.<br/>
+// If you specify the `organization_id` of the domain's new owner, the contact will change from the current owner's Scaleway account to the new owner's Scaleway account.<br/>
+// If the new owner's current contact information is not available, the first ever contact they have created for previous domains is taken into account to operate the change.<br/>
+// If the new owner has never created a contact to register domains before, an error message displays.
+func (s *RegistrarAPI) TradeDomain(req *RegistrarAPITradeDomainRequest, opts ...scw.RequestOption) (*OrderResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/trade",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp OrderResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// RegisterExternalDomain: Request the registration of an external domain name.
+func (s *RegistrarAPI) RegisterExternalDomain(req *RegistrarAPIRegisterExternalDomainRequest, opts ...scw.RequestOption) (*RegisterExternalDomainResponse, error) {
+	var err error
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/external-domains",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp RegisterExternalDomainResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteExternalDomain: Delete an external domain name.
+func (s *RegistrarAPI) DeleteExternalDomain(req *RegistrarAPIDeleteExternalDomainRequest, opts ...scw.RequestOption) (*DeleteExternalDomainResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/domain/v2beta1/external-domains/" + fmt.Sprint(req.Domain) + "",
+	}
+
+	var resp DeleteExternalDomainResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CheckContactsCompatibility: Check whether contacts are compatible with a domain or a TLD.
+// If contacts are not compatible with either the domain or the TLD, the information that needs to be corrected is returned.
+func (s *RegistrarAPI) CheckContactsCompatibility(req *RegistrarAPICheckContactsCompatibilityRequest, opts ...scw.RequestOption) (*CheckContactsCompatibilityResponse, error) {
+	var err error
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/check-contacts-compatibility",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp CheckContactsCompatibilityResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListContacts: Retrieve the list of contacts and their associated domains and roles.
+// You can filter the list by domain name.
+func (s *RegistrarAPI) ListContacts(req *RegistrarAPIListContactsRequest, opts ...scw.RequestOption) (*ListContactsResponse, error) {
+	var err error
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "domain", req.Domain)
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/contacts",
+		Query:  query,
+	}
+
+	var resp ListContactsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetContact: Retrieve a contact's details from the registrar using the given contact's ID.
+func (s *RegistrarAPI) GetContact(req *RegistrarAPIGetContactRequest, opts ...scw.RequestOption) (*Contact, error) {
+	var err error
+
+	if fmt.Sprint(req.ContactID) == "" {
+		return nil, errors.New("field ContactID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/contacts/" + fmt.Sprint(req.ContactID) + "",
+	}
+
+	var resp Contact
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateContact: Edit the contact's information.
+func (s *RegistrarAPI) UpdateContact(req *RegistrarAPIUpdateContactRequest, opts ...scw.RequestOption) (*Contact, error) {
+	var err error
+
+	if fmt.Sprint(req.ContactID) == "" {
+		return nil, errors.New("field ContactID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/domain/v2beta1/contacts/" + fmt.Sprint(req.ContactID) + "",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Contact
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListDomains: Retrieve the list of domains you own.
+func (s *RegistrarAPI) ListDomains(req *RegistrarAPIListDomainsRequest, opts ...scw.RequestOption) (*ListDomainsResponse, error) {
+	var err error
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "registrar", req.Registrar)
+	parameter.AddToQuery(query, "status", req.Status)
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
+	parameter.AddToQuery(query, "is_external", req.IsExternal)
+	parameter.AddToQuery(query, "domain", req.Domain)
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/domains",
+		Query:  query,
+	}
+
+	var resp ListDomainsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListRenewableDomains: Retrieve the list of domains you own that can be renewed. You can also see the maximum renewal duration in years for your domains that are renewable.
+func (s *RegistrarAPI) ListRenewableDomains(req *RegistrarAPIListRenewableDomainsRequest, opts ...scw.RequestOption) (*ListRenewableDomainsResponse, error) {
+	var err error
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/renewable-domains",
+		Query:  query,
+	}
+
+	var resp ListRenewableDomainsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetDomain: Retrieve a specific domain and display the domain's information.
+func (s *RegistrarAPI) GetDomain(req *RegistrarAPIGetDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "",
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateDomain: Update contacts for a specific domain or create a new contact.<br/>
+// If you add the same contact for multiple roles (owner, administrative, technical), only one ID will be created and used for all of the roles.
+func (s *RegistrarAPI) UpdateDomain(req *RegistrarAPIUpdateDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// LockDomainTransfer: Lock the transfer of a domain. This means that the domain cannot be transferred and the authorization code cannot be requested to your current registrar.
+func (s *RegistrarAPI) LockDomainTransfer(req *RegistrarAPILockDomainTransferRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/lock-transfer",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UnlockDomainTransfer: Unlock the transfer of a domain. This means that the domain can be transferred and the authorization code can be requested to your current registrar.
+func (s *RegistrarAPI) UnlockDomainTransfer(req *RegistrarAPIUnlockDomainTransferRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/unlock-transfer",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// EnableDomainAutoRenew: Enable the `auto renew` feature for a domain. This means the domain will be automatically renewed before its expiry date.
+func (s *RegistrarAPI) EnableDomainAutoRenew(req *RegistrarAPIEnableDomainAutoRenewRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/enable-auto-renew",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DisableDomainAutoRenew: Disable the `auto renew` feature for a domain. This means the domain will not be renewed before its expiry date.
+func (s *RegistrarAPI) DisableDomainAutoRenew(req *RegistrarAPIDisableDomainAutoRenewRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/disable-auto-renew",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetDomainAuthCode: Retrieve the authorization code to tranfer an unlocked domain. The output returns an error if the domain is locked.
+// Some TLDs may have a different procedure to retrieve the authorization code. In that case, the information displays in the message field.
+func (s *RegistrarAPI) GetDomainAuthCode(req *RegistrarAPIGetDomainAuthCodeRequest, opts ...scw.RequestOption) (*GetDomainAuthCodeResponse, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/auth-code",
+	}
+
+	var resp GetDomainAuthCodeResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// EnableDomainDNSSEC: If your domain has the default Scaleway NS and uses another registrar, you have to update the DS record manually.
+func (s *RegistrarAPI) EnableDomainDNSSEC(req *RegistrarAPIEnableDomainDNSSECRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/enable-dnssec",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DisableDomainDNSSEC: Disable DNSSEC for a domain.
+func (s *RegistrarAPI) DisableDomainDNSSEC(req *RegistrarAPIDisableDomainDNSSECRequest, opts ...scw.RequestOption) (*Domain, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/disable-dnssec",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Domain
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// SearchAvailableDomains: Search a domain or a maximum of 10 domains that are available.
+//
+// If the TLD list is empty or not set, the search returns the results from the most popular TLDs.
+func (s *RegistrarAPI) SearchAvailableDomains(req *RegistrarAPISearchAvailableDomainsRequest, opts ...scw.RequestOption) (*SearchAvailableDomainsResponse, error) {
+	var err error
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "domains", req.Domains)
+	parameter.AddToQuery(query, "tlds", req.Tlds)
+	parameter.AddToQuery(query, "strict_search", req.StrictSearch)
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/search-domains",
+		Query:  query,
+	}
+
+	var resp SearchAvailableDomainsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CreateDomainHost: Create a hostname for a domain with glue IPs.
+func (s *RegistrarAPI) CreateDomainHost(req *RegistrarAPICreateDomainHostRequest, opts ...scw.RequestOption) (*Host, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/hosts",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Host
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListDomainHosts: List a domain's hostnames using their glue IPs.
+func (s *RegistrarAPI) ListDomainHosts(req *RegistrarAPIListDomainHostsRequest, opts ...scw.RequestOption) (*ListDomainHostsResponse, error) {
+	var err error
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/hosts",
+		Query:  query,
+	}
+
+	var resp ListDomainHostsResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateDomainHost: Update a domain's hostname with glue IPs.
+func (s *RegistrarAPI) UpdateDomainHost(req *RegistrarAPIUpdateDomainHostRequest, opts ...scw.RequestOption) (*Host, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.Name) == "" {
+		return nil, errors.New("field Name cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/hosts/" + fmt.Sprint(req.Name) + "",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Host
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteDomainHost: Delete a domain's hostname.
+func (s *RegistrarAPI) DeleteDomainHost(req *RegistrarAPIDeleteDomainHostRequest, opts ...scw.RequestOption) (*Host, error) {
+	var err error
+
+	if fmt.Sprint(req.Domain) == "" {
+		return nil, errors.New("field Domain cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.Name) == "" {
+		return nil, errors.New("field Name cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/domain/v2beta1/domains/" + fmt.Sprint(req.Domain) + "/hosts/" + fmt.Sprint(req.Name) + "",
+	}
+
+	var resp Host
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
 }
