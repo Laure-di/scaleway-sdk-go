@@ -84,9 +84,9 @@ type Project struct {
 	// OrganizationID: Organization ID of the Project.
 	OrganizationID string `json:"organization_id"`
 	// CreatedAt: Creation date of the Project.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Update date of the Project.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Description: Description of the Project.
 	Description string `json:"description"`
 }

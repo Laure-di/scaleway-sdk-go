@@ -39,18 +39,18 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type ListIPsRequestOrderBy string
+type APIListIPsRequestOrderBy string
 
 const (
-	ListIPsRequestOrderByCreatedAtDesc  = ListIPsRequestOrderBy("created_at_desc")
-	ListIPsRequestOrderByCreatedAtAsc   = ListIPsRequestOrderBy("created_at_asc")
-	ListIPsRequestOrderByUpdatedAtDesc  = ListIPsRequestOrderBy("updated_at_desc")
-	ListIPsRequestOrderByUpdatedAtAsc   = ListIPsRequestOrderBy("updated_at_asc")
-	ListIPsRequestOrderByAttachedAtDesc = ListIPsRequestOrderBy("attached_at_desc")
-	ListIPsRequestOrderByAttachedAtAsc  = ListIPsRequestOrderBy("attached_at_asc")
+	APIListIPsRequestOrderByCreatedAtDesc  = APIListIPsRequestOrderBy("created_at_desc")
+	APIListIPsRequestOrderByCreatedAtAsc   = APIListIPsRequestOrderBy("created_at_asc")
+	APIListIPsRequestOrderByUpdatedAtDesc  = APIListIPsRequestOrderBy("updated_at_desc")
+	APIListIPsRequestOrderByUpdatedAtAsc   = APIListIPsRequestOrderBy("updated_at_asc")
+	APIListIPsRequestOrderByAttachedAtDesc = APIListIPsRequestOrderBy("attached_at_desc")
+	APIListIPsRequestOrderByAttachedAtAsc  = APIListIPsRequestOrderBy("attached_at_asc")
 )
 
-func (enum ListIPsRequestOrderBy) String() string {
+func (enum APIListIPsRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_desc"
@@ -58,18 +58,18 @@ func (enum ListIPsRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum ListIPsRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum APIListIPsRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *ListIPsRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *APIListIPsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = ListIPsRequestOrderBy(ListIPsRequestOrderBy(tmp).String())
+	*enum = APIListIPsRequestOrderBy(APIListIPsRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -121,9 +121,9 @@ type Resource struct {
 	// ID:
 	ID string `json:"id"`
 	// MacAddress:
-	MacAddress *string `json:"mac_address,omitempty"`
+	MacAddress *string `json:"mac_address"`
 	// Name:
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name"`
 }
 
 // Source:
@@ -151,9 +151,9 @@ type IP struct {
 	// IsIPv6:
 	IsIPv6 bool `json:"is_ipv6"`
 	// CreatedAt:
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt:
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Regional:
 	Regional *bool `json:"regional,omitempty"`
 	// Zonal:
@@ -169,11 +169,11 @@ type IP struct {
 	// Region:
 	Region scw.Region `json:"region"`
 	// Zone:
-	Zone *scw.Zone `json:"zone,omitempty"`
+	Zone *scw.Zone `json:"zone"`
 }
 
-// ListIPsRequest:
-type ListIPsRequest struct {
+// APIListIPsRequest:
+type APIListIPsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page:
@@ -181,7 +181,7 @@ type ListIPsRequest struct {
 	// PageSize:
 	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListIPsRequestOrderBy `json:"-"`
+	OrderBy APIListIPsRequestOrderBy `json:"-"`
 	// ProjectID:
 	ProjectID *string `json:"-"`
 	// OrganizationID:
@@ -259,7 +259,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // ListIPs: Find IP addresses.
-func (s *API) ListIPs(req *ListIPsRequest, opts ...scw.RequestOption) (*ListIPsResponse, error) {
+func (s *API) ListIPs(req *APIListIPsRequest, opts ...scw.RequestOption) (*ListIPsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

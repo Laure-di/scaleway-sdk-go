@@ -66,9 +66,9 @@ type Version struct {
 	// Name: Name of this version.
 	Name string `json:"name"`
 	// CreationDate: Creation date of this image version.
-	CreationDate *time.Time `json:"creation_date,omitempty"`
+	CreationDate *time.Time `json:"creation_date"`
 	// ModificationDate: Date of the last modification of this version.
-	ModificationDate *time.Time `json:"modification_date,omitempty"`
+	ModificationDate *time.Time `json:"modification_date"`
 	// LocalImages: List of local images available in this version.
 	LocalImages []*LocalImage `json:"local_images"`
 }
@@ -86,11 +86,11 @@ type Image struct {
 	// Categories: List of categories this image belongs to.
 	Categories []string `json:"categories"`
 	// CreationDate: Creation date of this image.
-	CreationDate *time.Time `json:"creation_date,omitempty"`
+	CreationDate *time.Time `json:"creation_date"`
 	// ModificationDate: Date of the last modification of this image.
-	ModificationDate *time.Time `json:"modification_date,omitempty"`
+	ModificationDate *time.Time `json:"modification_date"`
 	// ValidUntil: Expiration date of this image.
-	ValidUntil *time.Time `json:"valid_until,omitempty"`
+	ValidUntil *time.Time `json:"valid_until"`
 	// Label: Typically an identifier for a distribution (ex. "ubuntu_focal").
 	Label string `json:"label"`
 	// Versions: List of versions of this image.
@@ -101,9 +101,31 @@ type Image struct {
 	CurrentPublicVersion string `json:"current_public_version"`
 }
 
-// GetImageRequest:
-type GetImageRequest struct {
+// APIGetImageRequest:
+type APIGetImageRequest struct {
 	// ImageID: Display the image name.
+	ImageID string `json:"-"`
+}
+
+// APIGetVersionRequest:
+type APIGetVersionRequest struct {
+	// ImageID:
+	ImageID string `json:"-"`
+	// VersionID:
+	VersionID string `json:"-"`
+}
+
+// APIListImagesRequest:
+type APIListImagesRequest struct {
+	// PerPage: A positive integer lower or equal to 100 to select the number of items to display.
+	PerPage *uint32 `json:"-"`
+	// Page: A positive integer to choose the page to display.
+	Page *int32 `json:"-"`
+}
+
+// APIListVersionsRequest:
+type APIListVersionsRequest struct {
+	// ImageID:
 	ImageID string `json:"-"`
 }
 
@@ -113,26 +135,10 @@ type GetImageResponse struct {
 	Image *Image `json:"image"`
 }
 
-// GetVersionRequest:
-type GetVersionRequest struct {
-	// ImageID:
-	ImageID string `json:"-"`
-	// VersionID:
-	VersionID string `json:"-"`
-}
-
 // GetVersionResponse:
 type GetVersionResponse struct {
 	// Version:
 	Version *Version `json:"version"`
-}
-
-// ListImagesRequest:
-type ListImagesRequest struct {
-	// PerPage: A positive integer lower or equal to 100 to select the number of items to display.
-	PerPage *uint32 `json:"-"`
-	// Page: A positive integer to choose the page to display.
-	Page *int32 `json:"-"`
 }
 
 // ListImagesResponse:
@@ -160,12 +166,6 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Images = append(r.Images, results.Images...)
 	r.TotalCount += uint32(len(results.Images))
 	return uint32(len(results.Images)), nil
-}
-
-// ListVersionsRequest:
-type ListVersionsRequest struct {
-	// ImageID:
-	ImageID string `json:"-"`
 }
 
 // ListVersionsResponse:
@@ -208,7 +208,7 @@ func NewAPI(client *scw.Client) *API {
 }
 
 // ListImages: List marketplace images.
-func (s *API) ListImages(req *ListImagesRequest, opts ...scw.RequestOption) (*ListImagesResponse, error) {
+func (s *API) ListImages(req *APIListImagesRequest, opts ...scw.RequestOption) (*ListImagesResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -231,7 +231,7 @@ func (s *API) ListImages(req *ListImagesRequest, opts ...scw.RequestOption) (*Li
 }
 
 // GetImage: Get a specific marketplace image.
-func (s *API) GetImage(req *GetImageRequest, opts ...scw.RequestOption) (*GetImageResponse, error) {
+func (s *API) GetImage(req *APIGetImageRequest, opts ...scw.RequestOption) (*GetImageResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.ImageID) == "" {
@@ -253,7 +253,7 @@ func (s *API) GetImage(req *GetImageRequest, opts ...scw.RequestOption) (*GetIma
 }
 
 // ListVersions:
-func (s *API) ListVersions(req *ListVersionsRequest, opts ...scw.RequestOption) (*ListVersionsResponse, error) {
+func (s *API) ListVersions(req *APIListVersionsRequest, opts ...scw.RequestOption) (*ListVersionsResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.ImageID) == "" {
@@ -275,7 +275,7 @@ func (s *API) ListVersions(req *ListVersionsRequest, opts ...scw.RequestOption) 
 }
 
 // GetVersion:
-func (s *API) GetVersion(req *GetVersionRequest, opts ...scw.RequestOption) (*GetVersionResponse, error) {
+func (s *API) GetVersion(req *APIGetVersionRequest, opts ...scw.RequestOption) (*GetVersionResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.ImageID) == "" {

@@ -39,18 +39,18 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type ListImagesRequestOrderBy string
+type APIListImagesRequestOrderBy string
 
 const (
-	ListImagesRequestOrderByNameAsc       = ListImagesRequestOrderBy("name_asc")
-	ListImagesRequestOrderByNameDesc      = ListImagesRequestOrderBy("name_desc")
-	ListImagesRequestOrderByCreatedAtAsc  = ListImagesRequestOrderBy("created_at_asc")
-	ListImagesRequestOrderByCreatedAtDesc = ListImagesRequestOrderBy("created_at_desc")
-	ListImagesRequestOrderByUpdatedAtAsc  = ListImagesRequestOrderBy("updated_at_asc")
-	ListImagesRequestOrderByUpdatedAtDesc = ListImagesRequestOrderBy("updated_at_desc")
+	APIListImagesRequestOrderByNameAsc       = APIListImagesRequestOrderBy("name_asc")
+	APIListImagesRequestOrderByNameDesc      = APIListImagesRequestOrderBy("name_desc")
+	APIListImagesRequestOrderByCreatedAtAsc  = APIListImagesRequestOrderBy("created_at_asc")
+	APIListImagesRequestOrderByCreatedAtDesc = APIListImagesRequestOrderBy("created_at_desc")
+	APIListImagesRequestOrderByUpdatedAtAsc  = APIListImagesRequestOrderBy("updated_at_asc")
+	APIListImagesRequestOrderByUpdatedAtDesc = APIListImagesRequestOrderBy("updated_at_desc")
 )
 
-func (enum ListImagesRequestOrderBy) String() string {
+func (enum APIListImagesRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "name_asc"
@@ -58,29 +58,29 @@ func (enum ListImagesRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum ListImagesRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum APIListImagesRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *ListImagesRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *APIListImagesRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = ListImagesRequestOrderBy(ListImagesRequestOrderBy(tmp).String())
+	*enum = APIListImagesRequestOrderBy(APIListImagesRequestOrderBy(tmp).String())
 	return nil
 }
 
-type ListLocalImagesRequestOrderBy string
+type APIListLocalImagesRequestOrderBy string
 
 const (
-	ListLocalImagesRequestOrderByCreatedAtAsc  = ListLocalImagesRequestOrderBy("created_at_asc")
-	ListLocalImagesRequestOrderByCreatedAtDesc = ListLocalImagesRequestOrderBy("created_at_desc")
+	APIListLocalImagesRequestOrderByCreatedAtAsc  = APIListLocalImagesRequestOrderBy("created_at_asc")
+	APIListLocalImagesRequestOrderByCreatedAtDesc = APIListLocalImagesRequestOrderBy("created_at_desc")
 )
 
-func (enum ListLocalImagesRequestOrderBy) String() string {
+func (enum APIListLocalImagesRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -88,29 +88,29 @@ func (enum ListLocalImagesRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum ListLocalImagesRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum APIListLocalImagesRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *ListLocalImagesRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *APIListLocalImagesRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = ListLocalImagesRequestOrderBy(ListLocalImagesRequestOrderBy(tmp).String())
+	*enum = APIListLocalImagesRequestOrderBy(APIListLocalImagesRequestOrderBy(tmp).String())
 	return nil
 }
 
-type ListVersionsRequestOrderBy string
+type APIListVersionsRequestOrderBy string
 
 const (
-	ListVersionsRequestOrderByCreatedAtAsc  = ListVersionsRequestOrderBy("created_at_asc")
-	ListVersionsRequestOrderByCreatedAtDesc = ListVersionsRequestOrderBy("created_at_desc")
+	APIListVersionsRequestOrderByCreatedAtAsc  = APIListVersionsRequestOrderBy("created_at_asc")
+	APIListVersionsRequestOrderByCreatedAtDesc = APIListVersionsRequestOrderBy("created_at_desc")
 )
 
-func (enum ListVersionsRequestOrderBy) String() string {
+func (enum APIListVersionsRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -118,18 +118,18 @@ func (enum ListVersionsRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum ListVersionsRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum APIListVersionsRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *ListVersionsRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *APIListVersionsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = ListVersionsRequestOrderBy(ListVersionsRequestOrderBy(tmp).String())
+	*enum = APIListVersionsRequestOrderBy(APIListVersionsRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -190,11 +190,11 @@ type Image struct {
 	// Categories: List of categories this image belongs to.
 	Categories []string `json:"categories"`
 	// CreatedAt: Creation date of this image.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Date of the last modification of this image.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// ValidUntil: Expiration date of this image.
-	ValidUntil *time.Time `json:"valid_until,omitempty"`
+	ValidUntil *time.Time `json:"valid_until"`
 	// Label: Typically an identifier for a distribution (ex. "ubuntu_focal").
 	Label string `json:"label"`
 }
@@ -222,43 +222,91 @@ type Version struct {
 	// Name: Name of this version.
 	Name string `json:"name"`
 	// CreatedAt: Creation date of this image version.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Date of the last modification of this version.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// PublishedAt: Date this version was officially published.
-	PublishedAt *time.Time `json:"published_at,omitempty"`
+	PublishedAt *time.Time `json:"published_at"`
 }
 
-// GetCategoryRequest:
-type GetCategoryRequest struct {
+// APIGetCategoryRequest:
+type APIGetCategoryRequest struct {
 	// CategoryID:
 	CategoryID string `json:"-"`
 }
 
-// GetImageRequest:
-type GetImageRequest struct {
+// APIGetImageRequest:
+type APIGetImageRequest struct {
 	// ImageID: Display the image name.
 	ImageID string `json:"-"`
 }
 
-// GetLocalImageRequest:
-type GetLocalImageRequest struct {
+// APIGetLocalImageRequest:
+type APIGetLocalImageRequest struct {
 	// LocalImageID:
 	LocalImageID string `json:"-"`
 }
 
-// GetVersionRequest:
-type GetVersionRequest struct {
+// APIGetVersionRequest:
+type APIGetVersionRequest struct {
 	// VersionID:
 	VersionID string `json:"-"`
 }
 
-// ListCategoriesRequest:
-type ListCategoriesRequest struct {
+// APIListCategoriesRequest:
+type APIListCategoriesRequest struct {
 	// PageSize:
 	PageSize *uint32 `json:"-"`
 	// Page:
 	Page *int32 `json:"-"`
+}
+
+// APIListImagesRequest:
+type APIListImagesRequest struct {
+	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
+	PageSize *uint32 `json:"-"`
+	// Page: A positive integer to choose the page to display.
+	Page *int32 `json:"-"`
+	// OrderBy: Ordering to use.
+	OrderBy APIListImagesRequestOrderBy `json:"-"`
+	// Arch: Choose for which machine architecture to return images.
+	Arch *string `json:"-"`
+	// Category: Choose the category of images to get.
+	Category *string `json:"-"`
+	// IncludeEol: Choose to include end-of-life images.
+	IncludeEol bool `json:"-"`
+}
+
+// APIListLocalImagesRequest:
+type APIListLocalImagesRequest struct {
+	// ImageID:
+	ImageID *string `json:"image_id,omitempty"`
+	// VersionID:
+	VersionID *string `json:"version_id,omitempty"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// OrderBy:
+	OrderBy APIListLocalImagesRequestOrderBy `json:"-"`
+	// ImageLabel:
+	ImageLabel *string `json:"image_label,omitempty"`
+	// Zone:
+	Zone *scw.Zone `json:"-"`
+	// Type:
+	Type LocalImageType `json:"-"`
+}
+
+// APIListVersionsRequest:
+type APIListVersionsRequest struct {
+	// ImageID:
+	ImageID string `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// OrderBy:
+	OrderBy APIListVersionsRequestOrderBy `json:"-"`
 }
 
 // ListCategoriesResponse:
@@ -288,22 +336,6 @@ func (r *ListCategoriesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Categories)), nil
 }
 
-// ListImagesRequest:
-type ListImagesRequest struct {
-	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
-	PageSize *uint32 `json:"-"`
-	// Page: A positive integer to choose the page to display.
-	Page *int32 `json:"-"`
-	// OrderBy: Ordering to use.
-	OrderBy ListImagesRequestOrderBy `json:"-"`
-	// Arch: Choose for which machine architecture to return images.
-	Arch *string `json:"-"`
-	// Category: Choose the category of images to get.
-	Category *string `json:"-"`
-	// IncludeEol: Choose to include end-of-life images.
-	IncludeEol bool `json:"-"`
-}
-
 // ListImagesResponse:
 type ListImagesResponse struct {
 	// Images:
@@ -331,26 +363,6 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Images)), nil
 }
 
-// ListLocalImagesRequest:
-type ListLocalImagesRequest struct {
-	// ImageID:
-	ImageID *string `json:"image_id,omitempty"`
-	// VersionID:
-	VersionID *string `json:"version_id,omitempty"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// OrderBy:
-	OrderBy ListLocalImagesRequestOrderBy `json:"-"`
-	// ImageLabel:
-	ImageLabel *string `json:"image_label,omitempty"`
-	// Zone:
-	Zone *scw.Zone `json:"-"`
-	// Type:
-	Type LocalImageType `json:"-"`
-}
-
 // ListLocalImagesResponse:
 type ListLocalImagesResponse struct {
 	// LocalImages:
@@ -376,18 +388,6 @@ func (r *ListLocalImagesResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	r.LocalImages = append(r.LocalImages, results.LocalImages...)
 	r.TotalCount += uint32(len(results.LocalImages))
 	return uint32(len(results.LocalImages)), nil
-}
-
-// ListVersionsRequest:
-type ListVersionsRequest struct {
-	// ImageID:
-	ImageID string `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// OrderBy:
-	OrderBy ListVersionsRequestOrderBy `json:"-"`
 }
 
 // ListVersionsResponse:
@@ -525,7 +525,7 @@ func NewAPI(client *scw.Client) *API {
 }
 
 // ListImages: List all available images on the marketplace, their UUID, CPU architecture and description.
-func (s *API) ListImages(req *ListImagesRequest, opts ...scw.RequestOption) (*ListImagesResponse, error) {
+func (s *API) ListImages(req *APIListImagesRequest, opts ...scw.RequestOption) (*ListImagesResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -552,7 +552,7 @@ func (s *API) ListImages(req *ListImagesRequest, opts ...scw.RequestOption) (*Li
 }
 
 // GetImage: Get detailed information about a marketplace image, specified by its `image_id` (UUID format).
-func (s *API) GetImage(req *GetImageRequest, opts ...scw.RequestOption) (*Image, error) {
+func (s *API) GetImage(req *APIGetImageRequest, opts ...scw.RequestOption) (*Image, error) {
 	var err error
 
 	if fmt.Sprint(req.ImageID) == "" {
@@ -574,7 +574,7 @@ func (s *API) GetImage(req *GetImageRequest, opts ...scw.RequestOption) (*Image,
 }
 
 // ListVersions: Get a list of all available version of an image, specified by its `image_id` (UUID format).
-func (s *API) ListVersions(req *ListVersionsRequest, opts ...scw.RequestOption) (*ListVersionsResponse, error) {
+func (s *API) ListVersions(req *APIListVersionsRequest, opts ...scw.RequestOption) (*ListVersionsResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -599,7 +599,7 @@ func (s *API) ListVersions(req *ListVersionsRequest, opts ...scw.RequestOption) 
 }
 
 // GetVersion: Get information such as the name, creation date, last update and published date for an image version specified by its `version_id` (UUID format).
-func (s *API) GetVersion(req *GetVersionRequest, opts ...scw.RequestOption) (*Version, error) {
+func (s *API) GetVersion(req *APIGetVersionRequest, opts ...scw.RequestOption) (*Version, error) {
 	var err error
 
 	if fmt.Sprint(req.VersionID) == "" {
@@ -621,7 +621,7 @@ func (s *API) GetVersion(req *GetVersionRequest, opts ...scw.RequestOption) (*Ve
 }
 
 // ListLocalImages: List information about local images in a specific Availability Zone, specified by its `image_id` (UUID format), `version_id` (UUID format) or `image_label`. Only one of these three parameters may be set.
-func (s *API) ListLocalImages(req *ListLocalImagesRequest, opts ...scw.RequestOption) (*ListLocalImagesResponse, error) {
+func (s *API) ListLocalImages(req *APIListLocalImagesRequest, opts ...scw.RequestOption) (*ListLocalImagesResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -650,7 +650,7 @@ func (s *API) ListLocalImages(req *ListLocalImagesRequest, opts ...scw.RequestOp
 }
 
 // GetLocalImage: Get detailed information about a local image, including compatible commercial types, supported architecture, labels and the Availability Zone of the image, specified by its `local_image_id` (UUID format).
-func (s *API) GetLocalImage(req *GetLocalImageRequest, opts ...scw.RequestOption) (*LocalImage, error) {
+func (s *API) GetLocalImage(req *APIGetLocalImageRequest, opts ...scw.RequestOption) (*LocalImage, error) {
 	var err error
 
 	if fmt.Sprint(req.LocalImageID) == "" {
@@ -672,7 +672,7 @@ func (s *API) GetLocalImage(req *GetLocalImageRequest, opts ...scw.RequestOption
 }
 
 // ListCategories: Get a list of all existing categories. The output can be paginated.
-func (s *API) ListCategories(req *ListCategoriesRequest, opts ...scw.RequestOption) (*ListCategoriesResponse, error) {
+func (s *API) ListCategories(req *APIListCategoriesRequest, opts ...scw.RequestOption) (*ListCategoriesResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -695,7 +695,7 @@ func (s *API) ListCategories(req *ListCategoriesRequest, opts ...scw.RequestOpti
 }
 
 // GetCategory: Get information about a specific category of the marketplace catalog, specified by its `category_id` (UUID format).
-func (s *API) GetCategory(req *GetCategoryRequest, opts ...scw.RequestOption) (*Category, error) {
+func (s *API) GetCategory(req *APIGetCategoryRequest, opts ...scw.RequestOption) (*Category, error) {
 	var err error
 
 	if fmt.Sprint(req.CategoryID) == "" {

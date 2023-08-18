@@ -39,6 +39,96 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
+type APIListServerEventsRequestOrderBy string
+
+const (
+	APIListServerEventsRequestOrderByCreatedAtAsc  = APIListServerEventsRequestOrderBy("created_at_asc")
+	APIListServerEventsRequestOrderByCreatedAtDesc = APIListServerEventsRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListServerEventsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListServerEventsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListServerEventsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListServerEventsRequestOrderBy(APIListServerEventsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListServersRequestOrderBy string
+
+const (
+	APIListServersRequestOrderByCreatedAtAsc  = APIListServersRequestOrderBy("created_at_asc")
+	APIListServersRequestOrderByCreatedAtDesc = APIListServersRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListServersRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListServersRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListServersRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListServersRequestOrderBy(APIListServersRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListSettingsRequestOrderBy string
+
+const (
+	APIListSettingsRequestOrderByCreatedAtAsc  = APIListSettingsRequestOrderBy("created_at_asc")
+	APIListSettingsRequestOrderByCreatedAtDesc = APIListSettingsRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListSettingsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListSettingsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListSettingsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListSettingsRequestOrderBy(APIListSettingsRequestOrderBy(tmp).String())
+	return nil
+}
+
 type IPReverseStatus string
 
 const (
@@ -101,36 +191,6 @@ func (enum *IPVersion) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type ListServerEventsRequestOrderBy string
-
-const (
-	ListServerEventsRequestOrderByCreatedAtAsc  = ListServerEventsRequestOrderBy("created_at_asc")
-	ListServerEventsRequestOrderByCreatedAtDesc = ListServerEventsRequestOrderBy("created_at_desc")
-)
-
-func (enum ListServerEventsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListServerEventsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListServerEventsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListServerEventsRequestOrderBy(ListServerEventsRequestOrderBy(tmp).String())
-	return nil
-}
-
 type ListServerPrivateNetworksRequestOrderBy string
 
 const (
@@ -160,66 +220,6 @@ func (enum *ListServerPrivateNetworksRequestOrderBy) UnmarshalJSON(data []byte) 
 	}
 
 	*enum = ListServerPrivateNetworksRequestOrderBy(ListServerPrivateNetworksRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListServersRequestOrderBy string
-
-const (
-	ListServersRequestOrderByCreatedAtAsc  = ListServersRequestOrderBy("created_at_asc")
-	ListServersRequestOrderByCreatedAtDesc = ListServersRequestOrderBy("created_at_desc")
-)
-
-func (enum ListServersRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListServersRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListServersRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListServersRequestOrderBy(ListServersRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListSettingsRequestOrderBy string
-
-const (
-	ListSettingsRequestOrderByCreatedAtAsc  = ListSettingsRequestOrderBy("created_at_asc")
-	ListSettingsRequestOrderByCreatedAtDesc = ListSettingsRequestOrderBy("created_at_desc")
-)
-
-func (enum ListSettingsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListSettingsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListSettingsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListSettingsRequestOrderBy(ListSettingsRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -524,7 +524,7 @@ type OSOSField struct {
 	// Required:
 	Required bool `json:"required"`
 	// DefaultValue:
-	DefaultValue *string `json:"default_value,omitempty"`
+	DefaultValue *string `json:"default_value"`
 }
 
 // CPU:
@@ -573,11 +573,11 @@ type OfferOptionOffer struct {
 	// SubscriptionPeriod: Period of subscription for the offer.
 	SubscriptionPeriod OfferSubscriptionPeriod `json:"subscription_period"`
 	// Price: Price of the option.
-	Price *scw.Money `json:"price,omitempty"`
+	Price *scw.Money `json:"price"`
 	// Manageable: Boolean to know if option could be managed.
 	Manageable bool `json:"manageable"`
 	// OsID: ID of the OS linked to the option.
-	OsID *string `json:"os_id,omitempty"`
+	OsID *string `json:"os_id"`
 }
 
 // PersistentMemory:
@@ -643,7 +643,7 @@ type ServerOption struct {
 	// Manageable: Defines whether the option can be managed (added or removed).
 	Manageable bool `json:"manageable"`
 	// ExpiresAt: Auto expiration date for compatible options.
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at"`
 }
 
 // ServerRescueServer:
@@ -654,8 +654,8 @@ type ServerRescueServer struct {
 	Password string `json:"password"`
 }
 
-// CreateServerRequestInstall:
-type CreateServerRequestInstall struct {
+// APICreateServerRequestInstall:
+type APICreateServerRequestInstall struct {
 	// OsID: ID of the OS to installation on the server.
 	OsID string `json:"os_id"`
 	// Hostname: Hostname of the server.
@@ -663,15 +663,15 @@ type CreateServerRequestInstall struct {
 	// SSHKeyIDs: SSH key IDs authorized on the server.
 	SSHKeyIDs []string `json:"ssh_key_ids"`
 	// User: User for the installation.
-	User *string `json:"user,omitempty"`
+	User *string `json:"user"`
 	// Password: Password for the installation.
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password"`
 	// ServiceUser: Regular user that runs the service to be installed on the server.
-	ServiceUser *string `json:"service_user,omitempty"`
+	ServiceUser *string `json:"service_user"`
 	// ServicePassword: Password used for the service to install.
-	ServicePassword *string `json:"service_password,omitempty"`
+	ServicePassword *string `json:"service_password"`
 	// UserData: Cloud-init file.
-	UserData *scw.File `json:"user_data,omitempty"`
+	UserData *scw.File `json:"user_data"`
 }
 
 // OS:
@@ -715,9 +715,9 @@ type Offer struct {
 	// CommercialRange: Commercial range of the offer.
 	CommercialRange string `json:"commercial_range"`
 	// PricePerHour: Price of the offer for the next 60 minutes (a server order at 11h32 will be payed until 12h32).
-	PricePerHour *scw.Money `json:"price_per_hour,omitempty"`
+	PricePerHour *scw.Money `json:"price_per_hour"`
 	// PricePerMonth: Monthly price of the offer, if subscribing on a monthly basis.
-	PricePerMonth *scw.Money `json:"price_per_month,omitempty"`
+	PricePerMonth *scw.Money `json:"price_per_month"`
 	// Disks: Disks specifications of the offer.
 	Disks []*Disk `json:"disks"`
 	// Enable: Defines whether the offer is currently available.
@@ -739,7 +739,7 @@ type Offer struct {
 	// OperationPath: Operation path of the service.
 	OperationPath string `json:"operation_path"`
 	// Fee: One time fee invoiced by Scaleway for the setup and activation of the server.
-	Fee *scw.Money `json:"fee,omitempty"`
+	Fee *scw.Money `json:"fee"`
 	// Options: Available options for customization of the server.
 	Options []*OfferOptionOffer `json:"options"`
 	// PrivateBandwidth: Private bandwidth available in bits/s with the offer.
@@ -767,9 +767,9 @@ type ServerEvent struct {
 	// Action: The action that will be applied to the server.
 	Action string `json:"action"`
 	// UpdatedAt: Date of last modification of the action.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// CreatedAt: Date of creation of the action.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 }
 
 // ServerPrivateNetwork:
@@ -783,13 +783,13 @@ type ServerPrivateNetwork struct {
 	// PrivateNetworkID: The Private Network ID.
 	PrivateNetworkID string `json:"private_network_id"`
 	// Vlan: The VLAN ID associated to the Private Network.
-	Vlan *uint32 `json:"vlan,omitempty"`
+	Vlan *uint32 `json:"vlan"`
 	// Status: The configuration status of the Private Network.
 	Status ServerPrivateNetworkStatus `json:"status"`
 	// CreatedAt: The Private Network creation date.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: The date the Private Network was last modified.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 }
 
 // Server:
@@ -805,9 +805,9 @@ type Server struct {
 	// Description: Description of the server.
 	Description string `json:"description"`
 	// UpdatedAt: Last modification date of the server.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// CreatedAt: Creation date of the server.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// Status: Status of the server.
 	Status ServerStatus `json:"status"`
 	// OfferID: Offer ID of the server.
@@ -846,8 +846,8 @@ type Setting struct {
 	Enabled bool `json:"enabled"`
 }
 
-// AddOptionServerRequest:
-type AddOptionServerRequest struct {
+// APIAddOptionServerRequest:
+type APIAddOptionServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerID: ID of the server.
@@ -858,20 +858,8 @@ type AddOptionServerRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
-// BMCAccess:
-type BMCAccess struct {
-	// URL: URL to access to the server console.
-	URL string `json:"url"`
-	// Login: The login to use for the BMC (Baseboard Management Controller) access authentification.
-	Login string `json:"login"`
-	// Password: The password to use for the BMC (Baseboard Management Controller) access authentification.
-	Password string `json:"password"`
-	// ExpiresAt: The date after which the BMC (Baseboard Management Controller) access will be closed.
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
-}
-
-// CreateServerRequest:
-type CreateServerRequest struct {
+// APICreateServerRequest:
+type APICreateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OfferID: Offer ID of the new server.
@@ -887,13 +875,13 @@ type CreateServerRequest struct {
 	// Tags: Tags to associate to the server.
 	Tags []string `json:"tags"`
 	// Install: Object describing the configuration details of the OS installation on the server.
-	Install *CreateServerRequestInstall `json:"install"`
+	Install *APICreateServerRequestInstall `json:"install"`
 	// OptionIDs: IDs of options to enable on server.
 	OptionIDs []string `json:"option_ids"`
 }
 
-// DeleteOptionServerRequest:
-type DeleteOptionServerRequest struct {
+// APIDeleteOptionServerRequest:
+type APIDeleteOptionServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerID: ID of the server.
@@ -902,70 +890,64 @@ type DeleteOptionServerRequest struct {
 	OptionID string `json:"-"`
 }
 
-// DeleteServerRequest:
-type DeleteServerRequest struct {
+// APIDeleteServerRequest:
+type APIDeleteServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerID: ID of the server to delete.
 	ServerID string `json:"-"`
 }
 
-// GetBMCAccessRequest:
-type GetBMCAccessRequest struct {
+// APIGetBMCAccessRequest:
+type APIGetBMCAccessRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerID: ID of the server.
 	ServerID string `json:"-"`
 }
 
-// GetOSRequest:
-type GetOSRequest struct {
+// APIGetOSRequest:
+type APIGetOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OsID: ID of the OS.
 	OsID string `json:"-"`
 }
 
-// GetOfferRequest:
-type GetOfferRequest struct {
+// APIGetOfferRequest:
+type APIGetOfferRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OfferID: ID of the researched Offer.
 	OfferID string `json:"-"`
 }
 
-// GetOptionRequest:
-type GetOptionRequest struct {
+// APIGetOptionRequest:
+type APIGetOptionRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OptionID: ID of the option.
 	OptionID string `json:"-"`
 }
 
-// GetServerMetricsRequest:
-type GetServerMetricsRequest struct {
+// APIGetServerMetricsRequest:
+type APIGetServerMetricsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerID: Server ID to get the metrics.
 	ServerID string `json:"-"`
 }
 
-// GetServerMetricsResponse:
-type GetServerMetricsResponse struct {
-	// Pings: Timeseries object representing pings on the server.
-	Pings *scw.TimeSeries `json:"pings,omitempty"`
-}
-
-// GetServerRequest:
-type GetServerRequest struct {
+// APIGetServerRequest:
+type APIGetServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerID: ID of the server.
 	ServerID string `json:"-"`
 }
 
-// InstallServerRequest:
-type InstallServerRequest struct {
+// APIInstallServerRequest:
+type APIInstallServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerID: Server ID to install.
@@ -988,8 +970,8 @@ type InstallServerRequest struct {
 	UserData *scw.File `json:"user_data,omitempty"`
 }
 
-// ListOSRequest:
-type ListOSRequest struct {
+// APIListOSRequest:
+type APIListOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
@@ -998,6 +980,184 @@ type ListOSRequest struct {
 	PageSize *uint32 `json:"-"`
 	// OfferID: Offer IDs to filter OSes for.
 	OfferID *string `json:"-"`
+}
+
+// APIListOffersRequest:
+type APIListOffersRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Number of offers per page.
+	PageSize *uint32 `json:"-"`
+	// SubscriptionPeriod: Subscription period type to filter offers by.
+	SubscriptionPeriod OfferSubscriptionPeriod `json:"-"`
+}
+
+// APIListOptionsRequest:
+type APIListOptionsRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Number of options per page.
+	PageSize *uint32 `json:"-"`
+	// OfferID: Offer ID to filter options for.
+	OfferID *string `json:"-"`
+	// Name: Name to filter options for.
+	Name *string `json:"-"`
+}
+
+// APIListServerEventsRequest:
+type APIListServerEventsRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: ID of the server events searched.
+	ServerID string `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Number of server events per page.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Order of the server events.
+	OrderBy APIListServerEventsRequestOrderBy `json:"-"`
+}
+
+// APIListServersRequest:
+type APIListServersRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Number of servers per page.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Order of the servers.
+	OrderBy APIListServersRequestOrderBy `json:"-"`
+	// Tags: Tags to filter for.
+	Tags []string `json:"-"`
+	// Status: Status to filter for.
+	Status []string `json:"-"`
+	// Name: Names to filter for.
+	Name *string `json:"-"`
+	// OrganizationID: Organization ID to filter for.
+	OrganizationID *string `json:"-"`
+	// ProjectID: Project ID to filter for.
+	ProjectID *string `json:"-"`
+	// OptionID: Option ID to filter for.
+	OptionID *string `json:"-"`
+}
+
+// APIListSettingsRequest:
+type APIListSettingsRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Set the maximum list size.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Sort order for items in the response.
+	OrderBy APIListSettingsRequestOrderBy `json:"-"`
+	// ProjectID: ID of the Project.
+	ProjectID *string `json:"-"`
+}
+
+// APIRebootServerRequest:
+type APIRebootServerRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: ID of the server to reboot.
+	ServerID string `json:"-"`
+	// BootType: The type of boot.
+	BootType ServerBootType `json:"boot_type"`
+}
+
+// APIStartBMCAccessRequest:
+type APIStartBMCAccessRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: ID of the server.
+	ServerID string `json:"-"`
+	// IP: The IP authorized to connect to the server.
+	IP net.IP `json:"ip"`
+}
+
+// APIStartServerRequest:
+type APIStartServerRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: ID of the server to start.
+	ServerID string `json:"-"`
+	// BootType: The type of boot.
+	BootType ServerBootType `json:"boot_type"`
+}
+
+// APIStopBMCAccessRequest:
+type APIStopBMCAccessRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: ID of the server.
+	ServerID string `json:"-"`
+}
+
+// APIStopServerRequest:
+type APIStopServerRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: ID of the server to stop.
+	ServerID string `json:"-"`
+}
+
+// APIUpdateIPRequest:
+type APIUpdateIPRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: ID of the server.
+	ServerID string `json:"-"`
+	// IPID: ID of the IP to update.
+	IPID string `json:"-"`
+	// Reverse: New reverse IP to update, not updated if null.
+	Reverse *string `json:"reverse,omitempty"`
+}
+
+// APIUpdateServerRequest:
+type APIUpdateServerRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: ID of the server to update.
+	ServerID string `json:"-"`
+	// Name: Name of the server (≠hostname), not updated if null.
+	Name *string `json:"name,omitempty"`
+	// Description: Description associated with the server, max 255 characters, not updated if null.
+	Description *string `json:"description,omitempty"`
+	// Tags: Tags associated with the server, not updated if null.
+	Tags *[]string `json:"tags,omitempty"`
+}
+
+// APIUpdateSettingRequest:
+type APIUpdateSettingRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// SettingID: ID of the setting.
+	SettingID string `json:"-"`
+	// Enabled: Defines whether the setting is enabled.
+	Enabled *bool `json:"enabled,omitempty"`
+}
+
+// BMCAccess:
+type BMCAccess struct {
+	// URL: URL to access to the server console.
+	URL string `json:"url"`
+	// Login: The login to use for the BMC (Baseboard Management Controller) access authentification.
+	Login string `json:"login"`
+	// Password: The password to use for the BMC (Baseboard Management Controller) access authentification.
+	Password string `json:"password"`
+	// ExpiresAt: The date after which the BMC (Baseboard Management Controller) access will be closed.
+	ExpiresAt *time.Time `json:"expires_at"`
+}
+
+// GetServerMetricsResponse:
+type GetServerMetricsResponse struct {
+	// Pings: Timeseries object representing pings on the server.
+	Pings *scw.TimeSeries `json:"pings"`
 }
 
 // ListOSResponse:
@@ -1027,18 +1187,6 @@ func (r *ListOSResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Os)), nil
 }
 
-// ListOffersRequest:
-type ListOffersRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// Page: Page number.
-	Page *int32 `json:"-"`
-	// PageSize: Number of offers per page.
-	PageSize *uint32 `json:"-"`
-	// SubscriptionPeriod: Subscription period type to filter offers by.
-	SubscriptionPeriod OfferSubscriptionPeriod `json:"-"`
-}
-
 // ListOffersResponse:
 type ListOffersResponse struct {
 	// TotalCount: Total count of matching offers.
@@ -1066,20 +1214,6 @@ func (r *ListOffersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Offers)), nil
 }
 
-// ListOptionsRequest:
-type ListOptionsRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// Page: Page number.
-	Page *int32 `json:"-"`
-	// PageSize: Number of options per page.
-	PageSize *uint32 `json:"-"`
-	// OfferID: Offer ID to filter options for.
-	OfferID *string `json:"-"`
-	// Name: Name to filter options for.
-	Name *string `json:"-"`
-}
-
 // ListOptionsResponse:
 type ListOptionsResponse struct {
 	// TotalCount: Total count of matching options.
@@ -1105,20 +1239,6 @@ func (r *ListOptionsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Options = append(r.Options, results.Options...)
 	r.TotalCount += uint32(len(results.Options))
 	return uint32(len(results.Options)), nil
-}
-
-// ListServerEventsRequest:
-type ListServerEventsRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: ID of the server events searched.
-	ServerID string `json:"-"`
-	// Page: Page number.
-	Page *int32 `json:"-"`
-	// PageSize: Number of server events per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Order of the server events.
-	OrderBy ListServerEventsRequestOrderBy `json:"-"`
 }
 
 // ListServerEventsResponse:
@@ -1175,30 +1295,6 @@ func (r *ListServerPrivateNetworksResponse) UnsafeAppend(res interface{}) (uint3
 	return uint32(len(results.ServerPrivateNetworks)), nil
 }
 
-// ListServersRequest:
-type ListServersRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// Page: Page number.
-	Page *int32 `json:"-"`
-	// PageSize: Number of servers per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Order of the servers.
-	OrderBy ListServersRequestOrderBy `json:"-"`
-	// Tags: Tags to filter for.
-	Tags []string `json:"-"`
-	// Status: Status to filter for.
-	Status []string `json:"-"`
-	// Name: Names to filter for.
-	Name *string `json:"-"`
-	// OrganizationID: Organization ID to filter for.
-	OrganizationID *string `json:"-"`
-	// ProjectID: Project ID to filter for.
-	ProjectID *string `json:"-"`
-	// OptionID: Option ID to filter for.
-	OptionID *string `json:"-"`
-}
-
 // ListServersResponse:
 type ListServersResponse struct {
 	// TotalCount: Total count of matching servers.
@@ -1224,20 +1320,6 @@ func (r *ListServersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Servers = append(r.Servers, results.Servers...)
 	r.TotalCount += uint32(len(results.Servers))
 	return uint32(len(results.Servers)), nil
-}
-
-// ListSettingsRequest:
-type ListSettingsRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// Page: Page number.
-	Page *int32 `json:"-"`
-	// PageSize: Set the maximum list size.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Sort order for items in the response.
-	OrderBy ListSettingsRequestOrderBy `json:"-"`
-	// ProjectID: ID of the Project.
-	ProjectID *string `json:"-"`
 }
 
 // ListSettingsResponse:
@@ -1317,92 +1399,10 @@ type PrivateNetworkAPISetServerPrivateNetworksRequest struct {
 	PrivateNetworkIDs []string `json:"private_network_ids"`
 }
 
-// RebootServerRequest:
-type RebootServerRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: ID of the server to reboot.
-	ServerID string `json:"-"`
-	// BootType: The type of boot.
-	BootType ServerBootType `json:"boot_type"`
-}
-
 // SetServerPrivateNetworksResponse:
 type SetServerPrivateNetworksResponse struct {
 	// ServerPrivateNetworks:
 	ServerPrivateNetworks []*ServerPrivateNetwork `json:"server_private_networks"`
-}
-
-// StartBMCAccessRequest:
-type StartBMCAccessRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: ID of the server.
-	ServerID string `json:"-"`
-	// IP: The IP authorized to connect to the server.
-	IP net.IP `json:"ip"`
-}
-
-// StartServerRequest:
-type StartServerRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: ID of the server to start.
-	ServerID string `json:"-"`
-	// BootType: The type of boot.
-	BootType ServerBootType `json:"boot_type"`
-}
-
-// StopBMCAccessRequest:
-type StopBMCAccessRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: ID of the server.
-	ServerID string `json:"-"`
-}
-
-// StopServerRequest:
-type StopServerRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: ID of the server to stop.
-	ServerID string `json:"-"`
-}
-
-// UpdateIPRequest:
-type UpdateIPRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: ID of the server.
-	ServerID string `json:"-"`
-	// IPID: ID of the IP to update.
-	IPID string `json:"-"`
-	// Reverse: New reverse IP to update, not updated if null.
-	Reverse *string `json:"reverse,omitempty"`
-}
-
-// UpdateServerRequest:
-type UpdateServerRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: ID of the server to update.
-	ServerID string `json:"-"`
-	// Name: Name of the server (≠hostname), not updated if null.
-	Name *string `json:"name,omitempty"`
-	// Description: Description associated with the server, max 255 characters, not updated if null.
-	Description *string `json:"description,omitempty"`
-	// Tags: Tags associated with the server, not updated if null.
-	Tags *[]string `json:"tags,omitempty"`
-}
-
-// UpdateSettingRequest:
-type UpdateSettingRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// SettingID: ID of the setting.
-	SettingID string `json:"-"`
-	// Enabled: Defines whether the setting is enabled.
-	Enabled *bool `json:"enabled,omitempty"`
 }
 
 // Scaleway Elastic Metal servers are dedicated physical servers that you can order on-demand, like Instances.
@@ -1593,7 +1593,7 @@ func (s *API) Zones() []scw.Zone {
 }
 
 // ListServers: List Elastic Metal servers for a specific Organization.
-func (s *API) ListServers(req *ListServersRequest, opts ...scw.RequestOption) (*ListServersResponse, error) {
+func (s *API) ListServers(req *APIListServersRequest, opts ...scw.RequestOption) (*ListServersResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1635,7 +1635,7 @@ func (s *API) ListServers(req *ListServersRequest, opts ...scw.RequestOption) (*
 }
 
 // GetServer: Get full details of an existing Elastic Metal server associated with the ID.
-func (s *API) GetServer(req *GetServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) GetServer(req *APIGetServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1665,7 +1665,7 @@ func (s *API) GetServer(req *GetServerRequest, opts ...scw.RequestOption) (*Serv
 }
 
 // CreateServer: Create a new Elastic Metal server. Once the server is created, proceed with the [installation of an OS](#post-3e949e).
-func (s *API) CreateServer(req *CreateServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) CreateServer(req *APICreateServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1706,7 +1706,7 @@ func (s *API) CreateServer(req *CreateServerRequest, opts ...scw.RequestOption) 
 }
 
 // UpdateServer: Update the server associated with the ID. You can update parameters such as the server's name, tags and description. Any parameters left null in the request body are not updated.
-func (s *API) UpdateServer(req *UpdateServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) UpdateServer(req *APIUpdateServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1741,7 +1741,7 @@ func (s *API) UpdateServer(req *UpdateServerRequest, opts ...scw.RequestOption) 
 }
 
 // InstallServer: Install an Operating System (OS) on the Elastic Metal server with a specific ID.
-func (s *API) InstallServer(req *InstallServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) InstallServer(req *APIInstallServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1776,7 +1776,7 @@ func (s *API) InstallServer(req *InstallServerRequest, opts ...scw.RequestOption
 }
 
 // GetServerMetrics: Get the ping status of the server associated with the ID.
-func (s *API) GetServerMetrics(req *GetServerMetricsRequest, opts ...scw.RequestOption) (*GetServerMetricsResponse, error) {
+func (s *API) GetServerMetrics(req *APIGetServerMetricsRequest, opts ...scw.RequestOption) (*GetServerMetricsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1806,7 +1806,7 @@ func (s *API) GetServerMetrics(req *GetServerMetricsRequest, opts ...scw.Request
 }
 
 // DeleteServer: Delete the server associated with the ID.
-func (s *API) DeleteServer(req *DeleteServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) DeleteServer(req *APIDeleteServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1836,7 +1836,7 @@ func (s *API) DeleteServer(req *DeleteServerRequest, opts ...scw.RequestOption) 
 }
 
 // RebootServer: Reboot the Elastic Metal server associated with the ID, use the `boot_type` `rescue` to reboot the server in rescue mode.
-func (s *API) RebootServer(req *RebootServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) RebootServer(req *APIRebootServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1871,7 +1871,7 @@ func (s *API) RebootServer(req *RebootServerRequest, opts ...scw.RequestOption) 
 }
 
 // StartServer: Start the server associated with the ID.
-func (s *API) StartServer(req *StartServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) StartServer(req *APIStartServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1906,7 +1906,7 @@ func (s *API) StartServer(req *StartServerRequest, opts ...scw.RequestOption) (*
 }
 
 // StopServer: Stop the server associated with the ID. The server remains allocated to your account and all data remains on the local storage of the server.
-func (s *API) StopServer(req *StopServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) StopServer(req *APIStopServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1941,7 +1941,7 @@ func (s *API) StopServer(req *StopServerRequest, opts ...scw.RequestOption) (*Se
 }
 
 // ListServerEvents: List event (i.e. start/stop/reboot) associated to the server ID.
-func (s *API) ListServerEvents(req *ListServerEventsRequest, opts ...scw.RequestOption) (*ListServerEventsResponse, error) {
+func (s *API) ListServerEvents(req *APIListServerEventsRequest, opts ...scw.RequestOption) (*ListServerEventsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1984,7 +1984,7 @@ func (s *API) ListServerEvents(req *ListServerEventsRequest, opts ...scw.Request
 // The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
 // You need first to create an option Remote Access. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd.
 // After adding the BMC option, you need to Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f. Do not forget to delete the Option after use.
-func (s *API) StartBMCAccess(req *StartBMCAccessRequest, opts ...scw.RequestOption) (*BMCAccess, error) {
+func (s *API) StartBMCAccess(req *APIStartBMCAccessRequest, opts ...scw.RequestOption) (*BMCAccess, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2019,7 +2019,7 @@ func (s *API) StartBMCAccess(req *StartBMCAccessRequest, opts ...scw.RequestOpti
 }
 
 // GetBMCAccess: Get the BMC (Baseboard Management Controller) access associated with the ID, including the URL and login information needed to connect.
-func (s *API) GetBMCAccess(req *GetBMCAccessRequest, opts ...scw.RequestOption) (*BMCAccess, error) {
+func (s *API) GetBMCAccess(req *APIGetBMCAccessRequest, opts ...scw.RequestOption) (*BMCAccess, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2049,7 +2049,7 @@ func (s *API) GetBMCAccess(req *GetBMCAccessRequest, opts ...scw.RequestOption) 
 }
 
 // StopBMCAccess: Stop BMC (Baseboard Management Controller) access associated with the ID.
-func (s *API) StopBMCAccess(req *StopBMCAccessRequest, opts ...scw.RequestOption) error {
+func (s *API) StopBMCAccess(req *APIStopBMCAccessRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2077,7 +2077,7 @@ func (s *API) StopBMCAccess(req *StopBMCAccessRequest, opts ...scw.RequestOption
 }
 
 // UpdateIP: Configure the IP address associated with the server ID and IP ID. You can use this method to set a reverse DNS for an IP address.
-func (s *API) UpdateIP(req *UpdateIPRequest, opts ...scw.RequestOption) (*IP, error) {
+func (s *API) UpdateIP(req *APIUpdateIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2116,7 +2116,7 @@ func (s *API) UpdateIP(req *UpdateIPRequest, opts ...scw.RequestOption) (*IP, er
 }
 
 // AddOptionServer: Add an option, such as Private Networks, to a specific server.
-func (s *API) AddOptionServer(req *AddOptionServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) AddOptionServer(req *APIAddOptionServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2155,7 +2155,7 @@ func (s *API) AddOptionServer(req *AddOptionServerRequest, opts ...scw.RequestOp
 }
 
 // DeleteOptionServer: Delete an option from a specific server.
-func (s *API) DeleteOptionServer(req *DeleteOptionServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) DeleteOptionServer(req *APIDeleteOptionServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2189,7 +2189,7 @@ func (s *API) DeleteOptionServer(req *DeleteOptionServerRequest, opts ...scw.Req
 }
 
 // ListOffers: List all available Elastic Metal server configurations.
-func (s *API) ListOffers(req *ListOffersRequest, opts ...scw.RequestOption) (*ListOffersResponse, error) {
+func (s *API) ListOffers(req *APIListOffersRequest, opts ...scw.RequestOption) (*ListOffersResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2225,7 +2225,7 @@ func (s *API) ListOffers(req *ListOffersRequest, opts ...scw.RequestOption) (*Li
 }
 
 // GetOffer: Get details of an offer identified by its offer ID.
-func (s *API) GetOffer(req *GetOfferRequest, opts ...scw.RequestOption) (*Offer, error) {
+func (s *API) GetOffer(req *APIGetOfferRequest, opts ...scw.RequestOption) (*Offer, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2255,7 +2255,7 @@ func (s *API) GetOffer(req *GetOfferRequest, opts ...scw.RequestOption) (*Offer,
 }
 
 // GetOption: Return specific option for the ID.
-func (s *API) GetOption(req *GetOptionRequest, opts ...scw.RequestOption) (*Option, error) {
+func (s *API) GetOption(req *APIGetOptionRequest, opts ...scw.RequestOption) (*Option, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2285,7 +2285,7 @@ func (s *API) GetOption(req *GetOptionRequest, opts ...scw.RequestOption) (*Opti
 }
 
 // ListOptions: List all options matching with filters.
-func (s *API) ListOptions(req *ListOptionsRequest, opts ...scw.RequestOption) (*ListOptionsResponse, error) {
+func (s *API) ListOptions(req *APIListOptionsRequest, opts ...scw.RequestOption) (*ListOptionsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2322,7 +2322,7 @@ func (s *API) ListOptions(req *ListOptionsRequest, opts ...scw.RequestOption) (*
 }
 
 // ListSettings: Return all settings for a Project ID.
-func (s *API) ListSettings(req *ListSettingsRequest, opts ...scw.RequestOption) (*ListSettingsResponse, error) {
+func (s *API) ListSettings(req *APIListSettingsRequest, opts ...scw.RequestOption) (*ListSettingsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2359,7 +2359,7 @@ func (s *API) ListSettings(req *ListSettingsRequest, opts ...scw.RequestOption) 
 }
 
 // UpdateSetting: Update a setting for a Project ID (enable or disable).
-func (s *API) UpdateSetting(req *UpdateSettingRequest, opts ...scw.RequestOption) (*Setting, error) {
+func (s *API) UpdateSetting(req *APIUpdateSettingRequest, opts ...scw.RequestOption) (*Setting, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2394,7 +2394,7 @@ func (s *API) UpdateSetting(req *UpdateSettingRequest, opts ...scw.RequestOption
 }
 
 // ListOS: List all OSes that are available for installation on Elastic Metal servers.
-func (s *API) ListOS(req *ListOSRequest, opts ...scw.RequestOption) (*ListOSResponse, error) {
+func (s *API) ListOS(req *APIListOSRequest, opts ...scw.RequestOption) (*ListOSResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -2430,7 +2430,7 @@ func (s *API) ListOS(req *ListOSRequest, opts ...scw.RequestOption) (*ListOSResp
 }
 
 // GetOS: Return the specific OS for the ID.
-func (s *API) GetOS(req *GetOSRequest, opts ...scw.RequestOption) (*OS, error) {
+func (s *API) GetOS(req *APIGetOSRequest, opts ...scw.RequestOption) (*OS, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()

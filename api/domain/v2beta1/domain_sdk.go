@@ -40,6 +40,74 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
+type APIListDNSZoneRecordsRequestOrderBy string
+
+const (
+	// Order by record name (ascending).
+	APIListDNSZoneRecordsRequestOrderByNameAsc = APIListDNSZoneRecordsRequestOrderBy("name_asc")
+	// Order by record name (descending).
+	APIListDNSZoneRecordsRequestOrderByNameDesc = APIListDNSZoneRecordsRequestOrderBy("name_desc")
+)
+
+func (enum APIListDNSZoneRecordsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListDNSZoneRecordsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListDNSZoneRecordsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListDNSZoneRecordsRequestOrderBy(APIListDNSZoneRecordsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListDNSZonesRequestOrderBy string
+
+const (
+	// Order by domain name (ascending).
+	APIListDNSZonesRequestOrderByDomainAsc = APIListDNSZonesRequestOrderBy("domain_asc")
+	// Order by domain name (descending).
+	APIListDNSZonesRequestOrderByDomainDesc = APIListDNSZonesRequestOrderBy("domain_desc")
+	// Order by subdomain name (ascending).
+	APIListDNSZonesRequestOrderBySubdomainAsc = APIListDNSZonesRequestOrderBy("subdomain_asc")
+	// Order by subdomain name (descending).
+	APIListDNSZonesRequestOrderBySubdomainDesc = APIListDNSZonesRequestOrderBy("subdomain_desc")
+)
+
+func (enum APIListDNSZonesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "domain_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListDNSZonesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListDNSZonesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListDNSZonesRequestOrderBy(APIListDNSZonesRequestOrderBy(tmp).String())
+	return nil
+}
+
 type ContactEmailStatus string
 
 const (
@@ -559,74 +627,6 @@ func (enum *ListContactsRequestRole) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type ListDNSZoneRecordsRequestOrderBy string
-
-const (
-	// Order by record name (ascending).
-	ListDNSZoneRecordsRequestOrderByNameAsc = ListDNSZoneRecordsRequestOrderBy("name_asc")
-	// Order by record name (descending).
-	ListDNSZoneRecordsRequestOrderByNameDesc = ListDNSZoneRecordsRequestOrderBy("name_desc")
-)
-
-func (enum ListDNSZoneRecordsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListDNSZoneRecordsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListDNSZoneRecordsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListDNSZoneRecordsRequestOrderBy(ListDNSZoneRecordsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListDNSZonesRequestOrderBy string
-
-const (
-	// Order by domain name (ascending).
-	ListDNSZonesRequestOrderByDomainAsc = ListDNSZonesRequestOrderBy("domain_asc")
-	// Order by domain name (descending).
-	ListDNSZonesRequestOrderByDomainDesc = ListDNSZonesRequestOrderBy("domain_desc")
-	// Order by subdomain name (ascending).
-	ListDNSZonesRequestOrderBySubdomainAsc = ListDNSZonesRequestOrderBy("subdomain_asc")
-	// Order by subdomain name (descending).
-	ListDNSZonesRequestOrderBySubdomainDesc = ListDNSZonesRequestOrderBy("subdomain_desc")
-)
-
-func (enum ListDNSZonesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "domain_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListDNSZonesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListDNSZonesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListDNSZonesRequestOrderBy(ListDNSZonesRequestOrderBy(tmp).String())
-	return nil
-}
-
 type ListDomainsRequestOrderBy string
 
 const (
@@ -1081,12 +1081,6 @@ type RecordWeightedConfigWeightedIP struct {
 	Weight uint32 `json:"weight"`
 }
 
-// DSRecordPublicKey:
-type DSRecordPublicKey struct {
-	// Key:
-	Key string `json:"key"`
-}
-
 // RecordGeoIPConfig:
 type RecordGeoIPConfig struct {
 	// Matches:
@@ -1100,11 +1094,11 @@ type RecordHTTPServiceConfig struct {
 	// IPs:
 	IPs []net.IP `json:"ips"`
 	// MustContain:
-	MustContain *string `json:"must_contain,omitempty"`
+	MustContain *string `json:"must_contain"`
 	// URL:
 	URL string `json:"url"`
 	// UserAgent:
-	UserAgent *string `json:"user_agent,omitempty"`
+	UserAgent *string `json:"user_agent"`
 	// Strategy:
 	Strategy RecordHTTPServiceConfigStrategy `json:"strategy"`
 }
@@ -1121,10 +1115,16 @@ type RecordWeightedConfig struct {
 	WeightedIPs []*RecordWeightedConfigWeightedIP `json:"weighted_ips"`
 }
 
+// DSRecordPublicKey:
+type DSRecordPublicKey struct {
+	// Key:
+	Key string `json:"key"`
+}
+
 // ContactExtensionFRAssociationInfo:
 type ContactExtensionFRAssociationInfo struct {
 	// PublicationJo:
-	PublicationJo *time.Time `json:"publication_jo,omitempty"`
+	PublicationJo *time.Time `json:"publication_jo"`
 	// PublicationJoPage:
 	PublicationJoPage uint32 `json:"publication_jo_page"`
 }
@@ -1155,16 +1155,6 @@ type ContactExtensionFRTrademarkInfo struct {
 	TrademarkInpi string `json:"trademark_inpi"`
 }
 
-// DSRecordDigest:
-type DSRecordDigest struct {
-	// Type:
-	Type DSRecordDigestType `json:"type"`
-	// Digest:
-	Digest string `json:"digest"`
-	// PublicKey:
-	PublicKey *DSRecordPublicKey `json:"public_key"`
-}
-
 // Record:
 type Record struct {
 	// Data:
@@ -1178,7 +1168,7 @@ type Record struct {
 	// Type:
 	Type RecordType `json:"type"`
 	// Comment:
-	Comment *string `json:"comment,omitempty"`
+	Comment *string `json:"comment"`
 	// GeoIPConfig:
 	GeoIPConfig *RecordGeoIPConfig `json:"geo_ip_config,omitempty"`
 	// HTTPServiceConfig:
@@ -1198,9 +1188,19 @@ type RecordIdentifier struct {
 	// Type:
 	Type RecordType `json:"type"`
 	// Data:
-	Data *string `json:"data,omitempty"`
+	Data *string `json:"data"`
 	// TTL:
-	TTL *uint32 `json:"ttl,omitempty"`
+	TTL *uint32 `json:"ttl"`
+}
+
+// DSRecordDigest:
+type DSRecordDigest struct {
+	// Type:
+	Type DSRecordDigestType `json:"type"`
+	// Digest:
+	Digest string `json:"digest"`
+	// PublicKey:
+	PublicKey *DSRecordPublicKey `json:"public_key"`
 }
 
 // ContactExtensionEU:
@@ -1248,19 +1248,17 @@ type TldOffer struct {
 	// OperationPath:
 	OperationPath string `json:"operation_path"`
 	// Price:
-	Price *scw.Money `json:"price,omitempty"`
+	Price *scw.Money `json:"price"`
 }
 
-// DSRecord:
-type DSRecord struct {
-	// KeyID:
-	KeyID uint32 `json:"key_id"`
+// APIImportRawDNSZoneRequestTsigKey:
+type APIImportRawDNSZoneRequestTsigKey struct {
+	// Name:
+	Name string `json:"name"`
+	// Key:
+	Key string `json:"key"`
 	// Algorithm:
-	Algorithm DSRecordAlgorithm `json:"algorithm"`
-	// Digest:
-	Digest *DSRecordDigest `json:"digest,omitempty"`
-	// PublicKey:
-	PublicKey *DSRecordPublicKey `json:"public_key,omitempty"`
+	Algorithm string `json:"algorithm"`
 }
 
 // RecordChangeAdd:
@@ -1291,14 +1289,16 @@ type RecordChangeSet struct {
 	Records []*Record `json:"records"`
 }
 
-// ImportRawDNSZoneRequestTsigKey:
-type ImportRawDNSZoneRequestTsigKey struct {
-	// Name:
-	Name string `json:"name"`
-	// Key:
-	Key string `json:"key"`
+// DSRecord:
+type DSRecord struct {
+	// KeyID:
+	KeyID uint32 `json:"key_id"`
 	// Algorithm:
-	Algorithm string `json:"algorithm"`
+	Algorithm DSRecordAlgorithm `json:"algorithm"`
+	// Digest:
+	Digest *DSRecordDigest `json:"digest,omitempty"`
+	// PublicKey:
+	PublicKey *DSRecordPublicKey `json:"public_key,omitempty"`
 }
 
 // Contact:
@@ -1399,6 +1399,46 @@ type Tld struct {
 	Specifications map[string]string `json:"specifications"`
 }
 
+// APIImportProviderDNSZoneRequestOnlineV1:
+type APIImportProviderDNSZoneRequestOnlineV1 struct {
+	// Token:
+	Token string `json:"token"`
+}
+
+// APIImportRawDNSZoneRequestAXFRSource:
+type APIImportRawDNSZoneRequestAXFRSource struct {
+	// NameServer:
+	NameServer string `json:"name_server"`
+	// TsigKey:
+	TsigKey *APIImportRawDNSZoneRequestTsigKey `json:"tsig_key"`
+}
+
+// APIImportRawDNSZoneRequestBindSource:
+type APIImportRawDNSZoneRequestBindSource struct {
+	// Content:
+	Content string `json:"content"`
+}
+
+// Nameserver:
+type Nameserver struct {
+	// Name:
+	Name string `json:"name"`
+	// IP:
+	IP []string `json:"ip"`
+}
+
+// RecordChange:
+type RecordChange struct {
+	// Add:
+	Add *RecordChangeAdd `json:"add,omitempty"`
+	// Set:
+	Set *RecordChangeSet `json:"set,omitempty"`
+	// Delete:
+	Delete *RecordChangeDelete `json:"delete,omitempty"`
+	// Clear:
+	Clear *RecordChangeClear `json:"clear,omitempty"`
+}
+
 // NewContact:
 type NewContact struct {
 	// LegalForm:
@@ -1408,19 +1448,19 @@ type NewContact struct {
 	// Lastname:
 	Lastname string `json:"lastname"`
 	// CompanyName:
-	CompanyName *string `json:"company_name,omitempty"`
+	CompanyName *string `json:"company_name"`
 	// Email:
 	Email string `json:"email"`
 	// EmailAlt:
-	EmailAlt *string `json:"email_alt,omitempty"`
+	EmailAlt *string `json:"email_alt"`
 	// PhoneNumber:
 	PhoneNumber string `json:"phone_number"`
 	// FaxNumber:
-	FaxNumber *string `json:"fax_number,omitempty"`
+	FaxNumber *string `json:"fax_number"`
 	// AddressLine1:
 	AddressLine1 string `json:"address_line_1"`
 	// AddressLine2:
-	AddressLine2 *string `json:"address_line_2,omitempty"`
+	AddressLine2 *string `json:"address_line_2"`
 	// Zip:
 	Zip string `json:"zip"`
 	// City:
@@ -1428,9 +1468,9 @@ type NewContact struct {
 	// Country:
 	Country string `json:"country"`
 	// VatIDentificationCode:
-	VatIDentificationCode *string `json:"vat_identification_code,omitempty"`
+	VatIDentificationCode *string `json:"vat_identification_code"`
 	// CompanyIDentificationCode:
-	CompanyIDentificationCode *string `json:"company_identification_code,omitempty"`
+	CompanyIDentificationCode *string `json:"company_identification_code"`
 	// Lang:
 	Lang std.LanguageCode `json:"lang"`
 	// Resale:
@@ -1444,7 +1484,7 @@ type NewContact struct {
 	// WhoisOptIn:
 	WhoisOptIn bool `json:"whois_opt_in"`
 	// State:
-	State *string `json:"state,omitempty"`
+	State *string `json:"state"`
 	// ExtensionNl:
 	ExtensionNl *ContactExtensionNL `json:"extension_nl"`
 }
@@ -1454,7 +1494,7 @@ type CheckContactsCompatibilityResponseContactCheckResult struct {
 	// Compatible:
 	Compatible bool `json:"compatible"`
 	// ErrorMessage:
-	ErrorMessage *string `json:"error_message,omitempty"`
+	ErrorMessage *string `json:"error_message"`
 }
 
 // DNSZone:
@@ -1472,9 +1512,9 @@ type DNSZone struct {
 	// Status:
 	Status DNSZoneStatus `json:"status"`
 	// Message:
-	Message *string `json:"message,omitempty"`
+	Message *string `json:"message"`
 	// UpdatedAt:
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// ProjectID:
 	ProjectID string `json:"project_id"`
 }
@@ -1487,38 +1527,6 @@ type DomainDNSSEC struct {
 	DsRecords []*DSRecord `json:"ds_records"`
 }
 
-// RecordChange:
-type RecordChange struct {
-	// Add:
-	Add *RecordChangeAdd `json:"add,omitempty"`
-	// Set:
-	Set *RecordChangeSet `json:"set,omitempty"`
-	// Delete:
-	Delete *RecordChangeDelete `json:"delete,omitempty"`
-	// Clear:
-	Clear *RecordChangeClear `json:"clear,omitempty"`
-}
-
-// ImportProviderDNSZoneRequestOnlineV1:
-type ImportProviderDNSZoneRequestOnlineV1 struct {
-	// Token:
-	Token string `json:"token"`
-}
-
-// ImportRawDNSZoneRequestAXFRSource:
-type ImportRawDNSZoneRequestAXFRSource struct {
-	// NameServer:
-	NameServer string `json:"name_server"`
-	// TsigKey:
-	TsigKey *ImportRawDNSZoneRequestTsigKey `json:"tsig_key"`
-}
-
-// ImportRawDNSZoneRequestBindSource:
-type ImportRawDNSZoneRequestBindSource struct {
-	// Content:
-	Content string `json:"content"`
-}
-
 // ContactRoles:
 type ContactRoles struct {
 	// Contact:
@@ -1527,20 +1535,12 @@ type ContactRoles struct {
 	Roles map[string]*ContactRolesRoles `json:"roles"`
 }
 
-// Nameserver:
-type Nameserver struct {
-	// Name:
-	Name string `json:"name"`
-	// IP:
-	IP []string `json:"ip"`
-}
-
 // DNSZoneVersion:
 type DNSZoneVersion struct {
 	// ID:
 	ID string `json:"id"`
 	// CreatedAt:
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 }
 
 // Host:
@@ -1568,9 +1568,9 @@ type DomainSummary struct {
 	// EppCode:
 	EppCode []string `json:"epp_code"`
 	// ExpiredAt:
-	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+	ExpiredAt *time.Time `json:"expired_at"`
 	// UpdatedAt:
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Registrar:
 	Registrar string `json:"registrar"`
 	// IsExternal:
@@ -1596,15 +1596,15 @@ type RenewableDomain struct {
 	// Status:
 	Status RenewableDomainStatus `json:"status"`
 	// RenewableDurationInYears:
-	RenewableDurationInYears *int32 `json:"renewable_duration_in_years,omitempty"`
+	RenewableDurationInYears *int32 `json:"renewable_duration_in_years"`
 	// ExpiredAt:
-	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+	ExpiredAt *time.Time `json:"expired_at"`
 	// LimitRenewAt:
-	LimitRenewAt *time.Time `json:"limit_renew_at,omitempty"`
+	LimitRenewAt *time.Time `json:"limit_renew_at"`
 	// LimitRedemptionAt:
-	LimitRedemptionAt *time.Time `json:"limit_redemption_at,omitempty"`
+	LimitRedemptionAt *time.Time `json:"limit_redemption_at"`
 	// EstimatedDeleteAt:
-	EstimatedDeleteAt *time.Time `json:"estimated_delete_at,omitempty"`
+	EstimatedDeleteAt *time.Time `json:"estimated_delete_at"`
 	// Tld:
 	Tld *Tld `json:"tld"`
 }
@@ -1622,9 +1622,9 @@ type SSLCertificate struct {
 	// CertificateChain:
 	CertificateChain string `json:"certificate_chain"`
 	// CreatedAt:
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// ExpiredAt:
-	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+	ExpiredAt *time.Time `json:"expired_at"`
 }
 
 // Task:
@@ -1636,17 +1636,17 @@ type Task struct {
 	// OrganizationID:
 	OrganizationID string `json:"organization_id"`
 	// Domain:
-	Domain *string `json:"domain,omitempty"`
+	Domain *string `json:"domain"`
 	// Type:
 	Type TaskType `json:"type"`
 	// Status:
 	Status TaskStatus `json:"status"`
 	// StartedAt:
-	StartedAt *time.Time `json:"started_at,omitempty"`
+	StartedAt *time.Time `json:"started_at"`
 	// UpdatedAt:
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Message:
-	Message *string `json:"message,omitempty"`
+	Message *string `json:"message"`
 }
 
 // TransferInDomainRequestTransferRequest:
@@ -1660,9 +1660,9 @@ type TransferInDomainRequestTransferRequest struct {
 // UpdateContactRequestQuestion:
 type UpdateContactRequestQuestion struct {
 	// Question:
-	Question *string `json:"question,omitempty"`
+	Question *string `json:"question"`
 	// Answer:
-	Answer *string `json:"answer,omitempty"`
+	Answer *string `json:"answer"`
 }
 
 // AvailableDomain:
@@ -1673,6 +1673,238 @@ type AvailableDomain struct {
 	Available bool `json:"available"`
 	// Tld:
 	Tld *Tld `json:"tld"`
+}
+
+// APIClearDNSZoneRecordsRequest:
+type APIClearDNSZoneRecordsRequest struct {
+	// DNSZone: DNS zone to clear.
+	DNSZone string `json:"-"`
+}
+
+// APICloneDNSZoneRequest:
+type APICloneDNSZoneRequest struct {
+	// DNSZone: DNS zone to clone.
+	DNSZone string `json:"-"`
+	// DestDNSZone: Destination DNS zone in which to clone the chosen DNS zone.
+	DestDNSZone string `json:"dest_dns_zone"`
+	// Overwrite: Specifies whether or not the destination DNS zone will be overwritten.
+	Overwrite bool `json:"overwrite"`
+	// ProjectID: Project ID of the destination DNS zone.
+	ProjectID *string `json:"project_id,omitempty"`
+}
+
+// APICreateDNSZoneRequest:
+type APICreateDNSZoneRequest struct {
+	// Domain: Domain in which to crreate the DNS zone.
+	Domain string `json:"domain"`
+	// Subdomain: Subdomain of the DNS zone to create.
+	Subdomain string `json:"subdomain"`
+	// ProjectID: Project ID in which to create the DNS zone.
+	ProjectID string `json:"project_id"`
+}
+
+// APICreateSSLCertificateRequest:
+type APICreateSSLCertificateRequest struct {
+	// DNSZone:
+	DNSZone string `json:"dns_zone"`
+	// AlternativeDNSZones:
+	AlternativeDNSZones []string `json:"alternative_dns_zones"`
+}
+
+// APIDeleteDNSZoneRequest:
+type APIDeleteDNSZoneRequest struct {
+	// DNSZone: DNS zone to delete.
+	DNSZone string `json:"-"`
+	// ProjectID: Project ID of the DNS zone to delete.
+	ProjectID string `json:"-"`
+}
+
+// APIDeleteDNSZoneTsigKeyRequest:
+type APIDeleteDNSZoneTsigKeyRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+}
+
+// APIDeleteSSLCertificateRequest:
+type APIDeleteSSLCertificateRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+}
+
+// APIExportRawDNSZoneRequest:
+type APIExportRawDNSZoneRequest struct {
+	// DNSZone: DNS zone to export.
+	DNSZone string `json:"-"`
+	// Format: DNS zone format.
+	Format RawFormat `json:"-"`
+}
+
+// APIGetDNSZoneTsigKeyRequest:
+type APIGetDNSZoneTsigKeyRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+}
+
+// APIGetDNSZoneVersionDiffRequest:
+type APIGetDNSZoneVersionDiffRequest struct {
+	// DNSZoneVersionID:
+	DNSZoneVersionID string `json:"-"`
+}
+
+// APIGetSSLCertificateRequest:
+type APIGetSSLCertificateRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+}
+
+// APIImportProviderDNSZoneRequest:
+type APIImportProviderDNSZoneRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+	// OnlineV1:
+	OnlineV1 *APIImportProviderDNSZoneRequestOnlineV1 `json:"online_v1,omitempty"`
+}
+
+// APIImportRawDNSZoneRequest:
+type APIImportRawDNSZoneRequest struct {
+	// DNSZone: DNS zone to import.
+	DNSZone string `json:"-"`
+	// Deprecated: Content:
+	Content *string `json:"content,omitempty"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// Deprecated: Format:
+	Format *RawFormat `json:"format,omitempty"`
+	// BindSource: Import a bind file format.
+	BindSource *APIImportRawDNSZoneRequestBindSource `json:"bind_source,omitempty"`
+	// AxfrSource: Import from the name server given with TSIG, to use or not.
+	AxfrSource *APIImportRawDNSZoneRequestAXFRSource `json:"axfr_source,omitempty"`
+}
+
+// APIListDNSZoneNameserversRequest:
+type APIListDNSZoneNameserversRequest struct {
+	// DNSZone: DNS zone on which to filter the returned DNS zone name servers.
+	DNSZone string `json:"-"`
+	// ProjectID: Project ID on which to filter the returned DNS zone name servers.
+	ProjectID *string `json:"-"`
+}
+
+// APIListDNSZoneRecordsRequest:
+type APIListDNSZoneRecordsRequest struct {
+	// DNSZone: DNS zone on which to filter the returned DNS zone records.
+	DNSZone string `json:"-"`
+	// ProjectID: Project ID on which to filter the returned DNS zone records.
+	ProjectID *string `json:"-"`
+	// OrderBy: Sort order of the returned DNS zone records.
+	OrderBy APIListDNSZoneRecordsRequestOrderBy `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of DNS zone records per page.
+	PageSize *uint32 `json:"-"`
+	// Name: Name on which to filter the returned DNS zone records.
+	Name string `json:"-"`
+	// Type: Record type on which to filter the returned DNS zone records.
+	Type RecordType `json:"-"`
+	// ID: Record ID on which to filter the returned DNS zone records.
+	ID *string `json:"-"`
+}
+
+// APIListDNSZoneVersionRecordsRequest:
+type APIListDNSZoneVersionRecordsRequest struct {
+	// DNSZoneVersionID:
+	DNSZoneVersionID string `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of DNS zones versions records per page.
+	PageSize *uint32 `json:"-"`
+}
+
+// APIListDNSZoneVersionsRequest:
+type APIListDNSZoneVersionsRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of DNS zones versions per page.
+	PageSize *uint32 `json:"-"`
+}
+
+// APIListDNSZonesRequest:
+type APIListDNSZonesRequest struct {
+	// OrganizationID: Organization ID on which to filter the returned DNS zones.
+	OrganizationID *string `json:"-"`
+	// ProjectID: Project ID on which to filter the returned DNS zones.
+	ProjectID *string `json:"-"`
+	// OrderBy: Sort order of the returned DNS zones.
+	OrderBy APIListDNSZonesRequestOrderBy `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of DNS zones to return per page.
+	PageSize *uint32 `json:"-"`
+	// Domain: Domain on which to filter the returned DNS zones.
+	Domain string `json:"-"`
+	// DNSZone: DNS zone on which to filter the returned DNS zones.
+	DNSZone string `json:"-"`
+}
+
+// APIListSSLCertificatesRequest:
+type APIListSSLCertificatesRequest struct {
+	// DNSZone:
+	DNSZone string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// ProjectID:
+	ProjectID *string `json:"-"`
+}
+
+// APIRefreshDNSZoneRequest:
+type APIRefreshDNSZoneRequest struct {
+	// DNSZone: DNS zone to refresh.
+	DNSZone string `json:"-"`
+	// RecreateDNSZone: Specifies whether or not to recreate the DNS zone.
+	RecreateDNSZone bool `json:"recreate_dns_zone"`
+	// RecreateSubDNSZone: Specifies whether or not to recreate the sub DNS zone.
+	RecreateSubDNSZone bool `json:"recreate_sub_dns_zone"`
+}
+
+// APIRestoreDNSZoneVersionRequest:
+type APIRestoreDNSZoneVersionRequest struct {
+	// DNSZoneVersionID:
+	DNSZoneVersionID string `json:"-"`
+}
+
+// APIUpdateDNSZoneNameserversRequest:
+type APIUpdateDNSZoneNameserversRequest struct {
+	// DNSZone: DNS zone in which to update the DNS zone name servers.
+	DNSZone string `json:"-"`
+	// Ns: New DNS zone name servers.
+	Ns []*Nameserver `json:"ns"`
+}
+
+// APIUpdateDNSZoneRecordsRequest:
+type APIUpdateDNSZoneRecordsRequest struct {
+	// DNSZone: DNS zone in which to update the DNS zone records.
+	DNSZone string `json:"-"`
+	// Changes: Changes made to the records.
+	Changes []*RecordChange `json:"changes"`
+	// ReturnAllRecords: Specifies whether or not to return all the records.
+	ReturnAllRecords *bool `json:"return_all_records,omitempty"`
+	// DisallowNewZoneCreation: Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
+	DisallowNewZoneCreation bool `json:"disallow_new_zone_creation"`
+	// Serial: Use the provided serial (0) instead of the auto-increment serial.
+	Serial *uint64 `json:"serial,omitempty"`
+}
+
+// APIUpdateDNSZoneRequest:
+type APIUpdateDNSZoneRequest struct {
+	// DNSZone: DNS zone to update.
+	DNSZone string `json:"-"`
+	// NewDNSZone: Name of the new DNS zone to create.
+	NewDNSZone *string `json:"new_dns_zone,omitempty"`
+	// ProjectID: Project ID in which to create the new DNS zone.
+	ProjectID string `json:"project_id"`
 }
 
 // CheckContactsCompatibilityResponse:
@@ -1687,72 +1919,16 @@ type CheckContactsCompatibilityResponse struct {
 	TechnicalCheckResult *CheckContactsCompatibilityResponseContactCheckResult `json:"technical_check_result"`
 }
 
-// ClearDNSZoneRecordsRequest:
-type ClearDNSZoneRecordsRequest struct {
-	// DNSZone: DNS zone to clear.
-	DNSZone string `json:"-"`
-}
-
 // ClearDNSZoneRecordsResponse:
 type ClearDNSZoneRecordsResponse struct {
-}
-
-// CloneDNSZoneRequest:
-type CloneDNSZoneRequest struct {
-	// DNSZone: DNS zone to clone.
-	DNSZone string `json:"-"`
-	// DestDNSZone: Destination DNS zone in which to clone the chosen DNS zone.
-	DestDNSZone string `json:"dest_dns_zone"`
-	// Overwrite: Specifies whether or not the destination DNS zone will be overwritten.
-	Overwrite bool `json:"overwrite"`
-	// ProjectID: Project ID of the destination DNS zone.
-	ProjectID *string `json:"project_id,omitempty"`
-}
-
-// CreateDNSZoneRequest:
-type CreateDNSZoneRequest struct {
-	// Domain: Domain in which to crreate the DNS zone.
-	Domain string `json:"domain"`
-	// Subdomain: Subdomain of the DNS zone to create.
-	Subdomain string `json:"subdomain"`
-	// ProjectID: Project ID in which to create the DNS zone.
-	ProjectID string `json:"project_id"`
-}
-
-// CreateSSLCertificateRequest:
-type CreateSSLCertificateRequest struct {
-	// DNSZone:
-	DNSZone string `json:"dns_zone"`
-	// AlternativeDNSZones:
-	AlternativeDNSZones []string `json:"alternative_dns_zones"`
-}
-
-// DeleteDNSZoneRequest:
-type DeleteDNSZoneRequest struct {
-	// DNSZone: DNS zone to delete.
-	DNSZone string `json:"-"`
-	// ProjectID: Project ID of the DNS zone to delete.
-	ProjectID string `json:"-"`
 }
 
 // DeleteDNSZoneResponse:
 type DeleteDNSZoneResponse struct {
 }
 
-// DeleteDNSZoneTsigKeyRequest:
-type DeleteDNSZoneTsigKeyRequest struct {
-	// DNSZone:
-	DNSZone string `json:"-"`
-}
-
 // DeleteExternalDomainResponse:
 type DeleteExternalDomainResponse struct {
-}
-
-// DeleteSSLCertificateRequest:
-type DeleteSSLCertificateRequest struct {
-	// DNSZone:
-	DNSZone string `json:"-"`
 }
 
 // DeleteSSLCertificateResponse:
@@ -1774,9 +1950,9 @@ type Domain struct {
 	// EppCode:
 	EppCode []string `json:"epp_code"`
 	// ExpiredAt:
-	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+	ExpiredAt *time.Time `json:"expired_at"`
 	// UpdatedAt:
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Registrar:
 	Registrar string `json:"registrar"`
 	// IsExternal:
@@ -1799,20 +1975,6 @@ type Domain struct {
 	Tld *Tld `json:"tld"`
 }
 
-// ExportRawDNSZoneRequest:
-type ExportRawDNSZoneRequest struct {
-	// DNSZone: DNS zone to export.
-	DNSZone string `json:"-"`
-	// Format: DNS zone format.
-	Format RawFormat `json:"-"`
-}
-
-// GetDNSZoneTsigKeyRequest:
-type GetDNSZoneTsigKeyRequest struct {
-	// DNSZone:
-	DNSZone string `json:"-"`
-}
-
 // GetDNSZoneTsigKeyResponse:
 type GetDNSZoneTsigKeyResponse struct {
 	// Name:
@@ -1821,12 +1983,6 @@ type GetDNSZoneTsigKeyResponse struct {
 	Key string `json:"key"`
 	// Algorithm:
 	Algorithm string `json:"algorithm"`
-}
-
-// GetDNSZoneVersionDiffRequest:
-type GetDNSZoneVersionDiffRequest struct {
-	// DNSZoneVersionID:
-	DNSZoneVersionID string `json:"-"`
 }
 
 // GetDNSZoneVersionDiffResponse:
@@ -1841,40 +1997,10 @@ type GetDomainAuthCodeResponse struct {
 	AuthCode string `json:"auth_code"`
 }
 
-// GetSSLCertificateRequest:
-type GetSSLCertificateRequest struct {
-	// DNSZone:
-	DNSZone string `json:"-"`
-}
-
-// ImportProviderDNSZoneRequest:
-type ImportProviderDNSZoneRequest struct {
-	// DNSZone:
-	DNSZone string `json:"-"`
-	// OnlineV1:
-	OnlineV1 *ImportProviderDNSZoneRequestOnlineV1 `json:"online_v1,omitempty"`
-}
-
 // ImportProviderDNSZoneResponse:
 type ImportProviderDNSZoneResponse struct {
 	// Records:
 	Records []*Record `json:"records"`
-}
-
-// ImportRawDNSZoneRequest:
-type ImportRawDNSZoneRequest struct {
-	// DNSZone: DNS zone to import.
-	DNSZone string `json:"-"`
-	// Deprecated: Content:
-	Content *string `json:"content,omitempty"`
-	// ProjectID:
-	ProjectID string `json:"project_id"`
-	// Deprecated: Format:
-	Format *RawFormat `json:"format,omitempty"`
-	// BindSource: Import a bind file format.
-	BindSource *ImportRawDNSZoneRequestBindSource `json:"bind_source,omitempty"`
-	// AxfrSource: Import from the name server given with TSIG, to use or not.
-	AxfrSource *ImportRawDNSZoneRequestAXFRSource `json:"axfr_source,omitempty"`
 }
 
 // ImportRawDNSZoneResponse:
@@ -1910,38 +2036,10 @@ func (r *ListContactsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Contacts)), nil
 }
 
-// ListDNSZoneNameserversRequest:
-type ListDNSZoneNameserversRequest struct {
-	// DNSZone: DNS zone on which to filter the returned DNS zone name servers.
-	DNSZone string `json:"-"`
-	// ProjectID: Project ID on which to filter the returned DNS zone name servers.
-	ProjectID *string `json:"-"`
-}
-
 // ListDNSZoneNameserversResponse:
 type ListDNSZoneNameserversResponse struct {
 	// Ns: DNS zone name servers returned.
 	Ns []*Nameserver `json:"ns"`
-}
-
-// ListDNSZoneRecordsRequest:
-type ListDNSZoneRecordsRequest struct {
-	// DNSZone: DNS zone on which to filter the returned DNS zone records.
-	DNSZone string `json:"-"`
-	// ProjectID: Project ID on which to filter the returned DNS zone records.
-	ProjectID *string `json:"-"`
-	// OrderBy: Sort order of the returned DNS zone records.
-	OrderBy ListDNSZoneRecordsRequestOrderBy `json:"-"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: Maximum number of DNS zone records per page.
-	PageSize *uint32 `json:"-"`
-	// Name: Name on which to filter the returned DNS zone records.
-	Name string `json:"-"`
-	// Type: Record type on which to filter the returned DNS zone records.
-	Type RecordType `json:"-"`
-	// ID: Record ID on which to filter the returned DNS zone records.
-	ID *string `json:"-"`
 }
 
 // ListDNSZoneRecordsResponse:
@@ -1971,16 +2069,6 @@ func (r *ListDNSZoneRecordsResponse) UnsafeAppend(res interface{}) (uint32, erro
 	return uint32(len(results.Records)), nil
 }
 
-// ListDNSZoneVersionRecordsRequest:
-type ListDNSZoneVersionRecordsRequest struct {
-	// DNSZoneVersionID:
-	DNSZoneVersionID string `json:"-"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: Maximum number of DNS zones versions records per page.
-	PageSize *uint32 `json:"-"`
-}
-
 // ListDNSZoneVersionRecordsResponse:
 type ListDNSZoneVersionRecordsResponse struct {
 	// TotalCount: Total number of DNS zones versions records.
@@ -2008,16 +2096,6 @@ func (r *ListDNSZoneVersionRecordsResponse) UnsafeAppend(res interface{}) (uint3
 	return uint32(len(results.Records)), nil
 }
 
-// ListDNSZoneVersionsRequest:
-type ListDNSZoneVersionsRequest struct {
-	// DNSZone:
-	DNSZone string `json:"-"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: Maximum number of DNS zones versions per page.
-	PageSize *uint32 `json:"-"`
-}
-
 // ListDNSZoneVersionsResponse:
 type ListDNSZoneVersionsResponse struct {
 	// TotalCount: Total number of DNS zones versions.
@@ -2043,24 +2121,6 @@ func (r *ListDNSZoneVersionsResponse) UnsafeAppend(res interface{}) (uint32, err
 	r.Versions = append(r.Versions, results.Versions...)
 	r.TotalCount += uint32(len(results.Versions))
 	return uint32(len(results.Versions)), nil
-}
-
-// ListDNSZonesRequest:
-type ListDNSZonesRequest struct {
-	// OrganizationID: Organization ID on which to filter the returned DNS zones.
-	OrganizationID *string `json:"-"`
-	// ProjectID: Project ID on which to filter the returned DNS zones.
-	ProjectID *string `json:"-"`
-	// OrderBy: Sort order of the returned DNS zones.
-	OrderBy ListDNSZonesRequestOrderBy `json:"-"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: Maximum number of DNS zones to return per page.
-	PageSize *uint32 `json:"-"`
-	// Domain: Domain on which to filter the returned DNS zones.
-	Domain string `json:"-"`
-	// DNSZone: DNS zone on which to filter the returned DNS zones.
-	DNSZone string `json:"-"`
 }
 
 // ListDNSZonesResponse:
@@ -2171,18 +2231,6 @@ func (r *ListRenewableDomainsResponse) UnsafeAppend(res interface{}) (uint32, er
 	return uint32(len(results.Domains)), nil
 }
 
-// ListSSLCertificatesRequest:
-type ListSSLCertificatesRequest struct {
-	// DNSZone:
-	DNSZone string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-	// ProjectID:
-	ProjectID *string `json:"-"`
-}
-
 // ListSSLCertificatesResponse:
 type ListSSLCertificatesResponse struct {
 	// TotalCount:
@@ -2248,17 +2296,7 @@ type OrderResponse struct {
 	// TaskID:
 	TaskID string `json:"task_id"`
 	// CreatedAt:
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-}
-
-// RefreshDNSZoneRequest:
-type RefreshDNSZoneRequest struct {
-	// DNSZone: DNS zone to refresh.
-	DNSZone string `json:"-"`
-	// RecreateDNSZone: Specifies whether or not to recreate the DNS zone.
-	RecreateDNSZone bool `json:"recreate_dns_zone"`
-	// RecreateSubDNSZone: Specifies whether or not to recreate the sub DNS zone.
-	RecreateSubDNSZone bool `json:"recreate_sub_dns_zone"`
+	CreatedAt *time.Time `json:"created_at"`
 }
 
 // RefreshDNSZoneResponse:
@@ -2276,7 +2314,7 @@ type RegisterExternalDomainResponse struct {
 	// ValidationToken:
 	ValidationToken string `json:"validation_token"`
 	// CreatedAt:
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// ProjectID:
 	ProjectID string `json:"project_id"`
 }
@@ -2619,12 +2657,6 @@ type RegistrarAPIUpdateDomainRequest struct {
 	AdministrativeContact *NewContact `json:"administrative_contact,omitempty"`
 }
 
-// RestoreDNSZoneVersionRequest:
-type RestoreDNSZoneVersionRequest struct {
-	// DNSZoneVersionID:
-	DNSZoneVersionID string `json:"-"`
-}
-
 // RestoreDNSZoneVersionResponse:
 type RestoreDNSZoneVersionResponse struct {
 }
@@ -2635,48 +2667,16 @@ type SearchAvailableDomainsResponse struct {
 	AvailableDomains []*AvailableDomain `json:"available_domains"`
 }
 
-// UpdateDNSZoneNameserversRequest:
-type UpdateDNSZoneNameserversRequest struct {
-	// DNSZone: DNS zone in which to update the DNS zone name servers.
-	DNSZone string `json:"-"`
-	// Ns: New DNS zone name servers.
-	Ns []*Nameserver `json:"ns"`
-}
-
 // UpdateDNSZoneNameserversResponse:
 type UpdateDNSZoneNameserversResponse struct {
 	// Ns: DNS zone name servers returned.
 	Ns []*Nameserver `json:"ns"`
 }
 
-// UpdateDNSZoneRecordsRequest:
-type UpdateDNSZoneRecordsRequest struct {
-	// DNSZone: DNS zone in which to update the DNS zone records.
-	DNSZone string `json:"-"`
-	// Changes: Changes made to the records.
-	Changes []*RecordChange `json:"changes"`
-	// ReturnAllRecords: Specifies whether or not to return all the records.
-	ReturnAllRecords *bool `json:"return_all_records,omitempty"`
-	// DisallowNewZoneCreation: Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
-	DisallowNewZoneCreation bool `json:"disallow_new_zone_creation"`
-	// Serial: Use the provided serial (0) instead of the auto-increment serial.
-	Serial *uint64 `json:"serial,omitempty"`
-}
-
 // UpdateDNSZoneRecordsResponse:
 type UpdateDNSZoneRecordsResponse struct {
 	// Records: DNS zone records returned.
 	Records []*Record `json:"records"`
-}
-
-// UpdateDNSZoneRequest:
-type UpdateDNSZoneRequest struct {
-	// DNSZone: DNS zone to update.
-	DNSZone string `json:"-"`
-	// NewDNSZone: Name of the new DNS zone to create.
-	NewDNSZone *string `json:"new_dns_zone,omitempty"`
-	// ProjectID: Project ID in which to create the new DNS zone.
-	ProjectID string `json:"project_id"`
 }
 
 // The Domains and DNS API documentation allows you to configure and manage your domains' DNS zones and records. You can also use dynamic records to optimize and easily use your infrastructure as code.
@@ -3184,7 +3184,7 @@ func NewAPI(client *scw.Client) *API {
 }
 
 // ListDNSZones: Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
-func (s *API) ListDNSZones(req *ListDNSZonesRequest, opts ...scw.RequestOption) (*ListDNSZonesResponse, error) {
+func (s *API) ListDNSZones(req *APIListDNSZonesRequest, opts ...scw.RequestOption) (*ListDNSZonesResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -3212,7 +3212,7 @@ func (s *API) ListDNSZones(req *ListDNSZonesRequest, opts ...scw.RequestOption) 
 }
 
 // CreateDNSZone: Create a new DNS zone specified by the domain name, the subdomain and the Project ID.
-func (s *API) CreateDNSZone(req *CreateDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
+func (s *API) CreateDNSZone(req *APICreateDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -3239,7 +3239,7 @@ func (s *API) CreateDNSZone(req *CreateDNSZoneRequest, opts ...scw.RequestOption
 }
 
 // UpdateDNSZone: Update the name and/or the Organizations for a DNS zone.
-func (s *API) UpdateDNSZone(req *UpdateDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
+func (s *API) UpdateDNSZone(req *APIUpdateDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -3270,7 +3270,7 @@ func (s *API) UpdateDNSZone(req *UpdateDNSZoneRequest, opts ...scw.RequestOption
 }
 
 // CloneDNSZone: Clone an existing DNS zone with all its records into a new DNS zone.
-func (s *API) CloneDNSZone(req *CloneDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
+func (s *API) CloneDNSZone(req *APICloneDNSZoneRequest, opts ...scw.RequestOption) (*DNSZone, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {
@@ -3297,7 +3297,7 @@ func (s *API) CloneDNSZone(req *CloneDNSZoneRequest, opts ...scw.RequestOption) 
 }
 
 // DeleteDNSZone: Delete a DNS zone and all its records.
-func (s *API) DeleteDNSZone(req *DeleteDNSZoneRequest, opts ...scw.RequestOption) (*DeleteDNSZoneResponse, error) {
+func (s *API) DeleteDNSZone(req *APIDeleteDNSZoneRequest, opts ...scw.RequestOption) (*DeleteDNSZoneResponse, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -3328,7 +3328,7 @@ func (s *API) DeleteDNSZone(req *DeleteDNSZoneRequest, opts ...scw.RequestOption
 
 // ListDNSZoneRecords: Retrieve a list of DNS records within a DNS zone that has default name servers.
 // You can filter records by type and name.
-func (s *API) ListDNSZoneRecords(req *ListDNSZoneRecordsRequest, opts ...scw.RequestOption) (*ListDNSZoneRecordsResponse, error) {
+func (s *API) ListDNSZoneRecords(req *APIListDNSZoneRecordsRequest, opts ...scw.RequestOption) (*ListDNSZoneRecordsResponse, error) {
 	var err error
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
@@ -3372,7 +3372,7 @@ func (s *API) ListDNSZoneRecords(req *ListDNSZoneRecordsRequest, opts ...scw.Req
 //   - clear: allows you to delete all records from a DNS zone
 //
 // All edits will be versioned.
-func (s *API) UpdateDNSZoneRecords(req *UpdateDNSZoneRecordsRequest, opts ...scw.RequestOption) (*UpdateDNSZoneRecordsResponse, error) {
+func (s *API) UpdateDNSZoneRecords(req *APIUpdateDNSZoneRecordsRequest, opts ...scw.RequestOption) (*UpdateDNSZoneRecordsResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {
@@ -3399,7 +3399,7 @@ func (s *API) UpdateDNSZoneRecords(req *UpdateDNSZoneRecordsRequest, opts ...scw
 }
 
 // ListDNSZoneNameservers: Retrieve a list of name servers within a DNS zone and their optional glue records.
-func (s *API) ListDNSZoneNameservers(req *ListDNSZoneNameserversRequest, opts ...scw.RequestOption) (*ListDNSZoneNameserversResponse, error) {
+func (s *API) ListDNSZoneNameservers(req *APIListDNSZoneNameserversRequest, opts ...scw.RequestOption) (*ListDNSZoneNameserversResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -3425,7 +3425,7 @@ func (s *API) ListDNSZoneNameservers(req *ListDNSZoneNameserversRequest, opts ..
 }
 
 // UpdateDNSZoneNameservers: Update name servers within a DNS zone and set optional glue records.
-func (s *API) UpdateDNSZoneNameservers(req *UpdateDNSZoneNameserversRequest, opts ...scw.RequestOption) (*UpdateDNSZoneNameserversResponse, error) {
+func (s *API) UpdateDNSZoneNameservers(req *APIUpdateDNSZoneNameserversRequest, opts ...scw.RequestOption) (*UpdateDNSZoneNameserversResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {
@@ -3453,7 +3453,7 @@ func (s *API) UpdateDNSZoneNameservers(req *UpdateDNSZoneNameserversRequest, opt
 
 // ClearDNSZoneRecords: Delete all records within a DNS zone that has default name servers.<br/>
 // All edits will be versioned.
-func (s *API) ClearDNSZoneRecords(req *ClearDNSZoneRecordsRequest, opts ...scw.RequestOption) (*ClearDNSZoneRecordsResponse, error) {
+func (s *API) ClearDNSZoneRecords(req *APIClearDNSZoneRecordsRequest, opts ...scw.RequestOption) (*ClearDNSZoneRecordsResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {
@@ -3475,7 +3475,7 @@ func (s *API) ClearDNSZoneRecords(req *ClearDNSZoneRecordsRequest, opts ...scw.R
 }
 
 // ExportRawDNSZone: Export a DNS zone with default name servers, in a specific format.
-func (s *API) ExportRawDNSZone(req *ExportRawDNSZoneRequest, opts ...scw.RequestOption) (*scw.File, error) {
+func (s *API) ExportRawDNSZone(req *APIExportRawDNSZoneRequest, opts ...scw.RequestOption) (*scw.File, error) {
 	var err error
 
 	query := url.Values{}
@@ -3501,7 +3501,7 @@ func (s *API) ExportRawDNSZone(req *ExportRawDNSZoneRequest, opts ...scw.Request
 }
 
 // ImportRawDNSZone: Import and replace the format of records from a given provider, with default name servers.
-func (s *API) ImportRawDNSZone(req *ImportRawDNSZoneRequest, opts ...scw.RequestOption) (*ImportRawDNSZoneResponse, error) {
+func (s *API) ImportRawDNSZone(req *APIImportRawDNSZoneRequest, opts ...scw.RequestOption) (*ImportRawDNSZoneResponse, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -3532,7 +3532,7 @@ func (s *API) ImportRawDNSZone(req *ImportRawDNSZoneRequest, opts ...scw.Request
 }
 
 // ImportProviderDNSZone: Import and replace the format of records from a given provider, with default name servers.
-func (s *API) ImportProviderDNSZone(req *ImportProviderDNSZoneRequest, opts ...scw.RequestOption) (*ImportProviderDNSZoneResponse, error) {
+func (s *API) ImportProviderDNSZone(req *APIImportProviderDNSZoneRequest, opts ...scw.RequestOption) (*ImportProviderDNSZoneResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {
@@ -3560,7 +3560,7 @@ func (s *API) ImportProviderDNSZone(req *ImportProviderDNSZoneRequest, opts ...s
 
 // RefreshDNSZone: Refresh an SOA DNS zone to reload the records in the DNS zone and update the SOA serial.
 // You can recreate the given DNS zone and its sub DNS zone if needed.
-func (s *API) RefreshDNSZone(req *RefreshDNSZoneRequest, opts ...scw.RequestOption) (*RefreshDNSZoneResponse, error) {
+func (s *API) RefreshDNSZone(req *APIRefreshDNSZoneRequest, opts ...scw.RequestOption) (*RefreshDNSZoneResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {
@@ -3588,7 +3588,7 @@ func (s *API) RefreshDNSZone(req *RefreshDNSZoneRequest, opts ...scw.RequestOpti
 
 // ListDNSZoneVersions: Retrieve a list of a DNS zone's versions.<br/>
 // The maximum version count is 100. If the count reaches this limit, the oldest version will be deleted after each new modification.
-func (s *API) ListDNSZoneVersions(req *ListDNSZoneVersionsRequest, opts ...scw.RequestOption) (*ListDNSZoneVersionsResponse, error) {
+func (s *API) ListDNSZoneVersions(req *APIListDNSZoneVersionsRequest, opts ...scw.RequestOption) (*ListDNSZoneVersionsResponse, error) {
 	var err error
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
@@ -3619,7 +3619,7 @@ func (s *API) ListDNSZoneVersions(req *ListDNSZoneVersionsRequest, opts ...scw.R
 }
 
 // ListDNSZoneVersionRecords: Retrieve a list of records from a specific DNS zone version.
-func (s *API) ListDNSZoneVersionRecords(req *ListDNSZoneVersionRecordsRequest, opts ...scw.RequestOption) (*ListDNSZoneVersionRecordsResponse, error) {
+func (s *API) ListDNSZoneVersionRecords(req *APIListDNSZoneVersionRecordsRequest, opts ...scw.RequestOption) (*ListDNSZoneVersionRecordsResponse, error) {
 	var err error
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
@@ -3650,7 +3650,7 @@ func (s *API) ListDNSZoneVersionRecords(req *ListDNSZoneVersionRecordsRequest, o
 }
 
 // GetDNSZoneVersionDiff: Access a previous DNS zone version to see the differences from another specific version.
-func (s *API) GetDNSZoneVersionDiff(req *GetDNSZoneVersionDiffRequest, opts ...scw.RequestOption) (*GetDNSZoneVersionDiffResponse, error) {
+func (s *API) GetDNSZoneVersionDiff(req *APIGetDNSZoneVersionDiffRequest, opts ...scw.RequestOption) (*GetDNSZoneVersionDiffResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZoneVersionID) == "" {
@@ -3672,7 +3672,7 @@ func (s *API) GetDNSZoneVersionDiff(req *GetDNSZoneVersionDiffRequest, opts ...s
 }
 
 // RestoreDNSZoneVersion: Restore and activate a version of a specific DNS zone.
-func (s *API) RestoreDNSZoneVersion(req *RestoreDNSZoneVersionRequest, opts ...scw.RequestOption) (*RestoreDNSZoneVersionResponse, error) {
+func (s *API) RestoreDNSZoneVersion(req *APIRestoreDNSZoneVersionRequest, opts ...scw.RequestOption) (*RestoreDNSZoneVersionResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZoneVersionID) == "" {
@@ -3699,7 +3699,7 @@ func (s *API) RestoreDNSZoneVersion(req *RestoreDNSZoneVersionRequest, opts ...s
 }
 
 // GetSSLCertificate: Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns `no certificate found`.
-func (s *API) GetSSLCertificate(req *GetSSLCertificateRequest, opts ...scw.RequestOption) (*SSLCertificate, error) {
+func (s *API) GetSSLCertificate(req *APIGetSSLCertificateRequest, opts ...scw.RequestOption) (*SSLCertificate, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {
@@ -3721,7 +3721,7 @@ func (s *API) GetSSLCertificate(req *GetSSLCertificateRequest, opts ...scw.Reque
 }
 
 // CreateSSLCertificate: Create a new TLS certificate or retrieve information about an existing TLS certificate.
-func (s *API) CreateSSLCertificate(req *CreateSSLCertificateRequest, opts ...scw.RequestOption) (*SSLCertificate, error) {
+func (s *API) CreateSSLCertificate(req *APICreateSSLCertificateRequest, opts ...scw.RequestOption) (*SSLCertificate, error) {
 	var err error
 
 	scwReq := &scw.ScalewayRequest{
@@ -3744,7 +3744,7 @@ func (s *API) CreateSSLCertificate(req *CreateSSLCertificateRequest, opts ...scw
 }
 
 // ListSSLCertificates: List all the TLS certificates a user has created, specified by the user's Project ID and the DNS zone.
-func (s *API) ListSSLCertificates(req *ListSSLCertificatesRequest, opts ...scw.RequestOption) (*ListSSLCertificatesResponse, error) {
+func (s *API) ListSSLCertificates(req *APIListSSLCertificatesRequest, opts ...scw.RequestOption) (*ListSSLCertificatesResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -3769,7 +3769,7 @@ func (s *API) ListSSLCertificates(req *ListSSLCertificatesRequest, opts ...scw.R
 }
 
 // DeleteSSLCertificate: Delete an existing TLS certificate specified by its DNS zone. Deleting a TLS certificate is permanent and cannot be undone.
-func (s *API) DeleteSSLCertificate(req *DeleteSSLCertificateRequest, opts ...scw.RequestOption) (*DeleteSSLCertificateResponse, error) {
+func (s *API) DeleteSSLCertificate(req *APIDeleteSSLCertificateRequest, opts ...scw.RequestOption) (*DeleteSSLCertificateResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {
@@ -3791,7 +3791,7 @@ func (s *API) DeleteSSLCertificate(req *DeleteSSLCertificateRequest, opts ...scw
 }
 
 // GetDNSZoneTsigKey: Retrieve information about the TSIG key of a given DNS zone to allow AXFR requests.
-func (s *API) GetDNSZoneTsigKey(req *GetDNSZoneTsigKeyRequest, opts ...scw.RequestOption) (*GetDNSZoneTsigKeyResponse, error) {
+func (s *API) GetDNSZoneTsigKey(req *APIGetDNSZoneTsigKeyRequest, opts ...scw.RequestOption) (*GetDNSZoneTsigKeyResponse, error) {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {
@@ -3813,7 +3813,7 @@ func (s *API) GetDNSZoneTsigKey(req *GetDNSZoneTsigKeyRequest, opts ...scw.Reque
 }
 
 // DeleteDNSZoneTsigKey: Delete an existing TSIG key specified by its DNS zone. Deleting a TSIG key is permanent and cannot be undone.
-func (s *API) DeleteDNSZoneTsigKey(req *DeleteDNSZoneTsigKeyRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteDNSZoneTsigKey(req *APIDeleteDNSZoneTsigKeyRequest, opts ...scw.RequestOption) error {
 	var err error
 
 	if fmt.Sprint(req.DNSZone) == "" {

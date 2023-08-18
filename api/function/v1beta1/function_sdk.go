@@ -39,6 +39,222 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
+type APIListCronsRequestOrderBy string
+
+const (
+	APIListCronsRequestOrderByCreatedAtAsc  = APIListCronsRequestOrderBy("created_at_asc")
+	APIListCronsRequestOrderByCreatedAtDesc = APIListCronsRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListCronsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListCronsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListCronsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListCronsRequestOrderBy(APIListCronsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListDomainsRequestOrderBy string
+
+const (
+	APIListDomainsRequestOrderByCreatedAtAsc  = APIListDomainsRequestOrderBy("created_at_asc")
+	APIListDomainsRequestOrderByCreatedAtDesc = APIListDomainsRequestOrderBy("created_at_desc")
+	APIListDomainsRequestOrderByHostnameAsc   = APIListDomainsRequestOrderBy("hostname_asc")
+	APIListDomainsRequestOrderByHostnameDesc  = APIListDomainsRequestOrderBy("hostname_desc")
+)
+
+func (enum APIListDomainsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListDomainsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListDomainsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListDomainsRequestOrderBy(APIListDomainsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListFunctionsRequestOrderBy string
+
+const (
+	APIListFunctionsRequestOrderByCreatedAtAsc  = APIListFunctionsRequestOrderBy("created_at_asc")
+	APIListFunctionsRequestOrderByCreatedAtDesc = APIListFunctionsRequestOrderBy("created_at_desc")
+	APIListFunctionsRequestOrderByNameAsc       = APIListFunctionsRequestOrderBy("name_asc")
+	APIListFunctionsRequestOrderByNameDesc      = APIListFunctionsRequestOrderBy("name_desc")
+)
+
+func (enum APIListFunctionsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListFunctionsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListFunctionsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListFunctionsRequestOrderBy(APIListFunctionsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListLogsRequestOrderBy string
+
+const (
+	APIListLogsRequestOrderByTimestampDesc = APIListLogsRequestOrderBy("timestamp_desc")
+	APIListLogsRequestOrderByTimestampAsc  = APIListLogsRequestOrderBy("timestamp_asc")
+)
+
+func (enum APIListLogsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "timestamp_desc"
+	}
+	return string(enum)
+}
+
+func (enum APIListLogsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListLogsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListLogsRequestOrderBy(APIListLogsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListNamespacesRequestOrderBy string
+
+const (
+	APIListNamespacesRequestOrderByCreatedAtAsc  = APIListNamespacesRequestOrderBy("created_at_asc")
+	APIListNamespacesRequestOrderByCreatedAtDesc = APIListNamespacesRequestOrderBy("created_at_desc")
+	APIListNamespacesRequestOrderByNameAsc       = APIListNamespacesRequestOrderBy("name_asc")
+	APIListNamespacesRequestOrderByNameDesc      = APIListNamespacesRequestOrderBy("name_desc")
+)
+
+func (enum APIListNamespacesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListNamespacesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListNamespacesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListNamespacesRequestOrderBy(APIListNamespacesRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListTokensRequestOrderBy string
+
+const (
+	APIListTokensRequestOrderByCreatedAtAsc  = APIListTokensRequestOrderBy("created_at_asc")
+	APIListTokensRequestOrderByCreatedAtDesc = APIListTokensRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListTokensRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListTokensRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListTokensRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListTokensRequestOrderBy(APIListTokensRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListTriggersRequestOrderBy string
+
+const (
+	APIListTriggersRequestOrderByCreatedAtAsc  = APIListTriggersRequestOrderBy("created_at_asc")
+	APIListTriggersRequestOrderByCreatedAtDesc = APIListTriggersRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListTriggersRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListTriggersRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListTriggersRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListTriggersRequestOrderBy(APIListTriggersRequestOrderBy(tmp).String())
+	return nil
+}
+
 type CronStatus string
 
 const (
@@ -255,222 +471,6 @@ func (enum *FunctionStatus) UnmarshalJSON(data []byte) error {
 	}
 
 	*enum = FunctionStatus(FunctionStatus(tmp).String())
-	return nil
-}
-
-type ListCronsRequestOrderBy string
-
-const (
-	ListCronsRequestOrderByCreatedAtAsc  = ListCronsRequestOrderBy("created_at_asc")
-	ListCronsRequestOrderByCreatedAtDesc = ListCronsRequestOrderBy("created_at_desc")
-)
-
-func (enum ListCronsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListCronsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListCronsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListCronsRequestOrderBy(ListCronsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListDomainsRequestOrderBy string
-
-const (
-	ListDomainsRequestOrderByCreatedAtAsc  = ListDomainsRequestOrderBy("created_at_asc")
-	ListDomainsRequestOrderByCreatedAtDesc = ListDomainsRequestOrderBy("created_at_desc")
-	ListDomainsRequestOrderByHostnameAsc   = ListDomainsRequestOrderBy("hostname_asc")
-	ListDomainsRequestOrderByHostnameDesc  = ListDomainsRequestOrderBy("hostname_desc")
-)
-
-func (enum ListDomainsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListDomainsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListDomainsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListDomainsRequestOrderBy(ListDomainsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListFunctionsRequestOrderBy string
-
-const (
-	ListFunctionsRequestOrderByCreatedAtAsc  = ListFunctionsRequestOrderBy("created_at_asc")
-	ListFunctionsRequestOrderByCreatedAtDesc = ListFunctionsRequestOrderBy("created_at_desc")
-	ListFunctionsRequestOrderByNameAsc       = ListFunctionsRequestOrderBy("name_asc")
-	ListFunctionsRequestOrderByNameDesc      = ListFunctionsRequestOrderBy("name_desc")
-)
-
-func (enum ListFunctionsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListFunctionsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListFunctionsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListFunctionsRequestOrderBy(ListFunctionsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListLogsRequestOrderBy string
-
-const (
-	ListLogsRequestOrderByTimestampDesc = ListLogsRequestOrderBy("timestamp_desc")
-	ListLogsRequestOrderByTimestampAsc  = ListLogsRequestOrderBy("timestamp_asc")
-)
-
-func (enum ListLogsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "timestamp_desc"
-	}
-	return string(enum)
-}
-
-func (enum ListLogsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListLogsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListLogsRequestOrderBy(ListLogsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListNamespacesRequestOrderBy string
-
-const (
-	ListNamespacesRequestOrderByCreatedAtAsc  = ListNamespacesRequestOrderBy("created_at_asc")
-	ListNamespacesRequestOrderByCreatedAtDesc = ListNamespacesRequestOrderBy("created_at_desc")
-	ListNamespacesRequestOrderByNameAsc       = ListNamespacesRequestOrderBy("name_asc")
-	ListNamespacesRequestOrderByNameDesc      = ListNamespacesRequestOrderBy("name_desc")
-)
-
-func (enum ListNamespacesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListNamespacesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListNamespacesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListNamespacesRequestOrderBy(ListNamespacesRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListTokensRequestOrderBy string
-
-const (
-	ListTokensRequestOrderByCreatedAtAsc  = ListTokensRequestOrderBy("created_at_asc")
-	ListTokensRequestOrderByCreatedAtDesc = ListTokensRequestOrderBy("created_at_desc")
-)
-
-func (enum ListTokensRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListTokensRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListTokensRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListTokensRequestOrderBy(ListTokensRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListTriggersRequestOrderBy string
-
-const (
-	ListTriggersRequestOrderByCreatedAtAsc  = ListTriggersRequestOrderBy("created_at_asc")
-	ListTriggersRequestOrderByCreatedAtDesc = ListTriggersRequestOrderBy("created_at_desc")
-)
-
-func (enum ListTriggersRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListTriggersRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListTriggersRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListTriggersRequestOrderBy(ListTriggersRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -693,7 +693,7 @@ type TriggerMnqNatsClientConfig struct {
 	// MnqRegion:
 	MnqRegion string `json:"mnq_region"`
 	// MnqCredentialID:
-	MnqCredentialID *string `json:"mnq_credential_id,omitempty"`
+	MnqCredentialID *string `json:"mnq_credential_id"`
 }
 
 // TriggerMnqSqsClientConfig:
@@ -707,7 +707,7 @@ type TriggerMnqSqsClientConfig struct {
 	// MnqRegion:
 	MnqRegion string `json:"mnq_region"`
 	// MnqCredentialID:
-	MnqCredentialID *string `json:"mnq_credential_id,omitempty"`
+	MnqCredentialID *string `json:"mnq_credential_id"`
 }
 
 // TriggerSqsClientConfig:
@@ -727,11 +727,11 @@ type Secret struct {
 	// Key:
 	Key string `json:"key"`
 	// Value:
-	Value *string `json:"value,omitempty"`
+	Value *string `json:"value"`
 }
 
-// CreateTriggerRequestMnqNatsClientConfig:
-type CreateTriggerRequestMnqNatsClientConfig struct {
+// APICreateTriggerRequestMnqNatsClientConfig:
+type APICreateTriggerRequestMnqNatsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
 	// Subject:
@@ -742,8 +742,8 @@ type CreateTriggerRequestMnqNatsClientConfig struct {
 	MnqRegion string `json:"mnq_region"`
 }
 
-// CreateTriggerRequestMnqSqsClientConfig:
-type CreateTriggerRequestMnqSqsClientConfig struct {
+// APICreateTriggerRequestMnqSqsClientConfig:
+type APICreateTriggerRequestMnqSqsClientConfig struct {
 	// MnqNamespaceID:
 	MnqNamespaceID string `json:"mnq_namespace_id"`
 	// Queue:
@@ -754,8 +754,8 @@ type CreateTriggerRequestMnqSqsClientConfig struct {
 	MnqRegion string `json:"mnq_region"`
 }
 
-// CreateTriggerRequestSqsClientConfig:
-type CreateTriggerRequestSqsClientConfig struct {
+// APICreateTriggerRequestSqsClientConfig:
+type APICreateTriggerRequestSqsClientConfig struct {
 	// Endpoint:
 	Endpoint string `json:"endpoint"`
 	// QueueURL:
@@ -764,6 +764,14 @@ type CreateTriggerRequestSqsClientConfig struct {
 	AccessKey string `json:"access_key"`
 	// SecretKey:
 	SecretKey string `json:"secret_key"`
+}
+
+// APIUpdateTriggerRequestSqsClientConfig:
+type APIUpdateTriggerRequestSqsClientConfig struct {
+	// AccessKey:
+	AccessKey *string `json:"access_key"`
+	// SecretKey:
+	SecretKey *string `json:"secret_key"`
 }
 
 // Cron:
@@ -775,7 +783,7 @@ type Cron struct {
 	// Schedule: Schedule of the cron.
 	Schedule string `json:"schedule"`
 	// Args: Arguments to pass with the cron.
-	Args *scw.JSONObject `json:"args,omitempty"`
+	Args *scw.JSONObject `json:"args"`
 	// Status: Status of the cron.
 	Status CronStatus `json:"status"`
 	// Name: Name of the cron.
@@ -795,7 +803,7 @@ type Domain struct {
 	// Status: State of the doamin.
 	Status DomainStatus `json:"status"`
 	// ErrorMessage: Error message if the domain is in "error" state.
-	ErrorMessage *string `json:"error_message,omitempty"`
+	ErrorMessage *string `json:"error_message"`
 }
 
 // Runtime:
@@ -845,17 +853,17 @@ type Function struct {
 	// CPULimit: CPU limit of the function.
 	CPULimit uint32 `json:"cpu_limit"`
 	// Timeout: Request processing time limit for the function.
-	Timeout *scw.Duration `json:"timeout,omitempty"`
+	Timeout *scw.Duration `json:"timeout"`
 	// Handler: Handler to use for the function.
 	Handler string `json:"handler"`
 	// ErrorMessage: Error message if the function is in "error" state.
-	ErrorMessage *string `json:"error_message,omitempty"`
+	ErrorMessage *string `json:"error_message"`
 	// BuildMessage: Description of the current build step.
-	BuildMessage *string `json:"build_message,omitempty"`
+	BuildMessage *string `json:"build_message"`
 	// Privacy: Privacy setting of the function.
 	Privacy FunctionPrivacy `json:"privacy"`
 	// Description: Description of the function.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description"`
 	// DomainName: Domain name associated with the function.
 	DomainName string `json:"domain_name"`
 	// SecretEnvironmentVariables: Secret environment variables of the function.
@@ -875,7 +883,7 @@ type Log struct {
 	// Message: Message of the log.
 	Message string `json:"message"`
 	// Timestamp: Timestamp of the log.
-	Timestamp *time.Time `json:"timestamp,omitempty"`
+	Timestamp *time.Time `json:"timestamp"`
 	// ID: UUID of the log.
 	ID string `json:"id"`
 	// Level: Severity of the log (info, debug, error etc.).
@@ -903,11 +911,11 @@ type Namespace struct {
 	// RegistryNamespaceID: UUID of the registry namespace.
 	RegistryNamespaceID string `json:"registry_namespace_id"`
 	// ErrorMessage: Error message if the namespace is in "error" state.
-	ErrorMessage *string `json:"error_message,omitempty"`
+	ErrorMessage *string `json:"error_message"`
 	// RegistryEndpoint: Registry endpoint of the namespace.
 	RegistryEndpoint string `json:"registry_endpoint"`
 	// Description: Description of the namespace.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description"`
 	// SecretEnvironmentVariables: Secret environment variables of the namespace.
 	SecretEnvironmentVariables []*SecretHashedValue `json:"secret_environment_variables"`
 	// Region: Region in which the namespace is located.
@@ -929,9 +937,9 @@ type Token struct {
 	// Status: Status of the token.
 	Status TokenStatus `json:"status"`
 	// Description: Description of the token.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description"`
 	// ExpiresAt: Date on which the token expires.
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at"`
 }
 
 // Trigger:
@@ -947,7 +955,7 @@ type Trigger struct {
 	// Status:
 	Status TriggerStatus `json:"status"`
 	// ErrorMessage:
-	ErrorMessage *string `json:"error_message,omitempty"`
+	ErrorMessage *string `json:"error_message"`
 	// FunctionID:
 	FunctionID string `json:"function_id"`
 	// ScwSqsConfig:
@@ -958,16 +966,8 @@ type Trigger struct {
 	ScwNatsConfig *TriggerMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
 }
 
-// UpdateTriggerRequestSqsClientConfig:
-type UpdateTriggerRequestSqsClientConfig struct {
-	// AccessKey:
-	AccessKey *string `json:"access_key,omitempty"`
-	// SecretKey:
-	SecretKey *string `json:"secret_key,omitempty"`
-}
-
-// CreateCronRequest:
-type CreateCronRequest struct {
+// APICreateCronRequest:
+type APICreateCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to use the cron with.
@@ -980,8 +980,8 @@ type CreateCronRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// CreateDomainRequest:
-type CreateDomainRequest struct {
+// APICreateDomainRequest:
+type APICreateDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Hostname: Hostame to create.
@@ -990,8 +990,8 @@ type CreateDomainRequest struct {
 	FunctionID string `json:"function_id"`
 }
 
-// CreateFunctionRequest:
-type CreateFunctionRequest struct {
+// APICreateFunctionRequest:
+type APICreateFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Name of the function to create.
@@ -1026,8 +1026,8 @@ type CreateFunctionRequest struct {
 	HTTPOption FunctionHTTPOption `json:"http_option"`
 }
 
-// CreateNamespaceRequest:
-type CreateNamespaceRequest struct {
+// APICreateNamespaceRequest:
+type APICreateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name:
@@ -1042,8 +1042,8 @@ type CreateNamespaceRequest struct {
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 }
 
-// CreateTokenRequest:
-type CreateTokenRequest struct {
+// APICreateTokenRequest:
+type APICreateTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to associate the token with.
@@ -1056,8 +1056,8 @@ type CreateTokenRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
-// CreateTriggerRequest:
-type CreateTriggerRequest struct {
+// APICreateTriggerRequest:
+type APICreateTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name:
@@ -1067,111 +1067,103 @@ type CreateTriggerRequest struct {
 	// FunctionID:
 	FunctionID string `json:"function_id"`
 	// ScwSqsConfig:
-	ScwSqsConfig *CreateTriggerRequestMnqSqsClientConfig `json:"scw_sqs_config,omitempty"`
+	ScwSqsConfig *APICreateTriggerRequestMnqSqsClientConfig `json:"scw_sqs_config,omitempty"`
 	// SqsConfig:
-	SqsConfig *CreateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
+	SqsConfig *APICreateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
 	// ScwNatsConfig:
-	ScwNatsConfig *CreateTriggerRequestMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
+	ScwNatsConfig *APICreateTriggerRequestMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
 }
 
-// DeleteCronRequest:
-type DeleteCronRequest struct {
+// APIDeleteCronRequest:
+type APIDeleteCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// CronID: UUID of the cron to delete.
 	CronID string `json:"-"`
 }
 
-// DeleteDomainRequest:
-type DeleteDomainRequest struct {
+// APIDeleteDomainRequest:
+type APIDeleteDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DomainID: UUID of the domain to delete.
 	DomainID string `json:"-"`
 }
 
-// DeleteFunctionRequest:
-type DeleteFunctionRequest struct {
+// APIDeleteFunctionRequest:
+type APIDeleteFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to delete.
 	FunctionID string `json:"-"`
 }
 
-// DeleteNamespaceRequest:
-type DeleteNamespaceRequest struct {
+// APIDeleteNamespaceRequest:
+type APIDeleteNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// NamespaceID: UUID of the namespace.
 	NamespaceID string `json:"-"`
 }
 
-// DeleteTokenRequest:
-type DeleteTokenRequest struct {
+// APIDeleteTokenRequest:
+type APIDeleteTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TokenID: UUID of the token to delete.
 	TokenID string `json:"-"`
 }
 
-// DeleteTriggerRequest:
-type DeleteTriggerRequest struct {
+// APIDeleteTriggerRequest:
+type APIDeleteTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TriggerID:
 	TriggerID string `json:"-"`
 }
 
-// DeployFunctionRequest:
-type DeployFunctionRequest struct {
+// APIDeployFunctionRequest:
+type APIDeployFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to deploy.
 	FunctionID string `json:"-"`
 }
 
-// DownloadURL:
-type DownloadURL struct {
-	// URL:
-	URL string `json:"url"`
-	// Headers:
-	Headers map[string]*[]string `json:"headers"`
-}
-
-// GetCronRequest:
-type GetCronRequest struct {
+// APIGetCronRequest:
+type APIGetCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// CronID: UUID of the cron to get.
 	CronID string `json:"-"`
 }
 
-// GetDomainRequest:
-type GetDomainRequest struct {
+// APIGetDomainRequest:
+type APIGetDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DomainID: UUID of the domain to get.
 	DomainID string `json:"-"`
 }
 
-// GetFunctionDownloadURLRequest:
-type GetFunctionDownloadURLRequest struct {
+// APIGetFunctionDownloadURLRequest:
+type APIGetFunctionDownloadURLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to get the the download URL for.
 	FunctionID string `json:"-"`
 }
 
-// GetFunctionRequest:
-type GetFunctionRequest struct {
+// APIGetFunctionRequest:
+type APIGetFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function.
 	FunctionID string `json:"-"`
 }
 
-// GetFunctionUploadURLRequest:
-type GetFunctionUploadURLRequest struct {
+// APIGetFunctionUploadURLRequest:
+type APIGetFunctionUploadURLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to get the upload URL for.
@@ -1180,32 +1172,32 @@ type GetFunctionUploadURLRequest struct {
 	ContentLength uint64 `json:"-"`
 }
 
-// GetNamespaceRequest:
-type GetNamespaceRequest struct {
+// APIGetNamespaceRequest:
+type APIGetNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// NamespaceID: UUID of the namespace.
 	NamespaceID string `json:"-"`
 }
 
-// GetTokenRequest:
-type GetTokenRequest struct {
+// APIGetTokenRequest:
+type APIGetTokenRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TokenID: UUID of the token to get.
 	TokenID string `json:"-"`
 }
 
-// GetTriggerRequest:
-type GetTriggerRequest struct {
+// APIGetTriggerRequest:
+type APIGetTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TriggerID:
 	TriggerID string `json:"-"`
 }
 
-// IssueJWTRequest:
-type IssueJWTRequest struct {
+// APIIssueJWTRequest:
+type APIIssueJWTRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID:
@@ -1216,8 +1208,8 @@ type IssueJWTRequest struct {
 	ExpiresAt *time.Time `json:"-"`
 }
 
-// ListCronsRequest:
-type ListCronsRequest struct {
+// APIListCronsRequest:
+type APIListCronsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
@@ -1225,40 +1217,13 @@ type ListCronsRequest struct {
 	// PageSize: Number of crons per page.
 	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the crons.
-	OrderBy ListCronsRequestOrderBy `json:"-"`
+	OrderBy APIListCronsRequestOrderBy `json:"-"`
 	// FunctionID: UUID of the function.
 	FunctionID string `json:"-"`
 }
 
-// ListCronsResponse:
-type ListCronsResponse struct {
-	// Crons: Array of crons.
-	Crons []*Cron `json:"crons"`
-	// TotalCount: Total number of crons.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListCronsResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListCronsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListCronsResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Crons = append(r.Crons, results.Crons...)
-	r.TotalCount += uint32(len(results.Crons))
-	return uint32(len(results.Crons)), nil
-}
-
-// ListDomainsRequest:
-type ListDomainsRequest struct {
+// APIListDomainsRequest:
+type APIListDomainsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
@@ -1266,73 +1231,19 @@ type ListDomainsRequest struct {
 	// PageSize: Number of domains per page.
 	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the domains.
-	OrderBy ListDomainsRequestOrderBy `json:"-"`
+	OrderBy APIListDomainsRequestOrderBy `json:"-"`
 	// FunctionID: UUID of the function the domain is assoicated with.
 	FunctionID string `json:"-"`
 }
 
-// ListDomainsResponse:
-type ListDomainsResponse struct {
-	// Domains: Array of domains.
-	Domains []*Domain `json:"domains"`
-	// TotalCount: Total number of domains.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListDomainsResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListDomainsResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Domains = append(r.Domains, results.Domains...)
-	r.TotalCount += uint32(len(results.Domains))
-	return uint32(len(results.Domains)), nil
-}
-
-// ListFunctionRuntimesRequest:
-type ListFunctionRuntimesRequest struct {
+// APIListFunctionRuntimesRequest:
+type APIListFunctionRuntimesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 }
 
-// ListFunctionRuntimesResponse:
-type ListFunctionRuntimesResponse struct {
-	// Runtimes: Array of runtimes available.
-	Runtimes []*Runtime `json:"runtimes"`
-	// TotalCount: Total number of runtimes.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListFunctionRuntimesResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListFunctionRuntimesResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListFunctionRuntimesResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Runtimes = append(r.Runtimes, results.Runtimes...)
-	r.TotalCount += uint32(len(results.Runtimes))
-	return uint32(len(results.Runtimes)), nil
-}
-
-// ListFunctionsRequest:
-type ListFunctionsRequest struct {
+// APIListFunctionsRequest:
+type APIListFunctionsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
@@ -1340,7 +1251,7 @@ type ListFunctionsRequest struct {
 	// PageSize: Number of functions per page.
 	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the functions.
-	OrderBy ListFunctionsRequestOrderBy `json:"-"`
+	OrderBy APIListFunctionsRequestOrderBy `json:"-"`
 	// NamespaceID: UUID of the namespace the function belongs to.
 	NamespaceID string `json:"-"`
 	// Name: Name of the function.
@@ -1351,35 +1262,8 @@ type ListFunctionsRequest struct {
 	ProjectID *string `json:"-"`
 }
 
-// ListFunctionsResponse:
-type ListFunctionsResponse struct {
-	// Functions: Array of functions.
-	Functions []*Function `json:"functions"`
-	// TotalCount: Total number of functions.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListFunctionsResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListFunctionsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListFunctionsResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Functions = append(r.Functions, results.Functions...)
-	r.TotalCount += uint32(len(results.Functions))
-	return uint32(len(results.Functions)), nil
-}
-
-// ListLogsRequest:
-type ListLogsRequest struct {
+// APIListLogsRequest:
+type APIListLogsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to get the logs for.
@@ -1389,38 +1273,11 @@ type ListLogsRequest struct {
 	// PageSize: Number of logs per page.
 	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the logs.
-	OrderBy ListLogsRequestOrderBy `json:"-"`
+	OrderBy APIListLogsRequestOrderBy `json:"-"`
 }
 
-// ListLogsResponse:
-type ListLogsResponse struct {
-	// Logs: Array of logs.
-	Logs []*Log `json:"logs"`
-	// TotalCount: Total number of logs.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListLogsResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListLogsResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListLogsResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Logs = append(r.Logs, results.Logs...)
-	r.TotalCount += uint32(len(results.Logs))
-	return uint32(len(results.Logs)), nil
-}
-
-// ListNamespacesRequest:
-type ListNamespacesRequest struct {
+// APIListNamespacesRequest:
+type APIListNamespacesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
@@ -1428,7 +1285,7 @@ type ListNamespacesRequest struct {
 	// PageSize: Number of namespaces per page.
 	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the namespaces.
-	OrderBy ListNamespacesRequestOrderBy `json:"-"`
+	OrderBy APIListNamespacesRequestOrderBy `json:"-"`
 	// Name: Name of the namespace.
 	Name *string `json:"-"`
 	// OrganizationID: UUID of the Organization the namespace belongs to.
@@ -1437,35 +1294,8 @@ type ListNamespacesRequest struct {
 	ProjectID *string `json:"-"`
 }
 
-// ListNamespacesResponse:
-type ListNamespacesResponse struct {
-	// Namespaces:
-	Namespaces []*Namespace `json:"namespaces"`
-	// TotalCount: Total number of namespaces.
-	TotalCount uint32 `json:"total_count"`
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListNamespacesResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListNamespacesResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Namespaces = append(r.Namespaces, results.Namespaces...)
-	r.TotalCount += uint32(len(results.Namespaces))
-	return uint32(len(results.Namespaces)), nil
-}
-
-// ListTokensRequest:
-type ListTokensRequest struct {
+// APIListTokensRequest:
+type APIListTokensRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
@@ -1473,42 +1303,15 @@ type ListTokensRequest struct {
 	// PageSize: Number of tokens per page.
 	PageSize *uint32 `json:"-"`
 	// OrderBy: Sort order for the tokens.
-	OrderBy ListTokensRequestOrderBy `json:"-"`
+	OrderBy APIListTokensRequestOrderBy `json:"-"`
 	// FunctionID: UUID of the function the token is assoicated with.
 	FunctionID *string `json:"-"`
 	// NamespaceID: UUID of the namespace the token is associated with.
 	NamespaceID *string `json:"-"`
 }
 
-// ListTokensResponse:
-type ListTokensResponse struct {
-	// Tokens:
-	Tokens []*Token `json:"tokens"`
-	// TotalCount:
-	TotalCount uint32 `json:"total_count"`
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListTokensResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListTokensResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListTokensResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Tokens = append(r.Tokens, results.Tokens...)
-	r.TotalCount += uint32(len(results.Tokens))
-	return uint32(len(results.Tokens)), nil
-}
-
-// ListTriggersRequest:
-type ListTriggersRequest struct {
+// APIListTriggersRequest:
+type APIListTriggersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page:
@@ -1516,7 +1319,7 @@ type ListTriggersRequest struct {
 	// PageSize:
 	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListTriggersRequestOrderBy `json:"-"`
+	OrderBy APIListTriggersRequestOrderBy `json:"-"`
 	// FunctionID:
 	FunctionID *string `json:"function_id,omitempty"`
 	// NamespaceID:
@@ -1525,35 +1328,8 @@ type ListTriggersRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
-// ListTriggersResponse:
-type ListTriggersResponse struct {
-	// Triggers:
-	Triggers []*Trigger `json:"triggers"`
-	// TotalCount:
-	TotalCount uint32 `json:"total_count"`
-}
-
-// UnsafeGetTotalCount should not be used
-// Internal usage only
-func (r *ListTriggersResponse) UnsafeGetTotalCount() uint32 {
-	return r.TotalCount
-}
-
-// UnsafeAppend should not be used
-// Internal usage only
-func (r *ListTriggersResponse) UnsafeAppend(res interface{}) (uint32, error) {
-	results, ok := res.(*ListTriggersResponse)
-	if !ok {
-		return 0, errors.New("%T type cannot be appended to type %T", res, r)
-	}
-
-	r.Triggers = append(r.Triggers, results.Triggers...)
-	r.TotalCount += uint32(len(results.Triggers))
-	return uint32(len(results.Triggers)), nil
-}
-
-// UpdateCronRequest:
-type UpdateCronRequest struct {
+// APIUpdateCronRequest:
+type APIUpdateCronRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// CronID: UUID of the cron to update.
@@ -1568,8 +1344,8 @@ type UpdateCronRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// UpdateFunctionRequest:
-type UpdateFunctionRequest struct {
+// APIUpdateFunctionRequest:
+type APIUpdateFunctionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FunctionID: UUID of the function to update.
@@ -1604,8 +1380,8 @@ type UpdateFunctionRequest struct {
 	HTTPOption FunctionHTTPOption `json:"http_option"`
 }
 
-// UpdateNamespaceRequest:
-type UpdateNamespaceRequest struct {
+// APIUpdateNamespaceRequest:
+type APIUpdateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// NamespaceID: UUID of the namespapce.
@@ -1618,8 +1394,8 @@ type UpdateNamespaceRequest struct {
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 }
 
-// UpdateTriggerRequest:
-type UpdateTriggerRequest struct {
+// APIUpdateTriggerRequest:
+type APIUpdateTriggerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TriggerID:
@@ -1629,7 +1405,231 @@ type UpdateTriggerRequest struct {
 	// Description:
 	Description *string `json:"description,omitempty"`
 	// SqsConfig:
-	SqsConfig *UpdateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
+	SqsConfig *APIUpdateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
+}
+
+// DownloadURL:
+type DownloadURL struct {
+	// URL:
+	URL string `json:"url"`
+	// Headers:
+	Headers map[string]*[]string `json:"headers"`
+}
+
+// ListCronsResponse:
+type ListCronsResponse struct {
+	// Crons: Array of crons.
+	Crons []*Cron `json:"crons"`
+	// TotalCount: Total number of crons.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListCronsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListCronsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListCronsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Crons = append(r.Crons, results.Crons...)
+	r.TotalCount += uint32(len(results.Crons))
+	return uint32(len(results.Crons)), nil
+}
+
+// ListDomainsResponse:
+type ListDomainsResponse struct {
+	// Domains: Array of domains.
+	Domains []*Domain `json:"domains"`
+	// TotalCount: Total number of domains.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListDomainsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListDomainsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Domains = append(r.Domains, results.Domains...)
+	r.TotalCount += uint32(len(results.Domains))
+	return uint32(len(results.Domains)), nil
+}
+
+// ListFunctionRuntimesResponse:
+type ListFunctionRuntimesResponse struct {
+	// Runtimes: Array of runtimes available.
+	Runtimes []*Runtime `json:"runtimes"`
+	// TotalCount: Total number of runtimes.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListFunctionRuntimesResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListFunctionRuntimesResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListFunctionRuntimesResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Runtimes = append(r.Runtimes, results.Runtimes...)
+	r.TotalCount += uint32(len(results.Runtimes))
+	return uint32(len(results.Runtimes)), nil
+}
+
+// ListFunctionsResponse:
+type ListFunctionsResponse struct {
+	// Functions: Array of functions.
+	Functions []*Function `json:"functions"`
+	// TotalCount: Total number of functions.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListFunctionsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListFunctionsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListFunctionsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Functions = append(r.Functions, results.Functions...)
+	r.TotalCount += uint32(len(results.Functions))
+	return uint32(len(results.Functions)), nil
+}
+
+// ListLogsResponse:
+type ListLogsResponse struct {
+	// Logs: Array of logs.
+	Logs []*Log `json:"logs"`
+	// TotalCount: Total number of logs.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListLogsResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListLogsResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListLogsResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Logs = append(r.Logs, results.Logs...)
+	r.TotalCount += uint32(len(results.Logs))
+	return uint32(len(results.Logs)), nil
+}
+
+// ListNamespacesResponse:
+type ListNamespacesResponse struct {
+	// Namespaces:
+	Namespaces []*Namespace `json:"namespaces"`
+	// TotalCount: Total number of namespaces.
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListNamespacesResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListNamespacesResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Namespaces = append(r.Namespaces, results.Namespaces...)
+	r.TotalCount += uint32(len(results.Namespaces))
+	return uint32(len(results.Namespaces)), nil
+}
+
+// ListTokensResponse:
+type ListTokensResponse struct {
+	// Tokens:
+	Tokens []*Token `json:"tokens"`
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListTokensResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListTokensResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListTokensResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Tokens = append(r.Tokens, results.Tokens...)
+	r.TotalCount += uint32(len(results.Tokens))
+	return uint32(len(results.Tokens)), nil
+}
+
+// ListTriggersResponse:
+type ListTriggersResponse struct {
+	// Triggers:
+	Triggers []*Trigger `json:"triggers"`
+	// TotalCount:
+	TotalCount uint32 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListTriggersResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListTriggersResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListTriggersResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Triggers = append(r.Triggers, results.Triggers...)
+	r.TotalCount += uint32(len(results.Triggers))
+	return uint32(len(results.Triggers)), nil
 }
 
 // UploadURL:
@@ -1962,7 +1962,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // ListNamespaces: List all existing namespaces in the specified region.
-func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
+func (s *API) ListNamespaces(req *APIListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2001,7 +2001,7 @@ func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOpti
 }
 
 // GetNamespace: Get the namespace associated with the specified ID.
-func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) GetNamespace(req *APIGetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2031,7 +2031,7 @@ func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) 
 }
 
 // CreateNamespace: Create a new namespace in a specified Organization or Project.
-func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) CreateNamespace(req *APICreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2070,7 +2070,7 @@ func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOp
 }
 
 // UpdateNamespace: Update the namespace associated with the specified ID.
-func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) UpdateNamespace(req *APIUpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2105,7 +2105,7 @@ func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOp
 }
 
 // DeleteNamespace: Delete the namespace associated with the specified ID.
-func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) DeleteNamespace(req *APIDeleteNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2135,7 +2135,7 @@ func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOp
 }
 
 // ListFunctions: List all your functions.
-func (s *API) ListFunctions(req *ListFunctionsRequest, opts ...scw.RequestOption) (*ListFunctionsResponse, error) {
+func (s *API) ListFunctions(req *APIListFunctionsRequest, opts ...scw.RequestOption) (*ListFunctionsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2175,7 +2175,7 @@ func (s *API) ListFunctions(req *ListFunctionsRequest, opts ...scw.RequestOption
 }
 
 // GetFunction: Get the function associated with the specified ID.
-func (s *API) GetFunction(req *GetFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+func (s *API) GetFunction(req *APIGetFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2205,7 +2205,7 @@ func (s *API) GetFunction(req *GetFunctionRequest, opts ...scw.RequestOption) (*
 }
 
 // CreateFunction: Create a new function in the specified region for a specified Organization or Project.
-func (s *API) CreateFunction(req *CreateFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+func (s *API) CreateFunction(req *APICreateFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2240,7 +2240,7 @@ func (s *API) CreateFunction(req *CreateFunctionRequest, opts ...scw.RequestOpti
 }
 
 // UpdateFunction: Update the function associated with the specified ID.
-func (s *API) UpdateFunction(req *UpdateFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+func (s *API) UpdateFunction(req *APIUpdateFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2275,7 +2275,7 @@ func (s *API) UpdateFunction(req *UpdateFunctionRequest, opts ...scw.RequestOpti
 }
 
 // DeleteFunction: Delete the function associated with the specified ID.
-func (s *API) DeleteFunction(req *DeleteFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+func (s *API) DeleteFunction(req *APIDeleteFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2305,7 +2305,7 @@ func (s *API) DeleteFunction(req *DeleteFunctionRequest, opts ...scw.RequestOpti
 }
 
 // DeployFunction: Deploy a function associated with the specified ID.
-func (s *API) DeployFunction(req *DeployFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
+func (s *API) DeployFunction(req *APIDeployFunctionRequest, opts ...scw.RequestOption) (*Function, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2340,7 +2340,7 @@ func (s *API) DeployFunction(req *DeployFunctionRequest, opts ...scw.RequestOpti
 }
 
 // ListFunctionRuntimes: List available function runtimes.
-func (s *API) ListFunctionRuntimes(req *ListFunctionRuntimesRequest, opts ...scw.RequestOption) (*ListFunctionRuntimesResponse, error) {
+func (s *API) ListFunctionRuntimes(req *APIListFunctionRuntimesRequest, opts ...scw.RequestOption) (*ListFunctionRuntimesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2366,7 +2366,7 @@ func (s *API) ListFunctionRuntimes(req *ListFunctionRuntimesRequest, opts ...scw
 }
 
 // GetFunctionUploadURL: Get an upload URL of a function associated with the specified ID.
-func (s *API) GetFunctionUploadURL(req *GetFunctionUploadURLRequest, opts ...scw.RequestOption) (*UploadURL, error) {
+func (s *API) GetFunctionUploadURL(req *APIGetFunctionUploadURLRequest, opts ...scw.RequestOption) (*UploadURL, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2400,7 +2400,7 @@ func (s *API) GetFunctionUploadURL(req *GetFunctionUploadURLRequest, opts ...scw
 }
 
 // GetFunctionDownloadURL: Get a download URL for a function associated with the specified ID.
-func (s *API) GetFunctionDownloadURL(req *GetFunctionDownloadURLRequest, opts ...scw.RequestOption) (*DownloadURL, error) {
+func (s *API) GetFunctionDownloadURL(req *APIGetFunctionDownloadURLRequest, opts ...scw.RequestOption) (*DownloadURL, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2430,7 +2430,7 @@ func (s *API) GetFunctionDownloadURL(req *GetFunctionDownloadURLRequest, opts ..
 }
 
 // ListCrons: List all the cronjobs in a specified region.
-func (s *API) ListCrons(req *ListCronsRequest, opts ...scw.RequestOption) (*ListCronsResponse, error) {
+func (s *API) ListCrons(req *APIListCronsRequest, opts ...scw.RequestOption) (*ListCronsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2467,7 +2467,7 @@ func (s *API) ListCrons(req *ListCronsRequest, opts ...scw.RequestOption) (*List
 }
 
 // GetCron: Get the cron associated with the specified ID.
-func (s *API) GetCron(req *GetCronRequest, opts ...scw.RequestOption) (*Cron, error) {
+func (s *API) GetCron(req *APIGetCronRequest, opts ...scw.RequestOption) (*Cron, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2497,7 +2497,7 @@ func (s *API) GetCron(req *GetCronRequest, opts ...scw.RequestOption) (*Cron, er
 }
 
 // CreateCron: Create a new cronjob for a function with the specified ID.
-func (s *API) CreateCron(req *CreateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
+func (s *API) CreateCron(req *APICreateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2528,7 +2528,7 @@ func (s *API) CreateCron(req *CreateCronRequest, opts ...scw.RequestOption) (*Cr
 }
 
 // UpdateCron: Update the cron associated with the specified ID.
-func (s *API) UpdateCron(req *UpdateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
+func (s *API) UpdateCron(req *APIUpdateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2563,7 +2563,7 @@ func (s *API) UpdateCron(req *UpdateCronRequest, opts ...scw.RequestOption) (*Cr
 }
 
 // DeleteCron: Delete the cron associated with the specified ID.
-func (s *API) DeleteCron(req *DeleteCronRequest, opts ...scw.RequestOption) (*Cron, error) {
+func (s *API) DeleteCron(req *APIDeleteCronRequest, opts ...scw.RequestOption) (*Cron, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2593,7 +2593,7 @@ func (s *API) DeleteCron(req *DeleteCronRequest, opts ...scw.RequestOption) (*Cr
 }
 
 // ListLogs: List the application logs of the function with the specified ID.
-func (s *API) ListLogs(req *ListLogsRequest, opts ...scw.RequestOption) (*ListLogsResponse, error) {
+func (s *API) ListLogs(req *APIListLogsRequest, opts ...scw.RequestOption) (*ListLogsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2633,7 +2633,7 @@ func (s *API) ListLogs(req *ListLogsRequest, opts ...scw.RequestOption) (*ListLo
 }
 
 // ListDomains: List all domain name bindings in a specified region.
-func (s *API) ListDomains(req *ListDomainsRequest, opts ...scw.RequestOption) (*ListDomainsResponse, error) {
+func (s *API) ListDomains(req *APIListDomainsRequest, opts ...scw.RequestOption) (*ListDomainsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2670,7 +2670,7 @@ func (s *API) ListDomains(req *ListDomainsRequest, opts ...scw.RequestOption) (*
 }
 
 // GetDomain: Get a domain name binding for the function with the specified ID.
-func (s *API) GetDomain(req *GetDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+func (s *API) GetDomain(req *APIGetDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2700,7 +2700,7 @@ func (s *API) GetDomain(req *GetDomainRequest, opts ...scw.RequestOption) (*Doma
 }
 
 // CreateDomain: Create a domain name binding for the function with the specified ID.
-func (s *API) CreateDomain(req *CreateDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+func (s *API) CreateDomain(req *APICreateDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2731,7 +2731,7 @@ func (s *API) CreateDomain(req *CreateDomainRequest, opts ...scw.RequestOption) 
 }
 
 // DeleteDomain: Delete a domain name binding for the function with the specified ID.
-func (s *API) DeleteDomain(req *DeleteDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+func (s *API) DeleteDomain(req *APIDeleteDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2761,7 +2761,7 @@ func (s *API) DeleteDomain(req *DeleteDomainRequest, opts ...scw.RequestOption) 
 }
 
 // Deprecated: IssueJWT:
-func (s *API) IssueJWT(req *IssueJWTRequest, opts ...scw.RequestOption) (*Token, error) {
+func (s *API) IssueJWT(req *APIIssueJWTRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2793,7 +2793,7 @@ func (s *API) IssueJWT(req *IssueJWTRequest, opts ...scw.RequestOption) (*Token,
 }
 
 // CreateToken: Create a new revocable token.
-func (s *API) CreateToken(req *CreateTokenRequest, opts ...scw.RequestOption) (*Token, error) {
+func (s *API) CreateToken(req *APICreateTokenRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2824,7 +2824,7 @@ func (s *API) CreateToken(req *CreateTokenRequest, opts ...scw.RequestOption) (*
 }
 
 // GetToken: Get a token.
-func (s *API) GetToken(req *GetTokenRequest, opts ...scw.RequestOption) (*Token, error) {
+func (s *API) GetToken(req *APIGetTokenRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2854,7 +2854,7 @@ func (s *API) GetToken(req *GetTokenRequest, opts ...scw.RequestOption) (*Token,
 }
 
 // ListTokens: List all tokens.
-func (s *API) ListTokens(req *ListTokensRequest, opts ...scw.RequestOption) (*ListTokensResponse, error) {
+func (s *API) ListTokens(req *APIListTokensRequest, opts ...scw.RequestOption) (*ListTokensResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2892,7 +2892,7 @@ func (s *API) ListTokens(req *ListTokensRequest, opts ...scw.RequestOption) (*Li
 }
 
 // DeleteToken: Delete a token.
-func (s *API) DeleteToken(req *DeleteTokenRequest, opts ...scw.RequestOption) (*Token, error) {
+func (s *API) DeleteToken(req *APIDeleteTokenRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2922,7 +2922,7 @@ func (s *API) DeleteToken(req *DeleteTokenRequest, opts ...scw.RequestOption) (*
 }
 
 // CreateTrigger:
-func (s *API) CreateTrigger(req *CreateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
+func (s *API) CreateTrigger(req *APICreateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2953,7 +2953,7 @@ func (s *API) CreateTrigger(req *CreateTriggerRequest, opts ...scw.RequestOption
 }
 
 // GetTrigger:
-func (s *API) GetTrigger(req *GetTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
+func (s *API) GetTrigger(req *APIGetTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2983,7 +2983,7 @@ func (s *API) GetTrigger(req *GetTriggerRequest, opts ...scw.RequestOption) (*Tr
 }
 
 // ListTriggers:
-func (s *API) ListTriggers(req *ListTriggersRequest, opts ...scw.RequestOption) (*ListTriggersResponse, error) {
+func (s *API) ListTriggers(req *APIListTriggersRequest, opts ...scw.RequestOption) (*ListTriggersResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3027,7 +3027,7 @@ func (s *API) ListTriggers(req *ListTriggersRequest, opts ...scw.RequestOption) 
 }
 
 // UpdateTrigger:
-func (s *API) UpdateTrigger(req *UpdateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
+func (s *API) UpdateTrigger(req *APIUpdateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3062,7 +3062,7 @@ func (s *API) UpdateTrigger(req *UpdateTriggerRequest, opts ...scw.RequestOption
 }
 
 // DeleteTrigger:
-func (s *API) DeleteTrigger(req *DeleteTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
+func (s *API) DeleteTrigger(req *APIDeleteTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

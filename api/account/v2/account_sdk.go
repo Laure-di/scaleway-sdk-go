@@ -39,20 +39,20 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type ListProjectsRequestOrderBy string
+type APIListProjectsRequestOrderBy string
 
 const (
 	// Creation date ascending.
-	ListProjectsRequestOrderByCreatedAtAsc = ListProjectsRequestOrderBy("created_at_asc")
+	APIListProjectsRequestOrderByCreatedAtAsc = APIListProjectsRequestOrderBy("created_at_asc")
 	// Creation date descending.
-	ListProjectsRequestOrderByCreatedAtDesc = ListProjectsRequestOrderBy("created_at_desc")
+	APIListProjectsRequestOrderByCreatedAtDesc = APIListProjectsRequestOrderBy("created_at_desc")
 	// Name ascending.
-	ListProjectsRequestOrderByNameAsc = ListProjectsRequestOrderBy("name_asc")
+	APIListProjectsRequestOrderByNameAsc = APIListProjectsRequestOrderBy("name_asc")
 	// Name descending.
-	ListProjectsRequestOrderByNameDesc = ListProjectsRequestOrderBy("name_desc")
+	APIListProjectsRequestOrderByNameDesc = APIListProjectsRequestOrderBy("name_desc")
 )
 
-func (enum ListProjectsRequestOrderBy) String() string {
+func (enum APIListProjectsRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -60,18 +60,18 @@ func (enum ListProjectsRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum ListProjectsRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum APIListProjectsRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *ListProjectsRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *APIListProjectsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = ListProjectsRequestOrderBy(ListProjectsRequestOrderBy(tmp).String())
+	*enum = APIListProjectsRequestOrderBy(APIListProjectsRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -84,15 +84,15 @@ type Project struct {
 	// OrganizationID: Organization ID of the Project.
 	OrganizationID string `json:"organization_id"`
 	// CreatedAt: Creation date of the Project.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Update date of the Project.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Description: Description of the Project.
 	Description string `json:"description"`
 }
 
-// CreateProjectRequest:
-type CreateProjectRequest struct {
+// APICreateProjectRequest:
+type APICreateProjectRequest struct {
 	// Name: Name of the Project.
 	Name string `json:"name"`
 	// OrganizationID: Organization ID of the Project.
@@ -101,20 +101,20 @@ type CreateProjectRequest struct {
 	Description *string `json:"description,omitempty"`
 }
 
-// DeleteProjectRequest:
-type DeleteProjectRequest struct {
+// APIDeleteProjectRequest:
+type APIDeleteProjectRequest struct {
 	// ProjectID: Project ID of the Project.
 	ProjectID string `json:"-"`
 }
 
-// GetProjectRequest:
-type GetProjectRequest struct {
+// APIGetProjectRequest:
+type APIGetProjectRequest struct {
 	// ProjectID: Project ID of the Project.
 	ProjectID string `json:"-"`
 }
 
-// ListProjectsRequest:
-type ListProjectsRequest struct {
+// APIListProjectsRequest:
+type APIListProjectsRequest struct {
 	// OrganizationID: Organization ID of the Project.
 	OrganizationID string `json:"-"`
 	// Name: Name of the Project.
@@ -124,9 +124,19 @@ type ListProjectsRequest struct {
 	// PageSize: Maximum number of Project per page.
 	PageSize *uint32 `json:"-"`
 	// OrderBy: Sort order of the returned Projects.
-	OrderBy ListProjectsRequestOrderBy `json:"-"`
+	OrderBy APIListProjectsRequestOrderBy `json:"-"`
 	// ProjectIDs: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
 	ProjectIDs []string `json:"-"`
+}
+
+// APIUpdateProjectRequest:
+type APIUpdateProjectRequest struct {
+	// ProjectID: Project ID of the Project.
+	ProjectID string `json:"-"`
+	// Name: Name of the Project.
+	Name *string `json:"name,omitempty"`
+	// Description: Description of the Project.
+	Description *string `json:"description,omitempty"`
 }
 
 // ListProjectsResponse:
@@ -154,16 +164,6 @@ func (r *ListProjectsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Projects = append(r.Projects, results.Projects...)
 	r.TotalCount += uint32(len(results.Projects))
 	return uint32(len(results.Projects)), nil
-}
-
-// UpdateProjectRequest:
-type UpdateProjectRequest struct {
-	// ProjectID: Project ID of the Project.
-	ProjectID string `json:"-"`
-	// Name: Name of the Project.
-	Name *string `json:"name,omitempty"`
-	// Description: Description of the Project.
-	Description *string `json:"description,omitempty"`
 }
 
 // The Account API currently allows you to manage **Projects**. Projects are Scaleway's resource management feature. Designed to help you manage your infrastructure and cloud services, you can create multiple Projects within a single Organization. This allows you to group resources into different Projects, providing better resource isolation and organization, which, in turn, leads to improved management efficiency.
@@ -332,7 +332,7 @@ func NewAPI(client *scw.Client) *API {
 
 // Deprecated: CreateProject: Deprecated in favor of Account API v3.
 // Generate a new Project for an Organization, specifying its configuration including name and description.
-func (s *API) CreateProject(req *CreateProjectRequest, opts ...scw.RequestOption) (*Project, error) {
+func (s *API) CreateProject(req *APICreateProjectRequest, opts ...scw.RequestOption) (*Project, error) {
 	var err error
 	if req.OrganizationID == "" {
 		defaultOrganizationID, _ := s.client.GetDefaultOrganizationID()
@@ -364,7 +364,7 @@ func (s *API) CreateProject(req *CreateProjectRequest, opts ...scw.RequestOption
 
 // Deprecated: ListProjects: Deprecated in favor of Account API v3.
 // List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
-func (s *API) ListProjects(req *ListProjectsRequest, opts ...scw.RequestOption) (*ListProjectsResponse, error) {
+func (s *API) ListProjects(req *APIListProjectsRequest, opts ...scw.RequestOption) (*ListProjectsResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -392,7 +392,7 @@ func (s *API) ListProjects(req *ListProjectsRequest, opts ...scw.RequestOption) 
 
 // Deprecated: GetProject: Deprecated in favor of Account API v3.
 // Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
-func (s *API) GetProject(req *GetProjectRequest, opts ...scw.RequestOption) (*Project, error) {
+func (s *API) GetProject(req *APIGetProjectRequest, opts ...scw.RequestOption) (*Project, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -419,7 +419,7 @@ func (s *API) GetProject(req *GetProjectRequest, opts ...scw.RequestOption) (*Pr
 
 // Deprecated: DeleteProject: Deprecated in favor of Account API v3.
 // Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
-func (s *API) DeleteProject(req *DeleteProjectRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteProject(req *APIDeleteProjectRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -444,7 +444,7 @@ func (s *API) DeleteProject(req *DeleteProjectRequest, opts ...scw.RequestOption
 
 // Deprecated: UpdateProject: Deprecated in favor of Account API v3.
 // Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
-func (s *API) UpdateProject(req *UpdateProjectRequest, opts ...scw.RequestOption) (*Project, error) {
+func (s *API) UpdateProject(req *APIUpdateProjectRequest, opts ...scw.RequestOption) (*Project, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()

@@ -39,6 +39,354 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
+type APIListAPIKeysRequestOrderBy string
+
+const (
+	// Creation date ascending.
+	APIListAPIKeysRequestOrderByCreatedAtAsc = APIListAPIKeysRequestOrderBy("created_at_asc")
+	// Creation date descending.
+	APIListAPIKeysRequestOrderByCreatedAtDesc = APIListAPIKeysRequestOrderBy("created_at_desc")
+	// Update date ascending.
+	APIListAPIKeysRequestOrderByUpdatedAtAsc = APIListAPIKeysRequestOrderBy("updated_at_asc")
+	// Update date descending.
+	APIListAPIKeysRequestOrderByUpdatedAtDesc = APIListAPIKeysRequestOrderBy("updated_at_desc")
+	// Expiration date ascending.
+	APIListAPIKeysRequestOrderByExpiresAtAsc = APIListAPIKeysRequestOrderBy("expires_at_asc")
+	// Expiration date descending.
+	APIListAPIKeysRequestOrderByExpiresAtDesc = APIListAPIKeysRequestOrderBy("expires_at_desc")
+	// Access key ascending.
+	APIListAPIKeysRequestOrderByAccessKeyAsc = APIListAPIKeysRequestOrderBy("access_key_asc")
+	// Access key descending.
+	APIListAPIKeysRequestOrderByAccessKeyDesc = APIListAPIKeysRequestOrderBy("access_key_desc")
+)
+
+func (enum APIListAPIKeysRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListAPIKeysRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListAPIKeysRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListAPIKeysRequestOrderBy(APIListAPIKeysRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListApplicationsRequestOrderBy string
+
+const (
+	// Creation date ascending.
+	APIListApplicationsRequestOrderByCreatedAtAsc = APIListApplicationsRequestOrderBy("created_at_asc")
+	// Creation date descending.
+	APIListApplicationsRequestOrderByCreatedAtDesc = APIListApplicationsRequestOrderBy("created_at_desc")
+	// Update date ascending.
+	APIListApplicationsRequestOrderByUpdatedAtAsc = APIListApplicationsRequestOrderBy("updated_at_asc")
+	// Update date descending.
+	APIListApplicationsRequestOrderByUpdatedAtDesc = APIListApplicationsRequestOrderBy("updated_at_desc")
+	// Name ascending.
+	APIListApplicationsRequestOrderByNameAsc = APIListApplicationsRequestOrderBy("name_asc")
+	// Name descending.
+	APIListApplicationsRequestOrderByNameDesc = APIListApplicationsRequestOrderBy("name_desc")
+)
+
+func (enum APIListApplicationsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListApplicationsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListApplicationsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListApplicationsRequestOrderBy(APIListApplicationsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListGroupsRequestOrderBy string
+
+const (
+	// Creation date ascending.
+	APIListGroupsRequestOrderByCreatedAtAsc = APIListGroupsRequestOrderBy("created_at_asc")
+	// Creation date descending.
+	APIListGroupsRequestOrderByCreatedAtDesc = APIListGroupsRequestOrderBy("created_at_desc")
+	// Update date ascending.
+	APIListGroupsRequestOrderByUpdatedAtAsc = APIListGroupsRequestOrderBy("updated_at_asc")
+	// Update date descending.
+	APIListGroupsRequestOrderByUpdatedAtDesc = APIListGroupsRequestOrderBy("updated_at_desc")
+	// Name ascending.
+	APIListGroupsRequestOrderByNameAsc = APIListGroupsRequestOrderBy("name_asc")
+	// Name descending.
+	APIListGroupsRequestOrderByNameDesc = APIListGroupsRequestOrderBy("name_desc")
+)
+
+func (enum APIListGroupsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListGroupsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListGroupsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListGroupsRequestOrderBy(APIListGroupsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListJWTsRequestOrderBy string
+
+const (
+	// Creation date ascending.
+	APIListJWTsRequestOrderByCreatedAtAsc = APIListJWTsRequestOrderBy("created_at_asc")
+	// Creation date descending.
+	APIListJWTsRequestOrderByCreatedAtDesc = APIListJWTsRequestOrderBy("created_at_desc")
+	// Update date ascending.
+	APIListJWTsRequestOrderByUpdatedAtAsc = APIListJWTsRequestOrderBy("updated_at_asc")
+	// Update date descending.
+	APIListJWTsRequestOrderByUpdatedAtDesc = APIListJWTsRequestOrderBy("updated_at_desc")
+)
+
+func (enum APIListJWTsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListJWTsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListJWTsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListJWTsRequestOrderBy(APIListJWTsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListPermissionSetsRequestOrderBy string
+
+const (
+	// Name ascending.
+	APIListPermissionSetsRequestOrderByNameAsc = APIListPermissionSetsRequestOrderBy("name_asc")
+	// Name descending.
+	APIListPermissionSetsRequestOrderByNameDesc = APIListPermissionSetsRequestOrderBy("name_desc")
+	// Creation date ascending.
+	APIListPermissionSetsRequestOrderByCreatedAtAsc = APIListPermissionSetsRequestOrderBy("created_at_asc")
+	// Creation date descending.
+	APIListPermissionSetsRequestOrderByCreatedAtDesc = APIListPermissionSetsRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListPermissionSetsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListPermissionSetsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListPermissionSetsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListPermissionSetsRequestOrderBy(APIListPermissionSetsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListPoliciesRequestOrderBy string
+
+const (
+	// Policy name ascending.
+	APIListPoliciesRequestOrderByPolicyNameAsc = APIListPoliciesRequestOrderBy("policy_name_asc")
+	// Policy name descending.
+	APIListPoliciesRequestOrderByPolicyNameDesc = APIListPoliciesRequestOrderBy("policy_name_desc")
+	// Creation date ascending.
+	APIListPoliciesRequestOrderByCreatedAtAsc = APIListPoliciesRequestOrderBy("created_at_asc")
+	// Creation date descending.
+	APIListPoliciesRequestOrderByCreatedAtDesc = APIListPoliciesRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListPoliciesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "policy_name_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListPoliciesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListPoliciesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListPoliciesRequestOrderBy(APIListPoliciesRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListQuotaRequestOrderBy string
+
+const (
+	// Name ascending.
+	APIListQuotaRequestOrderByNameAsc = APIListQuotaRequestOrderBy("name_asc")
+	// Name descending.
+	APIListQuotaRequestOrderByNameDesc = APIListQuotaRequestOrderBy("name_desc")
+)
+
+func (enum APIListQuotaRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListQuotaRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListQuotaRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListQuotaRequestOrderBy(APIListQuotaRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListSSHKeysRequestOrderBy string
+
+const (
+	// Creation date ascending.
+	APIListSSHKeysRequestOrderByCreatedAtAsc = APIListSSHKeysRequestOrderBy("created_at_asc")
+	// Creation date descending.
+	APIListSSHKeysRequestOrderByCreatedAtDesc = APIListSSHKeysRequestOrderBy("created_at_desc")
+	// Update date ascending.
+	APIListSSHKeysRequestOrderByUpdatedAtAsc = APIListSSHKeysRequestOrderBy("updated_at_asc")
+	// Update date descending.
+	APIListSSHKeysRequestOrderByUpdatedAtDesc = APIListSSHKeysRequestOrderBy("updated_at_desc")
+	// Name ascending.
+	APIListSSHKeysRequestOrderByNameAsc = APIListSSHKeysRequestOrderBy("name_asc")
+	// Name descending.
+	APIListSSHKeysRequestOrderByNameDesc = APIListSSHKeysRequestOrderBy("name_desc")
+)
+
+func (enum APIListSSHKeysRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListSSHKeysRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListSSHKeysRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListSSHKeysRequestOrderBy(APIListSSHKeysRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListUsersRequestOrderBy string
+
+const (
+	// Creation date ascending.
+	APIListUsersRequestOrderByCreatedAtAsc = APIListUsersRequestOrderBy("created_at_asc")
+	// Creation date descending.
+	APIListUsersRequestOrderByCreatedAtDesc = APIListUsersRequestOrderBy("created_at_desc")
+	// Update date ascending.
+	APIListUsersRequestOrderByUpdatedAtAsc = APIListUsersRequestOrderBy("updated_at_asc")
+	// Update date descending.
+	APIListUsersRequestOrderByUpdatedAtDesc = APIListUsersRequestOrderBy("updated_at_desc")
+	// Email ascending.
+	APIListUsersRequestOrderByEmailAsc = APIListUsersRequestOrderBy("email_asc")
+	// Email descending.
+	APIListUsersRequestOrderByEmailDesc = APIListUsersRequestOrderBy("email_desc")
+	// Last login ascending.
+	APIListUsersRequestOrderByLastLoginAsc = APIListUsersRequestOrderBy("last_login_asc")
+	// Last login descending.
+	APIListUsersRequestOrderByLastLoginDesc = APIListUsersRequestOrderBy("last_login_desc")
+)
+
+func (enum APIListUsersRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListUsersRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListUsersRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListUsersRequestOrderBy(APIListUsersRequestOrderBy(tmp).String())
+	return nil
+}
+
 type BearerType string
 
 const (
@@ -70,354 +418,6 @@ func (enum *BearerType) UnmarshalJSON(data []byte) error {
 	}
 
 	*enum = BearerType(BearerType(tmp).String())
-	return nil
-}
-
-type ListAPIKeysRequestOrderBy string
-
-const (
-	// Creation date ascending.
-	ListAPIKeysRequestOrderByCreatedAtAsc = ListAPIKeysRequestOrderBy("created_at_asc")
-	// Creation date descending.
-	ListAPIKeysRequestOrderByCreatedAtDesc = ListAPIKeysRequestOrderBy("created_at_desc")
-	// Update date ascending.
-	ListAPIKeysRequestOrderByUpdatedAtAsc = ListAPIKeysRequestOrderBy("updated_at_asc")
-	// Update date descending.
-	ListAPIKeysRequestOrderByUpdatedAtDesc = ListAPIKeysRequestOrderBy("updated_at_desc")
-	// Expiration date ascending.
-	ListAPIKeysRequestOrderByExpiresAtAsc = ListAPIKeysRequestOrderBy("expires_at_asc")
-	// Expiration date descending.
-	ListAPIKeysRequestOrderByExpiresAtDesc = ListAPIKeysRequestOrderBy("expires_at_desc")
-	// Access key ascending.
-	ListAPIKeysRequestOrderByAccessKeyAsc = ListAPIKeysRequestOrderBy("access_key_asc")
-	// Access key descending.
-	ListAPIKeysRequestOrderByAccessKeyDesc = ListAPIKeysRequestOrderBy("access_key_desc")
-)
-
-func (enum ListAPIKeysRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListAPIKeysRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListAPIKeysRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListAPIKeysRequestOrderBy(ListAPIKeysRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListApplicationsRequestOrderBy string
-
-const (
-	// Creation date ascending.
-	ListApplicationsRequestOrderByCreatedAtAsc = ListApplicationsRequestOrderBy("created_at_asc")
-	// Creation date descending.
-	ListApplicationsRequestOrderByCreatedAtDesc = ListApplicationsRequestOrderBy("created_at_desc")
-	// Update date ascending.
-	ListApplicationsRequestOrderByUpdatedAtAsc = ListApplicationsRequestOrderBy("updated_at_asc")
-	// Update date descending.
-	ListApplicationsRequestOrderByUpdatedAtDesc = ListApplicationsRequestOrderBy("updated_at_desc")
-	// Name ascending.
-	ListApplicationsRequestOrderByNameAsc = ListApplicationsRequestOrderBy("name_asc")
-	// Name descending.
-	ListApplicationsRequestOrderByNameDesc = ListApplicationsRequestOrderBy("name_desc")
-)
-
-func (enum ListApplicationsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListApplicationsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListApplicationsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListApplicationsRequestOrderBy(ListApplicationsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListGroupsRequestOrderBy string
-
-const (
-	// Creation date ascending.
-	ListGroupsRequestOrderByCreatedAtAsc = ListGroupsRequestOrderBy("created_at_asc")
-	// Creation date descending.
-	ListGroupsRequestOrderByCreatedAtDesc = ListGroupsRequestOrderBy("created_at_desc")
-	// Update date ascending.
-	ListGroupsRequestOrderByUpdatedAtAsc = ListGroupsRequestOrderBy("updated_at_asc")
-	// Update date descending.
-	ListGroupsRequestOrderByUpdatedAtDesc = ListGroupsRequestOrderBy("updated_at_desc")
-	// Name ascending.
-	ListGroupsRequestOrderByNameAsc = ListGroupsRequestOrderBy("name_asc")
-	// Name descending.
-	ListGroupsRequestOrderByNameDesc = ListGroupsRequestOrderBy("name_desc")
-)
-
-func (enum ListGroupsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListGroupsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListGroupsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListGroupsRequestOrderBy(ListGroupsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListJWTsRequestOrderBy string
-
-const (
-	// Creation date ascending.
-	ListJWTsRequestOrderByCreatedAtAsc = ListJWTsRequestOrderBy("created_at_asc")
-	// Creation date descending.
-	ListJWTsRequestOrderByCreatedAtDesc = ListJWTsRequestOrderBy("created_at_desc")
-	// Update date ascending.
-	ListJWTsRequestOrderByUpdatedAtAsc = ListJWTsRequestOrderBy("updated_at_asc")
-	// Update date descending.
-	ListJWTsRequestOrderByUpdatedAtDesc = ListJWTsRequestOrderBy("updated_at_desc")
-)
-
-func (enum ListJWTsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListJWTsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListJWTsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListJWTsRequestOrderBy(ListJWTsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListPermissionSetsRequestOrderBy string
-
-const (
-	// Name ascending.
-	ListPermissionSetsRequestOrderByNameAsc = ListPermissionSetsRequestOrderBy("name_asc")
-	// Name descending.
-	ListPermissionSetsRequestOrderByNameDesc = ListPermissionSetsRequestOrderBy("name_desc")
-	// Creation date ascending.
-	ListPermissionSetsRequestOrderByCreatedAtAsc = ListPermissionSetsRequestOrderBy("created_at_asc")
-	// Creation date descending.
-	ListPermissionSetsRequestOrderByCreatedAtDesc = ListPermissionSetsRequestOrderBy("created_at_desc")
-)
-
-func (enum ListPermissionSetsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListPermissionSetsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListPermissionSetsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListPermissionSetsRequestOrderBy(ListPermissionSetsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListPoliciesRequestOrderBy string
-
-const (
-	// Policy name ascending.
-	ListPoliciesRequestOrderByPolicyNameAsc = ListPoliciesRequestOrderBy("policy_name_asc")
-	// Policy name descending.
-	ListPoliciesRequestOrderByPolicyNameDesc = ListPoliciesRequestOrderBy("policy_name_desc")
-	// Creation date ascending.
-	ListPoliciesRequestOrderByCreatedAtAsc = ListPoliciesRequestOrderBy("created_at_asc")
-	// Creation date descending.
-	ListPoliciesRequestOrderByCreatedAtDesc = ListPoliciesRequestOrderBy("created_at_desc")
-)
-
-func (enum ListPoliciesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "policy_name_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListPoliciesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListPoliciesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListPoliciesRequestOrderBy(ListPoliciesRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListQuotaRequestOrderBy string
-
-const (
-	// Name ascending.
-	ListQuotaRequestOrderByNameAsc = ListQuotaRequestOrderBy("name_asc")
-	// Name descending.
-	ListQuotaRequestOrderByNameDesc = ListQuotaRequestOrderBy("name_desc")
-)
-
-func (enum ListQuotaRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListQuotaRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListQuotaRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListQuotaRequestOrderBy(ListQuotaRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListSSHKeysRequestOrderBy string
-
-const (
-	// Creation date ascending.
-	ListSSHKeysRequestOrderByCreatedAtAsc = ListSSHKeysRequestOrderBy("created_at_asc")
-	// Creation date descending.
-	ListSSHKeysRequestOrderByCreatedAtDesc = ListSSHKeysRequestOrderBy("created_at_desc")
-	// Update date ascending.
-	ListSSHKeysRequestOrderByUpdatedAtAsc = ListSSHKeysRequestOrderBy("updated_at_asc")
-	// Update date descending.
-	ListSSHKeysRequestOrderByUpdatedAtDesc = ListSSHKeysRequestOrderBy("updated_at_desc")
-	// Name ascending.
-	ListSSHKeysRequestOrderByNameAsc = ListSSHKeysRequestOrderBy("name_asc")
-	// Name descending.
-	ListSSHKeysRequestOrderByNameDesc = ListSSHKeysRequestOrderBy("name_desc")
-)
-
-func (enum ListSSHKeysRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListSSHKeysRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListSSHKeysRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListSSHKeysRequestOrderBy(ListSSHKeysRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListUsersRequestOrderBy string
-
-const (
-	// Creation date ascending.
-	ListUsersRequestOrderByCreatedAtAsc = ListUsersRequestOrderBy("created_at_asc")
-	// Creation date descending.
-	ListUsersRequestOrderByCreatedAtDesc = ListUsersRequestOrderBy("created_at_desc")
-	// Update date ascending.
-	ListUsersRequestOrderByUpdatedAtAsc = ListUsersRequestOrderBy("updated_at_asc")
-	// Update date descending.
-	ListUsersRequestOrderByUpdatedAtDesc = ListUsersRequestOrderBy("updated_at_desc")
-	// Email ascending.
-	ListUsersRequestOrderByEmailAsc = ListUsersRequestOrderBy("email_asc")
-	// Email descending.
-	ListUsersRequestOrderByEmailDesc = ListUsersRequestOrderBy("email_desc")
-	// Last login ascending.
-	ListUsersRequestOrderByLastLoginAsc = ListUsersRequestOrderBy("last_login_asc")
-	// Last login descending.
-	ListUsersRequestOrderByLastLoginDesc = ListUsersRequestOrderBy("last_login_desc")
-)
-
-func (enum ListUsersRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListUsersRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListUsersRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListUsersRequestOrderBy(ListUsersRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -528,7 +528,7 @@ func (enum *UserType) UnmarshalJSON(data []byte) error {
 // RuleSpecs:
 type RuleSpecs struct {
 	// PermissionSetNames: Names of permission sets bound to the rule.
-	PermissionSetNames *[]string `json:"permission_set_names,omitempty"`
+	PermissionSetNames *[]string `json:"permission_set_names"`
 	// ProjectIDs: List of Project IDs the rule is scoped to.
 	ProjectIDs *[]string `json:"project_ids,omitempty"`
 	// OrganizationID: ID of Organization the rule is scoped to.
@@ -544,11 +544,11 @@ type JWT struct {
 	// AudienceID: ID of the user targeted by the JWT.
 	AudienceID string `json:"audience_id"`
 	// CreatedAt: Creation date of the JWT.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Last update date of the JWT.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// ExpiresAt: Expiration date of the JWT.
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at"`
 	// IP: IP address used during the creation of the JWT.
 	IP net.IP `json:"ip"`
 	// UserAgent: User-agent used during the creation of the JWT.
@@ -560,7 +560,7 @@ type APIKey struct {
 	// AccessKey: Access key of the API key.
 	AccessKey string `json:"access_key"`
 	// SecretKey: Secret key of the API Key.
-	SecretKey *string `json:"secret_key,omitempty"`
+	SecretKey *string `json:"secret_key"`
 	// ApplicationID: ID of application that bears the API key.
 	ApplicationID *string `json:"application_id,omitempty"`
 	// UserID: ID of user that bears the API key.
@@ -568,11 +568,11 @@ type APIKey struct {
 	// Description: Description of API key.
 	Description string `json:"description"`
 	// CreatedAt: Date and time of API key creation.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Date and time of last API key update.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// ExpiresAt: Date and time of API key expiration.
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at"`
 	// DefaultProjectID: Default Project ID specified for this API key.
 	DefaultProjectID string `json:"default_project_id"`
 	// Editable: Defines whether or not the API key is editable.
@@ -590,9 +590,9 @@ type Application struct {
 	// Description: Description of the application.
 	Description string `json:"description"`
 	// CreatedAt: Date and time application was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Date and time of last application update.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// OrganizationID: ID of the Organization.
 	OrganizationID string `json:"organization_id"`
 	// Editable: Defines whether or not the application is editable.
@@ -606,9 +606,9 @@ type Group struct {
 	// ID: ID of the group.
 	ID string `json:"id"`
 	// CreatedAt: Date and time of group creation.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Date and time of last group update.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// OrganizationID: ID of Organization linked to the group.
 	OrganizationID string `json:"organization_id"`
 	// Name: Name of the group.
@@ -632,7 +632,7 @@ type PermissionSet struct {
 	// Description: Description of the permission set.
 	Description string `json:"description"`
 	// Categories: Categories of the permission set.
-	Categories *[]string `json:"categories,omitempty"`
+	Categories *[]string `json:"categories"`
 }
 
 // Policy:
@@ -646,9 +646,9 @@ type Policy struct {
 	// OrganizationID: Organization ID of the policy.
 	OrganizationID string `json:"organization_id"`
 	// CreatedAt: Date and time of policy creation.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Date and time of last policy update.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Editable: Defines whether or not a policy is editable.
 	Editable bool `json:"editable"`
 	// NbRules: Number of rules of the policy.
@@ -682,7 +682,7 @@ type Rule struct {
 	// ID: Id of rule.
 	ID string `json:"id"`
 	// PermissionSetNames: Names of permission sets bound to the rule.
-	PermissionSetNames *[]string `json:"permission_set_names,omitempty"`
+	PermissionSetNames *[]string `json:"permission_set_names"`
 	// PermissionSetsScopeType: Permission_set_names have the same scope_type.
 	PermissionSetsScopeType PermissionSetScopeType `json:"permission_sets_scope_type"`
 	// ProjectIDs: List of Project IDs the rule is scoped to.
@@ -704,9 +704,9 @@ type SSHKey struct {
 	// Fingerprint: Fingerprint of the SSH key.
 	Fingerprint string `json:"fingerprint"`
 	// CreatedAt: Creation date of SSH key.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Last update date of SSH key.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// OrganizationID: ID of Organization linked to the SSH key.
 	OrganizationID string `json:"organization_id"`
 	// ProjectID: ID of Project linked to the SSH key.
@@ -722,15 +722,15 @@ type User struct {
 	// Email: Email of user.
 	Email string `json:"email"`
 	// CreatedAt: Date user was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Date of last user update.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// OrganizationID: ID of the Organization.
 	OrganizationID string `json:"organization_id"`
 	// Deletable: Deletion status of user. Owners cannot be deleted.
 	Deletable bool `json:"deletable"`
 	// LastLoginAt: Date of the last login.
-	LastLoginAt *time.Time `json:"last_login_at,omitempty"`
+	LastLoginAt *time.Time `json:"last_login_at"`
 	// Type: Type of user.
 	Type UserType `json:"type"`
 	// Deprecated: TwoFactorEnabled: Deprecated, use "mfa" instead.
@@ -743,8 +743,8 @@ type User struct {
 	AccountRootUserID string `json:"account_root_user_id"`
 }
 
-// AddGroupMemberRequest:
-type AddGroupMemberRequest struct {
+// APIAddGroupMemberRequest:
+type APIAddGroupMemberRequest struct {
 	// GroupID: ID of the group.
 	GroupID string `json:"-"`
 	// UserID: ID of the user to add.
@@ -753,8 +753,8 @@ type AddGroupMemberRequest struct {
 	ApplicationID *string `json:"application_id,omitempty"`
 }
 
-// AddGroupMembersRequest:
-type AddGroupMembersRequest struct {
+// APIAddGroupMembersRequest:
+type APIAddGroupMembersRequest struct {
 	// GroupID: ID of the group.
 	GroupID string `json:"-"`
 	// UserIDs: IDs of the users to add.
@@ -763,14 +763,14 @@ type AddGroupMembersRequest struct {
 	ApplicationIDs []string `json:"application_ids"`
 }
 
-// ClonePolicyRequest:
-type ClonePolicyRequest struct {
+// APIClonePolicyRequest:
+type APIClonePolicyRequest struct {
 	// PolicyID:
 	PolicyID string `json:"-"`
 }
 
-// CreateAPIKeyRequest:
-type CreateAPIKeyRequest struct {
+// APICreateAPIKeyRequest:
+type APICreateAPIKeyRequest struct {
 	// ApplicationID: ID of the application.
 	ApplicationID *string `json:"application_id,omitempty"`
 	// UserID: ID of the user.
@@ -783,8 +783,8 @@ type CreateAPIKeyRequest struct {
 	Description string `json:"description"`
 }
 
-// CreateApplicationRequest:
-type CreateApplicationRequest struct {
+// APICreateApplicationRequest:
+type APICreateApplicationRequest struct {
 	// Name: Name of the application to create (max length is 64 characters).
 	Name string `json:"name"`
 	// OrganizationID: ID of the Organization.
@@ -793,8 +793,8 @@ type CreateApplicationRequest struct {
 	Description string `json:"description"`
 }
 
-// CreateGroupRequest:
-type CreateGroupRequest struct {
+// APICreateGroupRequest:
+type APICreateGroupRequest struct {
 	// OrganizationID: ID of Organization linked to the group.
 	OrganizationID string `json:"organization_id"`
 	// Name: Name of the group to create (max length is 64 chars). MUST be unique inside an Organization.
@@ -803,8 +803,8 @@ type CreateGroupRequest struct {
 	Description string `json:"description"`
 }
 
-// CreatePolicyRequest:
-type CreatePolicyRequest struct {
+// APICreatePolicyRequest:
+type APICreatePolicyRequest struct {
 	// Name: Name of the policy to create (max length is 64 characters).
 	Name string `json:"name"`
 	// Description: Description of the policy to create (max length is 200 characters).
@@ -823,8 +823,8 @@ type CreatePolicyRequest struct {
 	NoPrincipal *bool `json:"no_principal,omitempty"`
 }
 
-// CreateSSHKeyRequest:
-type CreateSSHKeyRequest struct {
+// APICreateSSHKeyRequest:
+type APICreateSSHKeyRequest struct {
 	// Name: Name of the SSH key. Max length is 1000.
 	Name string `json:"name"`
 	// PublicKey: SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000.
@@ -833,110 +833,110 @@ type CreateSSHKeyRequest struct {
 	ProjectID string `json:"project_id"`
 }
 
-// CreateUserRequest:
-type CreateUserRequest struct {
+// APICreateUserRequest:
+type APICreateUserRequest struct {
 	// OrganizationID: ID of the Organization.
 	OrganizationID string `json:"organization_id"`
 	// Email: Email of the user.
 	Email string `json:"email"`
 }
 
-// DeleteAPIKeyRequest:
-type DeleteAPIKeyRequest struct {
+// APIDeleteAPIKeyRequest:
+type APIDeleteAPIKeyRequest struct {
 	// AccessKey: Access key to delete.
 	AccessKey string `json:"-"`
 }
 
-// DeleteApplicationRequest:
-type DeleteApplicationRequest struct {
+// APIDeleteApplicationRequest:
+type APIDeleteApplicationRequest struct {
 	// ApplicationID: ID of the application to delete.
 	ApplicationID string `json:"-"`
 }
 
-// DeleteGroupRequest:
-type DeleteGroupRequest struct {
+// APIDeleteGroupRequest:
+type APIDeleteGroupRequest struct {
 	// GroupID: ID of the group to delete.
 	GroupID string `json:"-"`
 }
 
-// DeleteJWTRequest:
-type DeleteJWTRequest struct {
+// APIDeleteJWTRequest:
+type APIDeleteJWTRequest struct {
 	// Jti: JWT ID of the JWT to delete.
 	Jti string `json:"-"`
 }
 
-// DeletePolicyRequest:
-type DeletePolicyRequest struct {
+// APIDeletePolicyRequest:
+type APIDeletePolicyRequest struct {
 	// PolicyID: Id of policy to delete.
 	PolicyID string `json:"-"`
 }
 
-// DeleteSSHKeyRequest:
-type DeleteSSHKeyRequest struct {
+// APIDeleteSSHKeyRequest:
+type APIDeleteSSHKeyRequest struct {
 	// SSHKeyID:
 	SSHKeyID string `json:"-"`
 }
 
-// DeleteUserRequest:
-type DeleteUserRequest struct {
+// APIDeleteUserRequest:
+type APIDeleteUserRequest struct {
 	// UserID: ID of the user to delete.
 	UserID string `json:"-"`
 }
 
-// GetAPIKeyRequest:
-type GetAPIKeyRequest struct {
+// APIGetAPIKeyRequest:
+type APIGetAPIKeyRequest struct {
 	// AccessKey: Access key to search for.
 	AccessKey string `json:"-"`
 }
 
-// GetApplicationRequest:
-type GetApplicationRequest struct {
+// APIGetApplicationRequest:
+type APIGetApplicationRequest struct {
 	// ApplicationID: ID of the application to find.
 	ApplicationID string `json:"-"`
 }
 
-// GetGroupRequest:
-type GetGroupRequest struct {
+// APIGetGroupRequest:
+type APIGetGroupRequest struct {
 	// GroupID: ID of the group.
 	GroupID string `json:"-"`
 }
 
-// GetJWTRequest:
-type GetJWTRequest struct {
+// APIGetJWTRequest:
+type APIGetJWTRequest struct {
 	// Jti: JWT ID of the JWT to get.
 	Jti string `json:"-"`
 }
 
-// GetPolicyRequest:
-type GetPolicyRequest struct {
+// APIGetPolicyRequest:
+type APIGetPolicyRequest struct {
 	// PolicyID: Id of policy to search.
 	PolicyID string `json:"-"`
 }
 
-// GetQuotumRequest:
-type GetQuotumRequest struct {
+// APIGetQuotumRequest:
+type APIGetQuotumRequest struct {
 	// QuotumName: Name of the quota to get.
 	QuotumName string `json:"-"`
 	// OrganizationID: ID of the Organization.
 	OrganizationID string `json:"-"`
 }
 
-// GetSSHKeyRequest:
-type GetSSHKeyRequest struct {
+// APIGetSSHKeyRequest:
+type APIGetSSHKeyRequest struct {
 	// SSHKeyID: ID of the SSH key.
 	SSHKeyID string `json:"-"`
 }
 
-// GetUserRequest:
-type GetUserRequest struct {
+// APIGetUserRequest:
+type APIGetUserRequest struct {
 	// UserID: ID of the user to find.
 	UserID string `json:"-"`
 }
 
-// ListAPIKeysRequest:
-type ListAPIKeysRequest struct {
+// APIListAPIKeysRequest:
+type APIListAPIKeysRequest struct {
 	// OrderBy: Criteria for sorting results.
-	OrderBy ListAPIKeysRequestOrderBy `json:"-"`
+	OrderBy APIListAPIKeysRequestOrderBy `json:"-"`
 	// Page: Page number. Value must be greater or equal to 1.
 	Page *int32 `json:"-"`
 	// PageSize: Number of results per page. Value must be between 1 and 100.
@@ -959,6 +959,236 @@ type ListAPIKeysRequest struct {
 	BearerID *string `json:"-"`
 	// BearerType: Filter by type of bearer.
 	BearerType BearerType `json:"-"`
+}
+
+// APIListApplicationsRequest:
+type APIListApplicationsRequest struct {
+	// OrderBy: Criteria for sorting results.
+	OrderBy APIListApplicationsRequestOrderBy `json:"-"`
+	// PageSize: Number of results per page. Value must be between 1 and 100.
+	PageSize *uint32 `json:"-"`
+	// Page: Page number. Value must be greater than 1.
+	Page *int32 `json:"-"`
+	// Name: Name of the application to filter.
+	Name *string `json:"-"`
+	// OrganizationID: ID of the Organization to filter.
+	OrganizationID *string `json:"-"`
+	// Editable: Defines whether to filter out editable applications or not.
+	Editable *bool `json:"-"`
+	// ApplicationIDs: Filter by list of IDs.
+	ApplicationIDs []string `json:"-"`
+}
+
+// APIListGroupsRequest:
+type APIListGroupsRequest struct {
+	// OrderBy: Sort order of groups.
+	OrderBy APIListGroupsRequestOrderBy `json:"-"`
+	// Page: Requested page number. Value must be greater or equal to 1.
+	Page *int32 `json:"-"`
+	// PageSize: Number of items per page. Value must be between 1 and 100.
+	PageSize *uint32 `json:"-"`
+	// OrganizationID: Filter by Organization ID.
+	OrganizationID *string `json:"-"`
+	// Name: Name of group to find.
+	Name *string `json:"-"`
+	// ApplicationIDs: Filter by a list of application IDs.
+	ApplicationIDs []string `json:"-"`
+	// UserIDs: Filter by a list of user IDs.
+	UserIDs []string `json:"-"`
+	// GroupIDs: Filter by a list of group IDs.
+	GroupIDs []string `json:"-"`
+}
+
+// APIListJWTsRequest:
+type APIListJWTsRequest struct {
+	// OrderBy: Criteria for sorting results.
+	OrderBy APIListJWTsRequestOrderBy `json:"-"`
+	// AudienceID: ID of the user to search.
+	AudienceID *string `json:"-"`
+	// PageSize: Number of results per page. Value must be between 1 and 100.
+	PageSize *uint32 `json:"-"`
+	// Page: Page number. Value must be greater to 1.
+	Page *int32 `json:"-"`
+	// Expired: Filter out expired JWTs or not.
+	Expired *bool `json:"-"`
+}
+
+// APIListPermissionSetsRequest:
+type APIListPermissionSetsRequest struct {
+	// OrderBy: Criteria for sorting results.
+	OrderBy APIListPermissionSetsRequestOrderBy `json:"-"`
+	// PageSize: Number of results per page. Value must be between 1 and 100.
+	PageSize *uint32 `json:"-"`
+	// Page: Page number. Value must be greater than 1.
+	Page *int32 `json:"-"`
+	// OrganizationID: Filter by Organization ID.
+	OrganizationID string `json:"-"`
+}
+
+// APIListPoliciesRequest:
+type APIListPoliciesRequest struct {
+	// OrderBy: Criteria for sorting results.
+	OrderBy APIListPoliciesRequestOrderBy `json:"-"`
+	// PageSize: Number of results per page. Value must be between 1 and 100.
+	PageSize *uint32 `json:"-"`
+	// Page: Page number. Value must be greater than 1.
+	Page *int32 `json:"-"`
+	// OrganizationID: ID of the Organization to filter.
+	OrganizationID *string `json:"-"`
+	// Editable: Defines whether or not filter out editable policies.
+	Editable *bool `json:"-"`
+	// UserIDs: Defines whether or not to filter by list of user IDs.
+	UserIDs []string `json:"-"`
+	// GroupIDs: Defines whether or not to filter by list of group IDs.
+	GroupIDs []string `json:"-"`
+	// ApplicationIDs: Filter by a list of application IDs.
+	ApplicationIDs []string `json:"-"`
+	// NoPrincipal: Defines whether or not the policy is attributed to a principal.
+	NoPrincipal *bool `json:"-"`
+	// PolicyName: Name of the policy to fetch.
+	PolicyName *string `json:"-"`
+}
+
+// APIListQuotaRequest:
+type APIListQuotaRequest struct {
+	// OrderBy: Criteria for sorting results.
+	OrderBy APIListQuotaRequestOrderBy `json:"-"`
+	// PageSize: Number of results per page. Value must be between 1 and 100.
+	PageSize *uint32 `json:"-"`
+	// Page: Page number. Value must be greater than 1.
+	Page *int32 `json:"-"`
+	// OrganizationID: Filter by Organization ID.
+	OrganizationID string `json:"-"`
+}
+
+// APIListRulesRequest:
+type APIListRulesRequest struct {
+	// PolicyID: Id of policy to search.
+	PolicyID *string `json:"-"`
+	// PageSize: Number of results per page. Value must be between 1 and 100.
+	PageSize *uint32 `json:"-"`
+	// Page: Page number. Value must be greater than 1.
+	Page *int32 `json:"-"`
+}
+
+// APIListSSHKeysRequest:
+type APIListSSHKeysRequest struct {
+	// OrderBy: Sort order of the SSH keys.
+	OrderBy APIListSSHKeysRequestOrderBy `json:"-"`
+	// Page: Requested page number. Value must be greater or equal to 1.
+	Page *int32 `json:"-"`
+	// PageSize: Number of items per page. Value must be between 1 and 100.
+	PageSize *uint32 `json:"-"`
+	// OrganizationID: Filter by Organization ID.
+	OrganizationID *string `json:"-"`
+	// Name: Name of group to find.
+	Name *string `json:"-"`
+	// ProjectID: Filter by Project ID.
+	ProjectID *string `json:"-"`
+	// Disabled: Defines whether to include disabled SSH keys or not.
+	Disabled *bool `json:"-"`
+}
+
+// APIListUsersRequest:
+type APIListUsersRequest struct {
+	// OrderBy: Criteria for sorting results.
+	OrderBy APIListUsersRequestOrderBy `json:"-"`
+	// PageSize: Number of results per page. Value must be between 1 and 100.
+	PageSize *uint32 `json:"-"`
+	// Page: Page number. Value must be greater or equal to 1.
+	Page *int32 `json:"-"`
+	// OrganizationID: ID of the Organization to filter.
+	OrganizationID *string `json:"-"`
+	// UserIDs: Filter by list of IDs.
+	UserIDs []string `json:"-"`
+	// Mfa: Filter by MFA status.
+	Mfa *bool `json:"-"`
+}
+
+// APIRemoveGroupMemberRequest:
+type APIRemoveGroupMemberRequest struct {
+	// GroupID: ID of the group.
+	GroupID string `json:"-"`
+	// UserID: ID of the user to remove.
+	UserID *string `json:"user_id,omitempty"`
+	// ApplicationID: ID of the application to remove.
+	ApplicationID *string `json:"application_id,omitempty"`
+}
+
+// APISetGroupMembersRequest:
+type APISetGroupMembersRequest struct {
+	// GroupID:
+	GroupID string `json:"-"`
+	// UserIDs:
+	UserIDs []string `json:"user_ids"`
+	// ApplicationIDs:
+	ApplicationIDs []string `json:"application_ids"`
+}
+
+// APISetRulesRequest:
+type APISetRulesRequest struct {
+	// PolicyID: Id of policy to update.
+	PolicyID string `json:"policy_id"`
+	// Rules: Rules of the policy to set.
+	Rules []*RuleSpecs `json:"rules"`
+}
+
+// APIUpdateAPIKeyRequest:
+type APIUpdateAPIKeyRequest struct {
+	// AccessKey: Access key to update.
+	AccessKey string `json:"-"`
+	// DefaultProjectID: New default Project ID to set.
+	DefaultProjectID *string `json:"default_project_id,omitempty"`
+	// Description: New description to update.
+	Description *string `json:"description,omitempty"`
+}
+
+// APIUpdateApplicationRequest:
+type APIUpdateApplicationRequest struct {
+	// ApplicationID: ID of the application to update.
+	ApplicationID string `json:"-"`
+	// Name: New name for the application (max length is 64 chars).
+	Name *string `json:"name,omitempty"`
+	// Description: New description for the application (max length is 200 chars).
+	Description *string `json:"description,omitempty"`
+}
+
+// APIUpdateGroupRequest:
+type APIUpdateGroupRequest struct {
+	// GroupID: ID of the group to update.
+	GroupID string `json:"-"`
+	// Name: New name for the group (max length is 64 chars). MUST be unique inside an Organization.
+	Name *string `json:"name,omitempty"`
+	// Description: New description for the group (max length is 200 chars).
+	Description *string `json:"description,omitempty"`
+}
+
+// APIUpdatePolicyRequest:
+type APIUpdatePolicyRequest struct {
+	// PolicyID: Id of policy to update.
+	PolicyID string `json:"-"`
+	// Name: New name for the policy (max length is 64 characters).
+	Name *string `json:"name,omitempty"`
+	// Description: New description of policy (max length is 200 characters).
+	Description *string `json:"description,omitempty"`
+	// UserID: New ID of user attributed to the policy.
+	UserID *string `json:"user_id,omitempty"`
+	// GroupID: New ID of group attributed to the policy.
+	GroupID *string `json:"group_id,omitempty"`
+	// ApplicationID: New ID of application attributed to the policy.
+	ApplicationID *string `json:"application_id,omitempty"`
+	// NoPrincipal: Defines whether or not the policy is attributed to a principal.
+	NoPrincipal *bool `json:"no_principal,omitempty"`
+}
+
+// APIUpdateSSHKeyRequest:
+type APIUpdateSSHKeyRequest struct {
+	// SSHKeyID:
+	SSHKeyID string `json:"-"`
+	// Name: Name of the SSH key. Max length is 1000.
+	Name *string `json:"name,omitempty"`
+	// Disabled: Enable or disable the SSH key.
+	Disabled *bool `json:"disabled,omitempty"`
 }
 
 // ListAPIKeysResponse:
@@ -988,24 +1218,6 @@ func (r *ListAPIKeysResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.APIKeys)), nil
 }
 
-// ListApplicationsRequest:
-type ListApplicationsRequest struct {
-	// OrderBy: Criteria for sorting results.
-	OrderBy ListApplicationsRequestOrderBy `json:"-"`
-	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"-"`
-	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"-"`
-	// Name: Name of the application to filter.
-	Name *string `json:"-"`
-	// OrganizationID: ID of the Organization to filter.
-	OrganizationID *string `json:"-"`
-	// Editable: Defines whether to filter out editable applications or not.
-	Editable *bool `json:"-"`
-	// ApplicationIDs: Filter by list of IDs.
-	ApplicationIDs []string `json:"-"`
-}
-
 // ListApplicationsResponse:
 type ListApplicationsResponse struct {
 	// Applications: List of applications.
@@ -1031,26 +1243,6 @@ func (r *ListApplicationsResponse) UnsafeAppend(res interface{}) (uint32, error)
 	r.Applications = append(r.Applications, results.Applications...)
 	r.TotalCount += uint32(len(results.Applications))
 	return uint32(len(results.Applications)), nil
-}
-
-// ListGroupsRequest:
-type ListGroupsRequest struct {
-	// OrderBy: Sort order of groups.
-	OrderBy ListGroupsRequestOrderBy `json:"-"`
-	// Page: Requested page number. Value must be greater or equal to 1.
-	Page *int32 `json:"-"`
-	// PageSize: Number of items per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"-"`
-	// OrganizationID: Filter by Organization ID.
-	OrganizationID *string `json:"-"`
-	// Name: Name of group to find.
-	Name *string `json:"-"`
-	// ApplicationIDs: Filter by a list of application IDs.
-	ApplicationIDs []string `json:"-"`
-	// UserIDs: Filter by a list of user IDs.
-	UserIDs []string `json:"-"`
-	// GroupIDs: Filter by a list of group IDs.
-	GroupIDs []string `json:"-"`
 }
 
 // ListGroupsResponse:
@@ -1080,20 +1272,6 @@ func (r *ListGroupsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Groups)), nil
 }
 
-// ListJWTsRequest:
-type ListJWTsRequest struct {
-	// OrderBy: Criteria for sorting results.
-	OrderBy ListJWTsRequestOrderBy `json:"-"`
-	// AudienceID: ID of the user to search.
-	AudienceID *string `json:"-"`
-	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"-"`
-	// Page: Page number. Value must be greater to 1.
-	Page *int32 `json:"-"`
-	// Expired: Filter out expired JWTs or not.
-	Expired *bool `json:"-"`
-}
-
 // ListJWTsResponse:
 type ListJWTsResponse struct {
 	// Jwts:
@@ -1119,18 +1297,6 @@ func (r *ListJWTsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	r.Jwts = append(r.Jwts, results.Jwts...)
 	r.TotalCount += uint64(len(results.Jwts))
 	return uint64(len(results.Jwts)), nil
-}
-
-// ListPermissionSetsRequest:
-type ListPermissionSetsRequest struct {
-	// OrderBy: Criteria for sorting results.
-	OrderBy ListPermissionSetsRequestOrderBy `json:"-"`
-	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"-"`
-	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"-"`
-	// OrganizationID: Filter by Organization ID.
-	OrganizationID string `json:"-"`
 }
 
 // ListPermissionSetsResponse:
@@ -1160,30 +1326,6 @@ func (r *ListPermissionSetsResponse) UnsafeAppend(res interface{}) (uint32, erro
 	return uint32(len(results.PermissionSets)), nil
 }
 
-// ListPoliciesRequest:
-type ListPoliciesRequest struct {
-	// OrderBy: Criteria for sorting results.
-	OrderBy ListPoliciesRequestOrderBy `json:"-"`
-	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"-"`
-	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"-"`
-	// OrganizationID: ID of the Organization to filter.
-	OrganizationID *string `json:"-"`
-	// Editable: Defines whether or not filter out editable policies.
-	Editable *bool `json:"-"`
-	// UserIDs: Defines whether or not to filter by list of user IDs.
-	UserIDs []string `json:"-"`
-	// GroupIDs: Defines whether or not to filter by list of group IDs.
-	GroupIDs []string `json:"-"`
-	// ApplicationIDs: Filter by a list of application IDs.
-	ApplicationIDs []string `json:"-"`
-	// NoPrincipal: Defines whether or not the policy is attributed to a principal.
-	NoPrincipal *bool `json:"-"`
-	// PolicyName: Name of the policy to fetch.
-	PolicyName *string `json:"-"`
-}
-
 // ListPoliciesResponse:
 type ListPoliciesResponse struct {
 	// Policies: List of policies.
@@ -1209,18 +1351,6 @@ func (r *ListPoliciesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Policies = append(r.Policies, results.Policies...)
 	r.TotalCount += uint32(len(results.Policies))
 	return uint32(len(results.Policies)), nil
-}
-
-// ListQuotaRequest:
-type ListQuotaRequest struct {
-	// OrderBy: Criteria for sorting results.
-	OrderBy ListQuotaRequestOrderBy `json:"-"`
-	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"-"`
-	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"-"`
-	// OrganizationID: Filter by Organization ID.
-	OrganizationID string `json:"-"`
 }
 
 // ListQuotaResponse:
@@ -1250,16 +1380,6 @@ func (r *ListQuotaResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Quota)), nil
 }
 
-// ListRulesRequest:
-type ListRulesRequest struct {
-	// PolicyID: Id of policy to search.
-	PolicyID *string `json:"-"`
-	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"-"`
-	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"-"`
-}
-
 // ListRulesResponse:
 type ListRulesResponse struct {
 	// Rules: Rules of the policy.
@@ -1285,24 +1405,6 @@ func (r *ListRulesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Rules = append(r.Rules, results.Rules...)
 	r.TotalCount += uint32(len(results.Rules))
 	return uint32(len(results.Rules)), nil
-}
-
-// ListSSHKeysRequest:
-type ListSSHKeysRequest struct {
-	// OrderBy: Sort order of the SSH keys.
-	OrderBy ListSSHKeysRequestOrderBy `json:"-"`
-	// Page: Requested page number. Value must be greater or equal to 1.
-	Page *int32 `json:"-"`
-	// PageSize: Number of items per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"-"`
-	// OrganizationID: Filter by Organization ID.
-	OrganizationID *string `json:"-"`
-	// Name: Name of group to find.
-	Name *string `json:"-"`
-	// ProjectID: Filter by Project ID.
-	ProjectID *string `json:"-"`
-	// Disabled: Defines whether to include disabled SSH keys or not.
-	Disabled *bool `json:"-"`
 }
 
 // ListSSHKeysResponse:
@@ -1332,22 +1434,6 @@ func (r *ListSSHKeysResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.SSHKeys)), nil
 }
 
-// ListUsersRequest:
-type ListUsersRequest struct {
-	// OrderBy: Criteria for sorting results.
-	OrderBy ListUsersRequestOrderBy `json:"-"`
-	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"-"`
-	// Page: Page number. Value must be greater or equal to 1.
-	Page *int32 `json:"-"`
-	// OrganizationID: ID of the Organization to filter.
-	OrganizationID *string `json:"-"`
-	// UserIDs: Filter by list of IDs.
-	UserIDs []string `json:"-"`
-	// Mfa: Filter by MFA status.
-	Mfa *bool `json:"-"`
-}
-
 // ListUsersResponse:
 type ListUsersResponse struct {
 	// Users: List of users.
@@ -1375,96 +1461,10 @@ func (r *ListUsersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Users)), nil
 }
 
-// RemoveGroupMemberRequest:
-type RemoveGroupMemberRequest struct {
-	// GroupID: ID of the group.
-	GroupID string `json:"-"`
-	// UserID: ID of the user to remove.
-	UserID *string `json:"user_id,omitempty"`
-	// ApplicationID: ID of the application to remove.
-	ApplicationID *string `json:"application_id,omitempty"`
-}
-
-// SetGroupMembersRequest:
-type SetGroupMembersRequest struct {
-	// GroupID:
-	GroupID string `json:"-"`
-	// UserIDs:
-	UserIDs []string `json:"user_ids"`
-	// ApplicationIDs:
-	ApplicationIDs []string `json:"application_ids"`
-}
-
-// SetRulesRequest:
-type SetRulesRequest struct {
-	// PolicyID: Id of policy to update.
-	PolicyID string `json:"policy_id"`
-	// Rules: Rules of the policy to set.
-	Rules []*RuleSpecs `json:"rules"`
-}
-
 // SetRulesResponse:
 type SetRulesResponse struct {
 	// Rules: Rules of the policy.
 	Rules []*Rule `json:"rules"`
-}
-
-// UpdateAPIKeyRequest:
-type UpdateAPIKeyRequest struct {
-	// AccessKey: Access key to update.
-	AccessKey string `json:"-"`
-	// DefaultProjectID: New default Project ID to set.
-	DefaultProjectID *string `json:"default_project_id,omitempty"`
-	// Description: New description to update.
-	Description *string `json:"description,omitempty"`
-}
-
-// UpdateApplicationRequest:
-type UpdateApplicationRequest struct {
-	// ApplicationID: ID of the application to update.
-	ApplicationID string `json:"-"`
-	// Name: New name for the application (max length is 64 chars).
-	Name *string `json:"name,omitempty"`
-	// Description: New description for the application (max length is 200 chars).
-	Description *string `json:"description,omitempty"`
-}
-
-// UpdateGroupRequest:
-type UpdateGroupRequest struct {
-	// GroupID: ID of the group to update.
-	GroupID string `json:"-"`
-	// Name: New name for the group (max length is 64 chars). MUST be unique inside an Organization.
-	Name *string `json:"name,omitempty"`
-	// Description: New description for the group (max length is 200 chars).
-	Description *string `json:"description,omitempty"`
-}
-
-// UpdatePolicyRequest:
-type UpdatePolicyRequest struct {
-	// PolicyID: Id of policy to update.
-	PolicyID string `json:"-"`
-	// Name: New name for the policy (max length is 64 characters).
-	Name *string `json:"name,omitempty"`
-	// Description: New description of policy (max length is 200 characters).
-	Description *string `json:"description,omitempty"`
-	// UserID: New ID of user attributed to the policy.
-	UserID *string `json:"user_id,omitempty"`
-	// GroupID: New ID of group attributed to the policy.
-	GroupID *string `json:"group_id,omitempty"`
-	// ApplicationID: New ID of application attributed to the policy.
-	ApplicationID *string `json:"application_id,omitempty"`
-	// NoPrincipal: Defines whether or not the policy is attributed to a principal.
-	NoPrincipal *bool `json:"no_principal,omitempty"`
-}
-
-// UpdateSSHKeyRequest:
-type UpdateSSHKeyRequest struct {
-	// SSHKeyID:
-	SSHKeyID string `json:"-"`
-	// Name: Name of the SSH key. Max length is 1000.
-	Name *string `json:"name,omitempty"`
-	// Disabled: Enable or disable the SSH key.
-	Disabled *bool `json:"disabled,omitempty"`
 }
 
 // Identity and Access Management (IAM) allows you to share access to the management of your Scaleway resources and Organization settings, in a controlled and secure manner. With IAM, you can invite other users to your Organization, as well as create IAM applications which represent non-human users with their own API keys. You define permissions for users and applications in your Organization via highly customizable policies. Policies let you specify exactly what rights users and applications (or groups of users and applications) should have within your Organization.
@@ -1627,7 +1627,7 @@ func NewAPI(client *scw.Client) *API {
 }
 
 // ListSSHKeys: List SSH keys. By default, the SSH keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `organization_id`, `name`, `project_id` and `disabled`.
-func (s *API) ListSSHKeys(req *ListSSHKeysRequest, opts ...scw.RequestOption) (*ListSSHKeysResponse, error) {
+func (s *API) ListSSHKeys(req *APIListSSHKeysRequest, opts ...scw.RequestOption) (*ListSSHKeysResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -1655,7 +1655,7 @@ func (s *API) ListSSHKeys(req *ListSSHKeysRequest, opts ...scw.RequestOption) (*
 }
 
 // CreateSSHKey: Add a new SSH key to a Scaleway Project. You must specify the `name`, `public_key` and `project_id`.
-func (s *API) CreateSSHKey(req *CreateSSHKeyRequest, opts ...scw.RequestOption) (*SSHKey, error) {
+func (s *API) CreateSSHKey(req *APICreateSSHKeyRequest, opts ...scw.RequestOption) (*SSHKey, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1686,7 +1686,7 @@ func (s *API) CreateSSHKey(req *CreateSSHKeyRequest, opts ...scw.RequestOption) 
 }
 
 // GetSSHKey: Retrieve information about a given SSH key, specified by the `ssh_key_id` parameter. The SSH key's full details, including `id`, `name`, `public_key`, and `project_id` are returned in the response.
-func (s *API) GetSSHKey(req *GetSSHKeyRequest, opts ...scw.RequestOption) (*SSHKey, error) {
+func (s *API) GetSSHKey(req *APIGetSSHKeyRequest, opts ...scw.RequestOption) (*SSHKey, error) {
 	var err error
 
 	if fmt.Sprint(req.SSHKeyID) == "" {
@@ -1708,7 +1708,7 @@ func (s *API) GetSSHKey(req *GetSSHKeyRequest, opts ...scw.RequestOption) (*SSHK
 }
 
 // UpdateSSHKey: Update the parameters of an SSH key, including `name` and `disable`.
-func (s *API) UpdateSSHKey(req *UpdateSSHKeyRequest, opts ...scw.RequestOption) (*SSHKey, error) {
+func (s *API) UpdateSSHKey(req *APIUpdateSSHKeyRequest, opts ...scw.RequestOption) (*SSHKey, error) {
 	var err error
 
 	if fmt.Sprint(req.SSHKeyID) == "" {
@@ -1735,7 +1735,7 @@ func (s *API) UpdateSSHKey(req *UpdateSSHKeyRequest, opts ...scw.RequestOption) 
 }
 
 // DeleteSSHKey: Delete a given SSH key, specified by the `ssh_key_id`. Deleting an SSH is permanent, and cannot be undone. Note that you might need to update any configurations that used the SSH key.
-func (s *API) DeleteSSHKey(req *DeleteSSHKeyRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteSSHKey(req *APIDeleteSSHKeyRequest, opts ...scw.RequestOption) error {
 	var err error
 
 	if fmt.Sprint(req.SSHKeyID) == "" {
@@ -1755,7 +1755,7 @@ func (s *API) DeleteSSHKey(req *DeleteSSHKeyRequest, opts ...scw.RequestOption) 
 }
 
 // ListUsers: List the users of an Organization. By default, the users listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `user_ids`.
-func (s *API) ListUsers(req *ListUsersRequest, opts ...scw.RequestOption) (*ListUsersResponse, error) {
+func (s *API) ListUsers(req *APIListUsersRequest, opts ...scw.RequestOption) (*ListUsersResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -1782,7 +1782,7 @@ func (s *API) ListUsers(req *ListUsersRequest, opts ...scw.RequestOption) (*List
 }
 
 // GetUser: Retrieve information about a user, specified by the `user_id` parameter. The user's full details, including `id`, `email`, `organization_id`, `status` and `mfa` are returned in the response.
-func (s *API) GetUser(req *GetUserRequest, opts ...scw.RequestOption) (*User, error) {
+func (s *API) GetUser(req *APIGetUserRequest, opts ...scw.RequestOption) (*User, error) {
 	var err error
 
 	if fmt.Sprint(req.UserID) == "" {
@@ -1804,7 +1804,7 @@ func (s *API) GetUser(req *GetUserRequest, opts ...scw.RequestOption) (*User, er
 }
 
 // DeleteUser: Remove a user from an Organization in which they are a guest. You must define the `user_id` in your request. Note that removing a user from an Organization automatically deletes their API keys, and any policies directly attached to them become orphaned.
-func (s *API) DeleteUser(req *DeleteUserRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteUser(req *APIDeleteUserRequest, opts ...scw.RequestOption) error {
 	var err error
 
 	if fmt.Sprint(req.UserID) == "" {
@@ -1824,7 +1824,7 @@ func (s *API) DeleteUser(req *DeleteUserRequest, opts ...scw.RequestOption) erro
 }
 
 // CreateUser: Create a new user. You must define the `organization_id` and the `email` in your request.
-func (s *API) CreateUser(req *CreateUserRequest, opts ...scw.RequestOption) (*User, error) {
+func (s *API) CreateUser(req *APICreateUserRequest, opts ...scw.RequestOption) (*User, error) {
 	var err error
 	if req.OrganizationID == "" {
 		defaultOrganizationID, _ := s.client.GetDefaultOrganizationID()
@@ -1851,7 +1851,7 @@ func (s *API) CreateUser(req *CreateUserRequest, opts ...scw.RequestOption) (*Us
 }
 
 // ListApplications: List the applications of an Organization. By default, the applications listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `application_ids`.
-func (s *API) ListApplications(req *ListApplicationsRequest, opts ...scw.RequestOption) (*ListApplicationsResponse, error) {
+func (s *API) ListApplications(req *APIListApplicationsRequest, opts ...scw.RequestOption) (*ListApplicationsResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -1879,7 +1879,7 @@ func (s *API) ListApplications(req *ListApplicationsRequest, opts ...scw.Request
 }
 
 // CreateApplication: Create a new application. You must define the `name` parameter in the request.
-func (s *API) CreateApplication(req *CreateApplicationRequest, opts ...scw.RequestOption) (*Application, error) {
+func (s *API) CreateApplication(req *APICreateApplicationRequest, opts ...scw.RequestOption) (*Application, error) {
 	var err error
 	if req.OrganizationID == "" {
 		defaultOrganizationID, _ := s.client.GetDefaultOrganizationID()
@@ -1910,7 +1910,7 @@ func (s *API) CreateApplication(req *CreateApplicationRequest, opts ...scw.Reque
 }
 
 // GetApplication: Retrieve information about an application, specified by the `application_id` parameter. The application's full details, including `id`, `email`, `organization_id`, `status` and `two_factor_enabled` are returned in the response.
-func (s *API) GetApplication(req *GetApplicationRequest, opts ...scw.RequestOption) (*Application, error) {
+func (s *API) GetApplication(req *APIGetApplicationRequest, opts ...scw.RequestOption) (*Application, error) {
 	var err error
 
 	if fmt.Sprint(req.ApplicationID) == "" {
@@ -1932,7 +1932,7 @@ func (s *API) GetApplication(req *GetApplicationRequest, opts ...scw.RequestOpti
 }
 
 // UpdateApplication: Update the parameters of an application, including `name` and `description`.
-func (s *API) UpdateApplication(req *UpdateApplicationRequest, opts ...scw.RequestOption) (*Application, error) {
+func (s *API) UpdateApplication(req *APIUpdateApplicationRequest, opts ...scw.RequestOption) (*Application, error) {
 	var err error
 
 	if fmt.Sprint(req.ApplicationID) == "" {
@@ -1959,7 +1959,7 @@ func (s *API) UpdateApplication(req *UpdateApplicationRequest, opts ...scw.Reque
 }
 
 // DeleteApplication: Delete an application. Note that this action is irreversible and will automatically delete the application's API keys. Policies attached to users and applications via this group will no longer apply.
-func (s *API) DeleteApplication(req *DeleteApplicationRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteApplication(req *APIDeleteApplicationRequest, opts ...scw.RequestOption) error {
 	var err error
 
 	if fmt.Sprint(req.ApplicationID) == "" {
@@ -1979,7 +1979,7 @@ func (s *API) DeleteApplication(req *DeleteApplicationRequest, opts ...scw.Reque
 }
 
 // ListGroups: List groups. By default, the groups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters to filter your query. Use `user_ids` or `application_ids` to list all groups certain users or applications belong to.
-func (s *API) ListGroups(req *ListGroupsRequest, opts ...scw.RequestOption) (*ListGroupsResponse, error) {
+func (s *API) ListGroups(req *APIListGroupsRequest, opts ...scw.RequestOption) (*ListGroupsResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -2008,7 +2008,7 @@ func (s *API) ListGroups(req *ListGroupsRequest, opts ...scw.RequestOption) (*Li
 }
 
 // CreateGroup: Create a new group. You must define the `name` and `organization_id` parameters in the request.
-func (s *API) CreateGroup(req *CreateGroupRequest, opts ...scw.RequestOption) (*Group, error) {
+func (s *API) CreateGroup(req *APICreateGroupRequest, opts ...scw.RequestOption) (*Group, error) {
 	var err error
 	if req.OrganizationID == "" {
 		defaultOrganizationID, _ := s.client.GetDefaultOrganizationID()
@@ -2039,7 +2039,7 @@ func (s *API) CreateGroup(req *CreateGroupRequest, opts ...scw.RequestOption) (*
 }
 
 // GetGroup: Retrive information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response.
-func (s *API) GetGroup(req *GetGroupRequest, opts ...scw.RequestOption) (*Group, error) {
+func (s *API) GetGroup(req *APIGetGroupRequest, opts ...scw.RequestOption) (*Group, error) {
 	var err error
 
 	if fmt.Sprint(req.GroupID) == "" {
@@ -2061,7 +2061,7 @@ func (s *API) GetGroup(req *GetGroupRequest, opts ...scw.RequestOption) (*Group,
 }
 
 // UpdateGroup: Update the parameters of group, including `name` and `description`.
-func (s *API) UpdateGroup(req *UpdateGroupRequest, opts ...scw.RequestOption) (*Group, error) {
+func (s *API) UpdateGroup(req *APIUpdateGroupRequest, opts ...scw.RequestOption) (*Group, error) {
 	var err error
 
 	if fmt.Sprint(req.GroupID) == "" {
@@ -2088,7 +2088,7 @@ func (s *API) UpdateGroup(req *UpdateGroupRequest, opts ...scw.RequestOption) (*
 }
 
 // SetGroupMembers: Overwrite users and applications configuration in a group. Any information that you add using this command will overwrite the previous configuration.
-func (s *API) SetGroupMembers(req *SetGroupMembersRequest, opts ...scw.RequestOption) (*Group, error) {
+func (s *API) SetGroupMembers(req *APISetGroupMembersRequest, opts ...scw.RequestOption) (*Group, error) {
 	var err error
 
 	if fmt.Sprint(req.GroupID) == "" {
@@ -2115,7 +2115,7 @@ func (s *API) SetGroupMembers(req *SetGroupMembersRequest, opts ...scw.RequestOp
 }
 
 // AddGroupMember: Add a user or an application to a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only add one of each per request.
-func (s *API) AddGroupMember(req *AddGroupMemberRequest, opts ...scw.RequestOption) (*Group, error) {
+func (s *API) AddGroupMember(req *APIAddGroupMemberRequest, opts ...scw.RequestOption) (*Group, error) {
 	var err error
 
 	if fmt.Sprint(req.GroupID) == "" {
@@ -2142,7 +2142,7 @@ func (s *API) AddGroupMember(req *AddGroupMemberRequest, opts ...scw.RequestOpti
 }
 
 // AddGroupMembers: Add multiple users and applications to a group in a single call. You can specify an array of `user_id`s and `application_id`s. Note that any existing users and applications in the group will remain. To add new users/applications and delete pre-existing ones, use the [Overwrite users and applications of a group](#path-groups-overwrite-users-and-applications-of-a-group) method.
-func (s *API) AddGroupMembers(req *AddGroupMembersRequest, opts ...scw.RequestOption) (*Group, error) {
+func (s *API) AddGroupMembers(req *APIAddGroupMembersRequest, opts ...scw.RequestOption) (*Group, error) {
 	var err error
 
 	if fmt.Sprint(req.GroupID) == "" {
@@ -2169,7 +2169,7 @@ func (s *API) AddGroupMembers(req *AddGroupMembersRequest, opts ...scw.RequestOp
 }
 
 // RemoveGroupMember: Remove a user or an application from a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
-func (s *API) RemoveGroupMember(req *RemoveGroupMemberRequest, opts ...scw.RequestOption) (*Group, error) {
+func (s *API) RemoveGroupMember(req *APIRemoveGroupMemberRequest, opts ...scw.RequestOption) (*Group, error) {
 	var err error
 
 	if fmt.Sprint(req.GroupID) == "" {
@@ -2196,7 +2196,7 @@ func (s *API) RemoveGroupMember(req *RemoveGroupMemberRequest, opts ...scw.Reque
 }
 
 // DeleteGroup: Delete a group. Note that this action is irreversible and could delete permissions for group members. Policies attached to users and applications via this group will no longer apply.
-func (s *API) DeleteGroup(req *DeleteGroupRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteGroup(req *APIDeleteGroupRequest, opts ...scw.RequestOption) error {
 	var err error
 
 	if fmt.Sprint(req.GroupID) == "" {
@@ -2216,7 +2216,7 @@ func (s *API) DeleteGroup(req *DeleteGroupRequest, opts ...scw.RequestOption) er
 }
 
 // ListPolicies: List the policies of an Organization. By default, the policies listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters to filter your query, such as `user_ids`, `groups_ids`, `application_ids`, and `policy_name`.
-func (s *API) ListPolicies(req *ListPoliciesRequest, opts ...scw.RequestOption) (*ListPoliciesResponse, error) {
+func (s *API) ListPolicies(req *APIListPoliciesRequest, opts ...scw.RequestOption) (*ListPoliciesResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -2247,7 +2247,7 @@ func (s *API) ListPolicies(req *ListPoliciesRequest, opts ...scw.RequestOption) 
 }
 
 // CreatePolicy: Create a new application. You must define the `name` parameter in the request. You can specify parameters such as `user_id`, `groups_id`, `application_id`, `no_principal`, `rules` and its child attributes.
-func (s *API) CreatePolicy(req *CreatePolicyRequest, opts ...scw.RequestOption) (*Policy, error) {
+func (s *API) CreatePolicy(req *APICreatePolicyRequest, opts ...scw.RequestOption) (*Policy, error) {
 	var err error
 	if req.OrganizationID == "" {
 		defaultOrganizationID, _ := s.client.GetDefaultOrganizationID()
@@ -2278,7 +2278,7 @@ func (s *API) CreatePolicy(req *CreatePolicyRequest, opts ...scw.RequestOption) 
 }
 
 // GetPolicy: Retrieve information about a policy, speficified by the `policy_id` parameter. The policy's full details, including `id`, `name`, `organization_id`, `nb_rules` and `nb_scopes`, `nb_permission_sets` are returned in the response.
-func (s *API) GetPolicy(req *GetPolicyRequest, opts ...scw.RequestOption) (*Policy, error) {
+func (s *API) GetPolicy(req *APIGetPolicyRequest, opts ...scw.RequestOption) (*Policy, error) {
 	var err error
 
 	if fmt.Sprint(req.PolicyID) == "" {
@@ -2300,7 +2300,7 @@ func (s *API) GetPolicy(req *GetPolicyRequest, opts ...scw.RequestOption) (*Poli
 }
 
 // UpdatePolicy: Update the parameters of a policy, including `name`, `description`, `user_id`, `group_id`, `application_id` and `no_principal`.
-func (s *API) UpdatePolicy(req *UpdatePolicyRequest, opts ...scw.RequestOption) (*Policy, error) {
+func (s *API) UpdatePolicy(req *APIUpdatePolicyRequest, opts ...scw.RequestOption) (*Policy, error) {
 	var err error
 
 	if fmt.Sprint(req.PolicyID) == "" {
@@ -2327,7 +2327,7 @@ func (s *API) UpdatePolicy(req *UpdatePolicyRequest, opts ...scw.RequestOption) 
 }
 
 // DeletePolicy: Delete a policy. You must define specify the `policy_id` parameter in your request. Note that when deleting a policy, all permissions it gives to its principal (user, group or application) will be revoked.
-func (s *API) DeletePolicy(req *DeletePolicyRequest, opts ...scw.RequestOption) error {
+func (s *API) DeletePolicy(req *APIDeletePolicyRequest, opts ...scw.RequestOption) error {
 	var err error
 
 	if fmt.Sprint(req.PolicyID) == "" {
@@ -2347,7 +2347,7 @@ func (s *API) DeletePolicy(req *DeletePolicyRequest, opts ...scw.RequestOption) 
 }
 
 // ClonePolicy: Clone a policy. You must define specify the `policy_id` parameter in your request.
-func (s *API) ClonePolicy(req *ClonePolicyRequest, opts ...scw.RequestOption) (*Policy, error) {
+func (s *API) ClonePolicy(req *APIClonePolicyRequest, opts ...scw.RequestOption) (*Policy, error) {
 	var err error
 
 	if fmt.Sprint(req.PolicyID) == "" {
@@ -2374,7 +2374,7 @@ func (s *API) ClonePolicy(req *ClonePolicyRequest, opts ...scw.RequestOption) (*
 }
 
 // SetRules: Overwrite the rules of a given policy. Any information that you add using this command will overwrite the previous configuration. If you include some of the rules you already had in your previous configuration in your new one, but you change their order, the new order of display will apply. While policy rules are ordered, they have no impact on the access logic of IAM because rules are allow-only.
-func (s *API) SetRules(req *SetRulesRequest, opts ...scw.RequestOption) (*SetRulesResponse, error) {
+func (s *API) SetRules(req *APISetRulesRequest, opts ...scw.RequestOption) (*SetRulesResponse, error) {
 	var err error
 
 	scwReq := &scw.ScalewayRequest{
@@ -2397,7 +2397,7 @@ func (s *API) SetRules(req *SetRulesRequest, opts ...scw.RequestOption) (*SetRul
 }
 
 // ListRules: List the rules of a given policy. By default, the rules listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `policy_id` in the query path of your request.
-func (s *API) ListRules(req *ListRulesRequest, opts ...scw.RequestOption) (*ListRulesResponse, error) {
+func (s *API) ListRules(req *APIListRulesRequest, opts ...scw.RequestOption) (*ListRulesResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -2421,7 +2421,7 @@ func (s *API) ListRules(req *ListRulesRequest, opts ...scw.RequestOption) (*List
 }
 
 // ListPermissionSets: List permission sets available for given Organization. You must define the `organization_id` in the query path of your request.
-func (s *API) ListPermissionSets(req *ListPermissionSetsRequest, opts ...scw.RequestOption) (*ListPermissionSetsResponse, error) {
+func (s *API) ListPermissionSets(req *APIListPermissionSetsRequest, opts ...scw.RequestOption) (*ListPermissionSetsResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -2446,7 +2446,7 @@ func (s *API) ListPermissionSets(req *ListPermissionSetsRequest, opts ...scw.Req
 }
 
 // ListAPIKeys: List API keys. By default, the API keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `editable`, `expired`, `access_key` and `bearer_id`.
-func (s *API) ListAPIKeys(req *ListAPIKeysRequest, opts ...scw.RequestOption) (*ListAPIKeysResponse, error) {
+func (s *API) ListAPIKeys(req *APIListAPIKeysRequest, opts ...scw.RequestOption) (*ListAPIKeysResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -2479,7 +2479,7 @@ func (s *API) ListAPIKeys(req *ListAPIKeysRequest, opts ...scw.RequestOption) (*
 }
 
 // CreateAPIKey: Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id` which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.
-func (s *API) CreateAPIKey(req *CreateAPIKeyRequest, opts ...scw.RequestOption) (*APIKey, error) {
+func (s *API) CreateAPIKey(req *APICreateAPIKeyRequest, opts ...scw.RequestOption) (*APIKey, error) {
 	var err error
 
 	scwReq := &scw.ScalewayRequest{
@@ -2502,7 +2502,7 @@ func (s *API) CreateAPIKey(req *CreateAPIKeyRequest, opts ...scw.RequestOption) 
 }
 
 // GetAPIKey: Retrive information about an API key, specified by the `access_key` parameter. The API key's details, including either the `user_id` or `application_id` of its bearer are returned in the response. Note that the string value for the `secret_key` is nullable, and therefore is not displayed in the response. The `secret_key` value is only displayed upon API key creation.
-func (s *API) GetAPIKey(req *GetAPIKeyRequest, opts ...scw.RequestOption) (*APIKey, error) {
+func (s *API) GetAPIKey(req *APIGetAPIKeyRequest, opts ...scw.RequestOption) (*APIKey, error) {
 	var err error
 
 	if fmt.Sprint(req.AccessKey) == "" {
@@ -2524,7 +2524,7 @@ func (s *API) GetAPIKey(req *GetAPIKeyRequest, opts ...scw.RequestOption) (*APIK
 }
 
 // UpdateAPIKey: Update the parameters of an API key, including `default_project_id` and `description`.
-func (s *API) UpdateAPIKey(req *UpdateAPIKeyRequest, opts ...scw.RequestOption) (*APIKey, error) {
+func (s *API) UpdateAPIKey(req *APIUpdateAPIKeyRequest, opts ...scw.RequestOption) (*APIKey, error) {
 	var err error
 
 	if fmt.Sprint(req.AccessKey) == "" {
@@ -2551,7 +2551,7 @@ func (s *API) UpdateAPIKey(req *UpdateAPIKeyRequest, opts ...scw.RequestOption) 
 }
 
 // DeleteAPIKey: Delete an API key. Note that this action is irreversible and cannot be undone. Make sure you update any configurations using the API keys you delete.
-func (s *API) DeleteAPIKey(req *DeleteAPIKeyRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteAPIKey(req *APIDeleteAPIKeyRequest, opts ...scw.RequestOption) error {
 	var err error
 
 	if fmt.Sprint(req.AccessKey) == "" {
@@ -2571,7 +2571,7 @@ func (s *API) DeleteAPIKey(req *DeleteAPIKeyRequest, opts ...scw.RequestOption) 
 }
 
 // ListQuota: List all product and features quota for an Organization, with their associated limits. By default, the quota listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request.
-func (s *API) ListQuota(req *ListQuotaRequest, opts ...scw.RequestOption) (*ListQuotaResponse, error) {
+func (s *API) ListQuota(req *APIListQuotaRequest, opts ...scw.RequestOption) (*ListQuotaResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -2596,7 +2596,7 @@ func (s *API) ListQuota(req *ListQuotaRequest, opts ...scw.RequestOption) (*List
 }
 
 // GetQuotum: Retrieve information about a resource quota, speficified by the `quotum_name` parameter. The quota's `limit`, or whether it is unlimited, is returned in the response.
-func (s *API) GetQuotum(req *GetQuotumRequest, opts ...scw.RequestOption) (*Quotum, error) {
+func (s *API) GetQuotum(req *APIGetQuotumRequest, opts ...scw.RequestOption) (*Quotum, error) {
 	var err error
 	if req.OrganizationID == "" {
 		defaultOrganizationID, _ := s.client.GetDefaultOrganizationID()
@@ -2626,7 +2626,7 @@ func (s *API) GetQuotum(req *GetQuotumRequest, opts ...scw.RequestOption) (*Quot
 }
 
 // ListJWTs: List JWTs.
-func (s *API) ListJWTs(req *ListJWTsRequest, opts ...scw.RequestOption) (*ListJWTsResponse, error) {
+func (s *API) ListJWTs(req *APIListJWTsRequest, opts ...scw.RequestOption) (*ListJWTsResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -2652,7 +2652,7 @@ func (s *API) ListJWTs(req *ListJWTsRequest, opts ...scw.RequestOption) (*ListJW
 }
 
 // GetJWT: Get a JWT.
-func (s *API) GetJWT(req *GetJWTRequest, opts ...scw.RequestOption) (*JWT, error) {
+func (s *API) GetJWT(req *APIGetJWTRequest, opts ...scw.RequestOption) (*JWT, error) {
 	var err error
 
 	if fmt.Sprint(req.Jti) == "" {
@@ -2674,7 +2674,7 @@ func (s *API) GetJWT(req *GetJWTRequest, opts ...scw.RequestOption) (*JWT, error
 }
 
 // DeleteJWT: Delete a JWT.
-func (s *API) DeleteJWT(req *DeleteJWTRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteJWT(req *APIDeleteJWTRequest, opts ...scw.RequestOption) error {
 	var err error
 
 	if fmt.Sprint(req.Jti) == "" {

@@ -39,6 +39,154 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
+type APIListDevicesRequestOrderBy string
+
+const (
+	APIListDevicesRequestOrderByNameAsc           = APIListDevicesRequestOrderBy("name_asc")
+	APIListDevicesRequestOrderByNameDesc          = APIListDevicesRequestOrderBy("name_desc")
+	APIListDevicesRequestOrderByStatusAsc         = APIListDevicesRequestOrderBy("status_asc")
+	APIListDevicesRequestOrderByStatusDesc        = APIListDevicesRequestOrderBy("status_desc")
+	APIListDevicesRequestOrderByHubIDAsc          = APIListDevicesRequestOrderBy("hub_id_asc")
+	APIListDevicesRequestOrderByHubIDDesc         = APIListDevicesRequestOrderBy("hub_id_desc")
+	APIListDevicesRequestOrderByCreatedAtAsc      = APIListDevicesRequestOrderBy("created_at_asc")
+	APIListDevicesRequestOrderByCreatedAtDesc     = APIListDevicesRequestOrderBy("created_at_desc")
+	APIListDevicesRequestOrderByUpdatedAtAsc      = APIListDevicesRequestOrderBy("updated_at_asc")
+	APIListDevicesRequestOrderByUpdatedAtDesc     = APIListDevicesRequestOrderBy("updated_at_desc")
+	APIListDevicesRequestOrderByAllowInsecureAsc  = APIListDevicesRequestOrderBy("allow_insecure_asc")
+	APIListDevicesRequestOrderByAllowInsecureDesc = APIListDevicesRequestOrderBy("allow_insecure_desc")
+)
+
+func (enum APIListDevicesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListDevicesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListDevicesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListDevicesRequestOrderBy(APIListDevicesRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListHubsRequestOrderBy string
+
+const (
+	APIListHubsRequestOrderByNameAsc         = APIListHubsRequestOrderBy("name_asc")
+	APIListHubsRequestOrderByNameDesc        = APIListHubsRequestOrderBy("name_desc")
+	APIListHubsRequestOrderByStatusAsc       = APIListHubsRequestOrderBy("status_asc")
+	APIListHubsRequestOrderByStatusDesc      = APIListHubsRequestOrderBy("status_desc")
+	APIListHubsRequestOrderByProductPlanAsc  = APIListHubsRequestOrderBy("product_plan_asc")
+	APIListHubsRequestOrderByProductPlanDesc = APIListHubsRequestOrderBy("product_plan_desc")
+	APIListHubsRequestOrderByCreatedAtAsc    = APIListHubsRequestOrderBy("created_at_asc")
+	APIListHubsRequestOrderByCreatedAtDesc   = APIListHubsRequestOrderBy("created_at_desc")
+	APIListHubsRequestOrderByUpdatedAtAsc    = APIListHubsRequestOrderBy("updated_at_asc")
+	APIListHubsRequestOrderByUpdatedAtDesc   = APIListHubsRequestOrderBy("updated_at_desc")
+)
+
+func (enum APIListHubsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListHubsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListHubsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListHubsRequestOrderBy(APIListHubsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListNetworksRequestOrderBy string
+
+const (
+	APIListNetworksRequestOrderByNameAsc       = APIListNetworksRequestOrderBy("name_asc")
+	APIListNetworksRequestOrderByNameDesc      = APIListNetworksRequestOrderBy("name_desc")
+	APIListNetworksRequestOrderByTypeAsc       = APIListNetworksRequestOrderBy("type_asc")
+	APIListNetworksRequestOrderByTypeDesc      = APIListNetworksRequestOrderBy("type_desc")
+	APIListNetworksRequestOrderByCreatedAtAsc  = APIListNetworksRequestOrderBy("created_at_asc")
+	APIListNetworksRequestOrderByCreatedAtDesc = APIListNetworksRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListNetworksRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListNetworksRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListNetworksRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListNetworksRequestOrderBy(APIListNetworksRequestOrderBy(tmp).String())
+	return nil
+}
+
+type APIListRoutesRequestOrderBy string
+
+const (
+	APIListRoutesRequestOrderByNameAsc       = APIListRoutesRequestOrderBy("name_asc")
+	APIListRoutesRequestOrderByNameDesc      = APIListRoutesRequestOrderBy("name_desc")
+	APIListRoutesRequestOrderByHubIDAsc      = APIListRoutesRequestOrderBy("hub_id_asc")
+	APIListRoutesRequestOrderByHubIDDesc     = APIListRoutesRequestOrderBy("hub_id_desc")
+	APIListRoutesRequestOrderByTypeAsc       = APIListRoutesRequestOrderBy("type_asc")
+	APIListRoutesRequestOrderByTypeDesc      = APIListRoutesRequestOrderBy("type_desc")
+	APIListRoutesRequestOrderByCreatedAtAsc  = APIListRoutesRequestOrderBy("created_at_asc")
+	APIListRoutesRequestOrderByCreatedAtDesc = APIListRoutesRequestOrderBy("created_at_desc")
+)
+
+func (enum APIListRoutesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListRoutesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListRoutesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListRoutesRequestOrderBy(APIListRoutesRequestOrderBy(tmp).String())
+	return nil
+}
+
 type DeviceMessageFiltersRulePolicy string
 
 const (
@@ -165,154 +313,6 @@ func (enum *HubStatus) UnmarshalJSON(data []byte) error {
 	}
 
 	*enum = HubStatus(HubStatus(tmp).String())
-	return nil
-}
-
-type ListDevicesRequestOrderBy string
-
-const (
-	ListDevicesRequestOrderByNameAsc           = ListDevicesRequestOrderBy("name_asc")
-	ListDevicesRequestOrderByNameDesc          = ListDevicesRequestOrderBy("name_desc")
-	ListDevicesRequestOrderByStatusAsc         = ListDevicesRequestOrderBy("status_asc")
-	ListDevicesRequestOrderByStatusDesc        = ListDevicesRequestOrderBy("status_desc")
-	ListDevicesRequestOrderByHubIDAsc          = ListDevicesRequestOrderBy("hub_id_asc")
-	ListDevicesRequestOrderByHubIDDesc         = ListDevicesRequestOrderBy("hub_id_desc")
-	ListDevicesRequestOrderByCreatedAtAsc      = ListDevicesRequestOrderBy("created_at_asc")
-	ListDevicesRequestOrderByCreatedAtDesc     = ListDevicesRequestOrderBy("created_at_desc")
-	ListDevicesRequestOrderByUpdatedAtAsc      = ListDevicesRequestOrderBy("updated_at_asc")
-	ListDevicesRequestOrderByUpdatedAtDesc     = ListDevicesRequestOrderBy("updated_at_desc")
-	ListDevicesRequestOrderByAllowInsecureAsc  = ListDevicesRequestOrderBy("allow_insecure_asc")
-	ListDevicesRequestOrderByAllowInsecureDesc = ListDevicesRequestOrderBy("allow_insecure_desc")
-)
-
-func (enum ListDevicesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListDevicesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListDevicesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListDevicesRequestOrderBy(ListDevicesRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListHubsRequestOrderBy string
-
-const (
-	ListHubsRequestOrderByNameAsc         = ListHubsRequestOrderBy("name_asc")
-	ListHubsRequestOrderByNameDesc        = ListHubsRequestOrderBy("name_desc")
-	ListHubsRequestOrderByStatusAsc       = ListHubsRequestOrderBy("status_asc")
-	ListHubsRequestOrderByStatusDesc      = ListHubsRequestOrderBy("status_desc")
-	ListHubsRequestOrderByProductPlanAsc  = ListHubsRequestOrderBy("product_plan_asc")
-	ListHubsRequestOrderByProductPlanDesc = ListHubsRequestOrderBy("product_plan_desc")
-	ListHubsRequestOrderByCreatedAtAsc    = ListHubsRequestOrderBy("created_at_asc")
-	ListHubsRequestOrderByCreatedAtDesc   = ListHubsRequestOrderBy("created_at_desc")
-	ListHubsRequestOrderByUpdatedAtAsc    = ListHubsRequestOrderBy("updated_at_asc")
-	ListHubsRequestOrderByUpdatedAtDesc   = ListHubsRequestOrderBy("updated_at_desc")
-)
-
-func (enum ListHubsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListHubsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListHubsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListHubsRequestOrderBy(ListHubsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListNetworksRequestOrderBy string
-
-const (
-	ListNetworksRequestOrderByNameAsc       = ListNetworksRequestOrderBy("name_asc")
-	ListNetworksRequestOrderByNameDesc      = ListNetworksRequestOrderBy("name_desc")
-	ListNetworksRequestOrderByTypeAsc       = ListNetworksRequestOrderBy("type_asc")
-	ListNetworksRequestOrderByTypeDesc      = ListNetworksRequestOrderBy("type_desc")
-	ListNetworksRequestOrderByCreatedAtAsc  = ListNetworksRequestOrderBy("created_at_asc")
-	ListNetworksRequestOrderByCreatedAtDesc = ListNetworksRequestOrderBy("created_at_desc")
-)
-
-func (enum ListNetworksRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListNetworksRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListNetworksRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListNetworksRequestOrderBy(ListNetworksRequestOrderBy(tmp).String())
-	return nil
-}
-
-type ListRoutesRequestOrderBy string
-
-const (
-	ListRoutesRequestOrderByNameAsc       = ListRoutesRequestOrderBy("name_asc")
-	ListRoutesRequestOrderByNameDesc      = ListRoutesRequestOrderBy("name_desc")
-	ListRoutesRequestOrderByHubIDAsc      = ListRoutesRequestOrderBy("hub_id_asc")
-	ListRoutesRequestOrderByHubIDDesc     = ListRoutesRequestOrderBy("hub_id_desc")
-	ListRoutesRequestOrderByTypeAsc       = ListRoutesRequestOrderBy("type_asc")
-	ListRoutesRequestOrderByTypeDesc      = ListRoutesRequestOrderBy("type_desc")
-	ListRoutesRequestOrderByCreatedAtAsc  = ListRoutesRequestOrderBy("created_at_asc")
-	ListRoutesRequestOrderByCreatedAtDesc = ListRoutesRequestOrderBy("created_at_desc")
-)
-
-func (enum ListRoutesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListRoutesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListRoutesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListRoutesRequestOrderBy(ListRoutesRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -481,7 +481,7 @@ type DeviceMessageFiltersRule struct {
 	// If set to `reject`, all topics in the topics list will be denied, with all other topics being allowed.
 	Policy DeviceMessageFiltersRulePolicy `json:"policy"`
 	// Topics: List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters.
-	Topics *[]string `json:"topics,omitempty"`
+	Topics *[]string `json:"topics"`
 }
 
 // DeviceMessageFilters:
@@ -496,6 +496,86 @@ type DeviceMessageFilters struct {
 type HubTwinsGraphiteConfig struct {
 	// PushURI:
 	PushURI string `json:"push_uri"`
+}
+
+// APICreateRouteRequestDatabaseConfig:
+type APICreateRouteRequestDatabaseConfig struct {
+	// Host:
+	Host string `json:"host"`
+	// Port:
+	Port uint32 `json:"port"`
+	// Dbname:
+	Dbname string `json:"dbname"`
+	// Username:
+	Username string `json:"username"`
+	// Password:
+	Password string `json:"password"`
+	// Query:
+	Query string `json:"query"`
+	// Engine:
+	Engine RouteDatabaseConfigEngine `json:"engine"`
+}
+
+// APICreateRouteRequestRestConfig:
+type APICreateRouteRequestRestConfig struct {
+	// Verb:
+	Verb RouteRestConfigHTTPVerb `json:"verb"`
+	// URI:
+	URI string `json:"uri"`
+	// Headers:
+	Headers map[string]string `json:"headers"`
+}
+
+// APICreateRouteRequestS3Config:
+type APICreateRouteRequestS3Config struct {
+	// BucketRegion:
+	BucketRegion string `json:"bucket_region"`
+	// BucketName:
+	BucketName string `json:"bucket_name"`
+	// ObjectPrefix:
+	ObjectPrefix string `json:"object_prefix"`
+	// Strategy:
+	Strategy RouteS3ConfigS3Strategy `json:"strategy"`
+}
+
+// APIUpdateRouteRequestDatabaseConfig:
+type APIUpdateRouteRequestDatabaseConfig struct {
+	// Host:
+	Host *string `json:"host"`
+	// Port:
+	Port *uint32 `json:"port"`
+	// Dbname:
+	Dbname *string `json:"dbname"`
+	// Username:
+	Username *string `json:"username"`
+	// Password:
+	Password *string `json:"password"`
+	// Query:
+	Query *string `json:"query"`
+	// Engine:
+	Engine RouteDatabaseConfigEngine `json:"engine"`
+}
+
+// APIUpdateRouteRequestRestConfig:
+type APIUpdateRouteRequestRestConfig struct {
+	// Verb:
+	Verb RouteRestConfigHTTPVerb `json:"verb"`
+	// URI:
+	URI *string `json:"uri"`
+	// Headers:
+	Headers *map[string]string `json:"headers"`
+}
+
+// APIUpdateRouteRequestS3Config:
+type APIUpdateRouteRequestS3Config struct {
+	// BucketRegion:
+	BucketRegion *string `json:"bucket_region"`
+	// BucketName:
+	BucketName *string `json:"bucket_name"`
+	// ObjectPrefix:
+	ObjectPrefix *string `json:"object_prefix"`
+	// Strategy:
+	Strategy RouteS3ConfigS3Strategy `json:"strategy"`
 }
 
 // Certificate:
@@ -519,7 +599,7 @@ type Device struct {
 	// HubID: Hub ID.
 	HubID string `json:"hub_id"`
 	// LastActivityAt: Last connection/activity date of a device.
-	LastActivityAt *time.Time `json:"last_activity_at,omitempty"`
+	LastActivityAt *time.Time `json:"last_activity_at"`
 	// IsConnected: Defines whether the device is connected to the Hub.
 	IsConnected bool `json:"is_connected"`
 	// AllowInsecure: Defines whether to allow the device to connect to the Hub without TLS mutual authentication.
@@ -531,9 +611,9 @@ type Device struct {
 	// HasCustomCertificate: Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the Hub's CA certificate.
 	HasCustomCertificate bool `json:"has_custom_certificate"`
 	// CreatedAt: Date at which the device was added.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Date at which the device was last modified.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 }
 
 // Network:
@@ -549,49 +629,9 @@ type Network struct {
 	// HubID: Hub ID to connect the Network to.
 	HubID string `json:"hub_id"`
 	// CreatedAt: Date at which the network was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// TopicPrefix: This prefix will be prepended to all topics for this Network.
 	TopicPrefix string `json:"topic_prefix"`
-}
-
-// CreateRouteRequestDatabaseConfig:
-type CreateRouteRequestDatabaseConfig struct {
-	// Host:
-	Host string `json:"host"`
-	// Port:
-	Port uint32 `json:"port"`
-	// Dbname:
-	Dbname string `json:"dbname"`
-	// Username:
-	Username string `json:"username"`
-	// Password:
-	Password string `json:"password"`
-	// Query:
-	Query string `json:"query"`
-	// Engine:
-	Engine RouteDatabaseConfigEngine `json:"engine"`
-}
-
-// CreateRouteRequestRestConfig:
-type CreateRouteRequestRestConfig struct {
-	// Verb:
-	Verb RouteRestConfigHTTPVerb `json:"verb"`
-	// URI:
-	URI string `json:"uri"`
-	// Headers:
-	Headers map[string]string `json:"headers"`
-}
-
-// CreateRouteRequestS3Config:
-type CreateRouteRequestS3Config struct {
-	// BucketRegion:
-	BucketRegion string `json:"bucket_region"`
-	// BucketName:
-	BucketName string `json:"bucket_name"`
-	// ObjectPrefix:
-	ObjectPrefix string `json:"object_prefix"`
-	// Strategy:
-	Strategy RouteS3ConfigS3Strategy `json:"strategy"`
 }
 
 // Hub:
@@ -619,9 +659,9 @@ type Hub struct {
 	// Region: Region of the Hub.
 	Region scw.Region `json:"region"`
 	// CreatedAt: Hub creation date.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Hub last modification date.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// ProjectID: Project owning the resource.
 	ProjectID string `json:"project_id"`
 	// OrganizationID: Organization owning the resource.
@@ -647,9 +687,9 @@ type RouteSummary struct {
 	// Type: Route type.
 	Type RouteRouteType `json:"type"`
 	// CreatedAt: Date at which the route was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Date at which the route was last updated.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 }
 
 // ListTwinDocumentsResponseDocumentSummary:
@@ -698,48 +738,8 @@ type RouteS3Config struct {
 	Strategy RouteS3ConfigS3Strategy `json:"strategy"`
 }
 
-// UpdateRouteRequestDatabaseConfig:
-type UpdateRouteRequestDatabaseConfig struct {
-	// Host:
-	Host *string `json:"host,omitempty"`
-	// Port:
-	Port *uint32 `json:"port,omitempty"`
-	// Dbname:
-	Dbname *string `json:"dbname,omitempty"`
-	// Username:
-	Username *string `json:"username,omitempty"`
-	// Password:
-	Password *string `json:"password,omitempty"`
-	// Query:
-	Query *string `json:"query,omitempty"`
-	// Engine:
-	Engine RouteDatabaseConfigEngine `json:"engine"`
-}
-
-// UpdateRouteRequestRestConfig:
-type UpdateRouteRequestRestConfig struct {
-	// Verb:
-	Verb RouteRestConfigHTTPVerb `json:"verb"`
-	// URI:
-	URI *string `json:"uri,omitempty"`
-	// Headers:
-	Headers *map[string]string `json:"headers,omitempty"`
-}
-
-// UpdateRouteRequestS3Config:
-type UpdateRouteRequestS3Config struct {
-	// BucketRegion:
-	BucketRegion *string `json:"bucket_region,omitempty"`
-	// BucketName:
-	BucketName *string `json:"bucket_name,omitempty"`
-	// ObjectPrefix:
-	ObjectPrefix *string `json:"object_prefix,omitempty"`
-	// Strategy:
-	Strategy RouteS3ConfigS3Strategy `json:"strategy"`
-}
-
-// CreateDeviceRequest:
-type CreateDeviceRequest struct {
+// APICreateDeviceRequest:
+type APICreateDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Device name.
@@ -756,16 +756,8 @@ type CreateDeviceRequest struct {
 	Description *string `json:"description,omitempty"`
 }
 
-// CreateDeviceResponse:
-type CreateDeviceResponse struct {
-	// Device: Information related to the created device.
-	Device *Device `json:"device"`
-	// Certificate: Device certificate.
-	Certificate *Certificate `json:"certificate"`
-}
-
-// CreateHubRequest:
-type CreateHubRequest struct {
+// APICreateHubRequest:
+type APICreateHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Hub name (up to 255 characters).
@@ -782,8 +774,8 @@ type CreateHubRequest struct {
 	TwinsGraphiteConfig *HubTwinsGraphiteConfig `json:"twins_graphite_config,omitempty"`
 }
 
-// CreateNetworkRequest:
-type CreateNetworkRequest struct {
+// APICreateNetworkRequest:
+type APICreateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Network name.
@@ -796,16 +788,8 @@ type CreateNetworkRequest struct {
 	TopicPrefix string `json:"topic_prefix"`
 }
 
-// CreateNetworkResponse:
-type CreateNetworkResponse struct {
-	// Network: Information related to the created network.
-	Network *Network `json:"network"`
-	// Secret: Endpoint Key to keep secret. This cannot be retrieved later.
-	Secret string `json:"secret"`
-}
-
-// CreateRouteRequest:
-type CreateRouteRequest struct {
+// APICreateRouteRequest:
+type APICreateRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Route name.
@@ -815,23 +799,23 @@ type CreateRouteRequest struct {
 	// Topic: Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
 	Topic string `json:"topic"`
 	// S3Config: If creating S3 Route, S3-specific configuration fields.
-	S3Config *CreateRouteRequestS3Config `json:"s3_config,omitempty"`
+	S3Config *APICreateRouteRequestS3Config `json:"s3_config,omitempty"`
 	// DbConfig: If creating Database Route, DB-specific configuration fields.
-	DbConfig *CreateRouteRequestDatabaseConfig `json:"db_config,omitempty"`
+	DbConfig *APICreateRouteRequestDatabaseConfig `json:"db_config,omitempty"`
 	// RestConfig: If creating Rest Route, Rest-specific configuration fields.
-	RestConfig *CreateRouteRequestRestConfig `json:"rest_config,omitempty"`
+	RestConfig *APICreateRouteRequestRestConfig `json:"rest_config,omitempty"`
 }
 
-// DeleteDeviceRequest:
-type DeleteDeviceRequest struct {
+// APIDeleteDeviceRequest:
+type APIDeleteDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DeviceID: Device ID.
 	DeviceID string `json:"-"`
 }
 
-// DeleteHubRequest:
-type DeleteHubRequest struct {
+// APIDeleteHubRequest:
+type APIDeleteHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// HubID: Hub ID.
@@ -840,24 +824,24 @@ type DeleteHubRequest struct {
 	DeleteDevices *bool `json:"-"`
 }
 
-// DeleteNetworkRequest:
-type DeleteNetworkRequest struct {
+// APIDeleteNetworkRequest:
+type APIDeleteNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// NetworkID: Network ID.
 	NetworkID string `json:"-"`
 }
 
-// DeleteRouteRequest:
-type DeleteRouteRequest struct {
+// APIDeleteRouteRequest:
+type APIDeleteRouteRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// RouteID: Route ID.
 	RouteID string `json:"-"`
 }
 
-// DeleteTwinDocumentRequest:
-type DeleteTwinDocumentRequest struct {
+// APIDeleteTwinDocumentRequest:
+type APIDeleteTwinDocumentRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TwinID: Twin ID.
@@ -866,52 +850,337 @@ type DeleteTwinDocumentRequest struct {
 	DocumentName string `json:"-"`
 }
 
-// DeleteTwinDocumentsRequest:
-type DeleteTwinDocumentsRequest struct {
+// APIDeleteTwinDocumentsRequest:
+type APIDeleteTwinDocumentsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TwinID: Twin ID.
 	TwinID string `json:"-"`
 }
 
-// DisableDeviceRequest:
-type DisableDeviceRequest struct {
+// APIDisableDeviceRequest:
+type APIDisableDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DeviceID: Device ID.
 	DeviceID string `json:"-"`
 }
 
-// DisableHubRequest:
-type DisableHubRequest struct {
+// APIDisableHubRequest:
+type APIDisableHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// HubID: Hub ID.
 	HubID string `json:"-"`
 }
 
-// EnableDeviceRequest:
-type EnableDeviceRequest struct {
+// APIEnableDeviceRequest:
+type APIEnableDeviceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DeviceID: Device ID.
 	DeviceID string `json:"-"`
 }
 
-// EnableHubRequest:
-type EnableHubRequest struct {
+// APIEnableHubRequest:
+type APIEnableHubRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// HubID: Hub ID.
 	HubID string `json:"-"`
 }
 
-// GetDeviceCertificateRequest:
-type GetDeviceCertificateRequest struct {
+// APIGetDeviceCertificateRequest:
+type APIGetDeviceCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DeviceID: Device ID.
 	DeviceID string `json:"-"`
+}
+
+// APIGetDeviceMetricsRequest:
+type APIGetDeviceMetricsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DeviceID: Device ID.
+	DeviceID string `json:"-"`
+	// StartDate: Start date used to compute the best scale for the returned metrics.
+	StartDate *time.Time `json:"-"`
+}
+
+// APIGetDeviceRequest:
+type APIGetDeviceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DeviceID: Device ID.
+	DeviceID string `json:"-"`
+}
+
+// APIGetHubCARequest:
+type APIGetHubCARequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// HubID:
+	HubID string `json:"-"`
+}
+
+// APIGetHubMetricsRequest:
+type APIGetHubMetricsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// HubID: Hub ID.
+	HubID string `json:"-"`
+	// StartDate: Start date used to compute the best scale for returned metrics.
+	StartDate *time.Time `json:"-"`
+}
+
+// APIGetHubRequest:
+type APIGetHubRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// HubID: Hub ID.
+	HubID string `json:"-"`
+}
+
+// APIGetNetworkRequest:
+type APIGetNetworkRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NetworkID: Network ID.
+	NetworkID string `json:"-"`
+}
+
+// APIGetRouteRequest:
+type APIGetRouteRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// RouteID: Route ID.
+	RouteID string `json:"-"`
+}
+
+// APIGetTwinDocumentRequest:
+type APIGetTwinDocumentRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// TwinID: Twin ID.
+	TwinID string `json:"-"`
+	// DocumentName: Name of the document.
+	DocumentName string `json:"-"`
+}
+
+// APIListDevicesRequest:
+type APIListDevicesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Number of devices to return within a page. Maximum value is 100.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Ordering of requested devices.
+	OrderBy APIListDevicesRequestOrderBy `json:"-"`
+	// Name: Name to filter for, only devices with this name will be returned.
+	Name *string `json:"-"`
+	// HubID: Hub ID to filter for, only devices attached to this Hub will be returned.
+	HubID *string `json:"-"`
+	// AllowInsecure: Defines wheter to filter the allow_insecure flag.
+	AllowInsecure *bool `json:"-"`
+	// Status: Device status (enabled, disabled, etc.).
+	Status DeviceStatus `json:"-"`
+}
+
+// APIListHubsRequest:
+type APIListHubsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Number of Hubs to return within a page. Maximum value is 100.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Sort order of Hubs in the response.
+	OrderBy APIListHubsRequestOrderBy `json:"-"`
+	// ProjectID: Only list Hubs of this Project ID.
+	ProjectID *string `json:"-"`
+	// OrganizationID: Only list Hubs of this Organization ID.
+	OrganizationID *string `json:"-"`
+	// Name: Hub name.
+	Name *string `json:"-"`
+}
+
+// APIListNetworksRequest:
+type APIListNetworksRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Number of networks to return. The maximum value is 100.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Ordering of requested routes.
+	OrderBy APIListNetworksRequestOrderBy `json:"-"`
+	// Name: Network name to filter for.
+	Name *string `json:"-"`
+	// HubID: Hub ID to filter for.
+	HubID *string `json:"-"`
+	// TopicPrefix: Topic prefix to filter for.
+	TopicPrefix *string `json:"-"`
+}
+
+// APIListRoutesRequest:
+type APIListRoutesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Number of routes to return within a page. Maximum value is 100.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Ordering of requested routes.
+	OrderBy APIListRoutesRequestOrderBy `json:"-"`
+	// HubID: Hub ID to filter for.
+	HubID *string `json:"-"`
+	// Name: Route name to filter for.
+	Name *string `json:"-"`
+}
+
+// APIListTwinDocumentsRequest:
+type APIListTwinDocumentsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// TwinID: Twin ID.
+	TwinID string `json:"-"`
+}
+
+// APIPatchTwinDocumentRequest:
+type APIPatchTwinDocumentRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// TwinID: Twin ID.
+	TwinID string `json:"-"`
+	// DocumentName: Name of the document.
+	DocumentName string `json:"-"`
+	// Version: If set, ensures that the current version of the document matches before persisting the update.
+	Version *uint32 `json:"version,omitempty"`
+	// Data: A json data that will be applied on the document's current data.
+	// Patching rules:
+	// * The patch goes recursively through the patch objects.
+	// * If the patch object property is null, it is removed from the final object.
+	// * If the patch object property is a value (number, strings, bool, arrays), it is replaced.
+	// * If the patch object property is an object, the previous rules will be applied recursively on it.
+	Data *scw.JSONObject `json:"data,omitempty"`
+}
+
+// APIPutTwinDocumentRequest:
+type APIPutTwinDocumentRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// TwinID: Twin ID.
+	TwinID string `json:"-"`
+	// DocumentName: Name of the document.
+	DocumentName string `json:"-"`
+	// Version: If set, ensures that the current version of the document matches before persisting the update.
+	Version *uint32 `json:"version,omitempty"`
+	// Data: New data that will replace the contents of the document.
+	Data *scw.JSONObject `json:"data,omitempty"`
+}
+
+// APIRenewDeviceCertificateRequest:
+type APIRenewDeviceCertificateRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DeviceID: Device ID.
+	DeviceID string `json:"-"`
+}
+
+// APISetDeviceCertificateRequest:
+type APISetDeviceCertificateRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DeviceID: Device ID.
+	DeviceID string `json:"-"`
+	// CertificatePem: PEM-encoded custom certificate.
+	CertificatePem string `json:"certificate_pem"`
+}
+
+// APISetHubCARequest:
+type APISetHubCARequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// HubID: Hub ID.
+	HubID string `json:"-"`
+	// CaCertPem: CA's PEM-encoded certificate.
+	CaCertPem string `json:"ca_cert_pem"`
+	// ChallengeCertPem: Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
+	ChallengeCertPem string `json:"challenge_cert_pem"`
+}
+
+// APIUpdateDeviceRequest:
+type APIUpdateDeviceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DeviceID: Device ID.
+	DeviceID string `json:"-"`
+	// Description: Description for the device.
+	Description *string `json:"description,omitempty"`
+	// AllowInsecure: Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
+	AllowInsecure *bool `json:"allow_insecure,omitempty"`
+	// AllowMultipleConnections: Defines whether to allow multiple physical devices to connect with this device's credentials.
+	AllowMultipleConnections *bool `json:"allow_multiple_connections,omitempty"`
+	// MessageFilters: Filter-sets to restrict the topics the device can publish/subscribe to.
+	MessageFilters *DeviceMessageFilters `json:"message_filters"`
+	// HubID: Change Hub for this device, additional fees may apply, see IoT Hub pricing.
+	HubID *string `json:"hub_id,omitempty"`
+}
+
+// APIUpdateHubRequest:
+type APIUpdateHubRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// HubID: ID of the Hub you want to update.
+	HubID string `json:"-"`
+	// Name: Hub name (up to 255 characters).
+	Name *string `json:"name,omitempty"`
+	// ProductPlan: Hub product plan.
+	ProductPlan HubProductPlan `json:"product_plan"`
+	// DisableEvents: Disable Hub events.
+	DisableEvents *bool `json:"disable_events,omitempty"`
+	// EventsTopicPrefix: Topic prefix of Hub events.
+	EventsTopicPrefix *string `json:"events_topic_prefix,omitempty"`
+	// EnableDeviceAutoProvisioning: Enable device auto provisioning.
+	EnableDeviceAutoProvisioning *bool `json:"enable_device_auto_provisioning,omitempty"`
+	// TwinsGraphiteConfig: BETA - not implemented yet.
+	TwinsGraphiteConfig *HubTwinsGraphiteConfig `json:"twins_graphite_config,omitempty"`
+}
+
+// APIUpdateRouteRequest:
+type APIUpdateRouteRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// RouteID: Route id.
+	RouteID string `json:"-"`
+	// Name: Route name.
+	Name *string `json:"name,omitempty"`
+	// Topic: Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
+	Topic *string `json:"topic,omitempty"`
+	// S3Config: When updating S3 Route, S3-specific configuration fields.
+	S3Config *APIUpdateRouteRequestS3Config `json:"s3_config,omitempty"`
+	// DbConfig: When updating Database Route, DB-specific configuration fields.
+	DbConfig *APIUpdateRouteRequestDatabaseConfig `json:"db_config,omitempty"`
+	// RestConfig: When updating Rest Route, Rest-specific configuration fields.
+	RestConfig *APIUpdateRouteRequestRestConfig `json:"rest_config,omitempty"`
+}
+
+// CreateDeviceResponse:
+type CreateDeviceResponse struct {
+	// Device: Information related to the created device.
+	Device *Device `json:"device"`
+	// Certificate: Device certificate.
+	Certificate *Certificate `json:"certificate"`
+}
+
+// CreateNetworkResponse:
+type CreateNetworkResponse struct {
+	// Network: Information related to the created network.
+	Network *Network `json:"network"`
+	// Secret: Endpoint Key to keep secret. This cannot be retrieved later.
+	Secret string `json:"secret"`
 }
 
 // GetDeviceCertificateResponse:
@@ -922,36 +1191,10 @@ type GetDeviceCertificateResponse struct {
 	CertificatePem string `json:"certificate_pem"`
 }
 
-// GetDeviceMetricsRequest:
-type GetDeviceMetricsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DeviceID: Device ID.
-	DeviceID string `json:"-"`
-	// StartDate: Start date used to compute the best scale for the returned metrics.
-	StartDate *time.Time `json:"-"`
-}
-
 // GetDeviceMetricsResponse:
 type GetDeviceMetricsResponse struct {
 	// Metrics: Metrics for a device over the requested period.
 	Metrics []*scw.TimeSeries `json:"metrics"`
-}
-
-// GetDeviceRequest:
-type GetDeviceRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DeviceID: Device ID.
-	DeviceID string `json:"-"`
-}
-
-// GetHubCARequest:
-type GetHubCARequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// HubID:
-	HubID string `json:"-"`
 }
 
 // GetHubCAResponse:
@@ -960,74 +1203,10 @@ type GetHubCAResponse struct {
 	CaCertPem string `json:"ca_cert_pem"`
 }
 
-// GetHubMetricsRequest:
-type GetHubMetricsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// HubID: Hub ID.
-	HubID string `json:"-"`
-	// StartDate: Start date used to compute the best scale for returned metrics.
-	StartDate *time.Time `json:"-"`
-}
-
 // GetHubMetricsResponse:
 type GetHubMetricsResponse struct {
 	// Metrics: Metrics for a Hub over the requested period.
 	Metrics []*scw.TimeSeries `json:"metrics"`
-}
-
-// GetHubRequest:
-type GetHubRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// HubID: Hub ID.
-	HubID string `json:"-"`
-}
-
-// GetNetworkRequest:
-type GetNetworkRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// NetworkID: Network ID.
-	NetworkID string `json:"-"`
-}
-
-// GetRouteRequest:
-type GetRouteRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// RouteID: Route ID.
-	RouteID string `json:"-"`
-}
-
-// GetTwinDocumentRequest:
-type GetTwinDocumentRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// TwinID: Twin ID.
-	TwinID string `json:"-"`
-	// DocumentName: Name of the document.
-	DocumentName string `json:"-"`
-}
-
-// ListDevicesRequest:
-type ListDevicesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: Number of devices to return within a page. Maximum value is 100.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Ordering of requested devices.
-	OrderBy ListDevicesRequestOrderBy `json:"-"`
-	// Name: Name to filter for, only devices with this name will be returned.
-	Name *string `json:"-"`
-	// HubID: Hub ID to filter for, only devices attached to this Hub will be returned.
-	HubID *string `json:"-"`
-	// AllowInsecure: Defines wheter to filter the allow_insecure flag.
-	AllowInsecure *bool `json:"-"`
-	// Status: Device status (enabled, disabled, etc.).
-	Status DeviceStatus `json:"-"`
 }
 
 // ListDevicesResponse:
@@ -1057,24 +1236,6 @@ func (r *ListDevicesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Devices)), nil
 }
 
-// ListHubsRequest:
-type ListHubsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: Number of Hubs to return within a page. Maximum value is 100.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Sort order of Hubs in the response.
-	OrderBy ListHubsRequestOrderBy `json:"-"`
-	// ProjectID: Only list Hubs of this Project ID.
-	ProjectID *string `json:"-"`
-	// OrganizationID: Only list Hubs of this Organization ID.
-	OrganizationID *string `json:"-"`
-	// Name: Hub name.
-	Name *string `json:"-"`
-}
-
 // ListHubsResponse:
 type ListHubsResponse struct {
 	// TotalCount: Total number of Hubs.
@@ -1100,24 +1261,6 @@ func (r *ListHubsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Hubs = append(r.Hubs, results.Hubs...)
 	r.TotalCount += uint32(len(results.Hubs))
 	return uint32(len(results.Hubs)), nil
-}
-
-// ListNetworksRequest:
-type ListNetworksRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: Number of networks to return. The maximum value is 100.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Ordering of requested routes.
-	OrderBy ListNetworksRequestOrderBy `json:"-"`
-	// Name: Network name to filter for.
-	Name *string `json:"-"`
-	// HubID: Hub ID to filter for.
-	HubID *string `json:"-"`
-	// TopicPrefix: Topic prefix to filter for.
-	TopicPrefix *string `json:"-"`
 }
 
 // ListNetworksResponse:
@@ -1147,22 +1290,6 @@ func (r *ListNetworksResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Networks)), nil
 }
 
-// ListRoutesRequest:
-type ListRoutesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: Number of routes to return within a page. Maximum value is 100.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Ordering of requested routes.
-	OrderBy ListRoutesRequestOrderBy `json:"-"`
-	// HubID: Hub ID to filter for.
-	HubID *string `json:"-"`
-	// Name: Route name to filter for.
-	Name *string `json:"-"`
-}
-
 // ListRoutesResponse:
 type ListRoutesResponse struct {
 	// TotalCount: Total number of routes.
@@ -1190,59 +1317,10 @@ func (r *ListRoutesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Routes)), nil
 }
 
-// ListTwinDocumentsRequest:
-type ListTwinDocumentsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// TwinID: Twin ID.
-	TwinID string `json:"-"`
-}
-
 // ListTwinDocumentsResponse:
 type ListTwinDocumentsResponse struct {
 	// Documents: List of the twin document.
 	Documents []*ListTwinDocumentsResponseDocumentSummary `json:"documents"`
-}
-
-// PatchTwinDocumentRequest:
-type PatchTwinDocumentRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// TwinID: Twin ID.
-	TwinID string `json:"-"`
-	// DocumentName: Name of the document.
-	DocumentName string `json:"-"`
-	// Version: If set, ensures that the current version of the document matches before persisting the update.
-	Version *uint32 `json:"version,omitempty"`
-	// Data: A json data that will be applied on the document's current data.
-	// Patching rules:
-	// * The patch goes recursively through the patch objects.
-	// * If the patch object property is null, it is removed from the final object.
-	// * If the patch object property is a value (number, strings, bool, arrays), it is replaced.
-	// * If the patch object property is an object, the previous rules will be applied recursively on it.
-	Data *scw.JSONObject `json:"data,omitempty"`
-}
-
-// PutTwinDocumentRequest:
-type PutTwinDocumentRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// TwinID: Twin ID.
-	TwinID string `json:"-"`
-	// DocumentName: Name of the document.
-	DocumentName string `json:"-"`
-	// Version: If set, ensures that the current version of the document matches before persisting the update.
-	Version *uint32 `json:"version,omitempty"`
-	// Data: New data that will replace the contents of the document.
-	Data *scw.JSONObject `json:"data,omitempty"`
-}
-
-// RenewDeviceCertificateRequest:
-type RenewDeviceCertificateRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DeviceID: Device ID.
-	DeviceID string `json:"-"`
 }
 
 // RenewDeviceCertificateResponse:
@@ -1266,7 +1344,7 @@ type Route struct {
 	// Type: Route type.
 	Type RouteRouteType `json:"type"`
 	// CreatedAt: Date at which the route was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// S3Config: When using S3 Route, S3-specific configuration fields.
 	S3Config *RouteS3Config `json:"s3_config,omitempty"`
 	// DbConfig: When using Database Route, DB-specific configuration fields.
@@ -1274,17 +1352,7 @@ type Route struct {
 	// RestConfig: When using Rest Route, Rest-specific configuration fields.
 	RestConfig *RouteRestConfig `json:"rest_config,omitempty"`
 	// UpdatedAt: Date at which the route was last updated.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-}
-
-// SetDeviceCertificateRequest:
-type SetDeviceCertificateRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DeviceID: Device ID.
-	DeviceID string `json:"-"`
-	// CertificatePem: PEM-encoded custom certificate.
-	CertificatePem string `json:"certificate_pem"`
+	UpdatedAt *time.Time `json:"updated_at"`
 }
 
 // SetDeviceCertificateResponse:
@@ -1293,18 +1361,6 @@ type SetDeviceCertificateResponse struct {
 	Device *Device `json:"device"`
 	// CertificatePem:
 	CertificatePem string `json:"certificate_pem"`
-}
-
-// SetHubCARequest:
-type SetHubCARequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// HubID: Hub ID.
-	HubID string `json:"-"`
-	// CaCertPem: CA's PEM-encoded certificate.
-	CaCertPem string `json:"ca_cert_pem"`
-	// ChallengeCertPem: Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
-	ChallengeCertPem string `json:"challenge_cert_pem"`
 }
 
 // TwinDocument:
@@ -1316,63 +1372,7 @@ type TwinDocument struct {
 	// Version: New version of the document.
 	Version uint32 `json:"version"`
 	// Data: New data related to the document.
-	Data *scw.JSONObject `json:"data,omitempty"`
-}
-
-// UpdateDeviceRequest:
-type UpdateDeviceRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DeviceID: Device ID.
-	DeviceID string `json:"-"`
-	// Description: Description for the device.
-	Description *string `json:"description,omitempty"`
-	// AllowInsecure: Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
-	AllowInsecure *bool `json:"allow_insecure,omitempty"`
-	// AllowMultipleConnections: Defines whether to allow multiple physical devices to connect with this device's credentials.
-	AllowMultipleConnections *bool `json:"allow_multiple_connections,omitempty"`
-	// MessageFilters: Filter-sets to restrict the topics the device can publish/subscribe to.
-	MessageFilters *DeviceMessageFilters `json:"message_filters"`
-	// HubID: Change Hub for this device, additional fees may apply, see IoT Hub pricing.
-	HubID *string `json:"hub_id,omitempty"`
-}
-
-// UpdateHubRequest:
-type UpdateHubRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// HubID: ID of the Hub you want to update.
-	HubID string `json:"-"`
-	// Name: Hub name (up to 255 characters).
-	Name *string `json:"name,omitempty"`
-	// ProductPlan: Hub product plan.
-	ProductPlan HubProductPlan `json:"product_plan"`
-	// DisableEvents: Disable Hub events.
-	DisableEvents *bool `json:"disable_events,omitempty"`
-	// EventsTopicPrefix: Topic prefix of Hub events.
-	EventsTopicPrefix *string `json:"events_topic_prefix,omitempty"`
-	// EnableDeviceAutoProvisioning: Enable device auto provisioning.
-	EnableDeviceAutoProvisioning *bool `json:"enable_device_auto_provisioning,omitempty"`
-	// TwinsGraphiteConfig: BETA - not implemented yet.
-	TwinsGraphiteConfig *HubTwinsGraphiteConfig `json:"twins_graphite_config,omitempty"`
-}
-
-// UpdateRouteRequest:
-type UpdateRouteRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// RouteID: Route id.
-	RouteID string `json:"-"`
-	// Name: Route name.
-	Name *string `json:"name,omitempty"`
-	// Topic: Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
-	Topic *string `json:"topic,omitempty"`
-	// S3Config: When updating S3 Route, S3-specific configuration fields.
-	S3Config *UpdateRouteRequestS3Config `json:"s3_config,omitempty"`
-	// DbConfig: When updating Database Route, DB-specific configuration fields.
-	DbConfig *UpdateRouteRequestDatabaseConfig `json:"db_config,omitempty"`
-	// RestConfig: When updating Rest Route, Rest-specific configuration fields.
-	RestConfig *UpdateRouteRequestRestConfig `json:"rest_config,omitempty"`
+	Data *scw.JSONObject `json:"data"`
 }
 
 // Scaleway IoT Hub is a resilient message broker which supports multiple communication protocols and displays export capabilities. It is a PaaS (Platform-as-a-Service) enabling device-to-device and device-to-Scaleway communication.
@@ -1630,7 +1630,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // ListHubs: List all Hubs in the specified zone. By default, returned Hubs are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-func (s *API) ListHubs(req *ListHubsRequest, opts ...scw.RequestOption) (*ListHubsResponse, error) {
+func (s *API) ListHubs(req *APIListHubsRequest, opts ...scw.RequestOption) (*ListHubsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1669,7 +1669,7 @@ func (s *API) ListHubs(req *ListHubsRequest, opts ...scw.RequestOption) (*ListHu
 }
 
 // CreateHub: Create a new Hub in the targeted region, specifying its configuration including name and product plan.
-func (s *API) CreateHub(req *CreateHubRequest, opts ...scw.RequestOption) (*Hub, error) {
+func (s *API) CreateHub(req *APICreateHubRequest, opts ...scw.RequestOption) (*Hub, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1708,7 +1708,7 @@ func (s *API) CreateHub(req *CreateHubRequest, opts ...scw.RequestOption) (*Hub,
 }
 
 // GetHub: Retrieve information about an existing IoT Hub, specified by its Hub ID. Its full details, including name, status and endpoint, are returned in the response object.
-func (s *API) GetHub(req *GetHubRequest, opts ...scw.RequestOption) (*Hub, error) {
+func (s *API) GetHub(req *APIGetHubRequest, opts ...scw.RequestOption) (*Hub, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1738,7 +1738,7 @@ func (s *API) GetHub(req *GetHubRequest, opts ...scw.RequestOption) (*Hub, error
 }
 
 // UpdateHub: Update the parameters of an existing IoT Hub, specified by its Hub ID.
-func (s *API) UpdateHub(req *UpdateHubRequest, opts ...scw.RequestOption) (*Hub, error) {
+func (s *API) UpdateHub(req *APIUpdateHubRequest, opts ...scw.RequestOption) (*Hub, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1773,7 +1773,7 @@ func (s *API) UpdateHub(req *UpdateHubRequest, opts ...scw.RequestOption) (*Hub,
 }
 
 // EnableHub: Enable an existing IoT Hub, specified by its Hub ID.
-func (s *API) EnableHub(req *EnableHubRequest, opts ...scw.RequestOption) (*Hub, error) {
+func (s *API) EnableHub(req *APIEnableHubRequest, opts ...scw.RequestOption) (*Hub, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1808,7 +1808,7 @@ func (s *API) EnableHub(req *EnableHubRequest, opts ...scw.RequestOption) (*Hub,
 }
 
 // DisableHub: Disable an existing IoT Hub, specified by its Hub ID.
-func (s *API) DisableHub(req *DisableHubRequest, opts ...scw.RequestOption) (*Hub, error) {
+func (s *API) DisableHub(req *APIDisableHubRequest, opts ...scw.RequestOption) (*Hub, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1843,7 +1843,7 @@ func (s *API) DisableHub(req *DisableHubRequest, opts ...scw.RequestOption) (*Hu
 }
 
 // DeleteHub: Delete an existing IoT Hub, specified by its Hub ID. Deleting a Hub is permanent, and cannot be undone.
-func (s *API) DeleteHub(req *DeleteHubRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteHub(req *APIDeleteHubRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1875,7 +1875,7 @@ func (s *API) DeleteHub(req *DeleteHubRequest, opts ...scw.RequestOption) error 
 }
 
 // Deprecated: GetHubMetrics: Get the metrics of an existing IoT Hub, specified by its Hub ID.
-func (s *API) GetHubMetrics(req *GetHubMetricsRequest, opts ...scw.RequestOption) (*GetHubMetricsResponse, error) {
+func (s *API) GetHubMetrics(req *APIGetHubMetricsRequest, opts ...scw.RequestOption) (*GetHubMetricsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1909,7 +1909,7 @@ func (s *API) GetHubMetrics(req *GetHubMetricsRequest, opts ...scw.RequestOption
 }
 
 // SetHubCA: Set a particular PEM-encoded certificate, specified by the Hub ID.
-func (s *API) SetHubCA(req *SetHubCARequest, opts ...scw.RequestOption) (*Hub, error) {
+func (s *API) SetHubCA(req *APISetHubCARequest, opts ...scw.RequestOption) (*Hub, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1944,7 +1944,7 @@ func (s *API) SetHubCA(req *SetHubCARequest, opts ...scw.RequestOption) (*Hub, e
 }
 
 // GetHubCA: Get information for a particular PEM-encoded certificate, specified by the Hub ID.
-func (s *API) GetHubCA(req *GetHubCARequest, opts ...scw.RequestOption) (*GetHubCAResponse, error) {
+func (s *API) GetHubCA(req *APIGetHubCARequest, opts ...scw.RequestOption) (*GetHubCAResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1974,7 +1974,7 @@ func (s *API) GetHubCA(req *GetHubCARequest, opts ...scw.RequestOption) (*GetHub
 }
 
 // ListDevices: List all devices in the specified region. By default, returned devices are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-func (s *API) ListDevices(req *ListDevicesRequest, opts ...scw.RequestOption) (*ListDevicesResponse, error) {
+func (s *API) ListDevices(req *APIListDevicesRequest, opts ...scw.RequestOption) (*ListDevicesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2014,7 +2014,7 @@ func (s *API) ListDevices(req *ListDevicesRequest, opts ...scw.RequestOption) (*
 }
 
 // CreateDevice: Attach a device to a given Hub.
-func (s *API) CreateDevice(req *CreateDeviceRequest, opts ...scw.RequestOption) (*CreateDeviceResponse, error) {
+func (s *API) CreateDevice(req *APICreateDeviceRequest, opts ...scw.RequestOption) (*CreateDeviceResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2049,7 +2049,7 @@ func (s *API) CreateDevice(req *CreateDeviceRequest, opts ...scw.RequestOption) 
 }
 
 // GetDevice: Retrieve information about an existing device, specified by its device ID. Its full details, including name, status and ID, are returned in the response object.
-func (s *API) GetDevice(req *GetDeviceRequest, opts ...scw.RequestOption) (*Device, error) {
+func (s *API) GetDevice(req *APIGetDeviceRequest, opts ...scw.RequestOption) (*Device, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2079,7 +2079,7 @@ func (s *API) GetDevice(req *GetDeviceRequest, opts ...scw.RequestOption) (*Devi
 }
 
 // UpdateDevice: Update the parameters of an existing device, specified by its device ID.
-func (s *API) UpdateDevice(req *UpdateDeviceRequest, opts ...scw.RequestOption) (*Device, error) {
+func (s *API) UpdateDevice(req *APIUpdateDeviceRequest, opts ...scw.RequestOption) (*Device, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2114,7 +2114,7 @@ func (s *API) UpdateDevice(req *UpdateDeviceRequest, opts ...scw.RequestOption) 
 }
 
 // EnableDevice: Enable a specific device, specified by its device ID.
-func (s *API) EnableDevice(req *EnableDeviceRequest, opts ...scw.RequestOption) (*Device, error) {
+func (s *API) EnableDevice(req *APIEnableDeviceRequest, opts ...scw.RequestOption) (*Device, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2149,7 +2149,7 @@ func (s *API) EnableDevice(req *EnableDeviceRequest, opts ...scw.RequestOption) 
 }
 
 // DisableDevice: Disable an existing device, specified by its device ID.
-func (s *API) DisableDevice(req *DisableDeviceRequest, opts ...scw.RequestOption) (*Device, error) {
+func (s *API) DisableDevice(req *APIDisableDeviceRequest, opts ...scw.RequestOption) (*Device, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2184,7 +2184,7 @@ func (s *API) DisableDevice(req *DisableDeviceRequest, opts ...scw.RequestOption
 }
 
 // RenewDeviceCertificate: Renew the certificate of an existing device, specified by its device ID.
-func (s *API) RenewDeviceCertificate(req *RenewDeviceCertificateRequest, opts ...scw.RequestOption) (*RenewDeviceCertificateResponse, error) {
+func (s *API) RenewDeviceCertificate(req *APIRenewDeviceCertificateRequest, opts ...scw.RequestOption) (*RenewDeviceCertificateResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2219,7 +2219,7 @@ func (s *API) RenewDeviceCertificate(req *RenewDeviceCertificateRequest, opts ..
 }
 
 // SetDeviceCertificate: Switch the existing certificate of a given device with an EM-encoded custom certificate.
-func (s *API) SetDeviceCertificate(req *SetDeviceCertificateRequest, opts ...scw.RequestOption) (*SetDeviceCertificateResponse, error) {
+func (s *API) SetDeviceCertificate(req *APISetDeviceCertificateRequest, opts ...scw.RequestOption) (*SetDeviceCertificateResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2254,7 +2254,7 @@ func (s *API) SetDeviceCertificate(req *SetDeviceCertificateRequest, opts ...scw
 }
 
 // GetDeviceCertificate: Get information for a particular PEM-encoded certificate, specified by the device ID. The response returns full details of the device, including its type of certificate.
-func (s *API) GetDeviceCertificate(req *GetDeviceCertificateRequest, opts ...scw.RequestOption) (*GetDeviceCertificateResponse, error) {
+func (s *API) GetDeviceCertificate(req *APIGetDeviceCertificateRequest, opts ...scw.RequestOption) (*GetDeviceCertificateResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2284,7 +2284,7 @@ func (s *API) GetDeviceCertificate(req *GetDeviceCertificateRequest, opts ...scw
 }
 
 // DeleteDevice: Remove a specific device from the specific Hub it is attached to.
-func (s *API) DeleteDevice(req *DeleteDeviceRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteDevice(req *APIDeleteDeviceRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2312,7 +2312,7 @@ func (s *API) DeleteDevice(req *DeleteDeviceRequest, opts ...scw.RequestOption) 
 }
 
 // Deprecated: GetDeviceMetrics: Get the metrics of an existing device, specified by its device ID.
-func (s *API) GetDeviceMetrics(req *GetDeviceMetricsRequest, opts ...scw.RequestOption) (*GetDeviceMetricsResponse, error) {
+func (s *API) GetDeviceMetrics(req *APIGetDeviceMetricsRequest, opts ...scw.RequestOption) (*GetDeviceMetricsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2346,7 +2346,7 @@ func (s *API) GetDeviceMetrics(req *GetDeviceMetricsRequest, opts ...scw.Request
 }
 
 // ListRoutes: List all routes in the specified region. By default, returned routes are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-func (s *API) ListRoutes(req *ListRoutesRequest, opts ...scw.RequestOption) (*ListRoutesResponse, error) {
+func (s *API) ListRoutes(req *APIListRoutesRequest, opts ...scw.RequestOption) (*ListRoutesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2393,7 +2393,7 @@ func (s *API) ListRoutes(req *ListRoutesRequest, opts ...scw.RequestOption) (*Li
 //     Create a route that will put subscribed MQTT messages into an S3 bucket.
 //     You need to create the bucket yourself and grant write access.
 //     Granting can be done with s3cmd (`s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031`).
-func (s *API) CreateRoute(req *CreateRouteRequest, opts ...scw.RequestOption) (*Route, error) {
+func (s *API) CreateRoute(req *APICreateRouteRequest, opts ...scw.RequestOption) (*Route, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2428,7 +2428,7 @@ func (s *API) CreateRoute(req *CreateRouteRequest, opts ...scw.RequestOption) (*
 }
 
 // UpdateRoute: Update the parameters of an existing route, specified by its route ID.
-func (s *API) UpdateRoute(req *UpdateRouteRequest, opts ...scw.RequestOption) (*Route, error) {
+func (s *API) UpdateRoute(req *APIUpdateRouteRequest, opts ...scw.RequestOption) (*Route, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2463,7 +2463,7 @@ func (s *API) UpdateRoute(req *UpdateRouteRequest, opts ...scw.RequestOption) (*
 }
 
 // GetRoute: Get information for a particular route, specified by the route ID. The response returns full details of the route, including its type, the topic it subscribes to and its configuration.
-func (s *API) GetRoute(req *GetRouteRequest, opts ...scw.RequestOption) (*Route, error) {
+func (s *API) GetRoute(req *APIGetRouteRequest, opts ...scw.RequestOption) (*Route, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2493,7 +2493,7 @@ func (s *API) GetRoute(req *GetRouteRequest, opts ...scw.RequestOption) (*Route,
 }
 
 // DeleteRoute: Delete an existing route, specified by its route ID. Deleting a route is permanent, and cannot be undone.
-func (s *API) DeleteRoute(req *DeleteRouteRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteRoute(req *APIDeleteRouteRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2521,7 +2521,7 @@ func (s *API) DeleteRoute(req *DeleteRouteRequest, opts ...scw.RequestOption) er
 }
 
 // ListNetworks: List the networks.
-func (s *API) ListNetworks(req *ListNetworksRequest, opts ...scw.RequestOption) (*ListNetworksResponse, error) {
+func (s *API) ListNetworks(req *APIListNetworksRequest, opts ...scw.RequestOption) (*ListNetworksResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2560,7 +2560,7 @@ func (s *API) ListNetworks(req *ListNetworksRequest, opts ...scw.RequestOption) 
 }
 
 // CreateNetwork: Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.
-func (s *API) CreateNetwork(req *CreateNetworkRequest, opts ...scw.RequestOption) (*CreateNetworkResponse, error) {
+func (s *API) CreateNetwork(req *APICreateNetworkRequest, opts ...scw.RequestOption) (*CreateNetworkResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2595,7 +2595,7 @@ func (s *API) CreateNetwork(req *CreateNetworkRequest, opts ...scw.RequestOption
 }
 
 // GetNetwork: Retrieve an existing network, specified by its network ID.  The response returns full details of the network, including its type, the topic prefix and its endpoint.
-func (s *API) GetNetwork(req *GetNetworkRequest, opts ...scw.RequestOption) (*Network, error) {
+func (s *API) GetNetwork(req *APIGetNetworkRequest, opts ...scw.RequestOption) (*Network, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2625,7 +2625,7 @@ func (s *API) GetNetwork(req *GetNetworkRequest, opts ...scw.RequestOption) (*Ne
 }
 
 // DeleteNetwork: Delete an existing network, specified by its network ID. Deleting a network is permanent, and cannot be undone.
-func (s *API) DeleteNetwork(req *DeleteNetworkRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteNetwork(req *APIDeleteNetworkRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2653,7 +2653,7 @@ func (s *API) DeleteNetwork(req *DeleteNetworkRequest, opts ...scw.RequestOption
 }
 
 // GetTwinDocument: BETA - Get a Cloud Twin Document.
-func (s *API) GetTwinDocument(req *GetTwinDocumentRequest, opts ...scw.RequestOption) (*TwinDocument, error) {
+func (s *API) GetTwinDocument(req *APIGetTwinDocumentRequest, opts ...scw.RequestOption) (*TwinDocument, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2687,7 +2687,7 @@ func (s *API) GetTwinDocument(req *GetTwinDocumentRequest, opts ...scw.RequestOp
 }
 
 // PutTwinDocument: BETA - Update a Cloud Twin Document.
-func (s *API) PutTwinDocument(req *PutTwinDocumentRequest, opts ...scw.RequestOption) (*TwinDocument, error) {
+func (s *API) PutTwinDocument(req *APIPutTwinDocumentRequest, opts ...scw.RequestOption) (*TwinDocument, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2726,7 +2726,7 @@ func (s *API) PutTwinDocument(req *PutTwinDocumentRequest, opts ...scw.RequestOp
 }
 
 // PatchTwinDocument: BETA - Patch a Cloud Twin Document.
-func (s *API) PatchTwinDocument(req *PatchTwinDocumentRequest, opts ...scw.RequestOption) (*TwinDocument, error) {
+func (s *API) PatchTwinDocument(req *APIPatchTwinDocumentRequest, opts ...scw.RequestOption) (*TwinDocument, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2765,7 +2765,7 @@ func (s *API) PatchTwinDocument(req *PatchTwinDocumentRequest, opts ...scw.Reque
 }
 
 // DeleteTwinDocument: BETA - Delete a Cloud Twin Document.
-func (s *API) DeleteTwinDocument(req *DeleteTwinDocumentRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteTwinDocument(req *APIDeleteTwinDocumentRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2797,7 +2797,7 @@ func (s *API) DeleteTwinDocument(req *DeleteTwinDocumentRequest, opts ...scw.Req
 }
 
 // ListTwinDocuments: BETA - List the documents of a Cloud Twin.
-func (s *API) ListTwinDocuments(req *ListTwinDocumentsRequest, opts ...scw.RequestOption) (*ListTwinDocumentsResponse, error) {
+func (s *API) ListTwinDocuments(req *APIListTwinDocumentsRequest, opts ...scw.RequestOption) (*ListTwinDocumentsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2827,7 +2827,7 @@ func (s *API) ListTwinDocuments(req *ListTwinDocumentsRequest, opts ...scw.Reque
 }
 
 // DeleteTwinDocuments: BETA - Delete all the documents of a Cloud Twin.
-func (s *API) DeleteTwinDocuments(req *DeleteTwinDocumentsRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteTwinDocuments(req *APIDeleteTwinDocumentsRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

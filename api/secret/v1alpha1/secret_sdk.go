@@ -39,16 +39,16 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type ListFoldersRequestOrderBy string
+type APIListFoldersRequestOrderBy string
 
 const (
-	ListFoldersRequestOrderByCreatedAtAsc  = ListFoldersRequestOrderBy("created_at_asc")
-	ListFoldersRequestOrderByCreatedAtDesc = ListFoldersRequestOrderBy("created_at_desc")
-	ListFoldersRequestOrderByNameAsc       = ListFoldersRequestOrderBy("name_asc")
-	ListFoldersRequestOrderByNameDesc      = ListFoldersRequestOrderBy("name_desc")
+	APIListFoldersRequestOrderByCreatedAtAsc  = APIListFoldersRequestOrderBy("created_at_asc")
+	APIListFoldersRequestOrderByCreatedAtDesc = APIListFoldersRequestOrderBy("created_at_desc")
+	APIListFoldersRequestOrderByNameAsc       = APIListFoldersRequestOrderBy("name_asc")
+	APIListFoldersRequestOrderByNameDesc      = APIListFoldersRequestOrderBy("name_desc")
 )
 
-func (enum ListFoldersRequestOrderBy) String() string {
+func (enum APIListFoldersRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -56,33 +56,33 @@ func (enum ListFoldersRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum ListFoldersRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum APIListFoldersRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *ListFoldersRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *APIListFoldersRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = ListFoldersRequestOrderBy(ListFoldersRequestOrderBy(tmp).String())
+	*enum = APIListFoldersRequestOrderBy(APIListFoldersRequestOrderBy(tmp).String())
 	return nil
 }
 
-type ListSecretsRequestOrderBy string
+type APIListSecretsRequestOrderBy string
 
 const (
-	ListSecretsRequestOrderByNameAsc       = ListSecretsRequestOrderBy("name_asc")
-	ListSecretsRequestOrderByNameDesc      = ListSecretsRequestOrderBy("name_desc")
-	ListSecretsRequestOrderByCreatedAtAsc  = ListSecretsRequestOrderBy("created_at_asc")
-	ListSecretsRequestOrderByCreatedAtDesc = ListSecretsRequestOrderBy("created_at_desc")
-	ListSecretsRequestOrderByUpdatedAtAsc  = ListSecretsRequestOrderBy("updated_at_asc")
-	ListSecretsRequestOrderByUpdatedAtDesc = ListSecretsRequestOrderBy("updated_at_desc")
+	APIListSecretsRequestOrderByNameAsc       = APIListSecretsRequestOrderBy("name_asc")
+	APIListSecretsRequestOrderByNameDesc      = APIListSecretsRequestOrderBy("name_desc")
+	APIListSecretsRequestOrderByCreatedAtAsc  = APIListSecretsRequestOrderBy("created_at_asc")
+	APIListSecretsRequestOrderByCreatedAtDesc = APIListSecretsRequestOrderBy("created_at_desc")
+	APIListSecretsRequestOrderByUpdatedAtAsc  = APIListSecretsRequestOrderBy("updated_at_asc")
+	APIListSecretsRequestOrderByUpdatedAtDesc = APIListSecretsRequestOrderBy("updated_at_desc")
 )
 
-func (enum ListSecretsRequestOrderBy) String() string {
+func (enum APIListSecretsRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "name_asc"
@@ -90,18 +90,18 @@ func (enum ListSecretsRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum ListSecretsRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum APIListSecretsRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *ListSecretsRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *APIListSecretsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = ListSecretsRequestOrderBy(ListSecretsRequestOrderBy(tmp).String())
+	*enum = APIListSecretsRequestOrderBy(APIListSecretsRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -254,7 +254,7 @@ type Folder struct {
 	// Path: Location of the folder in the directory structure.
 	Path string `json:"path"`
 	// CreatedAt: Date and time of the folder's creation.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 }
 
 // SecretVersion:
@@ -269,11 +269,11 @@ type SecretVersion struct {
 	// * `destroyed`: the version is permanently deleted. It is not possible to recover it.
 	Status SecretVersionStatus `json:"status"`
 	// CreatedAt: Date and time of the version's creation.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Last update of the version.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Description: Description of the version.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description"`
 	// IsLatest: Returns `true` if the version is the latest.
 	IsLatest bool `json:"is_latest"`
 }
@@ -290,15 +290,15 @@ type Secret struct {
 	// * `locked`: no action can be performed on the secret. This status can only be applied and removed by Scaleway.
 	Status SecretStatus `json:"status"`
 	// CreatedAt: Date and time of the secret's creation.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt: Last update of the secret.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Tags: List of the secret's tags.
 	Tags []string `json:"tags"`
 	// VersionCount: Number of versions for this secret.
 	VersionCount uint32 `json:"version_count"`
 	// Description: Updated description of the secret.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description"`
 	// IsManaged: Returns `true` for secrets that are managed by another product.
 	IsManaged bool `json:"is_managed"`
 	// IsProtected: Returns `true` for protected secrets that cannot be deleted.
@@ -311,8 +311,8 @@ type Secret struct {
 	Region scw.Region `json:"region"`
 }
 
-// AccessSecretVersionByNameRequest:
-type AccessSecretVersionByNameRequest struct {
+// APIAccessSecretVersionByNameRequest:
+type APIAccessSecretVersionByNameRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretName: Name of the secret.
@@ -323,8 +323,8 @@ type AccessSecretVersionByNameRequest struct {
 	ProjectID *string `json:"-"`
 }
 
-// AccessSecretVersionRequest:
-type AccessSecretVersionRequest struct {
+// APIAccessSecretVersionRequest:
+type APIAccessSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
@@ -333,20 +333,8 @@ type AccessSecretVersionRequest struct {
 	Revision string `json:"-"`
 }
 
-// AccessSecretVersionResponse:
-type AccessSecretVersionResponse struct {
-	// SecretID: ID of the secret.
-	SecretID string `json:"secret_id"`
-	// Revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
-	Revision uint32 `json:"revision"`
-	// Data: The base64-encoded secret payload of the version.
-	Data []byte `json:"data"`
-	// DataCrc32: This field is only available if a CRC32 was supplied during the creation of the version.
-	DataCrc32 *uint32 `json:"data_crc32,omitempty"`
-}
-
-// AddSecretOwnerRequest:
-type AddSecretOwnerRequest struct {
+// APIAddSecretOwnerRequest:
+type APIAddSecretOwnerRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
@@ -357,8 +345,8 @@ type AddSecretOwnerRequest struct {
 	Product Product `json:"product"`
 }
 
-// CreateFolderRequest:
-type CreateFolderRequest struct {
+// APICreateFolderRequest:
+type APICreateFolderRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ProjectID: ID of the Project containing the folder.
@@ -369,8 +357,8 @@ type CreateFolderRequest struct {
 	Path *string `json:"path,omitempty"`
 }
 
-// CreateSecretRequest:
-type CreateSecretRequest struct {
+// APICreateSecretRequest:
+type APICreateSecretRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ProjectID: ID of the Project containing the secret.
@@ -387,8 +375,8 @@ type CreateSecretRequest struct {
 	Path *string `json:"path,omitempty"`
 }
 
-// CreateSecretVersionRequest:
-type CreateSecretVersionRequest struct {
+// APICreateSecretVersionRequest:
+type APICreateSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
@@ -405,34 +393,24 @@ type CreateSecretVersionRequest struct {
 	DataCrc32 *uint32 `json:"data_crc32,omitempty"`
 }
 
-// DeleteFolderRequest:
-type DeleteFolderRequest struct {
+// APIDeleteFolderRequest:
+type APIDeleteFolderRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// FolderID: ID of the folder.
 	FolderID string `json:"-"`
 }
 
-// DeleteSecretRequest:
-type DeleteSecretRequest struct {
+// APIDeleteSecretRequest:
+type APIDeleteSecretRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
 	SecretID string `json:"-"`
 }
 
-// DestroySecretVersionRequest:
-type DestroySecretVersionRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// SecretID: ID of the secret.
-	SecretID string `json:"-"`
-	// Revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
-	Revision string `json:"-"`
-}
-
-// DisableSecretVersionRequest:
-type DisableSecretVersionRequest struct {
+// APIDestroySecretVersionRequest:
+type APIDestroySecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
@@ -441,8 +419,8 @@ type DisableSecretVersionRequest struct {
 	Revision string `json:"-"`
 }
 
-// EnableSecretVersionRequest:
-type EnableSecretVersionRequest struct {
+// APIDisableSecretVersionRequest:
+type APIDisableSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
@@ -451,8 +429,18 @@ type EnableSecretVersionRequest struct {
 	Revision string `json:"-"`
 }
 
-// GeneratePasswordRequest:
-type GeneratePasswordRequest struct {
+// APIEnableSecretVersionRequest:
+type APIEnableSecretVersionRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// SecretID: ID of the secret.
+	SecretID string `json:"-"`
+	// Revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+	Revision string `json:"-"`
+}
+
+// APIGeneratePasswordRequest:
+type APIGeneratePasswordRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
@@ -473,8 +461,8 @@ type GeneratePasswordRequest struct {
 	AdditionalChars *string `json:"additional_chars,omitempty"`
 }
 
-// GetSecretByNameRequest:
-type GetSecretByNameRequest struct {
+// APIGetSecretByNameRequest:
+type APIGetSecretByNameRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretName: Name of the secret.
@@ -483,16 +471,16 @@ type GetSecretByNameRequest struct {
 	ProjectID *string `json:"-"`
 }
 
-// GetSecretRequest:
-type GetSecretRequest struct {
+// APIGetSecretRequest:
+type APIGetSecretRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
 	SecretID string `json:"-"`
 }
 
-// GetSecretVersionByNameRequest:
-type GetSecretVersionByNameRequest struct {
+// APIGetSecretVersionByNameRequest:
+type APIGetSecretVersionByNameRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretName: Name of the secret.
@@ -503,8 +491,8 @@ type GetSecretVersionByNameRequest struct {
 	ProjectID *string `json:"-"`
 }
 
-// GetSecretVersionRequest:
-type GetSecretVersionRequest struct {
+// APIGetSecretVersionRequest:
+type APIGetSecretVersionRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SecretID: ID of the secret.
@@ -513,8 +501,8 @@ type GetSecretVersionRequest struct {
 	Revision string `json:"-"`
 }
 
-// ListFoldersRequest:
-type ListFoldersRequest struct {
+// APIListFoldersRequest:
+type APIListFoldersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ProjectID: ID of the Project.
@@ -526,7 +514,129 @@ type ListFoldersRequest struct {
 	// PageSize:
 	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListFoldersRequestOrderBy `json:"-"`
+	OrderBy APIListFoldersRequestOrderBy `json:"-"`
+}
+
+// APIListSecretVersionsByNameRequest:
+type APIListSecretVersionsByNameRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// SecretName: Name of the secret.
+	SecretName string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// Status: Filter results by status.
+	Status []SecretVersionStatus `json:"-"`
+	// ProjectID: (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
+	ProjectID *string `json:"-"`
+}
+
+// APIListSecretVersionsRequest:
+type APIListSecretVersionsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// SecretID: ID of the secret.
+	SecretID string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// Status: Filter results by status.
+	Status []SecretVersionStatus `json:"-"`
+}
+
+// APIListSecretsRequest:
+type APIListSecretsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// OrganizationID: Filter by Organization ID (optional).
+	OrganizationID *string `json:"-"`
+	// ProjectID: Filter by Project ID (optional).
+	ProjectID *string `json:"-"`
+	// OrderBy:
+	OrderBy APIListSecretsRequestOrderBy `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// Tags: List of tags to filter on (optional).
+	Tags []string `json:"-"`
+	// Name: Filter by secret name (optional).
+	Name *string `json:"-"`
+	// IsManaged: Filter by managed / not managed (optional).
+	IsManaged *bool `json:"-"`
+	// Path: Filter by path (optional).
+	Path *string `json:"-"`
+}
+
+// APIListTagsRequest:
+type APIListTagsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ProjectID: (Optional.) If not specified, Secret Manager will look for tags in all Projects.
+	ProjectID *string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+}
+
+// APIProtectSecretRequest:
+type APIProtectSecretRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// SecretID: ID of the secret to protect.
+	SecretID string `json:"-"`
+}
+
+// APIUnprotectSecretRequest:
+type APIUnprotectSecretRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// SecretID: ID of the secret to unprotect.
+	SecretID string `json:"-"`
+}
+
+// APIUpdateSecretRequest:
+type APIUpdateSecretRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// SecretID: ID of the secret.
+	SecretID string `json:"-"`
+	// Name: Secret's updated name (optional).
+	Name *string `json:"name,omitempty"`
+	// Tags: Secret's updated list of tags (optional).
+	Tags *[]string `json:"tags,omitempty"`
+	// Description: Description of the secret.
+	Description *string `json:"description,omitempty"`
+	// Path: (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+	Path *string `json:"path,omitempty"`
+}
+
+// APIUpdateSecretVersionRequest:
+type APIUpdateSecretVersionRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// SecretID: ID of the secret.
+	SecretID string `json:"-"`
+	// Revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+	Revision string `json:"-"`
+	// Description: Description of the version.
+	Description *string `json:"description,omitempty"`
+}
+
+// AccessSecretVersionResponse:
+type AccessSecretVersionResponse struct {
+	// SecretID: ID of the secret.
+	SecretID string `json:"secret_id"`
+	// Revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
+	Revision uint32 `json:"revision"`
+	// Data: The base64-encoded secret payload of the version.
+	Data []byte `json:"data"`
+	// DataCrc32: This field is only available if a CRC32 was supplied during the creation of the version.
+	DataCrc32 *uint32 `json:"data_crc32"`
 }
 
 // ListFoldersResponse:
@@ -556,36 +666,6 @@ func (r *ListFoldersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Folders)), nil
 }
 
-// ListSecretVersionsByNameRequest:
-type ListSecretVersionsByNameRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// SecretName: Name of the secret.
-	SecretName string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-	// Status: Filter results by status.
-	Status []SecretVersionStatus `json:"-"`
-	// ProjectID: (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
-	ProjectID *string `json:"-"`
-}
-
-// ListSecretVersionsRequest:
-type ListSecretVersionsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// SecretID: ID of the secret.
-	SecretID string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-	// Status: Filter results by status.
-	Status []SecretVersionStatus `json:"-"`
-}
-
 // ListSecretVersionsResponse:
 type ListSecretVersionsResponse struct {
 	// Versions: Single page of versions.
@@ -611,30 +691,6 @@ func (r *ListSecretVersionsResponse) UnsafeAppend(res interface{}) (uint32, erro
 	r.Versions = append(r.Versions, results.Versions...)
 	r.TotalCount += uint32(len(results.Versions))
 	return uint32(len(results.Versions)), nil
-}
-
-// ListSecretsRequest:
-type ListSecretsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// OrganizationID: Filter by Organization ID (optional).
-	OrganizationID *string `json:"-"`
-	// ProjectID: Filter by Project ID (optional).
-	ProjectID *string `json:"-"`
-	// OrderBy:
-	OrderBy ListSecretsRequestOrderBy `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-	// Tags: List of tags to filter on (optional).
-	Tags []string `json:"-"`
-	// Name: Filter by secret name (optional).
-	Name *string `json:"-"`
-	// IsManaged: Filter by managed / not managed (optional).
-	IsManaged *bool `json:"-"`
-	// Path: Filter by path (optional).
-	Path *string `json:"-"`
 }
 
 // ListSecretsResponse:
@@ -664,18 +720,6 @@ func (r *ListSecretsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Secrets)), nil
 }
 
-// ListTagsRequest:
-type ListTagsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// ProjectID: (Optional.) If not specified, Secret Manager will look for tags in all Projects.
-	ProjectID *string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
 // ListTagsResponse:
 type ListTagsResponse struct {
 	// Tags: List of tags.
@@ -701,50 +745,6 @@ func (r *ListTagsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Tags = append(r.Tags, results.Tags...)
 	r.TotalCount += uint32(len(results.Tags))
 	return uint32(len(results.Tags)), nil
-}
-
-// ProtectSecretRequest:
-type ProtectSecretRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// SecretID: ID of the secret to protect.
-	SecretID string `json:"-"`
-}
-
-// UnprotectSecretRequest:
-type UnprotectSecretRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// SecretID: ID of the secret to unprotect.
-	SecretID string `json:"-"`
-}
-
-// UpdateSecretRequest:
-type UpdateSecretRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// SecretID: ID of the secret.
-	SecretID string `json:"-"`
-	// Name: Secret's updated name (optional).
-	Name *string `json:"name,omitempty"`
-	// Tags: Secret's updated list of tags (optional).
-	Tags *[]string `json:"tags,omitempty"`
-	// Description: Description of the secret.
-	Description *string `json:"description,omitempty"`
-	// Path: (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
-	Path *string `json:"path,omitempty"`
-}
-
-// UpdateSecretVersionRequest:
-type UpdateSecretVersionRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// SecretID: ID of the secret.
-	SecretID string `json:"-"`
-	// Revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
-	Revision string `json:"-"`
-	// Description: Description of the version.
-	Description *string `json:"description,omitempty"`
 }
 
 // (switchcolumn)
@@ -851,7 +851,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // CreateSecret: You must specify the `region` to create a secret.
-func (s *API) CreateSecret(req *CreateSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
+func (s *API) CreateSecret(req *APICreateSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -886,7 +886,7 @@ func (s *API) CreateSecret(req *CreateSecretRequest, opts ...scw.RequestOption) 
 }
 
 // CreateFolder: Create folder.
-func (s *API) CreateFolder(req *CreateFolderRequest, opts ...scw.RequestOption) (*Folder, error) {
+func (s *API) CreateFolder(req *APICreateFolderRequest, opts ...scw.RequestOption) (*Folder, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -921,7 +921,7 @@ func (s *API) CreateFolder(req *CreateFolderRequest, opts ...scw.RequestOption) 
 }
 
 // GetSecret: Retrieve the metadata of a secret specified by the `region` and `secret_id` parameters.
-func (s *API) GetSecret(req *GetSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
+func (s *API) GetSecret(req *APIGetSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -955,7 +955,7 @@ func (s *API) GetSecret(req *GetSecretRequest, opts ...scw.RequestOption) (*Secr
 // GetSecretByName usage is now deprecated.
 //
 // Scaleway recommends you to use ListSecrets with the `name` filter.
-func (s *API) GetSecretByName(req *GetSecretByNameRequest, opts ...scw.RequestOption) (*Secret, error) {
+func (s *API) GetSecretByName(req *APIGetSecretByNameRequest, opts ...scw.RequestOption) (*Secret, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -989,7 +989,7 @@ func (s *API) GetSecretByName(req *GetSecretByNameRequest, opts ...scw.RequestOp
 }
 
 // UpdateSecret: Edit a secret's metadata such as name, tag(s) and description. The secret to update is specified by the `secret_id` and `region` parameters.
-func (s *API) UpdateSecret(req *UpdateSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
+func (s *API) UpdateSecret(req *APIUpdateSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1024,7 +1024,7 @@ func (s *API) UpdateSecret(req *UpdateSecretRequest, opts ...scw.RequestOption) 
 }
 
 // ListSecrets: Retrieve the list of secrets created within an Organization and/or Project. You must specify either the `organization_id` or the `project_id` and the `region`.
-func (s *API) ListSecrets(req *ListSecretsRequest, opts ...scw.RequestOption) (*ListSecretsResponse, error) {
+func (s *API) ListSecrets(req *APIListSecretsRequest, opts ...scw.RequestOption) (*ListSecretsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1066,7 +1066,7 @@ func (s *API) ListSecrets(req *ListSecretsRequest, opts ...scw.RequestOption) (*
 }
 
 // ListFolders: Retrieve the list of folders created within a Project.
-func (s *API) ListFolders(req *ListFoldersRequest, opts ...scw.RequestOption) (*ListFoldersResponse, error) {
+func (s *API) ListFolders(req *APIListFoldersRequest, opts ...scw.RequestOption) (*ListFoldersResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1108,7 +1108,7 @@ func (s *API) ListFolders(req *ListFoldersRequest, opts ...scw.RequestOption) (*
 }
 
 // DeleteSecret: Delete a given secret specified by the `region` and `secret_id` parameters.
-func (s *API) DeleteSecret(req *DeleteSecretRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteSecret(req *APIDeleteSecretRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1136,7 +1136,7 @@ func (s *API) DeleteSecret(req *DeleteSecretRequest, opts ...scw.RequestOption) 
 }
 
 // DeleteFolder: Delete a given folder specified by the and `folder_id` parameter.
-func (s *API) DeleteFolder(req *DeleteFolderRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteFolder(req *APIDeleteFolderRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1164,7 +1164,7 @@ func (s *API) DeleteFolder(req *DeleteFolderRequest, opts ...scw.RequestOption) 
 }
 
 // ProtectSecret: Protect a given secret specified by the `secret_id` parameter. A protected secret can be read and modified but cannot be deleted.
-func (s *API) ProtectSecret(req *ProtectSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
+func (s *API) ProtectSecret(req *APIProtectSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1199,7 +1199,7 @@ func (s *API) ProtectSecret(req *ProtectSecretRequest, opts ...scw.RequestOption
 }
 
 // UnprotectSecret: Unprotect a given secret specified by the `secret_id` parameter. An unprotected secret can be read, modified and deleted.
-func (s *API) UnprotectSecret(req *UnprotectSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
+func (s *API) UnprotectSecret(req *APIUnprotectSecretRequest, opts ...scw.RequestOption) (*Secret, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1234,7 +1234,7 @@ func (s *API) UnprotectSecret(req *UnprotectSecretRequest, opts ...scw.RequestOp
 }
 
 // AddSecretOwner: Allow a product to use the secret.
-func (s *API) AddSecretOwner(req *AddSecretOwnerRequest, opts ...scw.RequestOption) error {
+func (s *API) AddSecretOwner(req *APIAddSecretOwnerRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1267,7 +1267,7 @@ func (s *API) AddSecretOwner(req *AddSecretOwnerRequest, opts ...scw.RequestOpti
 }
 
 // CreateSecretVersion: Create a version of a given secret specified by the `region` and `secret_id` parameters.
-func (s *API) CreateSecretVersion(req *CreateSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
+func (s *API) CreateSecretVersion(req *APICreateSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1302,7 +1302,7 @@ func (s *API) CreateSecretVersion(req *CreateSecretVersionRequest, opts ...scw.R
 }
 
 // GeneratePassword: Generate a password for the given secret specified by the `region` and `secret_id` parameters. This will also create a new version of the secret that will store the password.
-func (s *API) GeneratePassword(req *GeneratePasswordRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
+func (s *API) GeneratePassword(req *APIGeneratePasswordRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1337,7 +1337,7 @@ func (s *API) GeneratePassword(req *GeneratePasswordRequest, opts ...scw.Request
 }
 
 // GetSecretVersion: Retrieve the metadata of a secret's given version specified by the `region`, `secret_id` and `revision` parameters.
-func (s *API) GetSecretVersion(req *GetSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
+func (s *API) GetSecretVersion(req *APIGetSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1371,7 +1371,7 @@ func (s *API) GetSecretVersion(req *GetSecretVersionRequest, opts ...scw.Request
 }
 
 // GetSecretVersionByName: Retrieve the metadata of a secret's given version specified by the `region`, `secret_name`, `revision` and `project_id` parameters.
-func (s *API) GetSecretVersionByName(req *GetSecretVersionByNameRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
+func (s *API) GetSecretVersionByName(req *APIGetSecretVersionByNameRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1409,7 +1409,7 @@ func (s *API) GetSecretVersionByName(req *GetSecretVersionByNameRequest, opts ..
 }
 
 // UpdateSecretVersion: Edit the metadata of a secret's given version, specified by the `region`, `secret_id` and `revision` parameters.
-func (s *API) UpdateSecretVersion(req *UpdateSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
+func (s *API) UpdateSecretVersion(req *APIUpdateSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1448,7 +1448,7 @@ func (s *API) UpdateSecretVersion(req *UpdateSecretVersionRequest, opts ...scw.R
 }
 
 // ListSecretVersions: Retrieve the list of a given secret's versions specified by the `secret_id` and `region` parameters.
-func (s *API) ListSecretVersions(req *ListSecretVersionsRequest, opts ...scw.RequestOption) (*ListSecretVersionsResponse, error) {
+func (s *API) ListSecretVersions(req *APIListSecretVersionsRequest, opts ...scw.RequestOption) (*ListSecretVersionsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1488,7 +1488,7 @@ func (s *API) ListSecretVersions(req *ListSecretVersionsRequest, opts ...scw.Req
 }
 
 // ListSecretVersionsByName: Retrieve the list of a given secret's versions specified by the `secret_name`,`region` and `project_id` parameters.
-func (s *API) ListSecretVersionsByName(req *ListSecretVersionsByNameRequest, opts ...scw.RequestOption) (*ListSecretVersionsResponse, error) {
+func (s *API) ListSecretVersionsByName(req *APIListSecretVersionsByNameRequest, opts ...scw.RequestOption) (*ListSecretVersionsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1529,7 +1529,7 @@ func (s *API) ListSecretVersionsByName(req *ListSecretVersionsByNameRequest, opt
 }
 
 // EnableSecretVersion: Make a specific version accessible. You must specify the `region`, `secret_id` and `revision` parameters.
-func (s *API) EnableSecretVersion(req *EnableSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
+func (s *API) EnableSecretVersion(req *APIEnableSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1568,7 +1568,7 @@ func (s *API) EnableSecretVersion(req *EnableSecretVersionRequest, opts ...scw.R
 }
 
 // DisableSecretVersion: Make a specific version inaccessible. You must specify the `region`, `secret_id` and `revision` parameters.
-func (s *API) DisableSecretVersion(req *DisableSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
+func (s *API) DisableSecretVersion(req *APIDisableSecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1607,7 +1607,7 @@ func (s *API) DisableSecretVersion(req *DisableSecretVersionRequest, opts ...scw
 }
 
 // AccessSecretVersion: Access sensitive data in a secret's version specified by the `region`, `secret_id` and `revision` parameters.
-func (s *API) AccessSecretVersion(req *AccessSecretVersionRequest, opts ...scw.RequestOption) (*AccessSecretVersionResponse, error) {
+func (s *API) AccessSecretVersion(req *APIAccessSecretVersionRequest, opts ...scw.RequestOption) (*AccessSecretVersionResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1641,7 +1641,7 @@ func (s *API) AccessSecretVersion(req *AccessSecretVersionRequest, opts ...scw.R
 }
 
 // AccessSecretVersionByName: Access sensitive data in a secret's version specified by the `region`, `secret_name`, `revision` and `project_id` parameters.
-func (s *API) AccessSecretVersionByName(req *AccessSecretVersionByNameRequest, opts ...scw.RequestOption) (*AccessSecretVersionResponse, error) {
+func (s *API) AccessSecretVersionByName(req *APIAccessSecretVersionByNameRequest, opts ...scw.RequestOption) (*AccessSecretVersionResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1679,7 +1679,7 @@ func (s *API) AccessSecretVersionByName(req *AccessSecretVersionByNameRequest, o
 }
 
 // DestroySecretVersion: Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.
-func (s *API) DestroySecretVersion(req *DestroySecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
+func (s *API) DestroySecretVersion(req *APIDestroySecretVersionRequest, opts ...scw.RequestOption) (*SecretVersion, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1718,7 +1718,7 @@ func (s *API) DestroySecretVersion(req *DestroySecretVersionRequest, opts ...scw
 }
 
 // ListTags: List all tags associated with secrets within a given Project.
-func (s *API) ListTags(req *ListTagsRequest, opts ...scw.RequestOption) (*ListTagsResponse, error) {
+func (s *API) ListTags(req *APIListTagsRequest, opts ...scw.RequestOption) (*ListTagsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

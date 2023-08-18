@@ -39,6 +39,46 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
+type APIListHumansRequestOrderBy string
+
+const (
+	// Ascending creation date.
+	APIListHumansRequestOrderByCreatedAtAsc = APIListHumansRequestOrderBy("created_at_asc")
+	// Descending creation date.
+	APIListHumansRequestOrderByCreatedAtDesc = APIListHumansRequestOrderBy("created_at_desc")
+	// Ascending update date.
+	APIListHumansRequestOrderByUpdatedAtAsc = APIListHumansRequestOrderBy("updated_at_asc")
+	// Descending update date.
+	APIListHumansRequestOrderByUpdatedAtDesc = APIListHumansRequestOrderBy("updated_at_desc")
+	// Ascending height.
+	APIListHumansRequestOrderByHeightAsc = APIListHumansRequestOrderBy("height_asc")
+	// Descending height.
+	APIListHumansRequestOrderByHeightDesc = APIListHumansRequestOrderBy("height_desc")
+)
+
+func (enum APIListHumansRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum APIListHumansRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *APIListHumansRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = APIListHumansRequestOrderBy(APIListHumansRequestOrderBy(tmp).String())
+	return nil
+}
+
 type EyeColors string
 
 const (
@@ -119,46 +159,6 @@ func (enum *HumanStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type ListHumansRequestOrderBy string
-
-const (
-	// Ascending creation date.
-	ListHumansRequestOrderByCreatedAtAsc = ListHumansRequestOrderBy("created_at_asc")
-	// Descending creation date.
-	ListHumansRequestOrderByCreatedAtDesc = ListHumansRequestOrderBy("created_at_desc")
-	// Ascending update date.
-	ListHumansRequestOrderByUpdatedAtAsc = ListHumansRequestOrderBy("updated_at_asc")
-	// Descending update date.
-	ListHumansRequestOrderByUpdatedAtDesc = ListHumansRequestOrderBy("updated_at_desc")
-	// Ascending height.
-	ListHumansRequestOrderByHeightAsc = ListHumansRequestOrderBy("height_asc")
-	// Descending height.
-	ListHumansRequestOrderByHeightDesc = ListHumansRequestOrderBy("height_desc")
-)
-
-func (enum ListHumansRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum ListHumansRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *ListHumansRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = ListHumansRequestOrderBy(ListHumansRequestOrderBy(tmp).String())
-	return nil
-}
-
 // Human:
 type Human struct {
 	// ID:
@@ -166,9 +166,9 @@ type Human struct {
 	// OrganizationID:
 	OrganizationID string `json:"organization_id"`
 	// CreatedAt:
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at"`
 	// UpdatedAt:
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	// Height:
 	Height float64 `json:"height"`
 	// ShoeSize:
@@ -193,8 +193,8 @@ type Human struct {
 	ProjectID string `json:"project_id"`
 }
 
-// CreateHumanRequest:
-type CreateHumanRequest struct {
+// APICreateHumanRequest:
+type APICreateHumanRequest struct {
 	// Height:
 	Height float64 `json:"height"`
 	// ShoeSize:
@@ -219,30 +219,72 @@ type CreateHumanRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
-// DeleteHumanRequest:
-type DeleteHumanRequest struct {
+// APIDeleteHumanRequest:
+type APIDeleteHumanRequest struct {
 	// HumanID: UUID of the human you want to delete.
 	HumanID string `json:"-"`
 }
 
-// GetHumanRequest:
-type GetHumanRequest struct {
+// APIGetHumanRequest:
+type APIGetHumanRequest struct {
 	// HumanID: UUID of the human you want to get.
 	HumanID string `json:"-"`
 }
 
-// ListHumansRequest:
-type ListHumansRequest struct {
+// APIListHumansRequest:
+type APIListHumansRequest struct {
 	// Page:
 	Page *int32 `json:"-"`
 	// PageSize:
 	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListHumansRequestOrderBy `json:"-"`
+	OrderBy APIListHumansRequestOrderBy `json:"-"`
 	// OrganizationID:
 	OrganizationID *string `json:"-"`
 	// ProjectID:
 	ProjectID *string `json:"-"`
+}
+
+// APIRegisterRequest:
+type APIRegisterRequest struct {
+	// Username:
+	Username string `json:"username"`
+}
+
+// APIRunHumanRequest:
+type APIRunHumanRequest struct {
+	// HumanID: UUID of the human you want to make run.
+	HumanID string `json:"-"`
+}
+
+// APISmokeHumanRequest:
+type APISmokeHumanRequest struct {
+	// Deprecated: HumanID: UUID of the human you want to make smoking.
+	HumanID *string `json:"-"`
+}
+
+// APIUpdateHumanRequest:
+type APIUpdateHumanRequest struct {
+	// HumanID: UUID of the human you want to update.
+	HumanID string `json:"-"`
+	// Height:
+	Height *float64 `json:"height,omitempty"`
+	// ShoeSize:
+	ShoeSize *float32 `json:"shoe_size,omitempty"`
+	// AltitudeInMeter:
+	AltitudeInMeter *int32 `json:"altitude_in_meter,omitempty"`
+	// AltitudeInMillimeter:
+	AltitudeInMillimeter *int64 `json:"altitude_in_millimeter,omitempty"`
+	// FingersCount:
+	FingersCount *uint32 `json:"fingers_count,omitempty"`
+	// HairCount:
+	HairCount *uint64 `json:"hair_count,omitempty"`
+	// IsHappy:
+	IsHappy *bool `json:"is_happy,omitempty"`
+	// EyesColor:
+	EyesColor EyeColors `json:"eyes_color"`
+	// Name:
+	Name *string `json:"name,omitempty"`
 }
 
 // ListHumansResponse:
@@ -272,54 +314,12 @@ func (r *ListHumansResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Humans)), nil
 }
 
-// RegisterRequest:
-type RegisterRequest struct {
-	// Username:
-	Username string `json:"username"`
-}
-
 // RegisterResponse:
 type RegisterResponse struct {
 	// SecretKey:
 	SecretKey string `json:"secret_key"`
 	// AccessKey:
 	AccessKey string `json:"access_key"`
-}
-
-// RunHumanRequest:
-type RunHumanRequest struct {
-	// HumanID: UUID of the human you want to make run.
-	HumanID string `json:"-"`
-}
-
-// SmokeHumanRequest:
-type SmokeHumanRequest struct {
-	// Deprecated: HumanID: UUID of the human you want to make smoking.
-	HumanID *string `json:"-"`
-}
-
-// UpdateHumanRequest:
-type UpdateHumanRequest struct {
-	// HumanID: UUID of the human you want to update.
-	HumanID string `json:"-"`
-	// Height:
-	Height *float64 `json:"height,omitempty"`
-	// ShoeSize:
-	ShoeSize *float32 `json:"shoe_size,omitempty"`
-	// AltitudeInMeter:
-	AltitudeInMeter *int32 `json:"altitude_in_meter,omitempty"`
-	// AltitudeInMillimeter:
-	AltitudeInMillimeter *int64 `json:"altitude_in_millimeter,omitempty"`
-	// FingersCount:
-	FingersCount *uint32 `json:"fingers_count,omitempty"`
-	// HairCount:
-	HairCount *uint64 `json:"hair_count,omitempty"`
-	// IsHappy:
-	IsHappy *bool `json:"is_happy,omitempty"`
-	// EyesColor:
-	EyesColor EyeColors `json:"eyes_color"`
-	// Name:
-	Name *string `json:"name,omitempty"`
 }
 
 // Test is a fake service that aim to manage fake humans. It is used for internal and public end-to-end tests.
@@ -343,7 +343,7 @@ func NewAPI(client *scw.Client) *API {
 // Register: Register a human and return a access-key and a secret-key that must be used in all other commands.
 //
 // Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable.
-func (s *API) Register(req *RegisterRequest, opts ...scw.RequestOption) (*RegisterResponse, error) {
+func (s *API) Register(req *APIRegisterRequest, opts ...scw.RequestOption) (*RegisterResponse, error) {
 	var err error
 
 	scwReq := &scw.ScalewayRequest{
@@ -366,7 +366,7 @@ func (s *API) Register(req *RegisterRequest, opts ...scw.RequestOption) (*Regist
 }
 
 // ListHumans: List all your humans.
-func (s *API) ListHumans(req *ListHumansRequest, opts ...scw.RequestOption) (*ListHumansResponse, error) {
+func (s *API) ListHumans(req *APIListHumansRequest, opts ...scw.RequestOption) (*ListHumansResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -392,7 +392,7 @@ func (s *API) ListHumans(req *ListHumansRequest, opts ...scw.RequestOption) (*Li
 }
 
 // GetHuman: Get the human details associated with the given id.
-func (s *API) GetHuman(req *GetHumanRequest, opts ...scw.RequestOption) (*Human, error) {
+func (s *API) GetHuman(req *APIGetHumanRequest, opts ...scw.RequestOption) (*Human, error) {
 	var err error
 
 	if fmt.Sprint(req.HumanID) == "" {
@@ -414,7 +414,7 @@ func (s *API) GetHuman(req *GetHumanRequest, opts ...scw.RequestOption) (*Human,
 }
 
 // CreateHuman: Create a new human.
-func (s *API) CreateHuman(req *CreateHumanRequest, opts ...scw.RequestOption) (*Human, error) {
+func (s *API) CreateHuman(req *APICreateHumanRequest, opts ...scw.RequestOption) (*Human, error) {
 	var err error
 
 	defaultOrganizationID, exist := s.client.GetDefaultOrganizationID()
@@ -447,7 +447,7 @@ func (s *API) CreateHuman(req *CreateHumanRequest, opts ...scw.RequestOption) (*
 }
 
 // UpdateHuman: Update the human associated with the given id.
-func (s *API) UpdateHuman(req *UpdateHumanRequest, opts ...scw.RequestOption) (*Human, error) {
+func (s *API) UpdateHuman(req *APIUpdateHumanRequest, opts ...scw.RequestOption) (*Human, error) {
 	var err error
 
 	if fmt.Sprint(req.HumanID) == "" {
@@ -474,7 +474,7 @@ func (s *API) UpdateHuman(req *UpdateHumanRequest, opts ...scw.RequestOption) (*
 }
 
 // DeleteHuman: Delete the human associated with the given id.
-func (s *API) DeleteHuman(req *DeleteHumanRequest, opts ...scw.RequestOption) (*Human, error) {
+func (s *API) DeleteHuman(req *APIDeleteHumanRequest, opts ...scw.RequestOption) (*Human, error) {
 	var err error
 
 	if fmt.Sprint(req.HumanID) == "" {
@@ -496,7 +496,7 @@ func (s *API) DeleteHuman(req *DeleteHumanRequest, opts ...scw.RequestOption) (*
 }
 
 // RunHuman: Start a one hour running for the given human.
-func (s *API) RunHuman(req *RunHumanRequest, opts ...scw.RequestOption) (*Human, error) {
+func (s *API) RunHuman(req *APIRunHumanRequest, opts ...scw.RequestOption) (*Human, error) {
 	var err error
 
 	if fmt.Sprint(req.HumanID) == "" {
@@ -523,7 +523,7 @@ func (s *API) RunHuman(req *RunHumanRequest, opts ...scw.RequestOption) (*Human,
 }
 
 // Deprecated: SmokeHuman: Make a human smoke.
-func (s *API) SmokeHuman(req *SmokeHumanRequest, opts ...scw.RequestOption) (*Human, error) {
+func (s *API) SmokeHuman(req *APISmokeHumanRequest, opts ...scw.RequestOption) (*Human, error) {
 	var err error
 
 	if fmt.Sprint(req.HumanID) == "" {
