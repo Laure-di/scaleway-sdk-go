@@ -39,20 +39,20 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIListCredentialsRequestOrderBy string
+type ListCredentialsRequestOrderBy string
 
 const (
 	// Order by id (ascending alphabetical order).
-	APIListCredentialsRequestOrderByIDAsc = APIListCredentialsRequestOrderBy("id_asc")
+	ListCredentialsRequestOrderByIDAsc = ListCredentialsRequestOrderBy("id_asc")
 	// Order by id (descending alphabetical order).
-	APIListCredentialsRequestOrderByIDDesc = APIListCredentialsRequestOrderBy("id_desc")
+	ListCredentialsRequestOrderByIDDesc = ListCredentialsRequestOrderBy("id_desc")
 	// Order by name (ascending alphabetical order).
-	APIListCredentialsRequestOrderByNameAsc = APIListCredentialsRequestOrderBy("name_asc")
+	ListCredentialsRequestOrderByNameAsc = ListCredentialsRequestOrderBy("name_asc")
 	// Order by name (descending alphabetical order).
-	APIListCredentialsRequestOrderByNameDesc = APIListCredentialsRequestOrderBy("name_desc")
+	ListCredentialsRequestOrderByNameDesc = ListCredentialsRequestOrderBy("name_desc")
 )
 
-func (enum APIListCredentialsRequestOrderBy) String() string {
+func (enum ListCredentialsRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "id_asc"
@@ -60,47 +60,47 @@ func (enum APIListCredentialsRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum APIListCredentialsRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum ListCredentialsRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *APIListCredentialsRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *ListCredentialsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = APIListCredentialsRequestOrderBy(APIListCredentialsRequestOrderBy(tmp).String())
+	*enum = ListCredentialsRequestOrderBy(ListCredentialsRequestOrderBy(tmp).String())
 	return nil
 }
 
-type APIListNamespacesRequestOrderBy string
+type ListNamespacesRequestOrderBy string
 
 const (
 	// Order by creation date (ascending chronological order).
-	APIListNamespacesRequestOrderByCreatedAtAsc = APIListNamespacesRequestOrderBy("created_at_asc")
+	ListNamespacesRequestOrderByCreatedAtAsc = ListNamespacesRequestOrderBy("created_at_asc")
 	// Order by creation date (descending chronological order).
-	APIListNamespacesRequestOrderByCreatedAtDesc = APIListNamespacesRequestOrderBy("created_at_desc")
+	ListNamespacesRequestOrderByCreatedAtDesc = ListNamespacesRequestOrderBy("created_at_desc")
 	// Order by last update date (ascending chronological order).
-	APIListNamespacesRequestOrderByUpdatedAtAsc = APIListNamespacesRequestOrderBy("updated_at_asc")
+	ListNamespacesRequestOrderByUpdatedAtAsc = ListNamespacesRequestOrderBy("updated_at_asc")
 	// Order by last update date (descending chronological order).
-	APIListNamespacesRequestOrderByUpdatedAtDesc = APIListNamespacesRequestOrderBy("updated_at_desc")
+	ListNamespacesRequestOrderByUpdatedAtDesc = ListNamespacesRequestOrderBy("updated_at_desc")
 	// Order by id (ascending alphabetical order).
-	APIListNamespacesRequestOrderByIDAsc = APIListNamespacesRequestOrderBy("id_asc")
+	ListNamespacesRequestOrderByIDAsc = ListNamespacesRequestOrderBy("id_asc")
 	// Order by id (descending alphabetical order).
-	APIListNamespacesRequestOrderByIDDesc = APIListNamespacesRequestOrderBy("id_desc")
+	ListNamespacesRequestOrderByIDDesc = ListNamespacesRequestOrderBy("id_desc")
 	// Order by name (ascending alphabetical order).
-	APIListNamespacesRequestOrderByNameAsc = APIListNamespacesRequestOrderBy("name_asc")
+	ListNamespacesRequestOrderByNameAsc = ListNamespacesRequestOrderBy("name_asc")
 	// Order by name (descending alphabetical order).
-	APIListNamespacesRequestOrderByNameDesc = APIListNamespacesRequestOrderBy("name_desc")
+	ListNamespacesRequestOrderByNameDesc = ListNamespacesRequestOrderBy("name_desc")
 	// Order by project_id (ascending alphabetical order).
-	APIListNamespacesRequestOrderByProjectIDAsc = APIListNamespacesRequestOrderBy("project_id_asc")
+	ListNamespacesRequestOrderByProjectIDAsc = ListNamespacesRequestOrderBy("project_id_asc")
 	// Order by project_id (descending alphabetical order).
-	APIListNamespacesRequestOrderByProjectIDDesc = APIListNamespacesRequestOrderBy("project_id_desc")
+	ListNamespacesRequestOrderByProjectIDDesc = ListNamespacesRequestOrderBy("project_id_desc")
 )
 
-func (enum APIListNamespacesRequestOrderBy) String() string {
+func (enum ListNamespacesRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -108,18 +108,18 @@ func (enum APIListNamespacesRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum APIListNamespacesRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum ListNamespacesRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *APIListNamespacesRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *ListNamespacesRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = APIListNamespacesRequestOrderBy(APIListNamespacesRequestOrderBy(tmp).String())
+	*enum = ListNamespacesRequestOrderBy(ListNamespacesRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -225,8 +225,8 @@ type Namespace struct {
 	UpdatedAt *time.Time `json:"updated_at"`
 }
 
-// APICreateCredentialRequest:
-type APICreateCredentialRequest struct {
+// CreateCredentialRequest:
+type CreateCredentialRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// NamespaceID: Namespace containing the credentials.
@@ -237,8 +237,8 @@ type APICreateCredentialRequest struct {
 	Permissions *Permissions `json:"permissions"`
 }
 
-// APICreateNamespaceRequest:
-type APICreateNamespaceRequest struct {
+// CreateNamespaceRequest:
+type CreateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Namespace name.
@@ -247,90 +247,6 @@ type APICreateNamespaceRequest struct {
 	Protocol NamespaceProtocol `json:"protocol"`
 	// ProjectID: Project containing the Namespace.
 	ProjectID string `json:"project_id"`
-}
-
-// APIDeleteCredentialRequest:
-type APIDeleteCredentialRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// CredentialID: ID of the credentials to delete.
-	CredentialID string `json:"-"`
-}
-
-// APIDeleteNamespaceRequest:
-type APIDeleteNamespaceRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// NamespaceID: ID of the namespace to delete.
-	NamespaceID string `json:"-"`
-}
-
-// APIGetCredentialRequest:
-type APIGetCredentialRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// CredentialID: ID of the credentials to get.
-	CredentialID string `json:"-"`
-}
-
-// APIGetNamespaceRequest:
-type APIGetNamespaceRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// NamespaceID: ID of the Namespace to get.
-	NamespaceID string `json:"-"`
-}
-
-// APIListCredentialsRequest:
-type APIListCredentialsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// NamespaceID: Namespace containing the credentials.
-	NamespaceID *string `json:"-"`
-	// Page: Page number to return.
-	Page *int32 `json:"-"`
-	// PageSize: Maximum number of credentials to return per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Order in which to return results.
-	OrderBy APIListCredentialsRequestOrderBy `json:"-"`
-}
-
-// APIListNamespacesRequest:
-type APIListNamespacesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// OrganizationID: Include only namespaces in this Organization.
-	OrganizationID *string `json:"-"`
-	// ProjectID: Include only namespaces in this Project.
-	ProjectID *string `json:"-"`
-	// Page: Page number to return.
-	Page *int32 `json:"-"`
-	// PageSize: Maximum number of namespaces to return per page.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Order in which to return results.
-	OrderBy APIListNamespacesRequestOrderBy `json:"-"`
-}
-
-// APIUpdateCredentialRequest:
-type APIUpdateCredentialRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// CredentialID: ID of the credentials to update.
-	CredentialID string `json:"-"`
-	// Name: Name of the credentials.
-	Name *string `json:"name,omitempty"`
-	// Permissions: Permissions associated with these credentials.
-	Permissions *Permissions `json:"permissions"`
-}
-
-// APIUpdateNamespaceRequest:
-type APIUpdateNamespaceRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// NamespaceID: ID of the Namespace to update.
-	NamespaceID string `json:"namespace_id"`
-	// Name: Namespace name.
-	Name *string `json:"name,omitempty"`
 }
 
 // Credential:
@@ -347,6 +263,52 @@ type Credential struct {
 	NatsCredentials *CredentialNATSCredsFile `json:"nats_credentials,omitempty"`
 	// SqsSnsCredentials: Object containing the credentials and their metadata, if the credentials are for an SQS/SNS namespace.
 	SqsSnsCredentials *CredentialSQSSNSCreds `json:"sqs_sns_credentials,omitempty"`
+}
+
+// DeleteCredentialRequest:
+type DeleteCredentialRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// CredentialID: ID of the credentials to delete.
+	CredentialID string `json:"-"`
+}
+
+// DeleteNamespaceRequest:
+type DeleteNamespaceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NamespaceID: ID of the namespace to delete.
+	NamespaceID string `json:"-"`
+}
+
+// GetCredentialRequest:
+type GetCredentialRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// CredentialID: ID of the credentials to get.
+	CredentialID string `json:"-"`
+}
+
+// GetNamespaceRequest:
+type GetNamespaceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NamespaceID: ID of the Namespace to get.
+	NamespaceID string `json:"-"`
+}
+
+// ListCredentialsRequest:
+type ListCredentialsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NamespaceID: Namespace containing the credentials.
+	NamespaceID *string `json:"-"`
+	// Page: Page number to return.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of credentials to return per page.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Order in which to return results.
+	OrderBy ListCredentialsRequestOrderBy `json:"-"`
 }
 
 // ListCredentialsResponse:
@@ -376,6 +338,22 @@ func (r *ListCredentialsResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.Credentials)), nil
 }
 
+// ListNamespacesRequest:
+type ListNamespacesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// OrganizationID: Include only namespaces in this Organization.
+	OrganizationID *string `json:"-"`
+	// ProjectID: Include only namespaces in this Project.
+	ProjectID *string `json:"-"`
+	// Page: Page number to return.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of namespaces to return per page.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Order in which to return results.
+	OrderBy ListNamespacesRequestOrderBy `json:"-"`
+}
+
 // ListNamespacesResponse:
 type ListNamespacesResponse struct {
 	// TotalCount: Total count of existing namespaces (matching any filters specified).
@@ -401,6 +379,28 @@ func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Namespaces = append(r.Namespaces, results.Namespaces...)
 	r.TotalCount += uint32(len(results.Namespaces))
 	return uint32(len(results.Namespaces)), nil
+}
+
+// UpdateCredentialRequest:
+type UpdateCredentialRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// CredentialID: ID of the credentials to update.
+	CredentialID string `json:"-"`
+	// Name: Name of the credentials.
+	Name *string `json:"name,omitempty"`
+	// Permissions: Permissions associated with these credentials.
+	Permissions *Permissions `json:"permissions"`
+}
+
+// UpdateNamespaceRequest:
+type UpdateNamespaceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NamespaceID: ID of the Namespace to update.
+	NamespaceID string `json:"namespace_id"`
+	// Name: Namespace name.
+	Name *string `json:"name,omitempty"`
 }
 
 // Scaleway Messaging and Queuing is a message broker tool that allows you to transfer messages between different platforms and port your microservice applications to the cloud. Messaging and Queuing offers notifications, queues, FIFOs and streams, and includes all major features of a modern message broker (such as message persistence).
@@ -600,7 +600,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // ListNamespaces: List all Messaging and Queuing namespaces in the specified region, for a Scaleway Organization or Project. By default, the namespaces returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-func (s *API) ListNamespaces(req *APIListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
+func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -638,7 +638,7 @@ func (s *API) ListNamespaces(req *APIListNamespacesRequest, opts ...scw.RequestO
 }
 
 // CreateNamespace: Create a Messaging and Queuing namespace, set to the desired protocol.
-func (s *API) CreateNamespace(req *APICreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -677,7 +677,7 @@ func (s *API) CreateNamespace(req *APICreateNamespaceRequest, opts ...scw.Reques
 }
 
 // UpdateNamespace: Update the name of a Messaging and Queuing namespace, specified by its namespace ID.
-func (s *API) UpdateNamespace(req *APIUpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -708,7 +708,7 @@ func (s *API) UpdateNamespace(req *APIUpdateNamespaceRequest, opts ...scw.Reques
 }
 
 // GetNamespace: Retrieve information about an existing Messaging and Queuing namespace, identified by its namespace ID. Its full details, including name, endpoint and protocol, are returned in the response.
-func (s *API) GetNamespace(req *APIGetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -738,7 +738,7 @@ func (s *API) GetNamespace(req *APIGetNamespaceRequest, opts ...scw.RequestOptio
 }
 
 // DeleteNamespace: Delete a Messaging and Queuing namespace, specified by its namespace ID. Note that deleting a namespace is irreversible, and any URLs, credentials and queued messages belonging to this namespace will also be deleted.
-func (s *API) DeleteNamespace(req *APIDeleteNamespaceRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -766,7 +766,7 @@ func (s *API) DeleteNamespace(req *APIDeleteNamespaceRequest, opts ...scw.Reques
 }
 
 // CreateCredential: Create a set of credentials for a Messaging and Queuing namespace, specified by its namespace ID. If creating credentials for a NATS namespace, the `permissions` object must not be included in the request. If creating credentials for an SQS/SNS namespace, the `permissions` object is required, with all three of its child attributes.
-func (s *API) CreateCredential(req *APICreateCredentialRequest, opts ...scw.RequestOption) (*Credential, error) {
+func (s *API) CreateCredential(req *CreateCredentialRequest, opts ...scw.RequestOption) (*Credential, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -801,7 +801,7 @@ func (s *API) CreateCredential(req *APICreateCredentialRequest, opts ...scw.Requ
 }
 
 // DeleteCredential: Delete a set of credentials, specified by their credential ID. Deleting credentials is irreversible and cannot be undone. The credentials can no longer be used to access the namespace.
-func (s *API) DeleteCredential(req *APIDeleteCredentialRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteCredential(req *DeleteCredentialRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -829,7 +829,7 @@ func (s *API) DeleteCredential(req *APIDeleteCredentialRequest, opts ...scw.Requ
 }
 
 // ListCredentials: List existing credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves (for this, use **Get Credentials**).
-func (s *API) ListCredentials(req *APIListCredentialsRequest, opts ...scw.RequestOption) (*ListCredentialsResponse, error) {
+func (s *API) ListCredentials(req *ListCredentialsRequest, opts ...scw.RequestOption) (*ListCredentialsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -866,7 +866,7 @@ func (s *API) ListCredentials(req *APIListCredentialsRequest, opts ...scw.Reques
 }
 
 // UpdateCredential: Update a set of credentials. You can update the credentials' name, or (in the case of SQS/SNS credentials only) their permissions. To update the name of NATS credentials, do not include the `permissions` object in your request.
-func (s *API) UpdateCredential(req *APIUpdateCredentialRequest, opts ...scw.RequestOption) (*Credential, error) {
+func (s *API) UpdateCredential(req *UpdateCredentialRequest, opts ...scw.RequestOption) (*Credential, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -901,7 +901,7 @@ func (s *API) UpdateCredential(req *APIUpdateCredentialRequest, opts ...scw.Requ
 }
 
 // GetCredential: Retrieve an existing set of credentials, identified by the `credential_id`. The credentials themselves, as well as their metadata (protocol, namespace ID etc), are returned in the response.
-func (s *API) GetCredential(req *APIGetCredentialRequest, opts ...scw.RequestOption) (*Credential, error) {
+func (s *API) GetCredential(req *GetCredentialRequest, opts ...scw.RequestOption) (*Credential, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

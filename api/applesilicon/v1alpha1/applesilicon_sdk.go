@@ -39,14 +39,14 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIListServersRequestOrderBy string
+type ListServersRequestOrderBy string
 
 const (
-	APIListServersRequestOrderByCreatedAtAsc  = APIListServersRequestOrderBy("created_at_asc")
-	APIListServersRequestOrderByCreatedAtDesc = APIListServersRequestOrderBy("created_at_desc")
+	ListServersRequestOrderByCreatedAtAsc  = ListServersRequestOrderBy("created_at_asc")
+	ListServersRequestOrderByCreatedAtDesc = ListServersRequestOrderBy("created_at_desc")
 )
 
-func (enum APIListServersRequestOrderBy) String() string {
+func (enum ListServersRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -54,18 +54,18 @@ func (enum APIListServersRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum APIListServersRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum ListServersRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *APIListServersRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *ListServersRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = APIListServersRequestOrderBy(APIListServersRequestOrderBy(tmp).String())
+	*enum = ListServersRequestOrderBy(ListServersRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -221,8 +221,8 @@ type Server struct {
 	Zone scw.Zone `json:"zone"`
 }
 
-// APICreateServerRequest:
-type APICreateServerRequest struct {
+// CreateServerRequest:
+type CreateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Create a server with this given name.
@@ -233,40 +233,40 @@ type APICreateServerRequest struct {
 	Type string `json:"type"`
 }
 
-// APIDeleteServerRequest:
-type APIDeleteServerRequest struct {
+// DeleteServerRequest:
+type DeleteServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerID: UUID of the server you want to delete.
 	ServerID string `json:"-"`
 }
 
-// APIGetOSRequest:
-type APIGetOSRequest struct {
+// GetOSRequest:
+type GetOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OsID: UUID of the OS you want to get.
 	OsID string `json:"-"`
 }
 
-// APIGetServerRequest:
-type APIGetServerRequest struct {
+// GetServerRequest:
+type GetServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerID: UUID of the server you want to get.
 	ServerID string `json:"-"`
 }
 
-// APIGetServerTypeRequest:
-type APIGetServerTypeRequest struct {
+// GetServerTypeRequest:
+type GetServerTypeRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ServerType: Server type identifier.
 	ServerType string `json:"-"`
 }
 
-// APIListOSRequest:
-type APIListOSRequest struct {
+// ListOSRequest:
+type ListOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Positive integer to choose the page to return.
@@ -277,54 +277,6 @@ type APIListOSRequest struct {
 	ServerType *string `json:"-"`
 	// Name: Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12")).
 	Name *string `json:"-"`
-}
-
-// APIListServerTypesRequest:
-type APIListServerTypesRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-}
-
-// APIListServersRequest:
-type APIListServersRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// OrderBy: Sort order of the returned servers.
-	OrderBy APIListServersRequestOrderBy `json:"-"`
-	// ProjectID: Only list servers of this project ID.
-	ProjectID *string `json:"-"`
-	// OrganizationID: Only list servers of this Organization ID.
-	OrganizationID *string `json:"-"`
-	// Page: Positive integer to choose the page to return.
-	Page *int32 `json:"-"`
-	// PageSize: Positive integer lower or equal to 100 to select the number of items to return.
-	PageSize *uint32 `json:"-"`
-}
-
-// APIRebootServerRequest:
-type APIRebootServerRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: UUID of the server you want to reboot.
-	ServerID string `json:"-"`
-}
-
-// APIReinstallServerRequest:
-type APIReinstallServerRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: UUID of the server you want to reinstall.
-	ServerID string `json:"-"`
-}
-
-// APIUpdateServerRequest:
-type APIUpdateServerRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ServerID: UUID of the server you want to update.
-	ServerID string `json:"-"`
-	// Name: Updated name for your server.
-	Name *string `json:"name,omitempty"`
 }
 
 // ListOSResponse:
@@ -354,10 +306,32 @@ func (r *ListOSResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Os)), nil
 }
 
+// ListServerTypesRequest:
+type ListServerTypesRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+}
+
 // ListServerTypesResponse:
 type ListServerTypesResponse struct {
 	// ServerTypes: Available server types.
 	ServerTypes []*ServerType `json:"server_types"`
+}
+
+// ListServersRequest:
+type ListServersRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// OrderBy: Sort order of the returned servers.
+	OrderBy ListServersRequestOrderBy `json:"-"`
+	// ProjectID: Only list servers of this project ID.
+	ProjectID *string `json:"-"`
+	// OrganizationID: Only list servers of this Organization ID.
+	OrganizationID *string `json:"-"`
+	// Page: Positive integer to choose the page to return.
+	Page *int32 `json:"-"`
+	// PageSize: Positive integer lower or equal to 100 to select the number of items to return.
+	PageSize *uint32 `json:"-"`
 }
 
 // ListServersResponse:
@@ -385,6 +359,32 @@ func (r *ListServersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Servers = append(r.Servers, results.Servers...)
 	r.TotalCount += uint32(len(results.Servers))
 	return uint32(len(results.Servers)), nil
+}
+
+// RebootServerRequest:
+type RebootServerRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: UUID of the server you want to reboot.
+	ServerID string `json:"-"`
+}
+
+// ReinstallServerRequest:
+type ReinstallServerRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: UUID of the server you want to reinstall.
+	ServerID string `json:"-"`
+}
+
+// UpdateServerRequest:
+type UpdateServerRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ServerID: UUID of the server you want to update.
+	ServerID string `json:"-"`
+	// Name: Updated name for your server.
+	Name *string `json:"name,omitempty"`
 }
 
 // Scaleway Apple silicon is built using Apple's fifth generation Mac mini hardware. Powered by Apple’s M1 silicon and equipped with a 256 GB SSD and 8 GB of RAM, it's designed for towering performance and revolutionary power efficiency. The M1 chip has an Apple Silicon processor: a powerful 8-core CPU running at up to 3.2 GHz.
@@ -525,7 +525,7 @@ func (s *API) Zones() []scw.Zone {
 }
 
 // ListServerTypes: List all technical details about Apple silicon server types available in the specified zone. Since there is only one Availability Zone for Apple silicon servers, the targeted value is `fr-par-3`.
-func (s *API) ListServerTypes(req *APIListServerTypesRequest, opts ...scw.RequestOption) (*ListServerTypesResponse, error) {
+func (s *API) ListServerTypes(req *ListServerTypesRequest, opts ...scw.RequestOption) (*ListServerTypesResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -551,7 +551,7 @@ func (s *API) ListServerTypes(req *APIListServerTypesRequest, opts ...scw.Reques
 }
 
 // GetServerType: Get technical details (CPU, disk size etc.) of a server type.
-func (s *API) GetServerType(req *APIGetServerTypeRequest, opts ...scw.RequestOption) (*ServerType, error) {
+func (s *API) GetServerType(req *GetServerTypeRequest, opts ...scw.RequestOption) (*ServerType, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -581,7 +581,7 @@ func (s *API) GetServerType(req *APIGetServerTypeRequest, opts ...scw.RequestOpt
 }
 
 // CreateServer: Create a new server in the targeted zone, specifying its configuration including name and type.
-func (s *API) CreateServer(req *APICreateServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) CreateServer(req *CreateServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -620,7 +620,7 @@ func (s *API) CreateServer(req *APICreateServerRequest, opts ...scw.RequestOptio
 }
 
 // ListServers: List all servers in the specified zone. By default, returned servers in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-func (s *API) ListServers(req *APIListServersRequest, opts ...scw.RequestOption) (*ListServersResponse, error) {
+func (s *API) ListServers(req *ListServersRequest, opts ...scw.RequestOption) (*ListServersResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -658,7 +658,7 @@ func (s *API) ListServers(req *APIListServersRequest, opts ...scw.RequestOption)
 }
 
 // ListOS: List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
-func (s *API) ListOS(req *APIListOSRequest, opts ...scw.RequestOption) (*ListOSResponse, error) {
+func (s *API) ListOS(req *ListOSRequest, opts ...scw.RequestOption) (*ListOSResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -695,7 +695,7 @@ func (s *API) ListOS(req *APIListOSRequest, opts ...scw.RequestOption) (*ListOSR
 }
 
 // GetOS: Get an Operating System (OS).  The response will include the OS's unique ID as well as its name and label.
-func (s *API) GetOS(req *APIGetOSRequest, opts ...scw.RequestOption) (*OS, error) {
+func (s *API) GetOS(req *GetOSRequest, opts ...scw.RequestOption) (*OS, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -725,7 +725,7 @@ func (s *API) GetOS(req *APIGetOSRequest, opts ...scw.RequestOption) (*OS, error
 }
 
 // GetServer: Retrieve information about an existing Apple silicon server, specified by its server ID. Its full details, including name, status and IP address, are returned in the response object.
-func (s *API) GetServer(req *APIGetServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) GetServer(req *GetServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -755,7 +755,7 @@ func (s *API) GetServer(req *APIGetServerRequest, opts ...scw.RequestOption) (*S
 }
 
 // UpdateServer: Update the parameters of an existing Apple silicon server, specified by its server ID.
-func (s *API) UpdateServer(req *APIUpdateServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) UpdateServer(req *UpdateServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -790,7 +790,7 @@ func (s *API) UpdateServer(req *APIUpdateServerRequest, opts ...scw.RequestOptio
 }
 
 // DeleteServer: Delete an existing Apple silicon server, specified by its server ID. Deleting a server is permanent, and cannot be undone. Note that the minimum allocation period for Apple silicon-as-a-service is 24 hours, meaning you cannot delete your server prior to that.
-func (s *API) DeleteServer(req *APIDeleteServerRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteServer(req *DeleteServerRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -818,7 +818,7 @@ func (s *API) DeleteServer(req *APIDeleteServerRequest, opts ...scw.RequestOptio
 }
 
 // RebootServer: Reboot an existing Apple silicon server, specified by its server ID.
-func (s *API) RebootServer(req *APIRebootServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) RebootServer(req *RebootServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -853,7 +853,7 @@ func (s *API) RebootServer(req *APIRebootServerRequest, opts ...scw.RequestOptio
 }
 
 // ReinstallServer: Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the defailt configuration values of the image (OS).
-func (s *API) ReinstallServer(req *APIReinstallServerRequest, opts ...scw.RequestOption) (*Server, error) {
+func (s *API) ReinstallServer(req *ReinstallServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()

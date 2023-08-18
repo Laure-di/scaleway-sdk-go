@@ -39,18 +39,18 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIListIPsRequestOrderBy string
+type ListIPsRequestOrderBy string
 
 const (
-	APIListIPsRequestOrderByCreatedAtDesc  = APIListIPsRequestOrderBy("created_at_desc")
-	APIListIPsRequestOrderByCreatedAtAsc   = APIListIPsRequestOrderBy("created_at_asc")
-	APIListIPsRequestOrderByUpdatedAtDesc  = APIListIPsRequestOrderBy("updated_at_desc")
-	APIListIPsRequestOrderByUpdatedAtAsc   = APIListIPsRequestOrderBy("updated_at_asc")
-	APIListIPsRequestOrderByAttachedAtDesc = APIListIPsRequestOrderBy("attached_at_desc")
-	APIListIPsRequestOrderByAttachedAtAsc  = APIListIPsRequestOrderBy("attached_at_asc")
+	ListIPsRequestOrderByCreatedAtDesc  = ListIPsRequestOrderBy("created_at_desc")
+	ListIPsRequestOrderByCreatedAtAsc   = ListIPsRequestOrderBy("created_at_asc")
+	ListIPsRequestOrderByUpdatedAtDesc  = ListIPsRequestOrderBy("updated_at_desc")
+	ListIPsRequestOrderByUpdatedAtAsc   = ListIPsRequestOrderBy("updated_at_asc")
+	ListIPsRequestOrderByAttachedAtDesc = ListIPsRequestOrderBy("attached_at_desc")
+	ListIPsRequestOrderByAttachedAtAsc  = ListIPsRequestOrderBy("attached_at_asc")
 )
 
-func (enum APIListIPsRequestOrderBy) String() string {
+func (enum ListIPsRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_desc"
@@ -58,18 +58,18 @@ func (enum APIListIPsRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum APIListIPsRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum ListIPsRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *APIListIPsRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *ListIPsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = APIListIPsRequestOrderBy(APIListIPsRequestOrderBy(tmp).String())
+	*enum = ListIPsRequestOrderBy(ListIPsRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -172,8 +172,8 @@ type IP struct {
 	Zone *scw.Zone `json:"zone"`
 }
 
-// APIListIPsRequest:
-type APIListIPsRequest struct {
+// ListIPsRequest:
+type ListIPsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page:
@@ -181,7 +181,7 @@ type APIListIPsRequest struct {
 	// PageSize:
 	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy APIListIPsRequestOrderBy `json:"-"`
+	OrderBy ListIPsRequestOrderBy `json:"-"`
 	// ProjectID:
 	ProjectID *string `json:"-"`
 	// OrganizationID:
@@ -259,7 +259,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // ListIPs: Find IP addresses.
-func (s *API) ListIPs(req *APIListIPsRequest, opts ...scw.RequestOption) (*ListIPsResponse, error) {
+func (s *API) ListIPs(req *ListIPsRequest, opts ...scw.RequestOption) (*ListIPsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

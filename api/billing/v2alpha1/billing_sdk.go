@@ -39,13 +39,13 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIDownloadInvoiceRequestFileType string
+type DownloadInvoiceRequestFileType string
 
 const (
-	APIDownloadInvoiceRequestFileTypePdf = APIDownloadInvoiceRequestFileType("pdf")
+	DownloadInvoiceRequestFileTypePdf = DownloadInvoiceRequestFileType("pdf")
 )
 
-func (enum APIDownloadInvoiceRequestFileType) String() string {
+func (enum DownloadInvoiceRequestFileType) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "pdf"
@@ -53,60 +53,18 @@ func (enum APIDownloadInvoiceRequestFileType) String() string {
 	return string(enum)
 }
 
-func (enum APIDownloadInvoiceRequestFileType) MarshalJSON() ([]byte, error) {
+func (enum DownloadInvoiceRequestFileType) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *APIDownloadInvoiceRequestFileType) UnmarshalJSON(data []byte) error {
+func (enum *DownloadInvoiceRequestFileType) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = APIDownloadInvoiceRequestFileType(APIDownloadInvoiceRequestFileType(tmp).String())
-	return nil
-}
-
-type APIListInvoicesRequestOrderBy string
-
-const (
-	APIListInvoicesRequestOrderByInvoiceNumberDesc = APIListInvoicesRequestOrderBy("invoice_number_desc")
-	APIListInvoicesRequestOrderByInvoiceNumberAsc  = APIListInvoicesRequestOrderBy("invoice_number_asc")
-	APIListInvoicesRequestOrderByStartDateDesc     = APIListInvoicesRequestOrderBy("start_date_desc")
-	APIListInvoicesRequestOrderByStartDateAsc      = APIListInvoicesRequestOrderBy("start_date_asc")
-	APIListInvoicesRequestOrderByIssuedDateDesc    = APIListInvoicesRequestOrderBy("issued_date_desc")
-	APIListInvoicesRequestOrderByIssuedDateAsc     = APIListInvoicesRequestOrderBy("issued_date_asc")
-	APIListInvoicesRequestOrderByDueDateDesc       = APIListInvoicesRequestOrderBy("due_date_desc")
-	APIListInvoicesRequestOrderByDueDateAsc        = APIListInvoicesRequestOrderBy("due_date_asc")
-	APIListInvoicesRequestOrderByTotalUntaxedDesc  = APIListInvoicesRequestOrderBy("total_untaxed_desc")
-	APIListInvoicesRequestOrderByTotalUntaxedAsc   = APIListInvoicesRequestOrderBy("total_untaxed_asc")
-	APIListInvoicesRequestOrderByTotalTaxedDesc    = APIListInvoicesRequestOrderBy("total_taxed_desc")
-	APIListInvoicesRequestOrderByTotalTaxedAsc     = APIListInvoicesRequestOrderBy("total_taxed_asc")
-	APIListInvoicesRequestOrderByInvoiceTypeDesc   = APIListInvoicesRequestOrderBy("invoice_type_desc")
-	APIListInvoicesRequestOrderByInvoiceTypeAsc    = APIListInvoicesRequestOrderBy("invoice_type_asc")
-)
-
-func (enum APIListInvoicesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "invoice_number_desc"
-	}
-	return string(enum)
-}
-
-func (enum APIListInvoicesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListInvoicesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListInvoicesRequestOrderBy(APIListInvoicesRequestOrderBy(tmp).String())
+	*enum = DownloadInvoiceRequestFileType(DownloadInvoiceRequestFileType(tmp).String())
 	return nil
 }
 
@@ -138,6 +96,48 @@ func (enum *InvoiceType) UnmarshalJSON(data []byte) error {
 	}
 
 	*enum = InvoiceType(InvoiceType(tmp).String())
+	return nil
+}
+
+type ListInvoicesRequestOrderBy string
+
+const (
+	ListInvoicesRequestOrderByInvoiceNumberDesc = ListInvoicesRequestOrderBy("invoice_number_desc")
+	ListInvoicesRequestOrderByInvoiceNumberAsc  = ListInvoicesRequestOrderBy("invoice_number_asc")
+	ListInvoicesRequestOrderByStartDateDesc     = ListInvoicesRequestOrderBy("start_date_desc")
+	ListInvoicesRequestOrderByStartDateAsc      = ListInvoicesRequestOrderBy("start_date_asc")
+	ListInvoicesRequestOrderByIssuedDateDesc    = ListInvoicesRequestOrderBy("issued_date_desc")
+	ListInvoicesRequestOrderByIssuedDateAsc     = ListInvoicesRequestOrderBy("issued_date_asc")
+	ListInvoicesRequestOrderByDueDateDesc       = ListInvoicesRequestOrderBy("due_date_desc")
+	ListInvoicesRequestOrderByDueDateAsc        = ListInvoicesRequestOrderBy("due_date_asc")
+	ListInvoicesRequestOrderByTotalUntaxedDesc  = ListInvoicesRequestOrderBy("total_untaxed_desc")
+	ListInvoicesRequestOrderByTotalUntaxedAsc   = ListInvoicesRequestOrderBy("total_untaxed_asc")
+	ListInvoicesRequestOrderByTotalTaxedDesc    = ListInvoicesRequestOrderBy("total_taxed_desc")
+	ListInvoicesRequestOrderByTotalTaxedAsc     = ListInvoicesRequestOrderBy("total_taxed_asc")
+	ListInvoicesRequestOrderByInvoiceTypeDesc   = ListInvoicesRequestOrderBy("invoice_type_desc")
+	ListInvoicesRequestOrderByInvoiceTypeAsc    = ListInvoicesRequestOrderBy("invoice_type_asc")
+)
+
+func (enum ListInvoicesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "invoice_number_desc"
+	}
+	return string(enum)
+}
+
+func (enum ListInvoicesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListInvoicesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListInvoicesRequestOrderBy(ListInvoicesRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -175,22 +175,30 @@ type Invoice struct {
 	Number int32 `json:"number"`
 }
 
-// APIDownloadInvoiceRequest:
-type APIDownloadInvoiceRequest struct {
+// DownloadInvoiceRequest:
+type DownloadInvoiceRequest struct {
 	// InvoiceID: Invoice ID.
 	InvoiceID string `json:"-"`
 	// FileType: Wanted file type.
-	FileType APIDownloadInvoiceRequestFileType `json:"-"`
+	FileType DownloadInvoiceRequestFileType `json:"-"`
 }
 
-// APIGetConsumptionRequest:
-type APIGetConsumptionRequest struct {
+// GetConsumptionRequest:
+type GetConsumptionRequest struct {
 	// OrganizationID: Filter by organization ID.
 	OrganizationID string `json:"-"`
 }
 
-// APIListInvoicesRequest:
-type APIListInvoicesRequest struct {
+// GetConsumptionResponse:
+type GetConsumptionResponse struct {
+	// Consumptions: Detailed consumption list.
+	Consumptions []*GetConsumptionResponseConsumption `json:"consumptions"`
+	// UpdatedAt: Last consumption update date.
+	UpdatedAt *time.Time `json:"updated_at"`
+}
+
+// ListInvoicesRequest:
+type ListInvoicesRequest struct {
 	// OrganizationID: Organization ID to filter for, only invoices from this Organization will be returned.
 	OrganizationID *string `json:"-"`
 	// StartedAfter: Invoice's `start_date` is greater or equal to `started_after`.
@@ -204,15 +212,7 @@ type APIListInvoicesRequest struct {
 	// PageSize: Positive integer lower or equal to 100 to select the number of items to return.
 	PageSize *uint32 `json:"-"`
 	// OrderBy: How invoices are ordered in the response.
-	OrderBy APIListInvoicesRequestOrderBy `json:"-"`
-}
-
-// GetConsumptionResponse:
-type GetConsumptionResponse struct {
-	// Consumptions: Detailed consumption list.
-	Consumptions []*GetConsumptionResponseConsumption `json:"consumptions"`
-	// UpdatedAt: Last consumption update date.
-	UpdatedAt *time.Time `json:"updated_at"`
+	OrderBy ListInvoicesRequestOrderBy `json:"-"`
 }
 
 // ListInvoicesResponse:
@@ -368,7 +368,7 @@ func NewAPI(client *scw.Client) *API {
 
 // GetConsumption: The consumption reflects the amount of money you have spent for the products you have used.
 // The consumption value is monetary and is not computed in real time.
-func (s *API) GetConsumption(req *APIGetConsumptionRequest, opts ...scw.RequestOption) (*GetConsumptionResponse, error) {
+func (s *API) GetConsumption(req *GetConsumptionRequest, opts ...scw.RequestOption) (*GetConsumptionResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -390,7 +390,7 @@ func (s *API) GetConsumption(req *APIGetConsumptionRequest, opts ...scw.RequestO
 }
 
 // ListInvoices: List all your invoices, filtering by `start_date` and `invoice_type`. Each invoice has its own ID.
-func (s *API) ListInvoices(req *APIListInvoicesRequest, opts ...scw.RequestOption) (*ListInvoicesResponse, error) {
+func (s *API) ListInvoices(req *ListInvoicesRequest, opts ...scw.RequestOption) (*ListInvoicesResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -418,7 +418,7 @@ func (s *API) ListInvoices(req *APIListInvoicesRequest, opts ...scw.RequestOptio
 }
 
 // DownloadInvoice: Download a specific invoice, specified by its ID.
-func (s *API) DownloadInvoice(req *APIDownloadInvoiceRequest, opts ...scw.RequestOption) (*scw.File, error) {
+func (s *API) DownloadInvoice(req *DownloadInvoiceRequest, opts ...scw.RequestOption) (*scw.File, error) {
 	var err error
 
 	query := url.Values{}

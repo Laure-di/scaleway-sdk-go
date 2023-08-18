@@ -130,235 +130,6 @@ func (enum *ACLRuleProtocol) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type APIListDatabaseBackupsRequestOrderBy string
-
-const (
-	APIListDatabaseBackupsRequestOrderByCreatedAtAsc  = APIListDatabaseBackupsRequestOrderBy("created_at_asc")
-	APIListDatabaseBackupsRequestOrderByCreatedAtDesc = APIListDatabaseBackupsRequestOrderBy("created_at_desc")
-	APIListDatabaseBackupsRequestOrderByNameAsc       = APIListDatabaseBackupsRequestOrderBy("name_asc")
-	APIListDatabaseBackupsRequestOrderByNameDesc      = APIListDatabaseBackupsRequestOrderBy("name_desc")
-	APIListDatabaseBackupsRequestOrderByStatusAsc     = APIListDatabaseBackupsRequestOrderBy("status_asc")
-	APIListDatabaseBackupsRequestOrderByStatusDesc    = APIListDatabaseBackupsRequestOrderBy("status_desc")
-)
-
-func (enum APIListDatabaseBackupsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListDatabaseBackupsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListDatabaseBackupsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListDatabaseBackupsRequestOrderBy(APIListDatabaseBackupsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListDatabasesRequestOrderBy string
-
-const (
-	APIListDatabasesRequestOrderByNameAsc  = APIListDatabasesRequestOrderBy("name_asc")
-	APIListDatabasesRequestOrderByNameDesc = APIListDatabasesRequestOrderBy("name_desc")
-	APIListDatabasesRequestOrderBySizeAsc  = APIListDatabasesRequestOrderBy("size_asc")
-	APIListDatabasesRequestOrderBySizeDesc = APIListDatabasesRequestOrderBy("size_desc")
-)
-
-func (enum APIListDatabasesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListDatabasesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListDatabasesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListDatabasesRequestOrderBy(APIListDatabasesRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListInstanceLogsRequestOrderBy string
-
-const (
-	APIListInstanceLogsRequestOrderByCreatedAtAsc  = APIListInstanceLogsRequestOrderBy("created_at_asc")
-	APIListInstanceLogsRequestOrderByCreatedAtDesc = APIListInstanceLogsRequestOrderBy("created_at_desc")
-)
-
-func (enum APIListInstanceLogsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListInstanceLogsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListInstanceLogsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListInstanceLogsRequestOrderBy(APIListInstanceLogsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListInstancesRequestOrderBy string
-
-const (
-	APIListInstancesRequestOrderByCreatedAtAsc  = APIListInstancesRequestOrderBy("created_at_asc")
-	APIListInstancesRequestOrderByCreatedAtDesc = APIListInstancesRequestOrderBy("created_at_desc")
-	APIListInstancesRequestOrderByNameAsc       = APIListInstancesRequestOrderBy("name_asc")
-	APIListInstancesRequestOrderByNameDesc      = APIListInstancesRequestOrderBy("name_desc")
-	APIListInstancesRequestOrderByRegion        = APIListInstancesRequestOrderBy("region")
-	APIListInstancesRequestOrderByStatusAsc     = APIListInstancesRequestOrderBy("status_asc")
-	APIListInstancesRequestOrderByStatusDesc    = APIListInstancesRequestOrderBy("status_desc")
-)
-
-func (enum APIListInstancesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListInstancesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListInstancesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListInstancesRequestOrderBy(APIListInstancesRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListPrivilegesRequestOrderBy string
-
-const (
-	APIListPrivilegesRequestOrderByUserNameAsc      = APIListPrivilegesRequestOrderBy("user_name_asc")
-	APIListPrivilegesRequestOrderByUserNameDesc     = APIListPrivilegesRequestOrderBy("user_name_desc")
-	APIListPrivilegesRequestOrderByDatabaseNameAsc  = APIListPrivilegesRequestOrderBy("database_name_asc")
-	APIListPrivilegesRequestOrderByDatabaseNameDesc = APIListPrivilegesRequestOrderBy("database_name_desc")
-)
-
-func (enum APIListPrivilegesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "user_name_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListPrivilegesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListPrivilegesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListPrivilegesRequestOrderBy(APIListPrivilegesRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListSnapshotsRequestOrderBy string
-
-const (
-	APIListSnapshotsRequestOrderByCreatedAtAsc  = APIListSnapshotsRequestOrderBy("created_at_asc")
-	APIListSnapshotsRequestOrderByCreatedAtDesc = APIListSnapshotsRequestOrderBy("created_at_desc")
-	APIListSnapshotsRequestOrderByNameAsc       = APIListSnapshotsRequestOrderBy("name_asc")
-	APIListSnapshotsRequestOrderByNameDesc      = APIListSnapshotsRequestOrderBy("name_desc")
-	APIListSnapshotsRequestOrderByExpiresAtAsc  = APIListSnapshotsRequestOrderBy("expires_at_asc")
-	APIListSnapshotsRequestOrderByExpiresAtDesc = APIListSnapshotsRequestOrderBy("expires_at_desc")
-)
-
-func (enum APIListSnapshotsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListSnapshotsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListSnapshotsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListSnapshotsRequestOrderBy(APIListSnapshotsRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListUsersRequestOrderBy string
-
-const (
-	APIListUsersRequestOrderByNameAsc     = APIListUsersRequestOrderBy("name_asc")
-	APIListUsersRequestOrderByNameDesc    = APIListUsersRequestOrderBy("name_desc")
-	APIListUsersRequestOrderByIsAdminAsc  = APIListUsersRequestOrderBy("is_admin_asc")
-	APIListUsersRequestOrderByIsAdminDesc = APIListUsersRequestOrderBy("is_admin_desc")
-)
-
-func (enum APIListUsersRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListUsersRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListUsersRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListUsersRequestOrderBy(APIListUsersRequestOrderBy(tmp).String())
-	return nil
-}
-
 type DatabaseBackupStatus string
 
 const (
@@ -497,6 +268,235 @@ func (enum *InstanceStatus) UnmarshalJSON(data []byte) error {
 	}
 
 	*enum = InstanceStatus(InstanceStatus(tmp).String())
+	return nil
+}
+
+type ListDatabaseBackupsRequestOrderBy string
+
+const (
+	ListDatabaseBackupsRequestOrderByCreatedAtAsc  = ListDatabaseBackupsRequestOrderBy("created_at_asc")
+	ListDatabaseBackupsRequestOrderByCreatedAtDesc = ListDatabaseBackupsRequestOrderBy("created_at_desc")
+	ListDatabaseBackupsRequestOrderByNameAsc       = ListDatabaseBackupsRequestOrderBy("name_asc")
+	ListDatabaseBackupsRequestOrderByNameDesc      = ListDatabaseBackupsRequestOrderBy("name_desc")
+	ListDatabaseBackupsRequestOrderByStatusAsc     = ListDatabaseBackupsRequestOrderBy("status_asc")
+	ListDatabaseBackupsRequestOrderByStatusDesc    = ListDatabaseBackupsRequestOrderBy("status_desc")
+)
+
+func (enum ListDatabaseBackupsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListDatabaseBackupsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListDatabaseBackupsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListDatabaseBackupsRequestOrderBy(ListDatabaseBackupsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListDatabasesRequestOrderBy string
+
+const (
+	ListDatabasesRequestOrderByNameAsc  = ListDatabasesRequestOrderBy("name_asc")
+	ListDatabasesRequestOrderByNameDesc = ListDatabasesRequestOrderBy("name_desc")
+	ListDatabasesRequestOrderBySizeAsc  = ListDatabasesRequestOrderBy("size_asc")
+	ListDatabasesRequestOrderBySizeDesc = ListDatabasesRequestOrderBy("size_desc")
+)
+
+func (enum ListDatabasesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListDatabasesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListDatabasesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListDatabasesRequestOrderBy(ListDatabasesRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListInstanceLogsRequestOrderBy string
+
+const (
+	ListInstanceLogsRequestOrderByCreatedAtAsc  = ListInstanceLogsRequestOrderBy("created_at_asc")
+	ListInstanceLogsRequestOrderByCreatedAtDesc = ListInstanceLogsRequestOrderBy("created_at_desc")
+)
+
+func (enum ListInstanceLogsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListInstanceLogsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListInstanceLogsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListInstanceLogsRequestOrderBy(ListInstanceLogsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListInstancesRequestOrderBy string
+
+const (
+	ListInstancesRequestOrderByCreatedAtAsc  = ListInstancesRequestOrderBy("created_at_asc")
+	ListInstancesRequestOrderByCreatedAtDesc = ListInstancesRequestOrderBy("created_at_desc")
+	ListInstancesRequestOrderByNameAsc       = ListInstancesRequestOrderBy("name_asc")
+	ListInstancesRequestOrderByNameDesc      = ListInstancesRequestOrderBy("name_desc")
+	ListInstancesRequestOrderByRegion        = ListInstancesRequestOrderBy("region")
+	ListInstancesRequestOrderByStatusAsc     = ListInstancesRequestOrderBy("status_asc")
+	ListInstancesRequestOrderByStatusDesc    = ListInstancesRequestOrderBy("status_desc")
+)
+
+func (enum ListInstancesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListInstancesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListInstancesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListInstancesRequestOrderBy(ListInstancesRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListPrivilegesRequestOrderBy string
+
+const (
+	ListPrivilegesRequestOrderByUserNameAsc      = ListPrivilegesRequestOrderBy("user_name_asc")
+	ListPrivilegesRequestOrderByUserNameDesc     = ListPrivilegesRequestOrderBy("user_name_desc")
+	ListPrivilegesRequestOrderByDatabaseNameAsc  = ListPrivilegesRequestOrderBy("database_name_asc")
+	ListPrivilegesRequestOrderByDatabaseNameDesc = ListPrivilegesRequestOrderBy("database_name_desc")
+)
+
+func (enum ListPrivilegesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "user_name_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListPrivilegesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListPrivilegesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListPrivilegesRequestOrderBy(ListPrivilegesRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListSnapshotsRequestOrderBy string
+
+const (
+	ListSnapshotsRequestOrderByCreatedAtAsc  = ListSnapshotsRequestOrderBy("created_at_asc")
+	ListSnapshotsRequestOrderByCreatedAtDesc = ListSnapshotsRequestOrderBy("created_at_desc")
+	ListSnapshotsRequestOrderByNameAsc       = ListSnapshotsRequestOrderBy("name_asc")
+	ListSnapshotsRequestOrderByNameDesc      = ListSnapshotsRequestOrderBy("name_desc")
+	ListSnapshotsRequestOrderByExpiresAtAsc  = ListSnapshotsRequestOrderBy("expires_at_asc")
+	ListSnapshotsRequestOrderByExpiresAtDesc = ListSnapshotsRequestOrderBy("expires_at_desc")
+)
+
+func (enum ListSnapshotsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListSnapshotsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListSnapshotsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListSnapshotsRequestOrderBy(ListSnapshotsRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListUsersRequestOrderBy string
+
+const (
+	ListUsersRequestOrderByNameAsc     = ListUsersRequestOrderBy("name_asc")
+	ListUsersRequestOrderByNameDesc    = ListUsersRequestOrderBy("name_desc")
+	ListUsersRequestOrderByIsAdminAsc  = ListUsersRequestOrderBy("is_admin_asc")
+	ListUsersRequestOrderByIsAdminDesc = ListUsersRequestOrderBy("is_admin_desc")
+)
+
+func (enum ListUsersRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListUsersRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListUsersRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListUsersRequestOrderBy(ListUsersRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -954,22 +954,6 @@ type ACLRuleRequest struct {
 	Description string `json:"description"`
 }
 
-// EndpointSpec:
-type EndpointSpec struct {
-	// LoadBalancer: Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance.
-	LoadBalancer *EndpointSpecLoadBalancer `json:"load_balancer,omitempty"`
-	// PrivateNetwork: Private Network endpoint specifications. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
-	PrivateNetwork *EndpointSpecPrivateNetwork `json:"private_network,omitempty"`
-}
-
-// ReadReplicaEndpointSpec:
-type ReadReplicaEndpointSpec struct {
-	// DirectAccess: Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica.
-	DirectAccess *ReadReplicaEndpointSpecDirectAccess `json:"direct_access,omitempty"`
-	// PrivateNetwork: Private Network endpoint specifications. One at the most per Read Replica. Cannot be updated (has to be deleted and recreated).
-	PrivateNetwork *ReadReplicaEndpointSpecPrivateNetwork `json:"private_network,omitempty"`
-}
-
 // ACLRule:
 type ACLRule struct {
 	// IP:
@@ -984,6 +968,22 @@ type ACLRule struct {
 	Action ACLRuleAction `json:"action"`
 	// Description:
 	Description string `json:"description"`
+}
+
+// EndpointSpec:
+type EndpointSpec struct {
+	// LoadBalancer: Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance.
+	LoadBalancer *EndpointSpecLoadBalancer `json:"load_balancer,omitempty"`
+	// PrivateNetwork: Private Network endpoint specifications. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
+	PrivateNetwork *EndpointSpecPrivateNetwork `json:"private_network,omitempty"`
+}
+
+// ReadReplicaEndpointSpec:
+type ReadReplicaEndpointSpec struct {
+	// DirectAccess: Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica.
+	DirectAccess *ReadReplicaEndpointSpecDirectAccess `json:"direct_access,omitempty"`
+	// PrivateNetwork: Private Network endpoint specifications. One at the most per Read Replica. Cannot be updated (has to be deleted and recreated).
+	PrivateNetwork *ReadReplicaEndpointSpecPrivateNetwork `json:"private_network,omitempty"`
 }
 
 // DatabaseBackup:
@@ -1192,8 +1192,8 @@ type User struct {
 	IsAdmin bool `json:"is_admin"`
 }
 
-// APIAddInstanceACLRulesRequest:
-type APIAddInstanceACLRulesRequest struct {
+// AddInstanceACLRulesRequest:
+type AddInstanceACLRulesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance you want to add ACL rules to.
@@ -1202,8 +1202,14 @@ type APIAddInstanceACLRulesRequest struct {
 	Rules []*ACLRuleRequest `json:"rules"`
 }
 
-// APIAddInstanceSettingsRequest:
-type APIAddInstanceSettingsRequest struct {
+// AddInstanceACLRulesResponse:
+type AddInstanceACLRulesResponse struct {
+	// Rules: ACL Rules enabled for the Database Instance.
+	Rules []*ACLRule `json:"rules"`
+}
+
+// AddInstanceSettingsRequest:
+type AddInstanceSettingsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance you want to add settings to.
@@ -1212,8 +1218,14 @@ type APIAddInstanceSettingsRequest struct {
 	Settings []*InstanceSetting `json:"settings"`
 }
 
-// APICloneInstanceRequest:
-type APICloneInstanceRequest struct {
+// AddInstanceSettingsResponse:
+type AddInstanceSettingsResponse struct {
+	// Settings: Settings available on the Database Instance.
+	Settings []*InstanceSetting `json:"settings"`
+}
+
+// CloneInstanceRequest:
+type CloneInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance you want to clone.
@@ -1224,8 +1236,8 @@ type APICloneInstanceRequest struct {
 	NodeType *string `json:"node_type,omitempty"`
 }
 
-// APICreateDatabaseBackupRequest:
-type APICreateDatabaseBackupRequest struct {
+// CreateDatabaseBackupRequest:
+type CreateDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance.
@@ -1238,8 +1250,8 @@ type APICreateDatabaseBackupRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
-// APICreateDatabaseRequest:
-type APICreateDatabaseRequest struct {
+// CreateDatabaseRequest:
+type CreateDatabaseRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance where to create the database.
@@ -1248,8 +1260,8 @@ type APICreateDatabaseRequest struct {
 	Name string `json:"name"`
 }
 
-// APICreateEndpointRequest:
-type APICreateEndpointRequest struct {
+// CreateEndpointRequest:
+type CreateEndpointRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance you to which you want to add an endpoint.
@@ -1258,8 +1270,8 @@ type APICreateEndpointRequest struct {
 	EndpointSpec *EndpointSpec `json:"endpoint_spec"`
 }
 
-// APICreateInstanceFromSnapshotRequest:
-type APICreateInstanceFromSnapshotRequest struct {
+// CreateInstanceFromSnapshotRequest:
+type CreateInstanceFromSnapshotRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SnapshotID: Block snapshot of the Database Instance.
@@ -1272,8 +1284,8 @@ type APICreateInstanceFromSnapshotRequest struct {
 	NodeType *string `json:"node_type,omitempty"`
 }
 
-// APICreateInstanceRequest:
-type APICreateInstanceRequest struct {
+// CreateInstanceRequest:
+type CreateInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Deprecated: OrganizationID: Please use project_id instead.
@@ -1308,8 +1320,8 @@ type APICreateInstanceRequest struct {
 	BackupSameRegion bool `json:"backup_same_region"`
 }
 
-// APICreateReadReplicaEndpointRequest:
-type APICreateReadReplicaEndpointRequest struct {
+// CreateReadReplicaEndpointRequest:
+type CreateReadReplicaEndpointRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ReadReplicaID: UUID of the Read Replica.
@@ -1318,8 +1330,8 @@ type APICreateReadReplicaEndpointRequest struct {
 	EndpointSpec []*ReadReplicaEndpointSpec `json:"endpoint_spec"`
 }
 
-// APICreateReadReplicaRequest:
-type APICreateReadReplicaRequest struct {
+// CreateReadReplicaRequest:
+type CreateReadReplicaRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance you want to create a Read Replica from.
@@ -1330,8 +1342,8 @@ type APICreateReadReplicaRequest struct {
 	SameZone *bool `json:"same_zone,omitempty"`
 }
 
-// APICreateSnapshotRequest:
-type APICreateSnapshotRequest struct {
+// CreateSnapshotRequest:
+type CreateSnapshotRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance.
@@ -1342,8 +1354,8 @@ type APICreateSnapshotRequest struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
-// APICreateUserRequest:
-type APICreateUserRequest struct {
+// CreateUserRequest:
+type CreateUserRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance in which you want to create a user.
@@ -1356,16 +1368,16 @@ type APICreateUserRequest struct {
 	IsAdmin bool `json:"is_admin"`
 }
 
-// APIDeleteDatabaseBackupRequest:
-type APIDeleteDatabaseBackupRequest struct {
+// DeleteDatabaseBackupRequest:
+type DeleteDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DatabaseBackupID: UUID of the database backup to delete.
 	DatabaseBackupID string `json:"-"`
 }
 
-// APIDeleteDatabaseRequest:
-type APIDeleteDatabaseRequest struct {
+// DeleteDatabaseRequest:
+type DeleteDatabaseRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance where to delete the database.
@@ -1374,16 +1386,16 @@ type APIDeleteDatabaseRequest struct {
 	Name string `json:"-"`
 }
 
-// APIDeleteEndpointRequest:
-type APIDeleteEndpointRequest struct {
+// DeleteEndpointRequest:
+type DeleteEndpointRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// EndpointID: This endpoint can also be used to delete a Read Replica endpoint.
 	EndpointID string `json:"-"`
 }
 
-// APIDeleteInstanceACLRulesRequest:
-type APIDeleteInstanceACLRulesRequest struct {
+// DeleteInstanceACLRulesRequest:
+type DeleteInstanceACLRulesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance you want to delete an ACL rule from.
@@ -1392,16 +1404,22 @@ type APIDeleteInstanceACLRulesRequest struct {
 	ACLRuleIPs []string `json:"acl_rule_ips"`
 }
 
-// APIDeleteInstanceRequest:
-type APIDeleteInstanceRequest struct {
+// DeleteInstanceACLRulesResponse:
+type DeleteInstanceACLRulesResponse struct {
+	// Rules: IP addresses defined in the ACL rules of the Database Instance.
+	Rules []*ACLRule `json:"rules"`
+}
+
+// DeleteInstanceRequest:
+type DeleteInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance to delete.
 	InstanceID string `json:"-"`
 }
 
-// APIDeleteInstanceSettingsRequest:
-type APIDeleteInstanceSettingsRequest struct {
+// DeleteInstanceSettingsRequest:
+type DeleteInstanceSettingsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance to delete settings from.
@@ -1410,24 +1428,30 @@ type APIDeleteInstanceSettingsRequest struct {
 	SettingNames []string `json:"setting_names"`
 }
 
-// APIDeleteReadReplicaRequest:
-type APIDeleteReadReplicaRequest struct {
+// DeleteInstanceSettingsResponse:
+type DeleteInstanceSettingsResponse struct {
+	// Settings: Settings names to delete from the Database Instance.
+	Settings []*InstanceSetting `json:"settings"`
+}
+
+// DeleteReadReplicaRequest:
+type DeleteReadReplicaRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ReadReplicaID: UUID of the Read Replica.
 	ReadReplicaID string `json:"-"`
 }
 
-// APIDeleteSnapshotRequest:
-type APIDeleteSnapshotRequest struct {
+// DeleteSnapshotRequest:
+type DeleteSnapshotRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SnapshotID: UUID of the snapshot to delete.
 	SnapshotID string `json:"-"`
 }
 
-// APIDeleteUserRequest:
-type APIDeleteUserRequest struct {
+// DeleteUserRequest:
+type DeleteUserRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance to delete the user from.
@@ -1436,48 +1460,48 @@ type APIDeleteUserRequest struct {
 	Name string `json:"-"`
 }
 
-// APIExportDatabaseBackupRequest:
-type APIExportDatabaseBackupRequest struct {
+// ExportDatabaseBackupRequest:
+type ExportDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DatabaseBackupID: UUID of the database backup you want to export.
 	DatabaseBackupID string `json:"-"`
 }
 
-// APIGetDatabaseBackupRequest:
-type APIGetDatabaseBackupRequest struct {
+// GetDatabaseBackupRequest:
+type GetDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DatabaseBackupID: UUID of the database backup.
 	DatabaseBackupID string `json:"-"`
 }
 
-// APIGetEndpointRequest:
-type APIGetEndpointRequest struct {
+// GetEndpointRequest:
+type GetEndpointRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// EndpointID: UUID of the endpoint you want to get.
 	EndpointID string `json:"-"`
 }
 
-// APIGetInstanceCertificateRequest:
-type APIGetInstanceCertificateRequest struct {
+// GetInstanceCertificateRequest:
+type GetInstanceCertificateRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance.
 	InstanceID string `json:"-"`
 }
 
-// APIGetInstanceLogRequest:
-type APIGetInstanceLogRequest struct {
+// GetInstanceLogRequest:
+type GetInstanceLogRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceLogID: UUID of the instance_log you want.
 	InstanceLogID string `json:"-"`
 }
 
-// APIGetInstanceMetricsRequest:
-type APIGetInstanceMetricsRequest struct {
+// GetInstanceMetricsRequest:
+type GetInstanceMetricsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance.
@@ -1490,38 +1514,44 @@ type APIGetInstanceMetricsRequest struct {
 	MetricName *string `json:"-"`
 }
 
-// APIGetInstanceRequest:
-type APIGetInstanceRequest struct {
+// GetInstanceRequest:
+type GetInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// InstanceID: UUID of the Database Instance.
 	InstanceID string `json:"-"`
 }
 
-// APIGetReadReplicaRequest:
-type APIGetReadReplicaRequest struct {
+// GetReadReplicaRequest:
+type GetReadReplicaRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ReadReplicaID: UUID of the Read Replica.
 	ReadReplicaID string `json:"-"`
 }
 
-// APIGetSnapshotRequest:
-type APIGetSnapshotRequest struct {
+// GetSnapshotRequest:
+type GetSnapshotRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// SnapshotID: UUID of the snapshot.
 	SnapshotID string `json:"-"`
 }
 
-// APIListDatabaseBackupsRequest:
-type APIListDatabaseBackupsRequest struct {
+// InstanceMetrics:
+type InstanceMetrics struct {
+	// Timeseries: Time series of metrics of a Database Instance.
+	Timeseries []*scw.TimeSeries `json:"timeseries"`
+}
+
+// ListDatabaseBackupsRequest:
+type ListDatabaseBackupsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Name of the database backups.
 	Name *string `json:"-"`
 	// OrderBy: Criteria to use when ordering database backups listing.
-	OrderBy APIListDatabaseBackupsRequestOrderBy `json:"-"`
+	OrderBy ListDatabaseBackupsRequestOrderBy `json:"-"`
 	// InstanceID: UUID of the Database Instance.
 	InstanceID *string `json:"-"`
 	// OrganizationID: Organization ID of the Organization the database backups belong to.
@@ -1532,376 +1562,6 @@ type APIListDatabaseBackupsRequest struct {
 	Page *int32 `json:"-"`
 	// PageSize:
 	PageSize *uint32 `json:"-"`
-}
-
-// APIListDatabaseEnginesRequest:
-type APIListDatabaseEnginesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Name: Name of the database engine.
-	Name *string `json:"-"`
-	// Version: Version of the database engine.
-	Version *string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIListDatabasesRequest:
-type APIListDatabasesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance to list the databases of.
-	InstanceID string `json:"-"`
-	// Name: Name of the database.
-	Name *string `json:"-"`
-	// Managed: Defines whether or not the database is managed.
-	Managed *bool `json:"-"`
-	// Owner: User that owns this database.
-	Owner *string `json:"-"`
-	// OrderBy: Criteria to use when ordering database listing.
-	OrderBy APIListDatabasesRequestOrderBy `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIListInstanceACLRulesRequest:
-type APIListInstanceACLRulesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance.
-	InstanceID string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIListInstanceLogsDetailsRequest:
-type APIListInstanceLogsDetailsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance you want logs of.
-	InstanceID string `json:"-"`
-}
-
-// APIListInstanceLogsRequest:
-type APIListInstanceLogsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance you want logs of.
-	InstanceID string `json:"-"`
-	// OrderBy: Criteria to use when ordering Database Instance logs listing.
-	OrderBy APIListInstanceLogsRequestOrderBy `json:"-"`
-}
-
-// APIListInstancesRequest:
-type APIListInstancesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Tags: List Database Instances that have a given tag.
-	Tags []string `json:"-"`
-	// Name: Lists Database Instances that match a name pattern.
-	Name *string `json:"-"`
-	// OrderBy: Criteria to use when ordering Database Instance listings.
-	OrderBy APIListInstancesRequestOrderBy `json:"-"`
-	// OrganizationID: Please use project_id instead.
-	OrganizationID *string `json:"-"`
-	// ProjectID: Project ID to list the Database Instance of.
-	ProjectID *string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIListNodeTypesRequest:
-type APIListNodeTypesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// IncludeDisabledTypes: Defines whether or not to include disabled types.
-	IncludeDisabledTypes bool `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIListPrivilegesRequest:
-type APIListPrivilegesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance.
-	InstanceID string `json:"-"`
-	// OrderBy: Criteria to use when ordering privileges listing.
-	OrderBy APIListPrivilegesRequestOrderBy `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-	// DatabaseName: Name of the database.
-	DatabaseName *string `json:"-"`
-	// UserName: Name of the user.
-	UserName *string `json:"-"`
-}
-
-// APIListSnapshotsRequest:
-type APIListSnapshotsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Name: Name of the snapshot.
-	Name *string `json:"-"`
-	// OrderBy: Criteria to use when ordering snapshot listing.
-	OrderBy APIListSnapshotsRequestOrderBy `json:"-"`
-	// InstanceID: UUID of the Database Instance.
-	InstanceID *string `json:"-"`
-	// OrganizationID: Organization ID the snapshots belongs to.
-	OrganizationID *string `json:"-"`
-	// ProjectID: Project ID the snapshots belongs to.
-	ProjectID *string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIListUsersRequest:
-type APIListUsersRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance.
-	InstanceID string `json:"-"`
-	// Name: Name of the user.
-	Name *string `json:"-"`
-	// OrderBy: Criteria to use when requesting user listing.
-	OrderBy APIListUsersRequestOrderBy `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIMigrateEndpointRequest:
-type APIMigrateEndpointRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// EndpointID: UUID of the endpoint you want to migrate.
-	EndpointID string `json:"-"`
-	// InstanceID: UUID of the instance you want to attach the endpoint to.
-	InstanceID string `json:"instance_id"`
-}
-
-// APIPrepareInstanceLogsRequest:
-type APIPrepareInstanceLogsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance you want logs of.
-	InstanceID string `json:"-"`
-	// StartDate: Start datetime of your log. (RFC 3339 format).
-	StartDate *time.Time `json:"start_date,omitempty"`
-	// EndDate: End datetime of your log. (RFC 3339 format).
-	EndDate *time.Time `json:"end_date,omitempty"`
-}
-
-// APIPromoteReadReplicaRequest:
-type APIPromoteReadReplicaRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// ReadReplicaID: UUID of the Read Replica.
-	ReadReplicaID string `json:"-"`
-}
-
-// APIPurgeInstanceLogsRequest:
-type APIPurgeInstanceLogsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance you want logs of.
-	InstanceID string `json:"-"`
-	// LogName: Given log name to purge.
-	LogName *string `json:"log_name,omitempty"`
-}
-
-// APIRenewInstanceCertificateRequest:
-type APIRenewInstanceCertificateRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance you want logs of.
-	InstanceID string `json:"-"`
-}
-
-// APIResetReadReplicaRequest:
-type APIResetReadReplicaRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// ReadReplicaID: UUID of the Read Replica.
-	ReadReplicaID string `json:"-"`
-}
-
-// APIRestartInstanceRequest:
-type APIRestartInstanceRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance you want to restart.
-	InstanceID string `json:"-"`
-}
-
-// APIRestoreDatabaseBackupRequest:
-type APIRestoreDatabaseBackupRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DatabaseBackupID: Backup of a logical database.
-	DatabaseBackupID string `json:"-"`
-	// DatabaseName: Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup).
-	DatabaseName *string `json:"database_name,omitempty"`
-	// InstanceID: Defines the Database Instance where the backup has to be restored.
-	InstanceID string `json:"instance_id"`
-}
-
-// APISetInstanceACLRulesRequest:
-type APISetInstanceACLRulesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance where the ACL rules must be set.
-	InstanceID string `json:"-"`
-	// Rules: ACL rules to define for the Database Instance.
-	Rules []*ACLRuleRequest `json:"rules"`
-}
-
-// APISetInstanceSettingsRequest:
-type APISetInstanceSettingsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance where the settings must be set.
-	InstanceID string `json:"-"`
-	// Settings: Settings to define for the Database Instance.
-	Settings []*InstanceSetting `json:"settings"`
-}
-
-// APISetPrivilegeRequest:
-type APISetPrivilegeRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance.
-	InstanceID string `json:"-"`
-	// DatabaseName: Name of the database.
-	DatabaseName string `json:"database_name"`
-	// UserName: Name of the user.
-	UserName string `json:"user_name"`
-	// Permission: Permission to set (Read, Read/Write, All, Custom).
-	Permission Permission `json:"permission"`
-}
-
-// APIUpdateDatabaseBackupRequest:
-type APIUpdateDatabaseBackupRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DatabaseBackupID: UUID of the database backup to update.
-	DatabaseBackupID string `json:"-"`
-	// Name: Name of the Database Backup.
-	Name *string `json:"name,omitempty"`
-	// ExpiresAt: Expiration date (must follow the ISO 8601 format).
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
-}
-
-// APIUpdateInstanceRequest:
-type APIUpdateInstanceRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance to update.
-	InstanceID string `json:"-"`
-	// BackupScheduleFrequency: In hours.
-	BackupScheduleFrequency *uint32 `json:"backup_schedule_frequency,omitempty"`
-	// BackupScheduleRetention: In days.
-	BackupScheduleRetention *uint32 `json:"backup_schedule_retention,omitempty"`
-	// IsBackupScheduleDisabled: Defines whether or not the backup schedule is disabled.
-	IsBackupScheduleDisabled *bool `json:"is_backup_schedule_disabled,omitempty"`
-	// Name: Name of the Database Instance.
-	Name *string `json:"name,omitempty"`
-	// Tags: Tags of a Database Instance.
-	Tags *[]string `json:"tags,omitempty"`
-	// LogsPolicy: Logs policy of the Database Instance.
-	LogsPolicy *LogsPolicy `json:"logs_policy"`
-	// BackupSameRegion: Store logical backups in the same region as the Database Instance.
-	BackupSameRegion *bool `json:"backup_same_region,omitempty"`
-	// BackupScheduleStartHour: Defines the start time of the autobackup.
-	BackupScheduleStartHour *uint32 `json:"backup_schedule_start_hour,omitempty"`
-}
-
-// APIUpdateSnapshotRequest:
-type APIUpdateSnapshotRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// SnapshotID: UUID of the snapshot to update.
-	SnapshotID string `json:"-"`
-	// Name: Name of the snapshot.
-	Name *string `json:"name,omitempty"`
-	// ExpiresAt: Expiration date (must follow the ISO 8601 format).
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
-}
-
-// APIUpdateUserRequest:
-type APIUpdateUserRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance the user belongs to.
-	InstanceID string `json:"-"`
-	// Name: Name of the database user.
-	Name string `json:"-"`
-	// Password: Password of the database user.
-	Password *string `json:"password,omitempty"`
-	// IsAdmin: Defines whether or not this user got administrative privileges.
-	IsAdmin *bool `json:"is_admin,omitempty"`
-}
-
-// APIUpgradeInstanceRequest:
-type APIUpgradeInstanceRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// InstanceID: UUID of the Database Instance you want to upgrade.
-	InstanceID string `json:"-"`
-	// NodeType: Node type of the Database Instance you want to upgrade to.
-	NodeType *string `json:"node_type,omitempty"`
-	// EnableHa: Defines whether or not high availability should be enabled on the Database Instance.
-	EnableHa *bool `json:"enable_ha,omitempty"`
-	// VolumeSize: Increase your block storage volume size.
-	VolumeSize *uint64 `json:"volume_size,omitempty"`
-	// VolumeType: Change your Database Instance storage type.
-	VolumeType *VolumeType `json:"volume_type,omitempty"`
-	// UpgradableVersionID: This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
-	UpgradableVersionID *string `json:"upgradable_version_id,omitempty"`
-}
-
-// AddInstanceACLRulesResponse:
-type AddInstanceACLRulesResponse struct {
-	// Rules: ACL Rules enabled for the Database Instance.
-	Rules []*ACLRule `json:"rules"`
-}
-
-// AddInstanceSettingsResponse:
-type AddInstanceSettingsResponse struct {
-	// Settings: Settings available on the Database Instance.
-	Settings []*InstanceSetting `json:"settings"`
-}
-
-// DeleteInstanceACLRulesResponse:
-type DeleteInstanceACLRulesResponse struct {
-	// Rules: IP addresses defined in the ACL rules of the Database Instance.
-	Rules []*ACLRule `json:"rules"`
-}
-
-// DeleteInstanceSettingsResponse:
-type DeleteInstanceSettingsResponse struct {
-	// Settings: Settings names to delete from the Database Instance.
-	Settings []*InstanceSetting `json:"settings"`
-}
-
-// InstanceMetrics:
-type InstanceMetrics struct {
-	// Timeseries: Time series of metrics of a Database Instance.
-	Timeseries []*scw.TimeSeries `json:"timeseries"`
 }
 
 // ListDatabaseBackupsResponse:
@@ -1931,6 +1591,20 @@ func (r *ListDatabaseBackupsResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.DatabaseBackups)), nil
 }
 
+// ListDatabaseEnginesRequest:
+type ListDatabaseEnginesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Name: Name of the database engine.
+	Name *string `json:"-"`
+	// Version: Version of the database engine.
+	Version *string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+}
+
 // ListDatabaseEnginesResponse:
 type ListDatabaseEnginesResponse struct {
 	// Engines: List of the available database engines.
@@ -1956,6 +1630,26 @@ func (r *ListDatabaseEnginesResponse) UnsafeAppend(res interface{}) (uint32, err
 	r.Engines = append(r.Engines, results.Engines...)
 	r.TotalCount += uint32(len(results.Engines))
 	return uint32(len(results.Engines)), nil
+}
+
+// ListDatabasesRequest:
+type ListDatabasesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance to list the databases of.
+	InstanceID string `json:"-"`
+	// Name: Name of the database.
+	Name *string `json:"-"`
+	// Managed: Defines whether or not the database is managed.
+	Managed *bool `json:"-"`
+	// Owner: User that owns this database.
+	Owner *string `json:"-"`
+	// OrderBy: Criteria to use when ordering database listing.
+	OrderBy ListDatabasesRequestOrderBy `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
 }
 
 // ListDatabasesResponse:
@@ -1985,6 +1679,18 @@ func (r *ListDatabasesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Databases)), nil
 }
 
+// ListInstanceACLRulesRequest:
+type ListInstanceACLRulesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance.
+	InstanceID string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+}
+
 // ListInstanceACLRulesResponse:
 type ListInstanceACLRulesResponse struct {
 	// Rules: List of ACL rules present on a Database Instance.
@@ -2012,16 +1718,54 @@ func (r *ListInstanceACLRulesResponse) UnsafeAppend(res interface{}) (uint32, er
 	return uint32(len(results.Rules)), nil
 }
 
+// ListInstanceLogsDetailsRequest:
+type ListInstanceLogsDetailsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance you want logs of.
+	InstanceID string `json:"-"`
+}
+
 // ListInstanceLogsDetailsResponse:
 type ListInstanceLogsDetailsResponse struct {
 	// Details: Remote Database Instance logs details.
 	Details []*ListInstanceLogsDetailsResponseInstanceLogDetail `json:"details"`
 }
 
+// ListInstanceLogsRequest:
+type ListInstanceLogsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance you want logs of.
+	InstanceID string `json:"-"`
+	// OrderBy: Criteria to use when ordering Database Instance logs listing.
+	OrderBy ListInstanceLogsRequestOrderBy `json:"-"`
+}
+
 // ListInstanceLogsResponse:
 type ListInstanceLogsResponse struct {
 	// InstanceLogs: Available logs in a Database Instance.
 	InstanceLogs []*InstanceLog `json:"instance_logs"`
+}
+
+// ListInstancesRequest:
+type ListInstancesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Tags: List Database Instances that have a given tag.
+	Tags []string `json:"-"`
+	// Name: Lists Database Instances that match a name pattern.
+	Name *string `json:"-"`
+	// OrderBy: Criteria to use when ordering Database Instance listings.
+	OrderBy ListInstancesRequestOrderBy `json:"-"`
+	// OrganizationID: Please use project_id instead.
+	OrganizationID *string `json:"-"`
+	// ProjectID: Project ID to list the Database Instance of.
+	ProjectID *string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
 }
 
 // ListInstancesResponse:
@@ -2051,6 +1795,18 @@ func (r *ListInstancesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Instances)), nil
 }
 
+// ListNodeTypesRequest:
+type ListNodeTypesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// IncludeDisabledTypes: Defines whether or not to include disabled types.
+	IncludeDisabledTypes bool `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+}
+
 // ListNodeTypesResponse:
 type ListNodeTypesResponse struct {
 	// NodeTypes: Types of the node.
@@ -2076,6 +1832,24 @@ func (r *ListNodeTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.NodeTypes = append(r.NodeTypes, results.NodeTypes...)
 	r.TotalCount += uint32(len(results.NodeTypes))
 	return uint32(len(results.NodeTypes)), nil
+}
+
+// ListPrivilegesRequest:
+type ListPrivilegesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance.
+	InstanceID string `json:"-"`
+	// OrderBy: Criteria to use when ordering privileges listing.
+	OrderBy ListPrivilegesRequestOrderBy `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// DatabaseName: Name of the database.
+	DatabaseName *string `json:"-"`
+	// UserName: Name of the user.
+	UserName *string `json:"-"`
 }
 
 // ListPrivilegesResponse:
@@ -2105,6 +1879,26 @@ func (r *ListPrivilegesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Privileges)), nil
 }
 
+// ListSnapshotsRequest:
+type ListSnapshotsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Name: Name of the snapshot.
+	Name *string `json:"-"`
+	// OrderBy: Criteria to use when ordering snapshot listing.
+	OrderBy ListSnapshotsRequestOrderBy `json:"-"`
+	// InstanceID: UUID of the Database Instance.
+	InstanceID *string `json:"-"`
+	// OrganizationID: Organization ID the snapshots belongs to.
+	OrganizationID *string `json:"-"`
+	// ProjectID: Project ID the snapshots belongs to.
+	ProjectID *string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+}
+
 // ListSnapshotsResponse:
 type ListSnapshotsResponse struct {
 	// Snapshots: List of snapshots.
@@ -2130,6 +1924,22 @@ func (r *ListSnapshotsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Snapshots = append(r.Snapshots, results.Snapshots...)
 	r.TotalCount += uint32(len(results.Snapshots))
 	return uint32(len(results.Snapshots)), nil
+}
+
+// ListUsersRequest:
+type ListUsersRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance.
+	InstanceID string `json:"-"`
+	// Name: Name of the user.
+	Name *string `json:"-"`
+	// OrderBy: Criteria to use when requesting user listing.
+	OrderBy ListUsersRequestOrderBy `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
 }
 
 // ListUsersResponse:
@@ -2159,10 +1969,96 @@ func (r *ListUsersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Users)), nil
 }
 
+// MigrateEndpointRequest:
+type MigrateEndpointRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// EndpointID: UUID of the endpoint you want to migrate.
+	EndpointID string `json:"-"`
+	// InstanceID: UUID of the instance you want to attach the endpoint to.
+	InstanceID string `json:"instance_id"`
+}
+
+// PrepareInstanceLogsRequest:
+type PrepareInstanceLogsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance you want logs of.
+	InstanceID string `json:"-"`
+	// StartDate: Start datetime of your log. (RFC 3339 format).
+	StartDate *time.Time `json:"start_date,omitempty"`
+	// EndDate: End datetime of your log. (RFC 3339 format).
+	EndDate *time.Time `json:"end_date,omitempty"`
+}
+
 // PrepareInstanceLogsResponse:
 type PrepareInstanceLogsResponse struct {
 	// InstanceLogs: Instance logs for a Database Instance between a start and an end date.
 	InstanceLogs []*InstanceLog `json:"instance_logs"`
+}
+
+// PromoteReadReplicaRequest:
+type PromoteReadReplicaRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ReadReplicaID: UUID of the Read Replica.
+	ReadReplicaID string `json:"-"`
+}
+
+// PurgeInstanceLogsRequest:
+type PurgeInstanceLogsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance you want logs of.
+	InstanceID string `json:"-"`
+	// LogName: Given log name to purge.
+	LogName *string `json:"log_name,omitempty"`
+}
+
+// RenewInstanceCertificateRequest:
+type RenewInstanceCertificateRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance you want logs of.
+	InstanceID string `json:"-"`
+}
+
+// ResetReadReplicaRequest:
+type ResetReadReplicaRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ReadReplicaID: UUID of the Read Replica.
+	ReadReplicaID string `json:"-"`
+}
+
+// RestartInstanceRequest:
+type RestartInstanceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance you want to restart.
+	InstanceID string `json:"-"`
+}
+
+// RestoreDatabaseBackupRequest:
+type RestoreDatabaseBackupRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DatabaseBackupID: Backup of a logical database.
+	DatabaseBackupID string `json:"-"`
+	// DatabaseName: Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup).
+	DatabaseName *string `json:"database_name,omitempty"`
+	// InstanceID: Defines the Database Instance where the backup has to be restored.
+	InstanceID string `json:"instance_id"`
+}
+
+// SetInstanceACLRulesRequest:
+type SetInstanceACLRulesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance where the ACL rules must be set.
+	InstanceID string `json:"-"`
+	// Rules: ACL rules to define for the Database Instance.
+	Rules []*ACLRuleRequest `json:"rules"`
 }
 
 // SetInstanceACLRulesResponse:
@@ -2171,10 +2067,114 @@ type SetInstanceACLRulesResponse struct {
 	Rules []*ACLRule `json:"rules"`
 }
 
+// SetInstanceSettingsRequest:
+type SetInstanceSettingsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance where the settings must be set.
+	InstanceID string `json:"-"`
+	// Settings: Settings to define for the Database Instance.
+	Settings []*InstanceSetting `json:"settings"`
+}
+
 // SetInstanceSettingsResponse:
 type SetInstanceSettingsResponse struct {
 	// Settings: Settings configured for a Database Instance.
 	Settings []*InstanceSetting `json:"settings"`
+}
+
+// SetPrivilegeRequest:
+type SetPrivilegeRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance.
+	InstanceID string `json:"-"`
+	// DatabaseName: Name of the database.
+	DatabaseName string `json:"database_name"`
+	// UserName: Name of the user.
+	UserName string `json:"user_name"`
+	// Permission: Permission to set (Read, Read/Write, All, Custom).
+	Permission Permission `json:"permission"`
+}
+
+// UpdateDatabaseBackupRequest:
+type UpdateDatabaseBackupRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DatabaseBackupID: UUID of the database backup to update.
+	DatabaseBackupID string `json:"-"`
+	// Name: Name of the Database Backup.
+	Name *string `json:"name,omitempty"`
+	// ExpiresAt: Expiration date (must follow the ISO 8601 format).
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+}
+
+// UpdateInstanceRequest:
+type UpdateInstanceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance to update.
+	InstanceID string `json:"-"`
+	// BackupScheduleFrequency: In hours.
+	BackupScheduleFrequency *uint32 `json:"backup_schedule_frequency,omitempty"`
+	// BackupScheduleRetention: In days.
+	BackupScheduleRetention *uint32 `json:"backup_schedule_retention,omitempty"`
+	// IsBackupScheduleDisabled: Defines whether or not the backup schedule is disabled.
+	IsBackupScheduleDisabled *bool `json:"is_backup_schedule_disabled,omitempty"`
+	// Name: Name of the Database Instance.
+	Name *string `json:"name,omitempty"`
+	// Tags: Tags of a Database Instance.
+	Tags *[]string `json:"tags,omitempty"`
+	// LogsPolicy: Logs policy of the Database Instance.
+	LogsPolicy *LogsPolicy `json:"logs_policy"`
+	// BackupSameRegion: Store logical backups in the same region as the Database Instance.
+	BackupSameRegion *bool `json:"backup_same_region,omitempty"`
+	// BackupScheduleStartHour: Defines the start time of the autobackup.
+	BackupScheduleStartHour *uint32 `json:"backup_schedule_start_hour,omitempty"`
+}
+
+// UpdateSnapshotRequest:
+type UpdateSnapshotRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// SnapshotID: UUID of the snapshot to update.
+	SnapshotID string `json:"-"`
+	// Name: Name of the snapshot.
+	Name *string `json:"name,omitempty"`
+	// ExpiresAt: Expiration date (must follow the ISO 8601 format).
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+}
+
+// UpdateUserRequest:
+type UpdateUserRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance the user belongs to.
+	InstanceID string `json:"-"`
+	// Name: Name of the database user.
+	Name string `json:"-"`
+	// Password: Password of the database user.
+	Password *string `json:"password,omitempty"`
+	// IsAdmin: Defines whether or not this user got administrative privileges.
+	IsAdmin *bool `json:"is_admin,omitempty"`
+}
+
+// UpgradeInstanceRequest:
+type UpgradeInstanceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance you want to upgrade.
+	InstanceID string `json:"-"`
+	// NodeType: Node type of the Database Instance you want to upgrade to.
+	NodeType *string `json:"node_type,omitempty"`
+	// EnableHa: Defines whether or not high availability should be enabled on the Database Instance.
+	EnableHa *bool `json:"enable_ha,omitempty"`
+	// VolumeSize: Increase your block storage volume size.
+	VolumeSize *uint64 `json:"volume_size,omitempty"`
+	// VolumeType: Change your Database Instance storage type.
+	VolumeType *VolumeType `json:"volume_type,omitempty"`
+	// UpgradableVersionID: This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
+	UpgradableVersionID *string `json:"upgradable_version_id,omitempty"`
 }
 
 // Managed Database for PostgreSQL and MySQL provides fully-managed relational Database Instances, with MySQL or PostgreSQL as database engines. The resource allows you to focus on development rather than administration or configuration. It comes with a high-availability mode, data replication, and automatic backups.
@@ -2434,7 +2434,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // ListDatabaseEngines: List the PostgreSQL and MySQL database engines available at Scaleway.
-func (s *API) ListDatabaseEngines(req *APIListDatabaseEnginesRequest, opts ...scw.RequestOption) (*ListDatabaseEnginesResponse, error) {
+func (s *API) ListDatabaseEngines(req *ListDatabaseEnginesRequest, opts ...scw.RequestOption) (*ListDatabaseEnginesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2471,7 +2471,7 @@ func (s *API) ListDatabaseEngines(req *APIListDatabaseEnginesRequest, opts ...sc
 }
 
 // ListNodeTypes: List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-func (s *API) ListNodeTypes(req *APIListNodeTypesRequest, opts ...scw.RequestOption) (*ListNodeTypesResponse, error) {
+func (s *API) ListNodeTypes(req *ListNodeTypesRequest, opts ...scw.RequestOption) (*ListNodeTypesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2507,7 +2507,7 @@ func (s *API) ListNodeTypes(req *APIListNodeTypesRequest, opts ...scw.RequestOpt
 }
 
 // ListDatabaseBackups: List all backups in a specified region, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
-func (s *API) ListDatabaseBackups(req *APIListDatabaseBackupsRequest, opts ...scw.RequestOption) (*ListDatabaseBackupsResponse, error) {
+func (s *API) ListDatabaseBackups(req *ListDatabaseBackupsRequest, opts ...scw.RequestOption) (*ListDatabaseBackupsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2547,7 +2547,7 @@ func (s *API) ListDatabaseBackups(req *APIListDatabaseBackupsRequest, opts ...sc
 }
 
 // CreateDatabaseBackup: Create a new backup. You must set the `instance_id`, `database_name`, `name` and `expires_at` parameters.
-func (s *API) CreateDatabaseBackup(req *APICreateDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
+func (s *API) CreateDatabaseBackup(req *CreateDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2582,7 +2582,7 @@ func (s *API) CreateDatabaseBackup(req *APICreateDatabaseBackupRequest, opts ...
 }
 
 // GetDatabaseBackup: Retrieve information about a given backup, specified by its database backup ID and region. Full details about the backup, like size, URL and expiration date, are returned in the response.
-func (s *API) GetDatabaseBackup(req *APIGetDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
+func (s *API) GetDatabaseBackup(req *GetDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2612,7 +2612,7 @@ func (s *API) GetDatabaseBackup(req *APIGetDatabaseBackupRequest, opts ...scw.Re
 }
 
 // UpdateDatabaseBackup: Update the parameters of a backup, including name and expiration date.
-func (s *API) UpdateDatabaseBackup(req *APIUpdateDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
+func (s *API) UpdateDatabaseBackup(req *UpdateDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2647,7 +2647,7 @@ func (s *API) UpdateDatabaseBackup(req *APIUpdateDatabaseBackupRequest, opts ...
 }
 
 // DeleteDatabaseBackup: Delete a backup, specified by its database backup ID and region. Deleting a backup is permanent, and cannot be undone.
-func (s *API) DeleteDatabaseBackup(req *APIDeleteDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
+func (s *API) DeleteDatabaseBackup(req *DeleteDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2677,7 +2677,7 @@ func (s *API) DeleteDatabaseBackup(req *APIDeleteDatabaseBackupRequest, opts ...
 }
 
 // RestoreDatabaseBackup: Launch the process of restoring database backup. You must specify the `instance_id` of the Database Instance of destination, where the backup will be restored. Note that large database backups can take up to several hours to restore.
-func (s *API) RestoreDatabaseBackup(req *APIRestoreDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
+func (s *API) RestoreDatabaseBackup(req *RestoreDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2712,7 +2712,7 @@ func (s *API) RestoreDatabaseBackup(req *APIRestoreDatabaseBackupRequest, opts .
 }
 
 // ExportDatabaseBackup: Export a backup, specified by the `database_backup_id` and the `region` parameters. The download URL is returned in the response.
-func (s *API) ExportDatabaseBackup(req *APIExportDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
+func (s *API) ExportDatabaseBackup(req *ExportDatabaseBackupRequest, opts ...scw.RequestOption) (*DatabaseBackup, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2747,7 +2747,7 @@ func (s *API) ExportDatabaseBackup(req *APIExportDatabaseBackupRequest, opts ...
 }
 
 // UpgradeInstance: Upgrade your current Database Instance specifications like node type, high availability, volume, or the database engine version. Note that upon upgrade the `enable_ha` parameter can only be set to `true`.
-func (s *API) UpgradeInstance(req *APIUpgradeInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
+func (s *API) UpgradeInstance(req *UpgradeInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2782,7 +2782,7 @@ func (s *API) UpgradeInstance(req *APIUpgradeInstanceRequest, opts ...scw.Reques
 }
 
 // ListInstances: List all Database Instances in the specified region, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
-func (s *API) ListInstances(req *APIListInstancesRequest, opts ...scw.RequestOption) (*ListInstancesResponse, error) {
+func (s *API) ListInstances(req *ListInstancesRequest, opts ...scw.RequestOption) (*ListInstancesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2822,7 +2822,7 @@ func (s *API) ListInstances(req *APIListInstancesRequest, opts ...scw.RequestOpt
 }
 
 // GetInstance: Retrieve information about a given Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.
-func (s *API) GetInstance(req *APIGetInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
+func (s *API) GetInstance(req *GetInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2852,7 +2852,7 @@ func (s *API) GetInstance(req *APIGetInstanceRequest, opts ...scw.RequestOption)
 }
 
 // CreateInstance: Create a new Database Instance. You must set the `engine`, `user_name`, `password` and `node_type` parameters. Optionally, you can specify the volume type and size.
-func (s *API) CreateInstance(req *APICreateInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
+func (s *API) CreateInstance(req *CreateInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2897,7 +2897,7 @@ func (s *API) CreateInstance(req *APICreateInstanceRequest, opts ...scw.RequestO
 }
 
 // UpdateInstance: Update the parameters of a Database Instance, including name, tags and backup schedule details.
-func (s *API) UpdateInstance(req *APIUpdateInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
+func (s *API) UpdateInstance(req *UpdateInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2932,7 +2932,7 @@ func (s *API) UpdateInstance(req *APIUpdateInstanceRequest, opts ...scw.RequestO
 }
 
 // DeleteInstance: Delete a given Database Instance, specified by the `region` and `instance_id` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.
-func (s *API) DeleteInstance(req *APIDeleteInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
+func (s *API) DeleteInstance(req *DeleteInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2962,7 +2962,7 @@ func (s *API) DeleteInstance(req *APIDeleteInstanceRequest, opts ...scw.RequestO
 }
 
 // CloneInstance: Clone a given Database Instance, specified by the `region` and `instance_id` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one.
-func (s *API) CloneInstance(req *APICloneInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
+func (s *API) CloneInstance(req *CloneInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -2997,7 +2997,7 @@ func (s *API) CloneInstance(req *APICloneInstanceRequest, opts ...scw.RequestOpt
 }
 
 // RestartInstance: Restart a given Database Instance, specified by the `region` and `instance_id` parameters. The status of the Database Instance returned in the response.
-func (s *API) RestartInstance(req *APIRestartInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
+func (s *API) RestartInstance(req *RestartInstanceRequest, opts ...scw.RequestOption) (*Instance, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3032,7 +3032,7 @@ func (s *API) RestartInstance(req *APIRestartInstanceRequest, opts ...scw.Reques
 }
 
 // GetInstanceCertificate: Retrieve information about the TLS certificate of a given Database Instance. Details like name and content are returned in the response.
-func (s *API) GetInstanceCertificate(req *APIGetInstanceCertificateRequest, opts ...scw.RequestOption) (*scw.File, error) {
+func (s *API) GetInstanceCertificate(req *GetInstanceCertificateRequest, opts ...scw.RequestOption) (*scw.File, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3062,7 +3062,7 @@ func (s *API) GetInstanceCertificate(req *APIGetInstanceCertificateRequest, opts
 }
 
 // RenewInstanceCertificate: Renew a TLS for a Database Instance. Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.
-func (s *API) RenewInstanceCertificate(req *APIRenewInstanceCertificateRequest, opts ...scw.RequestOption) error {
+func (s *API) RenewInstanceCertificate(req *RenewInstanceCertificateRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3095,7 +3095,7 @@ func (s *API) RenewInstanceCertificate(req *APIRenewInstanceCertificateRequest, 
 }
 
 // GetInstanceMetrics: Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`.
-func (s *API) GetInstanceMetrics(req *APIGetInstanceMetricsRequest, opts ...scw.RequestOption) (*InstanceMetrics, error) {
+func (s *API) GetInstanceMetrics(req *GetInstanceMetricsRequest, opts ...scw.RequestOption) (*InstanceMetrics, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3131,7 +3131,7 @@ func (s *API) GetInstanceMetrics(req *APIGetInstanceMetricsRequest, opts ...scw.
 }
 
 // CreateReadReplica: Create a new Read Replica of a Database Instance. You must specify the `region` and the `instance_id`. You can only create a maximum of 3 Read Replicas per Database Instance.
-func (s *API) CreateReadReplica(req *APICreateReadReplicaRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
+func (s *API) CreateReadReplica(req *CreateReadReplicaRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3162,7 +3162,7 @@ func (s *API) CreateReadReplica(req *APICreateReadReplicaRequest, opts ...scw.Re
 }
 
 // GetReadReplica: Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response.
-func (s *API) GetReadReplica(req *APIGetReadReplicaRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
+func (s *API) GetReadReplica(req *GetReadReplicaRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3192,7 +3192,7 @@ func (s *API) GetReadReplica(req *APIGetReadReplicaRequest, opts ...scw.RequestO
 }
 
 // DeleteReadReplica: Delete a Read Replica of a Database Instance. You must specify the `region` and `read_replica_id` parameters of the Read Replica you want to delete.
-func (s *API) DeleteReadReplica(req *APIDeleteReadReplicaRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
+func (s *API) DeleteReadReplica(req *DeleteReadReplicaRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3223,7 +3223,7 @@ func (s *API) DeleteReadReplica(req *APIDeleteReadReplicaRequest, opts ...scw.Re
 
 // ResetReadReplica: When you resync a Read Replica, first it is reset, then its data is resynchronized from the primary node. Your Read Replica remains unavailable during the resync process. The duration of this process is proportional to the size of your Database Instance.
 // The configured endpoints do not change.
-func (s *API) ResetReadReplica(req *APIResetReadReplicaRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
+func (s *API) ResetReadReplica(req *ResetReadReplicaRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3258,7 +3258,7 @@ func (s *API) ResetReadReplica(req *APIResetReadReplicaRequest, opts ...scw.Requ
 }
 
 // PromoteReadReplica: Promote a Read Replica to Database Instance automatically.
-func (s *API) PromoteReadReplica(req *APIPromoteReadReplicaRequest, opts ...scw.RequestOption) (*Instance, error) {
+func (s *API) PromoteReadReplica(req *PromoteReadReplicaRequest, opts ...scw.RequestOption) (*Instance, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3293,7 +3293,7 @@ func (s *API) PromoteReadReplica(req *APIPromoteReadReplicaRequest, opts ...scw.
 }
 
 // CreateReadReplicaEndpoint: Create a new endpoint for a Read Replica. Read Replicas can have at most one direct access and one Private Network endpoint.
-func (s *API) CreateReadReplicaEndpoint(req *APICreateReadReplicaEndpointRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
+func (s *API) CreateReadReplicaEndpoint(req *CreateReadReplicaEndpointRequest, opts ...scw.RequestOption) (*ReadReplica, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3328,7 +3328,7 @@ func (s *API) CreateReadReplicaEndpoint(req *APICreateReadReplicaEndpointRequest
 }
 
 // PrepareInstanceLogs: Prepare your Database Instance logs. You can define the `start_date` and `end_date` parameters for your query. The download URL is returned in the response. Logs are recorded from 00h00 to 23h59 and then aggregated in a `.log` file once a day. Therefore, even if you specify a timeframe from which you want to get the logs, you will receive logs from the full 24 hours.
-func (s *API) PrepareInstanceLogs(req *APIPrepareInstanceLogsRequest, opts ...scw.RequestOption) (*PrepareInstanceLogsResponse, error) {
+func (s *API) PrepareInstanceLogs(req *PrepareInstanceLogsRequest, opts ...scw.RequestOption) (*PrepareInstanceLogsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3363,7 +3363,7 @@ func (s *API) PrepareInstanceLogs(req *APIPrepareInstanceLogsRequest, opts ...sc
 }
 
 // ListInstanceLogs: List the available logs of a Database Instance. By default, the logs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
-func (s *API) ListInstanceLogs(req *APIListInstanceLogsRequest, opts ...scw.RequestOption) (*ListInstanceLogsResponse, error) {
+func (s *API) ListInstanceLogs(req *ListInstanceLogsRequest, opts ...scw.RequestOption) (*ListInstanceLogsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3397,7 +3397,7 @@ func (s *API) ListInstanceLogs(req *APIListInstanceLogsRequest, opts ...scw.Requ
 }
 
 // GetInstanceLog: Retrieve information about the logs of a Database Instance. Specify the `instance_log_id` and `region` in your request to get information such as `download_url`, `status`, `expires_at` and `created_at` about your logs in the response.
-func (s *API) GetInstanceLog(req *APIGetInstanceLogRequest, opts ...scw.RequestOption) (*InstanceLog, error) {
+func (s *API) GetInstanceLog(req *GetInstanceLogRequest, opts ...scw.RequestOption) (*InstanceLog, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3427,7 +3427,7 @@ func (s *API) GetInstanceLog(req *APIGetInstanceLogRequest, opts ...scw.RequestO
 }
 
 // PurgeInstanceLogs: Purge a given remote log from a Database Instance. You can specify the `log_name` of the log you wish to clean from your Database Instance.
-func (s *API) PurgeInstanceLogs(req *APIPurgeInstanceLogsRequest, opts ...scw.RequestOption) error {
+func (s *API) PurgeInstanceLogs(req *PurgeInstanceLogsRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3460,7 +3460,7 @@ func (s *API) PurgeInstanceLogs(req *APIPurgeInstanceLogsRequest, opts ...scw.Re
 }
 
 // ListInstanceLogsDetails: List remote log details. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
-func (s *API) ListInstanceLogsDetails(req *APIListInstanceLogsDetailsRequest, opts ...scw.RequestOption) (*ListInstanceLogsDetailsResponse, error) {
+func (s *API) ListInstanceLogsDetails(req *ListInstanceLogsDetailsRequest, opts ...scw.RequestOption) (*ListInstanceLogsDetailsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3490,7 +3490,7 @@ func (s *API) ListInstanceLogsDetails(req *APIListInstanceLogsDetailsRequest, op
 }
 
 // AddInstanceSettings: Add an advanced setting to a Database Instance. You must set the `name` and the `value` of each setting.
-func (s *API) AddInstanceSettings(req *APIAddInstanceSettingsRequest, opts ...scw.RequestOption) (*AddInstanceSettingsResponse, error) {
+func (s *API) AddInstanceSettings(req *AddInstanceSettingsRequest, opts ...scw.RequestOption) (*AddInstanceSettingsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3525,7 +3525,7 @@ func (s *API) AddInstanceSettings(req *APIAddInstanceSettingsRequest, opts ...sc
 }
 
 // DeleteInstanceSettings: Delete an advanced setting in a Database Instance. You must specify the names of the settings you want to delete in the request.
-func (s *API) DeleteInstanceSettings(req *APIDeleteInstanceSettingsRequest, opts ...scw.RequestOption) (*DeleteInstanceSettingsResponse, error) {
+func (s *API) DeleteInstanceSettings(req *DeleteInstanceSettingsRequest, opts ...scw.RequestOption) (*DeleteInstanceSettingsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3560,7 +3560,7 @@ func (s *API) DeleteInstanceSettings(req *APIDeleteInstanceSettingsRequest, opts
 }
 
 // SetInstanceSettings: Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
-func (s *API) SetInstanceSettings(req *APISetInstanceSettingsRequest, opts ...scw.RequestOption) (*SetInstanceSettingsResponse, error) {
+func (s *API) SetInstanceSettings(req *SetInstanceSettingsRequest, opts ...scw.RequestOption) (*SetInstanceSettingsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3595,7 +3595,7 @@ func (s *API) SetInstanceSettings(req *APISetInstanceSettingsRequest, opts ...sc
 }
 
 // ListInstanceACLRules: List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.
-func (s *API) ListInstanceACLRules(req *APIListInstanceACLRulesRequest, opts ...scw.RequestOption) (*ListInstanceACLRulesResponse, error) {
+func (s *API) ListInstanceACLRules(req *ListInstanceACLRulesRequest, opts ...scw.RequestOption) (*ListInstanceACLRulesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3634,7 +3634,7 @@ func (s *API) ListInstanceACLRules(req *APIListInstanceACLRulesRequest, opts ...
 }
 
 // AddInstanceACLRules: Add an additional ACL rule to a Database Instance.
-func (s *API) AddInstanceACLRules(req *APIAddInstanceACLRulesRequest, opts ...scw.RequestOption) (*AddInstanceACLRulesResponse, error) {
+func (s *API) AddInstanceACLRules(req *AddInstanceACLRulesRequest, opts ...scw.RequestOption) (*AddInstanceACLRulesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3669,7 +3669,7 @@ func (s *API) AddInstanceACLRules(req *APIAddInstanceACLRulesRequest, opts ...sc
 }
 
 // SetInstanceACLRules: Replace all the ACL rules of a Database Instance.
-func (s *API) SetInstanceACLRules(req *APISetInstanceACLRulesRequest, opts ...scw.RequestOption) (*SetInstanceACLRulesResponse, error) {
+func (s *API) SetInstanceACLRules(req *SetInstanceACLRulesRequest, opts ...scw.RequestOption) (*SetInstanceACLRulesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3704,7 +3704,7 @@ func (s *API) SetInstanceACLRules(req *APISetInstanceACLRulesRequest, opts ...sc
 }
 
 // DeleteInstanceACLRules: Delete one or more ACL rules of a Database Instance.
-func (s *API) DeleteInstanceACLRules(req *APIDeleteInstanceACLRulesRequest, opts ...scw.RequestOption) (*DeleteInstanceACLRulesResponse, error) {
+func (s *API) DeleteInstanceACLRules(req *DeleteInstanceACLRulesRequest, opts ...scw.RequestOption) (*DeleteInstanceACLRulesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3739,7 +3739,7 @@ func (s *API) DeleteInstanceACLRules(req *APIDeleteInstanceACLRulesRequest, opts
 }
 
 // ListUsers: List all users of a given Database Instance. By default, the users returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
-func (s *API) ListUsers(req *APIListUsersRequest, opts ...scw.RequestOption) (*ListUsersResponse, error) {
+func (s *API) ListUsers(req *ListUsersRequest, opts ...scw.RequestOption) (*ListUsersResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3780,7 +3780,7 @@ func (s *API) ListUsers(req *APIListUsersRequest, opts ...scw.RequestOption) (*L
 }
 
 // CreateUser: Create a new user for a Database Instance. You must define the `name`, `password` and `is_admin` parameters.
-func (s *API) CreateUser(req *APICreateUserRequest, opts ...scw.RequestOption) (*User, error) {
+func (s *API) CreateUser(req *CreateUserRequest, opts ...scw.RequestOption) (*User, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3815,7 +3815,7 @@ func (s *API) CreateUser(req *APICreateUserRequest, opts ...scw.RequestOption) (
 }
 
 // UpdateUser: Update the parameters of a user on a Database Instance. You can update the `password` and `is_admin` parameters, but you cannot change the name of the user.
-func (s *API) UpdateUser(req *APIUpdateUserRequest, opts ...scw.RequestOption) (*User, error) {
+func (s *API) UpdateUser(req *UpdateUserRequest, opts ...scw.RequestOption) (*User, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3854,7 +3854,7 @@ func (s *API) UpdateUser(req *APIUpdateUserRequest, opts ...scw.RequestOption) (
 }
 
 // DeleteUser: Delete a given user on a Database Instance. You must specify, in the endpoint,  the `region`, `instance_id` and `name` parameters of the user you want to delete.
-func (s *API) DeleteUser(req *APIDeleteUserRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteUser(req *DeleteUserRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3886,7 +3886,7 @@ func (s *API) DeleteUser(req *APIDeleteUserRequest, opts ...scw.RequestOption) e
 }
 
 // ListDatabases: List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`.
-func (s *API) ListDatabases(req *APIListDatabasesRequest, opts ...scw.RequestOption) (*ListDatabasesResponse, error) {
+func (s *API) ListDatabases(req *ListDatabasesRequest, opts ...scw.RequestOption) (*ListDatabasesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3929,7 +3929,7 @@ func (s *API) ListDatabases(req *APIListDatabasesRequest, opts ...scw.RequestOpt
 }
 
 // CreateDatabase: Create a new database. You must define the `name` parameter in the request.
-func (s *API) CreateDatabase(req *APICreateDatabaseRequest, opts ...scw.RequestOption) (*Database, error) {
+func (s *API) CreateDatabase(req *CreateDatabaseRequest, opts ...scw.RequestOption) (*Database, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3964,7 +3964,7 @@ func (s *API) CreateDatabase(req *APICreateDatabaseRequest, opts ...scw.RequestO
 }
 
 // DeleteDatabase: Delete a given database on a Database Instance. You must specify, in the endpoint, the `region`, `instance_id` and `name` parameters of the database you want to delete.
-func (s *API) DeleteDatabase(req *APIDeleteDatabaseRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteDatabase(req *DeleteDatabaseRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -3996,7 +3996,7 @@ func (s *API) DeleteDatabase(req *APIDeleteDatabaseRequest, opts ...scw.RequestO
 }
 
 // ListPrivileges: List privileges of a user on a database. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `database_name` and `user_name`.
-func (s *API) ListPrivileges(req *APIListPrivilegesRequest, opts ...scw.RequestOption) (*ListPrivilegesResponse, error) {
+func (s *API) ListPrivileges(req *ListPrivilegesRequest, opts ...scw.RequestOption) (*ListPrivilegesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4038,7 +4038,7 @@ func (s *API) ListPrivileges(req *APIListPrivilegesRequest, opts ...scw.RequestO
 }
 
 // SetPrivilege: Set the privileges of a user on a database. You must define `database_name`, `user_name` and `permission` in the request body.
-func (s *API) SetPrivilege(req *APISetPrivilegeRequest, opts ...scw.RequestOption) (*Privilege, error) {
+func (s *API) SetPrivilege(req *SetPrivilegeRequest, opts ...scw.RequestOption) (*Privilege, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4073,7 +4073,7 @@ func (s *API) SetPrivilege(req *APISetPrivilegeRequest, opts ...scw.RequestOptio
 }
 
 // ListSnapshots: List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snapshots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-func (s *API) ListSnapshots(req *APIListSnapshotsRequest, opts ...scw.RequestOption) (*ListSnapshotsResponse, error) {
+func (s *API) ListSnapshots(req *ListSnapshotsRequest, opts ...scw.RequestOption) (*ListSnapshotsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4113,7 +4113,7 @@ func (s *API) ListSnapshots(req *APIListSnapshotsRequest, opts ...scw.RequestOpt
 }
 
 // GetSnapshot: Retrieve information about a given snapshot, specified by its `snapshot_id` and `region`. Full details about the snapshot, like size and expiration date, are returned in the response.
-func (s *API) GetSnapshot(req *APIGetSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
+func (s *API) GetSnapshot(req *GetSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4143,7 +4143,7 @@ func (s *API) GetSnapshot(req *APIGetSnapshotRequest, opts ...scw.RequestOption)
 }
 
 // CreateSnapshot: Create a new snapshot of a Database Instance. You must define the `name` parameter in the request.
-func (s *API) CreateSnapshot(req *APICreateSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
+func (s *API) CreateSnapshot(req *CreateSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4182,7 +4182,7 @@ func (s *API) CreateSnapshot(req *APICreateSnapshotRequest, opts ...scw.RequestO
 }
 
 // UpdateSnapshot: Update the parameters of a snapshot of a Database Instance. You can update the `name` and `expires_at` parameters.
-func (s *API) UpdateSnapshot(req *APIUpdateSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
+func (s *API) UpdateSnapshot(req *UpdateSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4217,7 +4217,7 @@ func (s *API) UpdateSnapshot(req *APIUpdateSnapshotRequest, opts ...scw.RequestO
 }
 
 // DeleteSnapshot: Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the `region` and `snapshot_id` parameters of the snapshot you want to delete.
-func (s *API) DeleteSnapshot(req *APIDeleteSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
+func (s *API) DeleteSnapshot(req *DeleteSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4247,7 +4247,7 @@ func (s *API) DeleteSnapshot(req *APIDeleteSnapshotRequest, opts ...scw.RequestO
 }
 
 // CreateInstanceFromSnapshot: Restore a snapshot. When you restore a snapshot, a new Instance is created and billed to your account. Note that is possible to select a larger node type for your new Database Instance. However, the Block volume size will be the same as the size of the restored snapshot. All Instance settings will be restored if you chose a node type with the same or more memory size than the initial Instance. Settings will be reset to the default if your node type has less memory.
-func (s *API) CreateInstanceFromSnapshot(req *APICreateInstanceFromSnapshotRequest, opts ...scw.RequestOption) (*Instance, error) {
+func (s *API) CreateInstanceFromSnapshot(req *CreateInstanceFromSnapshotRequest, opts ...scw.RequestOption) (*Instance, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4282,7 +4282,7 @@ func (s *API) CreateInstanceFromSnapshot(req *APICreateInstanceFromSnapshotReque
 }
 
 // CreateEndpoint: Create a new endpoint for a Database Instance. You can add `load_balancer` and `private_network` specifications to the body of the request.
-func (s *API) CreateEndpoint(req *APICreateEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
+func (s *API) CreateEndpoint(req *CreateEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4317,7 +4317,7 @@ func (s *API) CreateEndpoint(req *APICreateEndpointRequest, opts ...scw.RequestO
 }
 
 // DeleteEndpoint: Delete the endpoint of a Database Instance. You must specify the `region` and `endpoint_id` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.
-func (s *API) DeleteEndpoint(req *APIDeleteEndpointRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteEndpoint(req *DeleteEndpointRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4345,7 +4345,7 @@ func (s *API) DeleteEndpoint(req *APIDeleteEndpointRequest, opts ...scw.RequestO
 }
 
 // GetEndpoint: Retrieve information about a Database Instance endpoint. Full details about the endpoint, like `ip`, `port`, `private_network` and `load_balancer` specifications are returned in the response.
-func (s *API) GetEndpoint(req *APIGetEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
+func (s *API) GetEndpoint(req *GetEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -4375,7 +4375,7 @@ func (s *API) GetEndpoint(req *APIGetEndpointRequest, opts ...scw.RequestOption)
 }
 
 // MigrateEndpoint: Migrate an existing instance endpoint to another instance.
-func (s *API) MigrateEndpoint(req *APIMigrateEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
+func (s *API) MigrateEndpoint(req *MigrateEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

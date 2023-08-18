@@ -39,104 +39,6 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIListImagesRequestOrderBy string
-
-const (
-	APIListImagesRequestOrderByCreatedAtAsc  = APIListImagesRequestOrderBy("created_at_asc")
-	APIListImagesRequestOrderByCreatedAtDesc = APIListImagesRequestOrderBy("created_at_desc")
-	APIListImagesRequestOrderByNameAsc       = APIListImagesRequestOrderBy("name_asc")
-	APIListImagesRequestOrderByNameDesc      = APIListImagesRequestOrderBy("name_desc")
-)
-
-func (enum APIListImagesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListImagesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListImagesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListImagesRequestOrderBy(APIListImagesRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListNamespacesRequestOrderBy string
-
-const (
-	APIListNamespacesRequestOrderByCreatedAtAsc    = APIListNamespacesRequestOrderBy("created_at_asc")
-	APIListNamespacesRequestOrderByCreatedAtDesc   = APIListNamespacesRequestOrderBy("created_at_desc")
-	APIListNamespacesRequestOrderByDescriptionAsc  = APIListNamespacesRequestOrderBy("description_asc")
-	APIListNamespacesRequestOrderByDescriptionDesc = APIListNamespacesRequestOrderBy("description_desc")
-	APIListNamespacesRequestOrderByNameAsc         = APIListNamespacesRequestOrderBy("name_asc")
-	APIListNamespacesRequestOrderByNameDesc        = APIListNamespacesRequestOrderBy("name_desc")
-)
-
-func (enum APIListNamespacesRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListNamespacesRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListNamespacesRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListNamespacesRequestOrderBy(APIListNamespacesRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListTagsRequestOrderBy string
-
-const (
-	APIListTagsRequestOrderByCreatedAtAsc  = APIListTagsRequestOrderBy("created_at_asc")
-	APIListTagsRequestOrderByCreatedAtDesc = APIListTagsRequestOrderBy("created_at_desc")
-	APIListTagsRequestOrderByNameAsc       = APIListTagsRequestOrderBy("name_asc")
-	APIListTagsRequestOrderByNameDesc      = APIListTagsRequestOrderBy("name_desc")
-)
-
-func (enum APIListTagsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListTagsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListTagsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListTagsRequestOrderBy(APIListTagsRequestOrderBy(tmp).String())
-	return nil
-}
-
 type ImageStatus string
 
 const (
@@ -199,6 +101,104 @@ func (enum *ImageVisibility) UnmarshalJSON(data []byte) error {
 	}
 
 	*enum = ImageVisibility(ImageVisibility(tmp).String())
+	return nil
+}
+
+type ListImagesRequestOrderBy string
+
+const (
+	ListImagesRequestOrderByCreatedAtAsc  = ListImagesRequestOrderBy("created_at_asc")
+	ListImagesRequestOrderByCreatedAtDesc = ListImagesRequestOrderBy("created_at_desc")
+	ListImagesRequestOrderByNameAsc       = ListImagesRequestOrderBy("name_asc")
+	ListImagesRequestOrderByNameDesc      = ListImagesRequestOrderBy("name_desc")
+)
+
+func (enum ListImagesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListImagesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListImagesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListImagesRequestOrderBy(ListImagesRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListNamespacesRequestOrderBy string
+
+const (
+	ListNamespacesRequestOrderByCreatedAtAsc    = ListNamespacesRequestOrderBy("created_at_asc")
+	ListNamespacesRequestOrderByCreatedAtDesc   = ListNamespacesRequestOrderBy("created_at_desc")
+	ListNamespacesRequestOrderByDescriptionAsc  = ListNamespacesRequestOrderBy("description_asc")
+	ListNamespacesRequestOrderByDescriptionDesc = ListNamespacesRequestOrderBy("description_desc")
+	ListNamespacesRequestOrderByNameAsc         = ListNamespacesRequestOrderBy("name_asc")
+	ListNamespacesRequestOrderByNameDesc        = ListNamespacesRequestOrderBy("name_desc")
+)
+
+func (enum ListNamespacesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListNamespacesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListNamespacesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListNamespacesRequestOrderBy(ListNamespacesRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListTagsRequestOrderBy string
+
+const (
+	ListTagsRequestOrderByCreatedAtAsc  = ListTagsRequestOrderBy("created_at_asc")
+	ListTagsRequestOrderByCreatedAtDesc = ListTagsRequestOrderBy("created_at_desc")
+	ListTagsRequestOrderByNameAsc       = ListTagsRequestOrderBy("name_asc")
+	ListTagsRequestOrderByNameDesc      = ListTagsRequestOrderBy("name_desc")
+)
+
+func (enum ListTagsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListTagsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListTagsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListTagsRequestOrderBy(ListTagsRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -342,8 +342,8 @@ type Tag struct {
 	UpdatedAt *time.Time `json:"updated_at"`
 }
 
-// APICreateNamespaceRequest:
-type APICreateNamespaceRequest struct {
+// CreateNamespaceRequest:
+type CreateNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Name of the namespace.
@@ -358,24 +358,24 @@ type APICreateNamespaceRequest struct {
 	IsPublic bool `json:"is_public"`
 }
 
-// APIDeleteImageRequest:
-type APIDeleteImageRequest struct {
+// DeleteImageRequest:
+type DeleteImageRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ImageID: UUID of the image.
 	ImageID string `json:"-"`
 }
 
-// APIDeleteNamespaceRequest:
-type APIDeleteNamespaceRequest struct {
+// DeleteNamespaceRequest:
+type DeleteNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// NamespaceID: UUID of the namespace.
 	NamespaceID string `json:"-"`
 }
 
-// APIDeleteTagRequest:
-type APIDeleteTagRequest struct {
+// DeleteTagRequest:
+type DeleteTagRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TagID: UUID of the tag.
@@ -384,32 +384,32 @@ type APIDeleteTagRequest struct {
 	Force *bool `json:"-"`
 }
 
-// APIGetImageRequest:
-type APIGetImageRequest struct {
+// GetImageRequest:
+type GetImageRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ImageID: UUID of the image.
 	ImageID string `json:"-"`
 }
 
-// APIGetNamespaceRequest:
-type APIGetNamespaceRequest struct {
+// GetNamespaceRequest:
+type GetNamespaceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// NamespaceID: UUID of the namespace.
 	NamespaceID string `json:"-"`
 }
 
-// APIGetTagRequest:
-type APIGetTagRequest struct {
+// GetTagRequest:
+type GetTagRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// TagID: UUID of the tag.
 	TagID string `json:"-"`
 }
 
-// APIListImagesRequest:
-type APIListImagesRequest struct {
+// ListImagesRequest:
+type ListImagesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: A positive integer to choose the page to display.
@@ -417,7 +417,7 @@ type APIListImagesRequest struct {
 	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
 	PageSize *uint32 `json:"-"`
 	// OrderBy: Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
-	OrderBy APIListImagesRequestOrderBy `json:"-"`
+	OrderBy ListImagesRequestOrderBy `json:"-"`
 	// NamespaceID: Filter by the namespace ID.
 	NamespaceID *string `json:"-"`
 	// Name: Filter by the image name (exact match).
@@ -426,62 +426,6 @@ type APIListImagesRequest struct {
 	OrganizationID *string `json:"-"`
 	// ProjectID: Filter by Project ID.
 	ProjectID *string `json:"-"`
-}
-
-// APIListNamespacesRequest:
-type APIListNamespacesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Page: A positive integer to choose the page to display.
-	Page *int32 `json:"-"`
-	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
-	OrderBy APIListNamespacesRequestOrderBy `json:"-"`
-	// OrganizationID: Filter by Organization ID.
-	OrganizationID *string `json:"-"`
-	// ProjectID: Filter by Project ID.
-	ProjectID *string `json:"-"`
-	// Name: Filter by the namespace name (exact match).
-	Name *string `json:"-"`
-}
-
-// APIListTagsRequest:
-type APIListTagsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// ImageID: UUID of the image.
-	ImageID string `json:"-"`
-	// Page: A positive integer to choose the page to display.
-	Page *int32 `json:"-"`
-	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
-	PageSize *uint32 `json:"-"`
-	// OrderBy: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
-	OrderBy APIListTagsRequestOrderBy `json:"-"`
-	// Name: Filter by the tag name (exact match).
-	Name *string `json:"-"`
-}
-
-// APIUpdateImageRequest:
-type APIUpdateImageRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// ImageID: ID of the image to update.
-	ImageID string `json:"-"`
-	// Visibility: Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
-	Visibility ImageVisibility `json:"visibility"`
-}
-
-// APIUpdateNamespaceRequest:
-type APIUpdateNamespaceRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// NamespaceID: ID of the namespace to update.
-	NamespaceID string `json:"-"`
-	// Description: Namespace description.
-	Description *string `json:"description,omitempty"`
-	// IsPublic: Defines whether or not the namespace is public.
-	IsPublic *bool `json:"is_public,omitempty"`
 }
 
 // ListImagesResponse:
@@ -511,6 +455,24 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Images)), nil
 }
 
+// ListNamespacesRequest:
+type ListNamespacesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: A positive integer to choose the page to display.
+	Page *int32 `json:"-"`
+	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+	OrderBy ListNamespacesRequestOrderBy `json:"-"`
+	// OrganizationID: Filter by Organization ID.
+	OrganizationID *string `json:"-"`
+	// ProjectID: Filter by Project ID.
+	ProjectID *string `json:"-"`
+	// Name: Filter by the namespace name (exact match).
+	Name *string `json:"-"`
+}
+
 // ListNamespacesResponse:
 type ListNamespacesResponse struct {
 	// Namespaces: Paginated list of namespaces that match the selected filters.
@@ -538,6 +500,22 @@ func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Namespaces)), nil
 }
 
+// ListTagsRequest:
+type ListTagsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ImageID: UUID of the image.
+	ImageID string `json:"-"`
+	// Page: A positive integer to choose the page to display.
+	Page *int32 `json:"-"`
+	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+	OrderBy ListTagsRequestOrderBy `json:"-"`
+	// Name: Filter by the tag name (exact match).
+	Name *string `json:"-"`
+}
+
 // ListTagsResponse:
 type ListTagsResponse struct {
 	// Tags: Paginated list of tags that match the selected filters.
@@ -563,6 +541,28 @@ func (r *ListTagsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Tags = append(r.Tags, results.Tags...)
 	r.TotalCount += uint32(len(results.Tags))
 	return uint32(len(results.Tags)), nil
+}
+
+// UpdateImageRequest:
+type UpdateImageRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ImageID: ID of the image to update.
+	ImageID string `json:"-"`
+	// Visibility: Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+	Visibility ImageVisibility `json:"visibility"`
+}
+
+// UpdateNamespaceRequest:
+type UpdateNamespaceRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NamespaceID: ID of the namespace to update.
+	NamespaceID string `json:"-"`
+	// Description: Namespace description.
+	Description *string `json:"description,omitempty"`
+	// IsPublic: Defines whether or not the namespace is public.
+	IsPublic *bool `json:"is_public,omitempty"`
 }
 
 // Scaleway Container Registry is a fully-managed mutualised Container Registry, designed to facilitate the storage, management and deployment of container images. The service simplifies the development-to-production workflow, as there is no need to operate your own Container Registry or to worry about the underlying infrastructure.
@@ -707,7 +707,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // ListNamespaces: List all namespaces in a specified region. By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `instance_id` and `project_id` parameters.
-func (s *API) ListNamespaces(req *APIListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
+func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -746,7 +746,7 @@ func (s *API) ListNamespaces(req *APIListNamespacesRequest, opts ...scw.RequestO
 }
 
 // GetNamespace: Retrieve information about a given namespace, specified by its `namespace_id` and region. Full details about the namespace, such as `description`, `project_id`, `status`, `endpoint`, `is_public`, `size`, and `image_count` are returned in the response.
-func (s *API) GetNamespace(req *APIGetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -776,7 +776,7 @@ func (s *API) GetNamespace(req *APIGetNamespaceRequest, opts ...scw.RequestOptio
 }
 
 // CreateNamespace: Create a new Container Registry namespace. You must specify the namespace name and region in which you want it to be created. Optionally, you can specify the `project_id` and `is_public` in the request payload.
-func (s *API) CreateNamespace(req *APICreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -821,7 +821,7 @@ func (s *API) CreateNamespace(req *APICreateNamespaceRequest, opts ...scw.Reques
 }
 
 // UpdateNamespace: Update the parameters of a given namespace, specified by its `namespace_id` and `region`. You can update the `description` and `is_public` parameters.
-func (s *API) UpdateNamespace(req *APIUpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -856,7 +856,7 @@ func (s *API) UpdateNamespace(req *APIUpdateNamespaceRequest, opts ...scw.Reques
 }
 
 // DeleteNamespace: Delete a given namespace. You must specify, in the endpoint, the `region` and `namespace_id` parameters of the namespace you want to delete.
-func (s *API) DeleteNamespace(req *APIDeleteNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
+func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -886,7 +886,7 @@ func (s *API) DeleteNamespace(req *APIDeleteNamespaceRequest, opts ...scw.Reques
 }
 
 // ListImages: List all images in a specified region. By default, the images listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `namespace_id` and `project_id` parameters.
-func (s *API) ListImages(req *APIListImagesRequest, opts ...scw.RequestOption) (*ListImagesResponse, error) {
+func (s *API) ListImages(req *ListImagesRequest, opts ...scw.RequestOption) (*ListImagesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -926,7 +926,7 @@ func (s *API) ListImages(req *APIListImagesRequest, opts ...scw.RequestOption) (
 }
 
 // GetImage: Retrieve information about a given container image, specified by its `image_id` and region. Full details about the image, such as `name`, `namespace_id`, `status`, `visibility`, and `size` are returned in the response.
-func (s *API) GetImage(req *APIGetImageRequest, opts ...scw.RequestOption) (*Image, error) {
+func (s *API) GetImage(req *GetImageRequest, opts ...scw.RequestOption) (*Image, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -956,7 +956,7 @@ func (s *API) GetImage(req *APIGetImageRequest, opts ...scw.RequestOption) (*Ima
 }
 
 // UpdateImage: Update the parameters of a given image, specified by its `image_id` and `region`. You can update the `visibility` parameter.
-func (s *API) UpdateImage(req *APIUpdateImageRequest, opts ...scw.RequestOption) (*Image, error) {
+func (s *API) UpdateImage(req *UpdateImageRequest, opts ...scw.RequestOption) (*Image, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -991,7 +991,7 @@ func (s *API) UpdateImage(req *APIUpdateImageRequest, opts ...scw.RequestOption)
 }
 
 // DeleteImage: Delete a given image. You must specify, in the endpoint, the `region` and `image_id` parameters of the image you want to delete.
-func (s *API) DeleteImage(req *APIDeleteImageRequest, opts ...scw.RequestOption) (*Image, error) {
+func (s *API) DeleteImage(req *DeleteImageRequest, opts ...scw.RequestOption) (*Image, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1021,7 +1021,7 @@ func (s *API) DeleteImage(req *APIDeleteImageRequest, opts ...scw.RequestOption)
 }
 
 // ListTags: List all tags for a given image, specified by region. By default, the tags listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `name`.
-func (s *API) ListTags(req *APIListTagsRequest, opts ...scw.RequestOption) (*ListTagsResponse, error) {
+func (s *API) ListTags(req *ListTagsRequest, opts ...scw.RequestOption) (*ListTagsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1062,7 +1062,7 @@ func (s *API) ListTags(req *APIListTagsRequest, opts ...scw.RequestOption) (*Lis
 }
 
 // GetTag: Retrieve information about a given image tag, specified by its `tag_id` and region. Full details about the tag, such as `name`, `image_id`, `status`, and `digest` are returned in the response.
-func (s *API) GetTag(req *APIGetTagRequest, opts ...scw.RequestOption) (*Tag, error) {
+func (s *API) GetTag(req *GetTagRequest, opts ...scw.RequestOption) (*Tag, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1092,7 +1092,7 @@ func (s *API) GetTag(req *APIGetTagRequest, opts ...scw.RequestOption) (*Tag, er
 }
 
 // DeleteTag: Delete a given image tag. You must specify, in the endpoint, the `region` and `tag_id` parameters of the tag you want to delete.
-func (s *API) DeleteTag(req *APIDeleteTagRequest, opts ...scw.RequestOption) (*Tag, error) {
+func (s *API) DeleteTag(req *DeleteTagRequest, opts ...scw.RequestOption) (*Tag, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

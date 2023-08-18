@@ -39,14 +39,14 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIListPinsRequestOrderBy string
+type ListPinsRequestOrderBy string
 
 const (
-	APIListPinsRequestOrderByCreatedAtAsc  = APIListPinsRequestOrderBy("created_at_asc")
-	APIListPinsRequestOrderByCreatedAtDesc = APIListPinsRequestOrderBy("created_at_desc")
+	ListPinsRequestOrderByCreatedAtAsc  = ListPinsRequestOrderBy("created_at_asc")
+	ListPinsRequestOrderByCreatedAtDesc = ListPinsRequestOrderBy("created_at_desc")
 )
 
-func (enum APIListPinsRequestOrderBy) String() string {
+func (enum ListPinsRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -54,29 +54,29 @@ func (enum APIListPinsRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum APIListPinsRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum ListPinsRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *APIListPinsRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *ListPinsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = APIListPinsRequestOrderBy(APIListPinsRequestOrderBy(tmp).String())
+	*enum = ListPinsRequestOrderBy(ListPinsRequestOrderBy(tmp).String())
 	return nil
 }
 
-type APIListVolumesRequestOrderBy string
+type ListVolumesRequestOrderBy string
 
 const (
-	APIListVolumesRequestOrderByCreatedAtAsc  = APIListVolumesRequestOrderBy("created_at_asc")
-	APIListVolumesRequestOrderByCreatedAtDesc = APIListVolumesRequestOrderBy("created_at_desc")
+	ListVolumesRequestOrderByCreatedAtAsc  = ListVolumesRequestOrderBy("created_at_asc")
+	ListVolumesRequestOrderByCreatedAtDesc = ListVolumesRequestOrderBy("created_at_desc")
 )
 
-func (enum APIListVolumesRequestOrderBy) String() string {
+func (enum ListVolumesRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -84,18 +84,18 @@ func (enum APIListVolumesRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum APIListVolumesRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum ListVolumesRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *APIListVolumesRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *ListVolumesRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = APIListVolumesRequestOrderBy(APIListVolumesRequestOrderBy(tmp).String())
+	*enum = ListVolumesRequestOrderBy(ListVolumesRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -259,8 +259,8 @@ type Volume struct {
 	Size *uint64 `json:"size"`
 }
 
-// APICreatePinByCIDRequest:
-type APICreatePinByCIDRequest struct {
+// CreatePinByCIDRequest:
+type CreatePinByCIDRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// VolumeID:
@@ -275,8 +275,8 @@ type APICreatePinByCIDRequest struct {
 	PinOptions *PinOptions `json:"pin_options"`
 }
 
-// APICreatePinByURLRequest:
-type APICreatePinByURLRequest struct {
+// CreatePinByURLRequest:
+type CreatePinByURLRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// VolumeID:
@@ -289,8 +289,8 @@ type APICreatePinByURLRequest struct {
 	PinOptions *PinOptions `json:"pin_options"`
 }
 
-// APICreateVolumeRequest:
-type APICreateVolumeRequest struct {
+// CreateVolumeRequest:
+type CreateVolumeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ProjectID:
@@ -299,8 +299,8 @@ type APICreateVolumeRequest struct {
 	Name string `json:"name"`
 }
 
-// APIDeletePinRequest:
-type APIDeletePinRequest struct {
+// DeletePinRequest:
+type DeletePinRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// PinID:
@@ -309,16 +309,16 @@ type APIDeletePinRequest struct {
 	VolumeID string `json:"-"`
 }
 
-// APIDeleteVolumeRequest:
-type APIDeleteVolumeRequest struct {
+// DeleteVolumeRequest:
+type DeleteVolumeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// VolumeID:
 	VolumeID string `json:"-"`
 }
 
-// APIGetPinRequest:
-type APIGetPinRequest struct {
+// GetPinRequest:
+type GetPinRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// PinID:
@@ -327,16 +327,16 @@ type APIGetPinRequest struct {
 	VolumeID string `json:"-"`
 }
 
-// APIGetVolumeRequest:
-type APIGetVolumeRequest struct {
+// GetVolumeRequest:
+type GetVolumeRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// VolumeID:
 	VolumeID string `json:"-"`
 }
 
-// APIListPinsRequest:
-type APIListPinsRequest struct {
+// ListPinsRequest:
+type ListPinsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// VolumeID:
@@ -350,53 +350,9 @@ type APIListPinsRequest struct {
 	// PageSize:
 	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy APIListPinsRequestOrderBy `json:"-"`
+	OrderBy ListPinsRequestOrderBy `json:"-"`
 	// Status:
 	Status PinStatus `json:"-"`
-}
-
-// APIListVolumesRequest:
-type APIListVolumesRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// ProjectID:
-	ProjectID string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-	// OrderBy:
-	OrderBy APIListVolumesRequestOrderBy `json:"-"`
-}
-
-// APIReplacePinRequest:
-type APIReplacePinRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// PinID:
-	PinID string `json:"-"`
-	// VolumeID:
-	VolumeID string `json:"volume_id"`
-	// Cid:
-	Cid string `json:"cid"`
-	// Name:
-	Name *string `json:"name,omitempty"`
-	// Origins:
-	Origins []string `json:"origins"`
-	// PinOptions:
-	PinOptions *PinOptions `json:"pin_options"`
-}
-
-// APIUpdateVolumeRequest:
-type APIUpdateVolumeRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// VolumeID:
-	VolumeID string `json:"-"`
-	// Name:
-	Name *string `json:"name,omitempty"`
-	// Tags:
-	Tags *[]string `json:"tags,omitempty"`
 }
 
 // ListPinsResponse:
@@ -426,6 +382,20 @@ func (r *ListPinsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Pins)), nil
 }
 
+// ListVolumesRequest:
+type ListVolumesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ProjectID:
+	ProjectID string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// OrderBy:
+	OrderBy ListVolumesRequestOrderBy `json:"-"`
+}
+
 // ListVolumesResponse:
 type ListVolumesResponse struct {
 	// Volumes:
@@ -453,10 +423,40 @@ func (r *ListVolumesResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Volumes)), nil
 }
 
+// ReplacePinRequest:
+type ReplacePinRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// PinID:
+	PinID string `json:"-"`
+	// VolumeID:
+	VolumeID string `json:"volume_id"`
+	// Cid:
+	Cid string `json:"cid"`
+	// Name:
+	Name *string `json:"name,omitempty"`
+	// Origins:
+	Origins []string `json:"origins"`
+	// PinOptions:
+	PinOptions *PinOptions `json:"pin_options"`
+}
+
 // ReplacePinResponse:
 type ReplacePinResponse struct {
 	// Pin:
 	Pin *Pin `json:"pin"`
+}
+
+// UpdateVolumeRequest:
+type UpdateVolumeRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// VolumeID:
+	VolumeID string `json:"-"`
+	// Name:
+	Name *string `json:"name,omitempty"`
+	// Tags:
+	Tags *[]string `json:"tags,omitempty"`
 }
 
 // The InterPlanetary File System (IPFS) is a modular suite of open data storage and exchange protocols. Anybody can participate in this peer-to-peer network. In mid-2022 more than 300K nodes were a part of the network. Content stored on IPFS nodes is powered by a content-addressing design, making it location-agnostic, verifiable, and immutable. This design makes IPFS a good choice for versioning, archiving, NFT, or ample content storage and distribution.
@@ -521,7 +521,7 @@ func (s *API) Regions() []scw.Region {
 // CreateVolume: Create a new volume from a Project ID. Volume is identified by an ID and used to host pin references.
 // Volume is personal (at least to your organization) even if IPFS blocks and CID are available to anyone.
 // Should be the first command you made because every pin must be attached to a volume.
-func (s *API) CreateVolume(req *APICreateVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
+func (s *API) CreateVolume(req *CreateVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -556,7 +556,7 @@ func (s *API) CreateVolume(req *APICreateVolumeRequest, opts ...scw.RequestOptio
 }
 
 // GetVolume: Retrieve information about a specific volume.
-func (s *API) GetVolume(req *APIGetVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
+func (s *API) GetVolume(req *GetVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -586,7 +586,7 @@ func (s *API) GetVolume(req *APIGetVolumeRequest, opts ...scw.RequestOption) (*V
 }
 
 // ListVolumes: Retrieve information about all volumes from a Project ID.
-func (s *API) ListVolumes(req *APIListVolumesRequest, opts ...scw.RequestOption) (*ListVolumesResponse, error) {
+func (s *API) ListVolumes(req *ListVolumesRequest, opts ...scw.RequestOption) (*ListVolumesResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -627,7 +627,7 @@ func (s *API) ListVolumes(req *APIListVolumesRequest, opts ...scw.RequestOption)
 }
 
 // UpdateVolume: Update volume information (tag, name...).
-func (s *API) UpdateVolume(req *APIUpdateVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
+func (s *API) UpdateVolume(req *UpdateVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -662,7 +662,7 @@ func (s *API) UpdateVolume(req *APIUpdateVolumeRequest, opts ...scw.RequestOptio
 }
 
 // DeleteVolume: Delete a volume by its ID and every pin attached to this volume. This process can take a while to conclude, depending on the size of your pinned content.
-func (s *API) DeleteVolume(req *APIDeleteVolumeRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteVolume(req *DeleteVolumeRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -694,7 +694,7 @@ func (s *API) DeleteVolume(req *APIDeleteVolumeRequest, opts ...scw.RequestOptio
 // From that point, any other IPFS peer can fetch and host your content: Make sure to pin public or encrypted content.
 // Many pin requests (from different users) can target the same CID.
 // A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.
-func (s *API) CreatePinByURL(req *APICreatePinByURLRequest, opts ...scw.RequestOption) (*Pin, error) {
+func (s *API) CreatePinByURL(req *CreatePinByURLRequest, opts ...scw.RequestOption) (*Pin, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -729,7 +729,7 @@ func (s *API) CreatePinByURL(req *APICreatePinByURLRequest, opts ...scw.RequestO
 // From that point, any other IPFS peer can fetch and host your content: Make sure to pin public or encrypted content.
 // Many pin requests (from different users) can target the same CID.
 // A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.
-func (s *API) CreatePinByCID(req *APICreatePinByCIDRequest, opts ...scw.RequestOption) (*Pin, error) {
+func (s *API) CreatePinByCID(req *CreatePinByCIDRequest, opts ...scw.RequestOption) (*Pin, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -760,7 +760,7 @@ func (s *API) CreatePinByCID(req *APICreatePinByCIDRequest, opts ...scw.RequestO
 }
 
 // ReplacePin:
-func (s *API) ReplacePin(req *APIReplacePinRequest, opts ...scw.RequestOption) (*ReplacePinResponse, error) {
+func (s *API) ReplacePin(req *ReplacePinRequest, opts ...scw.RequestOption) (*ReplacePinResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -795,7 +795,7 @@ func (s *API) ReplacePin(req *APIReplacePinRequest, opts ...scw.RequestOption) (
 }
 
 // GetPin: Retrieve information about the provided **pin ID**, such as status, last modification, and CID.
-func (s *API) GetPin(req *APIGetPinRequest, opts ...scw.RequestOption) (*Pin, error) {
+func (s *API) GetPin(req *GetPinRequest, opts ...scw.RequestOption) (*Pin, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -829,7 +829,7 @@ func (s *API) GetPin(req *APIGetPinRequest, opts ...scw.RequestOption) (*Pin, er
 }
 
 // ListPins: Retrieve information about all pins into a volume.
-func (s *API) ListPins(req *APIListPinsRequest, opts ...scw.RequestOption) (*ListPinsResponse, error) {
+func (s *API) ListPins(req *ListPinsRequest, opts ...scw.RequestOption) (*ListPinsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -870,7 +870,7 @@ func (s *API) ListPins(req *APIListPinsRequest, opts ...scw.RequestOption) (*Lis
 
 // DeletePin: An unpin request means that you no longer own the content.
 // This content can therefore be removed and no longer provided on the IPFS network.
-func (s *API) DeletePin(req *APIDeletePinRequest, opts ...scw.RequestOption) error {
+func (s *API) DeletePin(req *DeletePinRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

@@ -39,98 +39,6 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIListGrafanaUsersRequestOrderBy string
-
-const (
-	APIListGrafanaUsersRequestOrderByLoginAsc  = APIListGrafanaUsersRequestOrderBy("login_asc")
-	APIListGrafanaUsersRequestOrderByLoginDesc = APIListGrafanaUsersRequestOrderBy("login_desc")
-)
-
-func (enum APIListGrafanaUsersRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "login_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListGrafanaUsersRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListGrafanaUsersRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListGrafanaUsersRequestOrderBy(APIListGrafanaUsersRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListPlansRequestOrderBy string
-
-const (
-	APIListPlansRequestOrderByNameAsc  = APIListPlansRequestOrderBy("name_asc")
-	APIListPlansRequestOrderByNameDesc = APIListPlansRequestOrderBy("name_desc")
-)
-
-func (enum APIListPlansRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "name_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListPlansRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListPlansRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListPlansRequestOrderBy(APIListPlansRequestOrderBy(tmp).String())
-	return nil
-}
-
-type APIListTokensRequestOrderBy string
-
-const (
-	APIListTokensRequestOrderByCreatedAtAsc  = APIListTokensRequestOrderBy("created_at_asc")
-	APIListTokensRequestOrderByCreatedAtDesc = APIListTokensRequestOrderBy("created_at_desc")
-	APIListTokensRequestOrderByNameAsc       = APIListTokensRequestOrderBy("name_asc")
-	APIListTokensRequestOrderByNameDesc      = APIListTokensRequestOrderBy("name_desc")
-)
-
-func (enum APIListTokensRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListTokensRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListTokensRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListTokensRequestOrderBy(APIListTokensRequestOrderBy(tmp).String())
-	return nil
-}
-
 type CockpitStatus string
 
 const (
@@ -196,6 +104,98 @@ func (enum *GrafanaUserRole) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+type ListGrafanaUsersRequestOrderBy string
+
+const (
+	ListGrafanaUsersRequestOrderByLoginAsc  = ListGrafanaUsersRequestOrderBy("login_asc")
+	ListGrafanaUsersRequestOrderByLoginDesc = ListGrafanaUsersRequestOrderBy("login_desc")
+)
+
+func (enum ListGrafanaUsersRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "login_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListGrafanaUsersRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListGrafanaUsersRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListGrafanaUsersRequestOrderBy(ListGrafanaUsersRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListPlansRequestOrderBy string
+
+const (
+	ListPlansRequestOrderByNameAsc  = ListPlansRequestOrderBy("name_asc")
+	ListPlansRequestOrderByNameDesc = ListPlansRequestOrderBy("name_desc")
+)
+
+func (enum ListPlansRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "name_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListPlansRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListPlansRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListPlansRequestOrderBy(ListPlansRequestOrderBy(tmp).String())
+	return nil
+}
+
+type ListTokensRequestOrderBy string
+
+const (
+	ListTokensRequestOrderByCreatedAtAsc  = ListTokensRequestOrderBy("created_at_asc")
+	ListTokensRequestOrderByCreatedAtDesc = ListTokensRequestOrderBy("created_at_desc")
+	ListTokensRequestOrderByNameAsc       = ListTokensRequestOrderBy("name_asc")
+	ListTokensRequestOrderByNameDesc      = ListTokensRequestOrderBy("name_desc")
+)
+
+func (enum ListTokensRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListTokensRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListTokensRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListTokensRequestOrderBy(ListTokensRequestOrderBy(tmp).String())
+	return nil
+}
+
 type PlanName string
 
 const (
@@ -252,12 +252,6 @@ type TokenScopes struct {
 	SetupAlerts bool `json:"setup_alerts"`
 }
 
-// ContactPoint: Contact point.
-type ContactPoint struct {
-	// Email: Contact point configuration.
-	Email *ContactPointEmail `json:"email,omitempty"`
-}
-
 // CockpitEndpoints:
 type CockpitEndpoints struct {
 	// MetricsURL: URL for metrics.
@@ -286,6 +280,12 @@ type Plan struct {
 	LogsIngestionPrice uint32 `json:"logs_ingestion_price"`
 	// RetentionPrice: Retention price in euros per month.
 	RetentionPrice uint32 `json:"retention_price"`
+}
+
+// ContactPoint: Contact point.
+type ContactPoint struct {
+	// Email: Contact point configuration.
+	Email *ContactPointEmail `json:"email,omitempty"`
 }
 
 // GrafanaUser: Grafana user.
@@ -318,173 +318,9 @@ type Token struct {
 	SecretKey *string `json:"secret_key"`
 }
 
-// APIActivateCockpitRequest:
-type APIActivateCockpitRequest struct {
+// ActivateCockpitRequest:
+type ActivateCockpitRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
-	ProjectID string `json:"project_id"`
-}
-
-// APICreateContactPointRequest: Request to create a contact point.
-type APICreateContactPointRequest struct {
-	// ProjectID: ID of the Project in which to create the contact point.
-	ProjectID string `json:"project_id"`
-	// ContactPoint: Contact point to create.
-	ContactPoint *ContactPoint `json:"contact_point"`
-}
-
-// APICreateGrafanaUserRequest: Request to create a Grafana user.
-type APICreateGrafanaUserRequest struct {
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
-	// Login: Username of the Grafana user.
-	Login string `json:"login"`
-	// Role: Role assigned to the Grafana user.
-	Role GrafanaUserRole `json:"role"`
-}
-
-// APICreateTokenRequest:
-type APICreateTokenRequest struct {
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
-	// Name: Name of the token.
-	Name string `json:"name"`
-	// Scopes: Token's permissions.
-	Scopes *TokenScopes `json:"scopes"`
-}
-
-// APIDeactivateCockpitRequest:
-type APIDeactivateCockpitRequest struct {
-	// ProjectID: ID of the Project the Cockpit belongs to.
-	ProjectID string `json:"project_id"`
-}
-
-// APIDeleteContactPointRequest: Request to delete a contact point.
-type APIDeleteContactPointRequest struct {
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
-	// ContactPoint: Contact point to delete.
-	ContactPoint *ContactPoint `json:"contact_point"`
-}
-
-// APIDeleteGrafanaUserRequest: Request to delete a Grafana user.
-type APIDeleteGrafanaUserRequest struct {
-	// GrafanaUserID: ID of the Grafana user.
-	GrafanaUserID uint32 `json:"-"`
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
-}
-
-// APIDeleteTokenRequest:
-type APIDeleteTokenRequest struct {
-	// TokenID: ID of the token.
-	TokenID string `json:"-"`
-}
-
-// APIDisableManagedAlertsRequest: Request to disable the sending of managed alerts.
-type APIDisableManagedAlertsRequest struct {
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
-}
-
-// APIEnableManagedAlertsRequest: Request to enable the sending of managed alerts.
-type APIEnableManagedAlertsRequest struct {
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
-}
-
-// APIGetCockpitMetricsRequest: Request to get a given Cockpit's metrics.
-type APIGetCockpitMetricsRequest struct {
-	// ProjectID: ID of the Project the Cockpit belongs to.
-	ProjectID string `json:"-"`
-	// StartDate: Desired time range's start date for the metrics.
-	StartDate *time.Time `json:"-"`
-	// EndDate: Desired time range's end date for the metrics.
-	EndDate *time.Time `json:"-"`
-	// MetricName: Name of the metric requested.
-	MetricName *string `json:"-"`
-}
-
-// APIGetCockpitRequest:
-type APIGetCockpitRequest struct {
-	// ProjectID: ID of the Project the Cockpit belongs to.
-	ProjectID string `json:"-"`
-}
-
-// APIGetTokenRequest:
-type APIGetTokenRequest struct {
-	// TokenID: ID of the token.
-	TokenID string `json:"-"`
-}
-
-// APIListContactPointsRequest: Request to list all contact points.
-type APIListContactPointsRequest struct {
-	// Page: Page number.
-	Page *int32 `json:"-"`
-	// PageSize: Page size.
-	PageSize *uint32 `json:"-"`
-	// ProjectID: ID of the Project from which to list the contact points.
-	ProjectID string `json:"-"`
-}
-
-// APIListGrafanaUsersRequest: Request to list all Grafana users.
-type APIListGrafanaUsersRequest struct {
-	// Page: Page number.
-	Page *int32 `json:"-"`
-	// PageSize: Page size.
-	PageSize *uint32 `json:"-"`
-	// OrderBy:
-	OrderBy APIListGrafanaUsersRequestOrderBy `json:"-"`
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"-"`
-}
-
-// APIListPlansRequest: Request to list all pricing plans.
-type APIListPlansRequest struct {
-	// Page: Page number.
-	Page *int32 `json:"-"`
-	// PageSize: Page size.
-	PageSize *uint32 `json:"-"`
-	// OrderBy:
-	OrderBy APIListPlansRequestOrderBy `json:"-"`
-}
-
-// APIListTokensRequest:
-type APIListTokensRequest struct {
-	// Page: Page number.
-	Page *int32 `json:"-"`
-	// PageSize: Page size.
-	PageSize *uint32 `json:"-"`
-	// OrderBy:
-	OrderBy APIListTokensRequestOrderBy `json:"-"`
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"-"`
-}
-
-// APIResetCockpitGrafanaRequest:
-type APIResetCockpitGrafanaRequest struct {
-	// ProjectID: ID of the Project the Cockpit belongs to.
-	ProjectID string `json:"project_id"`
-}
-
-// APIResetGrafanaUserPasswordRequest: Request to reset a Grafana user's password.
-type APIResetGrafanaUserPasswordRequest struct {
-	// GrafanaUserID: ID of the Grafana user.
-	GrafanaUserID uint32 `json:"-"`
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
-}
-
-// APISelectPlanRequest: Request to select a specific pricing plan.
-type APISelectPlanRequest struct {
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
-	// PlanID: ID of the pricing plan.
-	PlanID string `json:"plan_id"`
-}
-
-// APITriggerTestAlertRequest:
-type APITriggerTestAlertRequest struct {
-	// ProjectID:
 	ProjectID string `json:"project_id"`
 }
 
@@ -510,6 +346,108 @@ type Cockpit struct {
 type CockpitMetrics struct {
 	// Timeseries: Time series array.
 	Timeseries []*scw.TimeSeries `json:"timeseries"`
+}
+
+// CreateContactPointRequest: Request to create a contact point.
+type CreateContactPointRequest struct {
+	// ProjectID: ID of the Project in which to create the contact point.
+	ProjectID string `json:"project_id"`
+	// ContactPoint: Contact point to create.
+	ContactPoint *ContactPoint `json:"contact_point"`
+}
+
+// CreateGrafanaUserRequest: Request to create a Grafana user.
+type CreateGrafanaUserRequest struct {
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
+	// Login: Username of the Grafana user.
+	Login string `json:"login"`
+	// Role: Role assigned to the Grafana user.
+	Role GrafanaUserRole `json:"role"`
+}
+
+// CreateTokenRequest:
+type CreateTokenRequest struct {
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
+	// Name: Name of the token.
+	Name string `json:"name"`
+	// Scopes: Token's permissions.
+	Scopes *TokenScopes `json:"scopes"`
+}
+
+// DeactivateCockpitRequest:
+type DeactivateCockpitRequest struct {
+	// ProjectID: ID of the Project the Cockpit belongs to.
+	ProjectID string `json:"project_id"`
+}
+
+// DeleteContactPointRequest: Request to delete a contact point.
+type DeleteContactPointRequest struct {
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
+	// ContactPoint: Contact point to delete.
+	ContactPoint *ContactPoint `json:"contact_point"`
+}
+
+// DeleteGrafanaUserRequest: Request to delete a Grafana user.
+type DeleteGrafanaUserRequest struct {
+	// GrafanaUserID: ID of the Grafana user.
+	GrafanaUserID uint32 `json:"-"`
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
+}
+
+// DeleteTokenRequest:
+type DeleteTokenRequest struct {
+	// TokenID: ID of the token.
+	TokenID string `json:"-"`
+}
+
+// DisableManagedAlertsRequest: Request to disable the sending of managed alerts.
+type DisableManagedAlertsRequest struct {
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
+}
+
+// EnableManagedAlertsRequest: Request to enable the sending of managed alerts.
+type EnableManagedAlertsRequest struct {
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
+}
+
+// GetCockpitMetricsRequest: Request to get a given Cockpit's metrics.
+type GetCockpitMetricsRequest struct {
+	// ProjectID: ID of the Project the Cockpit belongs to.
+	ProjectID string `json:"-"`
+	// StartDate: Desired time range's start date for the metrics.
+	StartDate *time.Time `json:"-"`
+	// EndDate: Desired time range's end date for the metrics.
+	EndDate *time.Time `json:"-"`
+	// MetricName: Name of the metric requested.
+	MetricName *string `json:"-"`
+}
+
+// GetCockpitRequest:
+type GetCockpitRequest struct {
+	// ProjectID: ID of the Project the Cockpit belongs to.
+	ProjectID string `json:"-"`
+}
+
+// GetTokenRequest:
+type GetTokenRequest struct {
+	// TokenID: ID of the token.
+	TokenID string `json:"-"`
+}
+
+// ListContactPointsRequest: Request to list all contact points.
+type ListContactPointsRequest struct {
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Page size.
+	PageSize *uint32 `json:"-"`
+	// ProjectID: ID of the Project from which to list the contact points.
+	ProjectID string `json:"-"`
 }
 
 // ListContactPointsResponse: Response returned when listing contact points.
@@ -543,6 +481,18 @@ func (r *ListContactPointsResponse) UnsafeAppend(res interface{}) (uint32, error
 	return uint32(len(results.ContactPoints)), nil
 }
 
+// ListGrafanaUsersRequest: Request to list all Grafana users.
+type ListGrafanaUsersRequest struct {
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Page size.
+	PageSize *uint32 `json:"-"`
+	// OrderBy:
+	OrderBy ListGrafanaUsersRequestOrderBy `json:"-"`
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"-"`
+}
+
 // ListGrafanaUsersResponse: Response returned when listing Grafana users.
 type ListGrafanaUsersResponse struct {
 	// TotalCount: Count of all Grafana users.
@@ -568,6 +518,16 @@ func (r *ListGrafanaUsersResponse) UnsafeAppend(res interface{}) (uint32, error)
 	r.GrafanaUsers = append(r.GrafanaUsers, results.GrafanaUsers...)
 	r.TotalCount += uint32(len(results.GrafanaUsers))
 	return uint32(len(results.GrafanaUsers)), nil
+}
+
+// ListPlansRequest: Request to list all pricing plans.
+type ListPlansRequest struct {
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Page size.
+	PageSize *uint32 `json:"-"`
+	// OrderBy:
+	OrderBy ListPlansRequestOrderBy `json:"-"`
 }
 
 // ListPlansResponse: Response returned when listing all pricing plans.
@@ -597,6 +557,18 @@ func (r *ListPlansResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Plans)), nil
 }
 
+// ListTokensRequest:
+type ListTokensRequest struct {
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Page size.
+	PageSize *uint32 `json:"-"`
+	// OrderBy:
+	OrderBy ListTokensRequestOrderBy `json:"-"`
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"-"`
+}
+
 // ListTokensResponse:
 type ListTokensResponse struct {
 	// TotalCount: Count of all tokens created.
@@ -624,8 +596,36 @@ func (r *ListTokensResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tokens)), nil
 }
 
+// ResetCockpitGrafanaRequest:
+type ResetCockpitGrafanaRequest struct {
+	// ProjectID: ID of the Project the Cockpit belongs to.
+	ProjectID string `json:"project_id"`
+}
+
+// ResetGrafanaUserPasswordRequest: Request to reset a Grafana user's password.
+type ResetGrafanaUserPasswordRequest struct {
+	// GrafanaUserID: ID of the Grafana user.
+	GrafanaUserID uint32 `json:"-"`
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
+}
+
+// SelectPlanRequest: Request to select a specific pricing plan.
+type SelectPlanRequest struct {
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
+	// PlanID: ID of the pricing plan.
+	PlanID string `json:"plan_id"`
+}
+
 // SelectPlanResponse: Response returned when selecting a pricing plan.
 type SelectPlanResponse struct {
+}
+
+// TriggerTestAlertRequest:
+type TriggerTestAlertRequest struct {
+	// ProjectID:
+	ProjectID string `json:"project_id"`
 }
 
 // Scaleway's Cockpit allows you to monitor your applications and their infrastructure by giving you insights and context into their behavior. Cockpit also enables you to visualize your metrics and logs through a Grafana dashboard. With Cockpit, you can also push your own data as Scaleway products' data is included by default.
@@ -880,7 +880,7 @@ func NewAPI(client *scw.Client) *API {
 }
 
 // ActivateCockpit: Activate the Cockpit of the specified Project ID.
-func (s *API) ActivateCockpit(req *APIActivateCockpitRequest, opts ...scw.RequestOption) (*Cockpit, error) {
+func (s *API) ActivateCockpit(req *ActivateCockpitRequest, opts ...scw.RequestOption) (*Cockpit, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -907,7 +907,7 @@ func (s *API) ActivateCockpit(req *APIActivateCockpitRequest, opts ...scw.Reques
 }
 
 // GetCockpit: Retrieve the Cockpit of the specified Project ID.
-func (s *API) GetCockpit(req *APIGetCockpitRequest, opts ...scw.RequestOption) (*Cockpit, error) {
+func (s *API) GetCockpit(req *GetCockpitRequest, opts ...scw.RequestOption) (*Cockpit, error) {
 	var err error
 
 	query := url.Values{}
@@ -929,7 +929,7 @@ func (s *API) GetCockpit(req *APIGetCockpitRequest, opts ...scw.RequestOption) (
 }
 
 // GetCockpitMetrics: Get metrics from your Cockpit with the specified Project ID.
-func (s *API) GetCockpitMetrics(req *APIGetCockpitMetricsRequest, opts ...scw.RequestOption) (*CockpitMetrics, error) {
+func (s *API) GetCockpitMetrics(req *GetCockpitMetricsRequest, opts ...scw.RequestOption) (*CockpitMetrics, error) {
 	var err error
 
 	query := url.Values{}
@@ -954,7 +954,7 @@ func (s *API) GetCockpitMetrics(req *APIGetCockpitMetricsRequest, opts ...scw.Re
 }
 
 // DeactivateCockpit: Deactivate the Cockpit of the specified Project ID.
-func (s *API) DeactivateCockpit(req *APIDeactivateCockpitRequest, opts ...scw.RequestOption) (*Cockpit, error) {
+func (s *API) DeactivateCockpit(req *DeactivateCockpitRequest, opts ...scw.RequestOption) (*Cockpit, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -981,7 +981,7 @@ func (s *API) DeactivateCockpit(req *APIDeactivateCockpitRequest, opts ...scw.Re
 }
 
 // ResetCockpitGrafana: Reset your Cockpit's Grafana associated with the specified Project ID.
-func (s *API) ResetCockpitGrafana(req *APIResetCockpitGrafanaRequest, opts ...scw.RequestOption) (*Cockpit, error) {
+func (s *API) ResetCockpitGrafana(req *ResetCockpitGrafanaRequest, opts ...scw.RequestOption) (*Cockpit, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1008,7 +1008,7 @@ func (s *API) ResetCockpitGrafana(req *APIResetCockpitGrafanaRequest, opts ...sc
 }
 
 // CreateToken: Create a token associated with the specified Project ID.
-func (s *API) CreateToken(req *APICreateTokenRequest, opts ...scw.RequestOption) (*Token, error) {
+func (s *API) CreateToken(req *CreateTokenRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1039,7 +1039,7 @@ func (s *API) CreateToken(req *APICreateTokenRequest, opts ...scw.RequestOption)
 }
 
 // ListTokens: Get a list of tokens associated with the specified Project ID.
-func (s *API) ListTokens(req *APIListTokensRequest, opts ...scw.RequestOption) (*ListTokensResponse, error) {
+func (s *API) ListTokens(req *ListTokensRequest, opts ...scw.RequestOption) (*ListTokensResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -1064,7 +1064,7 @@ func (s *API) ListTokens(req *APIListTokensRequest, opts ...scw.RequestOption) (
 }
 
 // GetToken: Retrieve the token associated with the specified token ID.
-func (s *API) GetToken(req *APIGetTokenRequest, opts ...scw.RequestOption) (*Token, error) {
+func (s *API) GetToken(req *GetTokenRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
 
 	if fmt.Sprint(req.TokenID) == "" {
@@ -1086,7 +1086,7 @@ func (s *API) GetToken(req *APIGetTokenRequest, opts ...scw.RequestOption) (*Tok
 }
 
 // DeleteToken: Delete the token associated with the specified token ID.
-func (s *API) DeleteToken(req *APIDeleteTokenRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteToken(req *DeleteTokenRequest, opts ...scw.RequestOption) error {
 	var err error
 
 	if fmt.Sprint(req.TokenID) == "" {
@@ -1106,7 +1106,7 @@ func (s *API) DeleteToken(req *APIDeleteTokenRequest, opts ...scw.RequestOption)
 }
 
 // CreateContactPoint: Create a contact point to receive alerts for the default receiver.
-func (s *API) CreateContactPoint(req *APICreateContactPointRequest, opts ...scw.RequestOption) (*ContactPoint, error) {
+func (s *API) CreateContactPoint(req *CreateContactPointRequest, opts ...scw.RequestOption) (*ContactPoint, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1133,7 +1133,7 @@ func (s *API) CreateContactPoint(req *APICreateContactPointRequest, opts ...scw.
 }
 
 // ListContactPoints: Get a list of contact points for the Cockpit associated with the specified Project ID.
-func (s *API) ListContactPoints(req *APIListContactPointsRequest, opts ...scw.RequestOption) (*ListContactPointsResponse, error) {
+func (s *API) ListContactPoints(req *ListContactPointsRequest, opts ...scw.RequestOption) (*ListContactPointsResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -1157,7 +1157,7 @@ func (s *API) ListContactPoints(req *APIListContactPointsRequest, opts ...scw.Re
 }
 
 // DeleteContactPoint: Delete a contact point for the default receiver.
-func (s *API) DeleteContactPoint(req *APIDeleteContactPointRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteContactPoint(req *DeleteContactPointRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1182,7 +1182,7 @@ func (s *API) DeleteContactPoint(req *APIDeleteContactPointRequest, opts ...scw.
 }
 
 // EnableManagedAlerts: Enable the sending of managed alerts for the specified Project's Cockpit.
-func (s *API) EnableManagedAlerts(req *APIEnableManagedAlertsRequest, opts ...scw.RequestOption) error {
+func (s *API) EnableManagedAlerts(req *EnableManagedAlertsRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1207,7 +1207,7 @@ func (s *API) EnableManagedAlerts(req *APIEnableManagedAlertsRequest, opts ...sc
 }
 
 // DisableManagedAlerts: Disable the sending of managed alerts for the specified Project's Cockpit.
-func (s *API) DisableManagedAlerts(req *APIDisableManagedAlertsRequest, opts ...scw.RequestOption) error {
+func (s *API) DisableManagedAlerts(req *DisableManagedAlertsRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1232,7 +1232,7 @@ func (s *API) DisableManagedAlerts(req *APIDisableManagedAlertsRequest, opts ...
 }
 
 // TriggerTestAlert: Trigger a test alert to all of the Cockpit's receivers.
-func (s *API) TriggerTestAlert(req *APITriggerTestAlertRequest, opts ...scw.RequestOption) error {
+func (s *API) TriggerTestAlert(req *TriggerTestAlertRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1257,7 +1257,7 @@ func (s *API) TriggerTestAlert(req *APITriggerTestAlertRequest, opts ...scw.Requ
 }
 
 // CreateGrafanaUser: Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID.
-func (s *API) CreateGrafanaUser(req *APICreateGrafanaUserRequest, opts ...scw.RequestOption) (*GrafanaUser, error) {
+func (s *API) CreateGrafanaUser(req *CreateGrafanaUserRequest, opts ...scw.RequestOption) (*GrafanaUser, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1284,7 +1284,7 @@ func (s *API) CreateGrafanaUser(req *APICreateGrafanaUserRequest, opts ...scw.Re
 }
 
 // ListGrafanaUsers: Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance.
-func (s *API) ListGrafanaUsers(req *APIListGrafanaUsersRequest, opts ...scw.RequestOption) (*ListGrafanaUsersResponse, error) {
+func (s *API) ListGrafanaUsers(req *ListGrafanaUsersRequest, opts ...scw.RequestOption) (*ListGrafanaUsersResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -1309,7 +1309,7 @@ func (s *API) ListGrafanaUsers(req *APIListGrafanaUsersRequest, opts ...scw.Requ
 }
 
 // DeleteGrafanaUser: Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.
-func (s *API) DeleteGrafanaUser(req *APIDeleteGrafanaUserRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteGrafanaUser(req *DeleteGrafanaUserRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1338,7 +1338,7 @@ func (s *API) DeleteGrafanaUser(req *APIDeleteGrafanaUserRequest, opts ...scw.Re
 }
 
 // ResetGrafanaUserPassword: Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.
-func (s *API) ResetGrafanaUserPassword(req *APIResetGrafanaUserPasswordRequest, opts ...scw.RequestOption) (*GrafanaUser, error) {
+func (s *API) ResetGrafanaUserPassword(req *ResetGrafanaUserPasswordRequest, opts ...scw.RequestOption) (*GrafanaUser, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
@@ -1369,7 +1369,7 @@ func (s *API) ResetGrafanaUserPassword(req *APIResetGrafanaUserPasswordRequest, 
 }
 
 // ListPlans: Get a list of all pricing plans available.
-func (s *API) ListPlans(req *APIListPlansRequest, opts ...scw.RequestOption) (*ListPlansResponse, error) {
+func (s *API) ListPlans(req *ListPlansRequest, opts ...scw.RequestOption) (*ListPlansResponse, error) {
 	var err error
 
 	query := url.Values{}
@@ -1393,7 +1393,7 @@ func (s *API) ListPlans(req *APIListPlansRequest, opts ...scw.RequestOption) (*L
 }
 
 // SelectPlan: Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request.
-func (s *API) SelectPlan(req *APISelectPlanRequest, opts ...scw.RequestOption) (*SelectPlanResponse, error) {
+func (s *API) SelectPlan(req *SelectPlanRequest, opts ...scw.RequestOption) (*SelectPlanResponse, error) {
 	var err error
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()

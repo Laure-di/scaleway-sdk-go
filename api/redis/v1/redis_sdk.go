@@ -39,38 +39,6 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIListClustersRequestOrderBy string
-
-const (
-	APIListClustersRequestOrderByCreatedAtAsc  = APIListClustersRequestOrderBy("created_at_asc")
-	APIListClustersRequestOrderByCreatedAtDesc = APIListClustersRequestOrderBy("created_at_desc")
-	APIListClustersRequestOrderByNameAsc       = APIListClustersRequestOrderBy("name_asc")
-	APIListClustersRequestOrderByNameDesc      = APIListClustersRequestOrderBy("name_desc")
-)
-
-func (enum APIListClustersRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_asc"
-	}
-	return string(enum)
-}
-
-func (enum APIListClustersRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListClustersRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListClustersRequestOrderBy(APIListClustersRequestOrderBy(tmp).String())
-	return nil
-}
-
 type AvailableClusterSettingPropertyType string
 
 const (
@@ -138,6 +106,38 @@ func (enum *ClusterStatus) UnmarshalJSON(data []byte) error {
 	}
 
 	*enum = ClusterStatus(ClusterStatus(tmp).String())
+	return nil
+}
+
+type ListClustersRequestOrderBy string
+
+const (
+	ListClustersRequestOrderByCreatedAtAsc  = ListClustersRequestOrderBy("created_at_asc")
+	ListClustersRequestOrderByCreatedAtDesc = ListClustersRequestOrderBy("created_at_desc")
+	ListClustersRequestOrderByNameAsc       = ListClustersRequestOrderBy("name_asc")
+	ListClustersRequestOrderByNameDesc      = ListClustersRequestOrderBy("name_desc")
+)
+
+func (enum ListClustersRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListClustersRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListClustersRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListClustersRequestOrderBy(ListClustersRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -377,276 +377,14 @@ type NodeType struct {
 	Zone scw.Zone `json:"zone"`
 }
 
-// APIAddACLRulesRequest:
-type APIAddACLRulesRequest struct {
+// AddACLRulesRequest:
+type AddACLRulesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ClusterID: UUID of the Database Instance you want to add ACL rules to.
 	ClusterID string `json:"-"`
 	// ACLRules: ACLs rules to add to the cluster.
 	ACLRules []*ACLRuleSpec `json:"acl_rules"`
-}
-
-// APIAddClusterSettingsRequest:
-type APIAddClusterSettingsRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the Database Instance you want to add settings to.
-	ClusterID string `json:"-"`
-	// Settings: Settings to add to the cluster.
-	Settings []*ClusterSetting `json:"settings"`
-}
-
-// APIAddEndpointsRequest:
-type APIAddEndpointsRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the Database Instance you want to add endpoints to.
-	ClusterID string `json:"-"`
-	// Endpoints: Endpoints to add to the Database Instance.
-	Endpoints []*EndpointSpec `json:"endpoints"`
-}
-
-// APICreateClusterRequest:
-type APICreateClusterRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ProjectID: Project ID in which to create the Database Instance.
-	ProjectID string `json:"project_id"`
-	// Name: Name of the Database Instance.
-	Name string `json:"name"`
-	// Version: Redis™ engine version of the Database Instance.
-	Version string `json:"version"`
-	// Tags: Tags to apply to the Database Instance.
-	Tags []string `json:"tags"`
-	// NodeType: Type of node to use for the Database Instance.
-	NodeType string `json:"node_type"`
-	// UserName: Name of the user created upon Database Instance creation.
-	UserName string `json:"user_name"`
-	// Password: Password of the user.
-	Password string `json:"password"`
-	// ClusterSize: Number of nodes in the Redis™ cluster.
-	ClusterSize *int32 `json:"cluster_size,omitempty"`
-	// ACLRules: List of ACLRuleSpec used to secure your publicly exposed cluster.
-	ACLRules []*ACLRuleSpec `json:"acl_rules"`
-	// Endpoints: Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
-	Endpoints []*EndpointSpec `json:"endpoints"`
-	// TLSEnabled: Defines whether or not TLS is enabled.
-	TLSEnabled bool `json:"tls_enabled"`
-	// ClusterSettings: List of advanced settings to be set upon Database Instance initialization.
-	ClusterSettings []*ClusterSetting `json:"cluster_settings"`
-}
-
-// APIDeleteACLRuleRequest:
-type APIDeleteACLRuleRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ACLID: UUID of the ACL rule you want to delete.
-	ACLID string `json:"-"`
-}
-
-// APIDeleteClusterRequest:
-type APIDeleteClusterRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the Database Instance to delete.
-	ClusterID string `json:"-"`
-}
-
-// APIDeleteClusterSettingRequest:
-type APIDeleteClusterSettingRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the Database Instance where the settings must be set.
-	ClusterID string `json:"-"`
-	// SettingName: Setting name to delete.
-	SettingName string `json:"-"`
-}
-
-// APIDeleteEndpointRequest:
-type APIDeleteEndpointRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// EndpointID: UUID of the endpoint you want to delete.
-	EndpointID string `json:"-"`
-}
-
-// APIGetACLRuleRequest:
-type APIGetACLRuleRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ACLID: UUID of the ACL rule you want to get.
-	ACLID string `json:"-"`
-}
-
-// APIGetClusterCertificateRequest:
-type APIGetClusterCertificateRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the cluster.
-	ClusterID string `json:"-"`
-}
-
-// APIGetClusterMetricsRequest:
-type APIGetClusterMetricsRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the cluster.
-	ClusterID string `json:"-"`
-	// StartAt: Start date.
-	StartAt *time.Time `json:"-"`
-	// EndAt: End date.
-	EndAt *time.Time `json:"-"`
-	// MetricName: Name of the metric to gather.
-	MetricName *string `json:"-"`
-}
-
-// APIGetClusterRequest:
-type APIGetClusterRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the cluster.
-	ClusterID string `json:"-"`
-}
-
-// APIGetEndpointRequest:
-type APIGetEndpointRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// EndpointID: UUID of the endpoint you want to get.
-	EndpointID string `json:"-"`
-}
-
-// APIListClusterVersionsRequest:
-type APIListClusterVersionsRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// IncludeDisabled: Defines whether or not to include disabled Redis™ engine versions.
-	IncludeDisabled bool `json:"-"`
-	// IncludeBeta: Defines whether or not to include beta Redis™ engine versions.
-	IncludeBeta bool `json:"-"`
-	// IncludeDeprecated: Defines whether or not to include deprecated Redis™ engine versions.
-	IncludeDeprecated bool `json:"-"`
-	// Version: List Redis™ engine versions that match a given name pattern.
-	Version *string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIListClustersRequest:
-type APIListClustersRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// Tags: Filter by Database Instance tags.
-	Tags []string `json:"-"`
-	// Name: Filter by Database Instance names.
-	Name *string `json:"-"`
-	// OrderBy: Criteria to use when ordering the list.
-	OrderBy APIListClustersRequestOrderBy `json:"-"`
-	// ProjectID: Filter by Project ID.
-	ProjectID *string `json:"-"`
-	// OrganizationID: Filter by Organization ID.
-	OrganizationID *string `json:"-"`
-	// Version: Filter by Redis™ engine version.
-	Version *string `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIListNodeTypesRequest:
-type APIListNodeTypesRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// IncludeDisabledTypes: Defines whether or not to include disabled types.
-	IncludeDisabledTypes bool `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-}
-
-// APIMigrateClusterRequest:
-type APIMigrateClusterRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the Database Instance to update.
-	ClusterID string `json:"-"`
-	// Version: Redis™ engine version of the Database Instance.
-	Version *string `json:"version,omitempty"`
-	// NodeType: Type of node to use for the Database Instance.
-	NodeType *string `json:"node_type,omitempty"`
-	// ClusterSize: Number of nodes for the Database Instance.
-	ClusterSize *uint32 `json:"cluster_size,omitempty"`
-}
-
-// APIRenewClusterCertificateRequest:
-type APIRenewClusterCertificateRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the cluster.
-	ClusterID string `json:"-"`
-}
-
-// APISetACLRulesRequest:
-type APISetACLRulesRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the Database Instance where the ACL rules have to be set.
-	ClusterID string `json:"-"`
-	// ACLRules: ACLs rules to define for the cluster.
-	ACLRules []*ACLRuleSpec `json:"acl_rules"`
-}
-
-// APISetClusterSettingsRequest:
-type APISetClusterSettingsRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the Database Instance where the settings must be set.
-	ClusterID string `json:"-"`
-	// Settings: Settings to define for the Database Instance.
-	Settings []*ClusterSetting `json:"settings"`
-}
-
-// APISetEndpointsRequest:
-type APISetEndpointsRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the Database Instance where the endpoints have to be set.
-	ClusterID string `json:"-"`
-	// Endpoints: Endpoints to define for the Database Instance.
-	Endpoints []*EndpointSpec `json:"endpoints"`
-}
-
-// APIUpdateClusterRequest:
-type APIUpdateClusterRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// ClusterID: UUID of the Database Instance to update.
-	ClusterID string `json:"-"`
-	// Name: Name of the Database Instance.
-	Name *string `json:"name,omitempty"`
-	// Tags: Database Instance tags.
-	Tags *[]string `json:"tags,omitempty"`
-	// UserName: Name of the Database Instance user.
-	UserName *string `json:"user_name,omitempty"`
-	// Password: Password of the Database Instance user.
-	Password *string `json:"password,omitempty"`
-}
-
-// APIUpdateEndpointRequest:
-type APIUpdateEndpointRequest struct {
-	// Zone:
-	Zone scw.Zone `json:"-"`
-	// EndpointID:
-	EndpointID string `json:"-"`
-	// PrivateNetwork:
-	PrivateNetwork *EndpointSpecPrivateNetworkSpec `json:"private_network,omitempty"`
-	// PublicNetwork:
-	PublicNetwork *EndpointSpecPublicNetworkSpec `json:"public_network,omitempty"`
 }
 
 // AddACLRulesResponse:
@@ -674,6 +412,26 @@ func (r *AddACLRulesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.ACLRules = append(r.ACLRules, results.ACLRules...)
 	r.TotalCount += uint32(len(results.ACLRules))
 	return uint32(len(results.ACLRules)), nil
+}
+
+// AddClusterSettingsRequest:
+type AddClusterSettingsRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance you want to add settings to.
+	ClusterID string `json:"-"`
+	// Settings: Settings to add to the cluster.
+	Settings []*ClusterSetting `json:"settings"`
+}
+
+// AddEndpointsRequest:
+type AddEndpointsRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance you want to add endpoints to.
+	ClusterID string `json:"-"`
+	// Endpoints: Endpoints to add to the Database Instance.
+	Endpoints []*EndpointSpec `json:"endpoints"`
 }
 
 // AddEndpointsResponse:
@@ -715,6 +473,134 @@ type ClusterSettingsResponse struct {
 	Settings []*ClusterSetting `json:"settings"`
 }
 
+// CreateClusterRequest:
+type CreateClusterRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ProjectID: Project ID in which to create the Database Instance.
+	ProjectID string `json:"project_id"`
+	// Name: Name of the Database Instance.
+	Name string `json:"name"`
+	// Version: Redis™ engine version of the Database Instance.
+	Version string `json:"version"`
+	// Tags: Tags to apply to the Database Instance.
+	Tags []string `json:"tags"`
+	// NodeType: Type of node to use for the Database Instance.
+	NodeType string `json:"node_type"`
+	// UserName: Name of the user created upon Database Instance creation.
+	UserName string `json:"user_name"`
+	// Password: Password of the user.
+	Password string `json:"password"`
+	// ClusterSize: Number of nodes in the Redis™ cluster.
+	ClusterSize *int32 `json:"cluster_size,omitempty"`
+	// ACLRules: List of ACLRuleSpec used to secure your publicly exposed cluster.
+	ACLRules []*ACLRuleSpec `json:"acl_rules"`
+	// Endpoints: Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
+	Endpoints []*EndpointSpec `json:"endpoints"`
+	// TLSEnabled: Defines whether or not TLS is enabled.
+	TLSEnabled bool `json:"tls_enabled"`
+	// ClusterSettings: List of advanced settings to be set upon Database Instance initialization.
+	ClusterSettings []*ClusterSetting `json:"cluster_settings"`
+}
+
+// DeleteACLRuleRequest:
+type DeleteACLRuleRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ACLID: UUID of the ACL rule you want to delete.
+	ACLID string `json:"-"`
+}
+
+// DeleteClusterRequest:
+type DeleteClusterRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance to delete.
+	ClusterID string `json:"-"`
+}
+
+// DeleteClusterSettingRequest:
+type DeleteClusterSettingRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance where the settings must be set.
+	ClusterID string `json:"-"`
+	// SettingName: Setting name to delete.
+	SettingName string `json:"-"`
+}
+
+// DeleteEndpointRequest:
+type DeleteEndpointRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// EndpointID: UUID of the endpoint you want to delete.
+	EndpointID string `json:"-"`
+}
+
+// GetACLRuleRequest:
+type GetACLRuleRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ACLID: UUID of the ACL rule you want to get.
+	ACLID string `json:"-"`
+}
+
+// GetClusterCertificateRequest:
+type GetClusterCertificateRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the cluster.
+	ClusterID string `json:"-"`
+}
+
+// GetClusterMetricsRequest:
+type GetClusterMetricsRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the cluster.
+	ClusterID string `json:"-"`
+	// StartAt: Start date.
+	StartAt *time.Time `json:"-"`
+	// EndAt: End date.
+	EndAt *time.Time `json:"-"`
+	// MetricName: Name of the metric to gather.
+	MetricName *string `json:"-"`
+}
+
+// GetClusterRequest:
+type GetClusterRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the cluster.
+	ClusterID string `json:"-"`
+}
+
+// GetEndpointRequest:
+type GetEndpointRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// EndpointID: UUID of the endpoint you want to get.
+	EndpointID string `json:"-"`
+}
+
+// ListClusterVersionsRequest:
+type ListClusterVersionsRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// IncludeDisabled: Defines whether or not to include disabled Redis™ engine versions.
+	IncludeDisabled bool `json:"-"`
+	// IncludeBeta: Defines whether or not to include beta Redis™ engine versions.
+	IncludeBeta bool `json:"-"`
+	// IncludeDeprecated: Defines whether or not to include deprecated Redis™ engine versions.
+	IncludeDeprecated bool `json:"-"`
+	// Version: List Redis™ engine versions that match a given name pattern.
+	Version *string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+}
+
 // ListClusterVersionsResponse:
 type ListClusterVersionsResponse struct {
 	// Versions: List of available Redis™ engine versions.
@@ -740,6 +626,28 @@ func (r *ListClusterVersionsResponse) UnsafeAppend(res interface{}) (uint32, err
 	r.Versions = append(r.Versions, results.Versions...)
 	r.TotalCount += uint32(len(results.Versions))
 	return uint32(len(results.Versions)), nil
+}
+
+// ListClustersRequest:
+type ListClustersRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// Tags: Filter by Database Instance tags.
+	Tags []string `json:"-"`
+	// Name: Filter by Database Instance names.
+	Name *string `json:"-"`
+	// OrderBy: Criteria to use when ordering the list.
+	OrderBy ListClustersRequestOrderBy `json:"-"`
+	// ProjectID: Filter by Project ID.
+	ProjectID *string `json:"-"`
+	// OrganizationID: Filter by Organization ID.
+	OrganizationID *string `json:"-"`
+	// Version: Filter by Redis™ engine version.
+	Version *string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
 }
 
 // ListClustersResponse:
@@ -769,6 +677,18 @@ func (r *ListClustersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Clusters)), nil
 }
 
+// ListNodeTypesRequest:
+type ListNodeTypesRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// IncludeDisabledTypes: Defines whether or not to include disabled types.
+	IncludeDisabledTypes bool `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+}
+
 // ListNodeTypesResponse:
 type ListNodeTypesResponse struct {
 	// NodeTypes: Types of node.
@@ -796,16 +716,96 @@ func (r *ListNodeTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.NodeTypes)), nil
 }
 
+// MigrateClusterRequest:
+type MigrateClusterRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance to update.
+	ClusterID string `json:"-"`
+	// Version: Redis™ engine version of the Database Instance.
+	Version *string `json:"version,omitempty"`
+	// NodeType: Type of node to use for the Database Instance.
+	NodeType *string `json:"node_type,omitempty"`
+	// ClusterSize: Number of nodes for the Database Instance.
+	ClusterSize *uint32 `json:"cluster_size,omitempty"`
+}
+
+// RenewClusterCertificateRequest:
+type RenewClusterCertificateRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the cluster.
+	ClusterID string `json:"-"`
+}
+
+// SetACLRulesRequest:
+type SetACLRulesRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance where the ACL rules have to be set.
+	ClusterID string `json:"-"`
+	// ACLRules: ACLs rules to define for the cluster.
+	ACLRules []*ACLRuleSpec `json:"acl_rules"`
+}
+
 // SetACLRulesResponse:
 type SetACLRulesResponse struct {
 	// ACLRules: ACL Rules enabled for the Database Instance.
 	ACLRules []*ACLRule `json:"acl_rules"`
 }
 
+// SetClusterSettingsRequest:
+type SetClusterSettingsRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance where the settings must be set.
+	ClusterID string `json:"-"`
+	// Settings: Settings to define for the Database Instance.
+	Settings []*ClusterSetting `json:"settings"`
+}
+
+// SetEndpointsRequest:
+type SetEndpointsRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance where the endpoints have to be set.
+	ClusterID string `json:"-"`
+	// Endpoints: Endpoints to define for the Database Instance.
+	Endpoints []*EndpointSpec `json:"endpoints"`
+}
+
 // SetEndpointsResponse:
 type SetEndpointsResponse struct {
 	// Endpoints: Endpoints defined on the Database Instance.
 	Endpoints []*Endpoint `json:"endpoints"`
+}
+
+// UpdateClusterRequest:
+type UpdateClusterRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance to update.
+	ClusterID string `json:"-"`
+	// Name: Name of the Database Instance.
+	Name *string `json:"name,omitempty"`
+	// Tags: Database Instance tags.
+	Tags *[]string `json:"tags,omitempty"`
+	// UserName: Name of the Database Instance user.
+	UserName *string `json:"user_name,omitempty"`
+	// Password: Password of the Database Instance user.
+	Password *string `json:"password,omitempty"`
+}
+
+// UpdateEndpointRequest:
+type UpdateEndpointRequest struct {
+	// Zone:
+	Zone scw.Zone `json:"-"`
+	// EndpointID:
+	EndpointID string `json:"-"`
+	// PrivateNetwork:
+	PrivateNetwork *EndpointSpecPrivateNetworkSpec `json:"private_network,omitempty"`
+	// PublicNetwork:
+	PublicNetwork *EndpointSpecPublicNetworkSpec `json:"public_network,omitempty"`
 }
 
 // Managed Database for Redis™ is a low-latency caching solution. It allows you to easily set up a secure cache and lighten the load on your main database. Based on the in-memory data storage, Managed Database for Redis™ improves your application response time and helps you provide a better experience to your users.
@@ -975,7 +975,7 @@ func (s *API) Zones() []scw.Zone {
 }
 
 // CreateCluster: Create a new Redis™ Database Instance (Redis™ cluster). You must set the `zone`, `project_id`, `version`, `node_type`, `user_name` and `password` parameters. Optionally you can define `acl_rules`, `endpoints`, `tls_enabled` and `cluster_settings`.
-func (s *API) CreateCluster(req *APICreateClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
+func (s *API) CreateCluster(req *CreateClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1014,7 +1014,7 @@ func (s *API) CreateCluster(req *APICreateClusterRequest, opts ...scw.RequestOpt
 }
 
 // UpdateCluster: Update the parameters of a Redis™ Database Instance (Redis™ cluster), including `name`, `tags`, `user_name` and `password`.
-func (s *API) UpdateCluster(req *APIUpdateClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
+func (s *API) UpdateCluster(req *UpdateClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1049,7 +1049,7 @@ func (s *API) UpdateCluster(req *APIUpdateClusterRequest, opts ...scw.RequestOpt
 }
 
 // GetCluster: Retrieve information about a Redis™ Database Instance (Redis™ cluster). Specify the `cluster_id` and `region` in your request to get information such as `id`, `status`, `version`, `tls_enabled`, `cluster_settings`, `upgradable_versions` and `endpoints` about your cluster in the response.
-func (s *API) GetCluster(req *APIGetClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
+func (s *API) GetCluster(req *GetClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1079,7 +1079,7 @@ func (s *API) GetCluster(req *APIGetClusterRequest, opts ...scw.RequestOption) (
 }
 
 // ListClusters: List all Redis™ Database Instances (Redis™ cluster) in the specified zone. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags`, `name`, `organization_id` and `version`.
-func (s *API) ListClusters(req *APIListClustersRequest, opts ...scw.RequestOption) (*ListClustersResponse, error) {
+func (s *API) ListClusters(req *ListClustersRequest, opts ...scw.RequestOption) (*ListClustersResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1120,7 +1120,7 @@ func (s *API) ListClusters(req *APIListClustersRequest, opts ...scw.RequestOptio
 }
 
 // MigrateCluster: Upgrade your standalone Redis™ Database Instance node, either by upgrading to a bigger node type (vertical scaling) or by adding more nodes to your Database Instance to increase your number of endpoints and distribute cache (horizontal scaling). Note that scaling horizontally your Redis™ Database Instance will not renew its TLS certificate. In order to refresh the TLS certificate, you must use the Renew TLS certificate endpoint.
-func (s *API) MigrateCluster(req *APIMigrateClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
+func (s *API) MigrateCluster(req *MigrateClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1155,7 +1155,7 @@ func (s *API) MigrateCluster(req *APIMigrateClusterRequest, opts ...scw.RequestO
 }
 
 // DeleteCluster: Delete a Redis™ Database Instance (Redis™ cluster), specified by the `region` and `cluster_id` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.
-func (s *API) DeleteCluster(req *APIDeleteClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
+func (s *API) DeleteCluster(req *DeleteClusterRequest, opts ...scw.RequestOption) (*Cluster, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1185,7 +1185,7 @@ func (s *API) DeleteCluster(req *APIDeleteClusterRequest, opts ...scw.RequestOpt
 }
 
 // GetClusterMetrics: Retrieve the metrics of a Redis™ Database Instance (Redis™ cluster). You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`.
-func (s *API) GetClusterMetrics(req *APIGetClusterMetricsRequest, opts ...scw.RequestOption) (*ClusterMetricsResponse, error) {
+func (s *API) GetClusterMetrics(req *GetClusterMetricsRequest, opts ...scw.RequestOption) (*ClusterMetricsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1221,7 +1221,7 @@ func (s *API) GetClusterMetrics(req *APIGetClusterMetricsRequest, opts ...scw.Re
 }
 
 // ListNodeTypes: List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-func (s *API) ListNodeTypes(req *APIListNodeTypesRequest, opts ...scw.RequestOption) (*ListNodeTypesResponse, error) {
+func (s *API) ListNodeTypes(req *ListNodeTypesRequest, opts ...scw.RequestOption) (*ListNodeTypesResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1257,7 +1257,7 @@ func (s *API) ListNodeTypes(req *APIListNodeTypesRequest, opts ...scw.RequestOpt
 }
 
 // ListClusterVersions: List the Redis™ database engine versions available. You can define additional parameters for your query, such as `include_disabled`, `include_beta`, `include_deprecated` and `version`.
-func (s *API) ListClusterVersions(req *APIListClusterVersionsRequest, opts ...scw.RequestOption) (*ListClusterVersionsResponse, error) {
+func (s *API) ListClusterVersions(req *ListClusterVersionsRequest, opts ...scw.RequestOption) (*ListClusterVersionsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1296,7 +1296,7 @@ func (s *API) ListClusterVersions(req *APIListClusterVersionsRequest, opts ...sc
 }
 
 // GetClusterCertificate: Retrieve information about the TLS certificate of a Redis™ Database Instance (Redis™ cluster). Details like name and content are returned in the response.
-func (s *API) GetClusterCertificate(req *APIGetClusterCertificateRequest, opts ...scw.RequestOption) (*scw.File, error) {
+func (s *API) GetClusterCertificate(req *GetClusterCertificateRequest, opts ...scw.RequestOption) (*scw.File, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1326,7 +1326,7 @@ func (s *API) GetClusterCertificate(req *APIGetClusterCertificateRequest, opts .
 }
 
 // RenewClusterCertificate: Renew a TLS certificate for a Redis™ Database Instance (Redis™ cluster). Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.
-func (s *API) RenewClusterCertificate(req *APIRenewClusterCertificateRequest, opts ...scw.RequestOption) (*Cluster, error) {
+func (s *API) RenewClusterCertificate(req *RenewClusterCertificateRequest, opts ...scw.RequestOption) (*Cluster, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1361,7 +1361,7 @@ func (s *API) RenewClusterCertificate(req *APIRenewClusterCertificateRequest, op
 }
 
 // AddClusterSettings: Add an advanced setting to a Redis™ Database Instance (Redis™ cluster). You must set the `name` and the `value` of each setting.
-func (s *API) AddClusterSettings(req *APIAddClusterSettingsRequest, opts ...scw.RequestOption) (*ClusterSettingsResponse, error) {
+func (s *API) AddClusterSettings(req *AddClusterSettingsRequest, opts ...scw.RequestOption) (*ClusterSettingsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1396,7 +1396,7 @@ func (s *API) AddClusterSettings(req *APIAddClusterSettingsRequest, opts ...scw.
 }
 
 // DeleteClusterSetting: Delete an advanced setting in a Redis™ Database Instance (Redis™ cluster). You must specify the names of the settings you want to delete in the request body.
-func (s *API) DeleteClusterSetting(req *APIDeleteClusterSettingRequest, opts ...scw.RequestOption) (*Cluster, error) {
+func (s *API) DeleteClusterSetting(req *DeleteClusterSettingRequest, opts ...scw.RequestOption) (*Cluster, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1430,7 +1430,7 @@ func (s *API) DeleteClusterSetting(req *APIDeleteClusterSettingRequest, opts ...
 }
 
 // SetClusterSettings: Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
-func (s *API) SetClusterSettings(req *APISetClusterSettingsRequest, opts ...scw.RequestOption) (*ClusterSettingsResponse, error) {
+func (s *API) SetClusterSettings(req *SetClusterSettingsRequest, opts ...scw.RequestOption) (*ClusterSettingsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1465,7 +1465,7 @@ func (s *API) SetClusterSettings(req *APISetClusterSettingsRequest, opts ...scw.
 }
 
 // SetACLRules: Replace all the ACL rules of a Redis™ Database Instance (Redis™ cluster).
-func (s *API) SetACLRules(req *APISetACLRulesRequest, opts ...scw.RequestOption) (*SetACLRulesResponse, error) {
+func (s *API) SetACLRules(req *SetACLRulesRequest, opts ...scw.RequestOption) (*SetACLRulesResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1500,7 +1500,7 @@ func (s *API) SetACLRules(req *APISetACLRulesRequest, opts ...scw.RequestOption)
 }
 
 // AddACLRules: Add an additional ACL rule to a Redis™ Database Instance (Redis™ cluster).
-func (s *API) AddACLRules(req *APIAddACLRulesRequest, opts ...scw.RequestOption) (*AddACLRulesResponse, error) {
+func (s *API) AddACLRules(req *AddACLRulesRequest, opts ...scw.RequestOption) (*AddACLRulesResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1535,7 +1535,7 @@ func (s *API) AddACLRules(req *APIAddACLRulesRequest, opts ...scw.RequestOption)
 }
 
 // DeleteACLRule: Delete an ACL rule of a Redis™ Database Instance (Redis™ cluster). You must specify the `acl_id` of the rule you want to delete in your request.
-func (s *API) DeleteACLRule(req *APIDeleteACLRuleRequest, opts ...scw.RequestOption) (*Cluster, error) {
+func (s *API) DeleteACLRule(req *DeleteACLRuleRequest, opts ...scw.RequestOption) (*Cluster, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1565,7 +1565,7 @@ func (s *API) DeleteACLRule(req *APIDeleteACLRuleRequest, opts ...scw.RequestOpt
 }
 
 // GetACLRule: Retrieve information about an ACL rule of a Redis™ Database Instance (Redis™ cluster). You must specify the `acl_id` of the rule in your request.
-func (s *API) GetACLRule(req *APIGetACLRuleRequest, opts ...scw.RequestOption) (*ACLRule, error) {
+func (s *API) GetACLRule(req *GetACLRuleRequest, opts ...scw.RequestOption) (*ACLRule, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1595,7 +1595,7 @@ func (s *API) GetACLRule(req *APIGetACLRuleRequest, opts ...scw.RequestOption) (
 }
 
 // SetEndpoints: Update an endpoint for a Redis™ Database Instance (Redis™ cluster). You must specify the `cluster_id` and the `endpoints` parameters in your request.
-func (s *API) SetEndpoints(req *APISetEndpointsRequest, opts ...scw.RequestOption) (*SetEndpointsResponse, error) {
+func (s *API) SetEndpoints(req *SetEndpointsRequest, opts ...scw.RequestOption) (*SetEndpointsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1630,7 +1630,7 @@ func (s *API) SetEndpoints(req *APISetEndpointsRequest, opts ...scw.RequestOptio
 }
 
 // AddEndpoints: Add a new endpoint for a Redis™ Database Instance (Redis™ cluster). You can add `private_network` or `public_network` specifications to the body of the request.
-func (s *API) AddEndpoints(req *APIAddEndpointsRequest, opts ...scw.RequestOption) (*AddEndpointsResponse, error) {
+func (s *API) AddEndpoints(req *AddEndpointsRequest, opts ...scw.RequestOption) (*AddEndpointsResponse, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1665,7 +1665,7 @@ func (s *API) AddEndpoints(req *APIAddEndpointsRequest, opts ...scw.RequestOptio
 }
 
 // DeleteEndpoint: Delete the endpoint of a Redis™ Database Instance (Redis™ cluster). You must specify the `region` and `endpoint_id` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.
-func (s *API) DeleteEndpoint(req *APIDeleteEndpointRequest, opts ...scw.RequestOption) (*Cluster, error) {
+func (s *API) DeleteEndpoint(req *DeleteEndpointRequest, opts ...scw.RequestOption) (*Cluster, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1695,7 +1695,7 @@ func (s *API) DeleteEndpoint(req *APIDeleteEndpointRequest, opts ...scw.RequestO
 }
 
 // GetEndpoint: Retrieve information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like `ips`, `port`, `private_network` and `public_network` specifications are returned in the response.
-func (s *API) GetEndpoint(req *APIGetEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
+func (s *API) GetEndpoint(req *GetEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
@@ -1725,7 +1725,7 @@ func (s *API) GetEndpoint(req *APIGetEndpointRequest, opts ...scw.RequestOption)
 }
 
 // UpdateEndpoint: Update information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like `ips`, `port`, `private_network` and `public_network` specifications are returned in the response.
-func (s *API) UpdateEndpoint(req *APIUpdateEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
+func (s *API) UpdateEndpoint(req *UpdateEndpointRequest, opts ...scw.RequestOption) (*Endpoint, error) {
 	var err error
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()

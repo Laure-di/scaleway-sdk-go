@@ -39,16 +39,16 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIListPrivateNetworksRequestOrderBy string
+type ListPrivateNetworksRequestOrderBy string
 
 const (
-	APIListPrivateNetworksRequestOrderByCreatedAtAsc  = APIListPrivateNetworksRequestOrderBy("created_at_asc")
-	APIListPrivateNetworksRequestOrderByCreatedAtDesc = APIListPrivateNetworksRequestOrderBy("created_at_desc")
-	APIListPrivateNetworksRequestOrderByNameAsc       = APIListPrivateNetworksRequestOrderBy("name_asc")
-	APIListPrivateNetworksRequestOrderByNameDesc      = APIListPrivateNetworksRequestOrderBy("name_desc")
+	ListPrivateNetworksRequestOrderByCreatedAtAsc  = ListPrivateNetworksRequestOrderBy("created_at_asc")
+	ListPrivateNetworksRequestOrderByCreatedAtDesc = ListPrivateNetworksRequestOrderBy("created_at_desc")
+	ListPrivateNetworksRequestOrderByNameAsc       = ListPrivateNetworksRequestOrderBy("name_asc")
+	ListPrivateNetworksRequestOrderByNameDesc      = ListPrivateNetworksRequestOrderBy("name_desc")
 )
 
-func (enum APIListPrivateNetworksRequestOrderBy) String() string {
+func (enum ListPrivateNetworksRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -56,31 +56,31 @@ func (enum APIListPrivateNetworksRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum APIListPrivateNetworksRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum ListPrivateNetworksRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *APIListPrivateNetworksRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *ListPrivateNetworksRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = APIListPrivateNetworksRequestOrderBy(APIListPrivateNetworksRequestOrderBy(tmp).String())
+	*enum = ListPrivateNetworksRequestOrderBy(ListPrivateNetworksRequestOrderBy(tmp).String())
 	return nil
 }
 
-type APIListVPCsRequestOrderBy string
+type ListVPCsRequestOrderBy string
 
 const (
-	APIListVPCsRequestOrderByCreatedAtAsc  = APIListVPCsRequestOrderBy("created_at_asc")
-	APIListVPCsRequestOrderByCreatedAtDesc = APIListVPCsRequestOrderBy("created_at_desc")
-	APIListVPCsRequestOrderByNameAsc       = APIListVPCsRequestOrderBy("name_asc")
-	APIListVPCsRequestOrderByNameDesc      = APIListVPCsRequestOrderBy("name_desc")
+	ListVPCsRequestOrderByCreatedAtAsc  = ListVPCsRequestOrderBy("created_at_asc")
+	ListVPCsRequestOrderByCreatedAtDesc = ListVPCsRequestOrderBy("created_at_desc")
+	ListVPCsRequestOrderByNameAsc       = ListVPCsRequestOrderBy("name_asc")
+	ListVPCsRequestOrderByNameDesc      = ListVPCsRequestOrderBy("name_desc")
 )
 
-func (enum APIListVPCsRequestOrderBy) String() string {
+func (enum ListVPCsRequestOrderBy) String() string {
 	if enum == "" {
 		// return default value if empty
 		return "created_at_asc"
@@ -88,18 +88,18 @@ func (enum APIListVPCsRequestOrderBy) String() string {
 	return string(enum)
 }
 
-func (enum APIListVPCsRequestOrderBy) MarshalJSON() ([]byte, error) {
+func (enum ListVPCsRequestOrderBy) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
 }
 
-func (enum *APIListVPCsRequestOrderBy) UnmarshalJSON(data []byte) error {
+func (enum *ListVPCsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	tmp := ""
 
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
 
-	*enum = APIListVPCsRequestOrderBy(APIListVPCsRequestOrderBy(tmp).String())
+	*enum = ListVPCsRequestOrderBy(ListVPCsRequestOrderBy(tmp).String())
 	return nil
 }
 
@@ -165,8 +165,8 @@ type VPC struct {
 	PrivateNetworkCount uint32 `json:"private_network_count"`
 }
 
-// APIAddSubnetsRequest:
-type APIAddSubnetsRequest struct {
+// AddSubnetsRequest:
+type AddSubnetsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// PrivateNetworkID: Private Network ID.
@@ -175,8 +175,14 @@ type APIAddSubnetsRequest struct {
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
-// APICreatePrivateNetworkRequest:
-type APICreatePrivateNetworkRequest struct {
+// AddSubnetsResponse:
+type AddSubnetsResponse struct {
+	// Subnets:
+	Subnets []scw.IPNet `json:"subnets"`
+}
+
+// CreatePrivateNetworkRequest:
+type CreatePrivateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Name for the Private Network.
@@ -191,8 +197,8 @@ type APICreatePrivateNetworkRequest struct {
 	VpcID *string `json:"vpc_id,omitempty"`
 }
 
-// APICreateVPCRequest:
-type APICreateVPCRequest struct {
+// CreateVPCRequest:
+type CreateVPCRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Name for the VPC.
@@ -203,16 +209,16 @@ type APICreateVPCRequest struct {
 	Tags []string `json:"tags"`
 }
 
-// APIDeletePrivateNetworkRequest:
-type APIDeletePrivateNetworkRequest struct {
+// DeletePrivateNetworkRequest:
+type DeletePrivateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// PrivateNetworkID: Private Network ID.
 	PrivateNetworkID string `json:"-"`
 }
 
-// APIDeleteSubnetsRequest:
-type APIDeleteSubnetsRequest struct {
+// DeleteSubnetsRequest:
+type DeleteSubnetsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// PrivateNetworkID: Private Network ID.
@@ -221,44 +227,50 @@ type APIDeleteSubnetsRequest struct {
 	Subnets []scw.IPNet `json:"subnets"`
 }
 
-// APIDeleteVPCRequest:
-type APIDeleteVPCRequest struct {
+// DeleteSubnetsResponse:
+type DeleteSubnetsResponse struct {
+	// Subnets:
+	Subnets []scw.IPNet `json:"subnets"`
+}
+
+// DeleteVPCRequest:
+type DeleteVPCRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// VpcID: VPC ID.
 	VpcID string `json:"-"`
 }
 
-// APIEnableDHCPRequest:
-type APIEnableDHCPRequest struct {
+// EnableDHCPRequest:
+type EnableDHCPRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// PrivateNetworkID: Private Network ID.
 	PrivateNetworkID string `json:"-"`
 }
 
-// APIGetPrivateNetworkRequest:
-type APIGetPrivateNetworkRequest struct {
+// GetPrivateNetworkRequest:
+type GetPrivateNetworkRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// PrivateNetworkID: Private Network ID.
 	PrivateNetworkID string `json:"-"`
 }
 
-// APIGetVPCRequest:
-type APIGetVPCRequest struct {
+// GetVPCRequest:
+type GetVPCRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// VpcID: VPC ID.
 	VpcID string `json:"-"`
 }
 
-// APIListPrivateNetworksRequest:
-type APIListPrivateNetworksRequest struct {
+// ListPrivateNetworksRequest:
+type ListPrivateNetworksRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// OrderBy: Sort order of the returned Private Networks.
-	OrderBy APIListPrivateNetworksRequestOrderBy `json:"-"`
+	OrderBy ListPrivateNetworksRequestOrderBy `json:"-"`
 	// Page: Page number to return, from the paginated results.
 	Page *int32 `json:"-"`
 	// PageSize: Maximum number of Private Networks to return per page.
@@ -277,86 +289,6 @@ type APIListPrivateNetworksRequest struct {
 	VpcID *string `json:"-"`
 	// DHCPEnabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
 	DHCPEnabled *bool `json:"-"`
-}
-
-// APIListVPCsRequest:
-type APIListVPCsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// OrderBy: Sort order of the returned VPCs.
-	OrderBy APIListVPCsRequestOrderBy `json:"-"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"-"`
-	// PageSize: Maximum number of VPCs to return per page.
-	PageSize *uint32 `json:"-"`
-	// Name: Name to filter for. Only VPCs with names containing this string will be returned.
-	Name *string `json:"-"`
-	// Tags: Tags to filter for. Only VPCs with one more more matching tags will be returned.
-	Tags []string `json:"-"`
-	// OrganizationID: Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
-	OrganizationID *string `json:"-"`
-	// ProjectID: Project ID to filter for. Only VPCs belonging to this Project will be returned.
-	ProjectID *string `json:"-"`
-	// IsDefault: Defines whether to filter only for VPCs which are the default one for their Project.
-	IsDefault *bool `json:"-"`
-}
-
-// APIMigrateZonalPrivateNetworksRequest:
-type APIMigrateZonalPrivateNetworksRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// OrganizationID: Organization ID to target. The specified zoned Private Networks within this Organization will be migrated to regional.
-	OrganizationID *string `json:"organization_id,omitempty"`
-	// ProjectID: Project to target. The specified zoned Private Networks within this Project will be migrated to regional.
-	ProjectID *string `json:"project_id,omitempty"`
-	// PrivateNetworkIDs: IDs of the Private Networks to migrate.
-	PrivateNetworkIDs []string `json:"private_network_ids"`
-}
-
-// APISetSubnetsRequest:
-type APISetSubnetsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// PrivateNetworkID: Private Network ID.
-	PrivateNetworkID string `json:"-"`
-	// Subnets: Private Network subnets CIDR.
-	Subnets []scw.IPNet `json:"subnets"`
-}
-
-// APIUpdatePrivateNetworkRequest:
-type APIUpdatePrivateNetworkRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// PrivateNetworkID: Private Network ID.
-	PrivateNetworkID string `json:"-"`
-	// Name: Name for the Private Network.
-	Name *string `json:"name,omitempty"`
-	// Tags: Tags for the Private Network.
-	Tags *[]string `json:"tags,omitempty"`
-}
-
-// APIUpdateVPCRequest:
-type APIUpdateVPCRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// VpcID: VPC ID.
-	VpcID string `json:"-"`
-	// Name: Name for the VPC.
-	Name *string `json:"name,omitempty"`
-	// Tags: Tags for the VPC.
-	Tags *[]string `json:"tags,omitempty"`
-}
-
-// AddSubnetsResponse:
-type AddSubnetsResponse struct {
-	// Subnets:
-	Subnets []scw.IPNet `json:"subnets"`
-}
-
-// DeleteSubnetsResponse:
-type DeleteSubnetsResponse struct {
-	// Subnets:
-	Subnets []scw.IPNet `json:"subnets"`
 }
 
 // ListPrivateNetworksResponse:
@@ -386,6 +318,28 @@ func (r *ListPrivateNetworksResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.PrivateNetworks)), nil
 }
 
+// ListVPCsRequest:
+type ListVPCsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// OrderBy: Sort order of the returned VPCs.
+	OrderBy ListVPCsRequestOrderBy `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of VPCs to return per page.
+	PageSize *uint32 `json:"-"`
+	// Name: Name to filter for. Only VPCs with names containing this string will be returned.
+	Name *string `json:"-"`
+	// Tags: Tags to filter for. Only VPCs with one more more matching tags will be returned.
+	Tags []string `json:"-"`
+	// OrganizationID: Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
+	OrganizationID *string `json:"-"`
+	// ProjectID: Project ID to filter for. Only VPCs belonging to this Project will be returned.
+	ProjectID *string `json:"-"`
+	// IsDefault: Defines whether to filter only for VPCs which are the default one for their Project.
+	IsDefault *bool `json:"-"`
+}
+
 // ListVPCsResponse:
 type ListVPCsResponse struct {
 	// Vpcs:
@@ -413,10 +367,56 @@ func (r *ListVPCsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Vpcs)), nil
 }
 
+// MigrateZonalPrivateNetworksRequest:
+type MigrateZonalPrivateNetworksRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// OrganizationID: Organization ID to target. The specified zoned Private Networks within this Organization will be migrated to regional.
+	OrganizationID *string `json:"organization_id,omitempty"`
+	// ProjectID: Project to target. The specified zoned Private Networks within this Project will be migrated to regional.
+	ProjectID *string `json:"project_id,omitempty"`
+	// PrivateNetworkIDs: IDs of the Private Networks to migrate.
+	PrivateNetworkIDs []string `json:"private_network_ids"`
+}
+
+// SetSubnetsRequest:
+type SetSubnetsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// PrivateNetworkID: Private Network ID.
+	PrivateNetworkID string `json:"-"`
+	// Subnets: Private Network subnets CIDR.
+	Subnets []scw.IPNet `json:"subnets"`
+}
+
 // SetSubnetsResponse:
 type SetSubnetsResponse struct {
 	// Subnets:
 	Subnets []scw.IPNet `json:"subnets"`
+}
+
+// UpdatePrivateNetworkRequest:
+type UpdatePrivateNetworkRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// PrivateNetworkID: Private Network ID.
+	PrivateNetworkID string `json:"-"`
+	// Name: Name for the Private Network.
+	Name *string `json:"name,omitempty"`
+	// Tags: Tags for the Private Network.
+	Tags *[]string `json:"tags,omitempty"`
+}
+
+// UpdateVPCRequest:
+type UpdateVPCRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// VpcID: VPC ID.
+	VpcID string `json:"-"`
+	// Name: Name for the VPC.
+	Name *string `json:"name,omitempty"`
+	// Tags: Tags for the VPC.
+	Tags *[]string `json:"tags,omitempty"`
 }
 
 // VPC allows you to build your own **V**irtual **P**rivate **C**loud on top of Scaleway’s shared public cloud.
@@ -604,7 +604,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // ListVPCs: List existing VPCs in the specified region.
-func (s *API) ListVPCs(req *APIListVPCsRequest, opts ...scw.RequestOption) (*ListVPCsResponse, error) {
+func (s *API) ListVPCs(req *ListVPCsRequest, opts ...scw.RequestOption) (*ListVPCsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -645,7 +645,7 @@ func (s *API) ListVPCs(req *APIListVPCsRequest, opts ...scw.RequestOption) (*Lis
 }
 
 // CreateVPC: Create a new VPC in the specified region.
-func (s *API) CreateVPC(req *APICreateVPCRequest, opts ...scw.RequestOption) (*VPC, error) {
+func (s *API) CreateVPC(req *CreateVPCRequest, opts ...scw.RequestOption) (*VPC, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -684,7 +684,7 @@ func (s *API) CreateVPC(req *APICreateVPCRequest, opts ...scw.RequestOption) (*V
 }
 
 // GetVPC: Retrieve details of an existing VPC, specified by its VPC ID.
-func (s *API) GetVPC(req *APIGetVPCRequest, opts ...scw.RequestOption) (*VPC, error) {
+func (s *API) GetVPC(req *GetVPCRequest, opts ...scw.RequestOption) (*VPC, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -714,7 +714,7 @@ func (s *API) GetVPC(req *APIGetVPCRequest, opts ...scw.RequestOption) (*VPC, er
 }
 
 // UpdateVPC: Update parameters including name and tags of the specified VPC.
-func (s *API) UpdateVPC(req *APIUpdateVPCRequest, opts ...scw.RequestOption) (*VPC, error) {
+func (s *API) UpdateVPC(req *UpdateVPCRequest, opts ...scw.RequestOption) (*VPC, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -749,7 +749,7 @@ func (s *API) UpdateVPC(req *APIUpdateVPCRequest, opts ...scw.RequestOption) (*V
 }
 
 // DeleteVPC: Delete a VPC specified by its VPC ID.
-func (s *API) DeleteVPC(req *APIDeleteVPCRequest, opts ...scw.RequestOption) error {
+func (s *API) DeleteVPC(req *DeleteVPCRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -777,7 +777,7 @@ func (s *API) DeleteVPC(req *APIDeleteVPCRequest, opts ...scw.RequestOption) err
 }
 
 // ListPrivateNetworks: List existing Private Networks in the specified region. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
-func (s *API) ListPrivateNetworks(req *APIListPrivateNetworksRequest, opts ...scw.RequestOption) (*ListPrivateNetworksResponse, error) {
+func (s *API) ListPrivateNetworks(req *ListPrivateNetworksRequest, opts ...scw.RequestOption) (*ListPrivateNetworksResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -820,7 +820,7 @@ func (s *API) ListPrivateNetworks(req *APIListPrivateNetworksRequest, opts ...sc
 }
 
 // CreatePrivateNetwork: Create a new Private Network. Once created, you can attach Scaleway resources which are in the same region.
-func (s *API) CreatePrivateNetwork(req *APICreatePrivateNetworkRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
+func (s *API) CreatePrivateNetwork(req *CreatePrivateNetworkRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -859,7 +859,7 @@ func (s *API) CreatePrivateNetwork(req *APICreatePrivateNetworkRequest, opts ...
 }
 
 // GetPrivateNetwork: Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object.
-func (s *API) GetPrivateNetwork(req *APIGetPrivateNetworkRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
+func (s *API) GetPrivateNetwork(req *GetPrivateNetworkRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -889,7 +889,7 @@ func (s *API) GetPrivateNetwork(req *APIGetPrivateNetworkRequest, opts ...scw.Re
 }
 
 // UpdatePrivateNetwork: Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID.
-func (s *API) UpdatePrivateNetwork(req *APIUpdatePrivateNetworkRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
+func (s *API) UpdatePrivateNetwork(req *UpdatePrivateNetworkRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -924,7 +924,7 @@ func (s *API) UpdatePrivateNetwork(req *APIUpdatePrivateNetworkRequest, opts ...
 }
 
 // DeletePrivateNetwork: Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.
-func (s *API) DeletePrivateNetwork(req *APIDeletePrivateNetworkRequest, opts ...scw.RequestOption) error {
+func (s *API) DeletePrivateNetwork(req *DeletePrivateNetworkRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -952,7 +952,7 @@ func (s *API) DeletePrivateNetwork(req *APIDeletePrivateNetworkRequest, opts ...
 }
 
 // MigrateZonalPrivateNetworks: Transform multiple existing zoned Private Networks (scoped to a single Availability Zone) into regional Private Networks, scoped to an entire region. You can transform one or many Private Networks (specified by their Private Network IDs) within a single Scaleway Organization or Project, with the same call.
-func (s *API) MigrateZonalPrivateNetworks(req *APIMigrateZonalPrivateNetworksRequest, opts ...scw.RequestOption) error {
+func (s *API) MigrateZonalPrivateNetworks(req *MigrateZonalPrivateNetworksRequest, opts ...scw.RequestOption) error {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -991,7 +991,7 @@ func (s *API) MigrateZonalPrivateNetworks(req *APIMigrateZonalPrivateNetworksReq
 }
 
 // EnableDHCP: Enable DHCP managed on an existing Private Network. Note that you will not be able to deactivate it afterwards.
-func (s *API) EnableDHCP(req *APIEnableDHCPRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
+func (s *API) EnableDHCP(req *EnableDHCPRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1026,7 +1026,7 @@ func (s *API) EnableDHCP(req *APIEnableDHCPRequest, opts ...scw.RequestOption) (
 }
 
 // SetSubnets: Set subnets for an existing Private Network. Note that the method is PUT and not PATCH. Any existing subnets will be removed in favor of the new specified set of subnets.
-func (s *API) SetSubnets(req *APISetSubnetsRequest, opts ...scw.RequestOption) (*SetSubnetsResponse, error) {
+func (s *API) SetSubnets(req *SetSubnetsRequest, opts ...scw.RequestOption) (*SetSubnetsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1061,7 +1061,7 @@ func (s *API) SetSubnets(req *APISetSubnetsRequest, opts ...scw.RequestOption) (
 }
 
 // AddSubnets: Add new subnets to an existing Private Network.
-func (s *API) AddSubnets(req *APIAddSubnetsRequest, opts ...scw.RequestOption) (*AddSubnetsResponse, error) {
+func (s *API) AddSubnets(req *AddSubnetsRequest, opts ...scw.RequestOption) (*AddSubnetsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1096,7 +1096,7 @@ func (s *API) AddSubnets(req *APIAddSubnetsRequest, opts ...scw.RequestOption) (
 }
 
 // DeleteSubnets: Delete the specified subnets from a Private Network.
-func (s *API) DeleteSubnets(req *APIDeleteSubnetsRequest, opts ...scw.RequestOption) (*DeleteSubnetsResponse, error) {
+func (s *API) DeleteSubnets(req *DeleteSubnetsRequest, opts ...scw.RequestOption) (*DeleteSubnetsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()

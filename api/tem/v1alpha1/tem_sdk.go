@@ -39,58 +39,6 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-type APIListEmailsRequestOrderBy string
-
-const (
-	// Order by creation date (descending chronological order).
-	APIListEmailsRequestOrderByCreatedAtDesc = APIListEmailsRequestOrderBy("created_at_desc")
-	// Order by creation date (ascending chronological order).
-	APIListEmailsRequestOrderByCreatedAtAsc = APIListEmailsRequestOrderBy("created_at_asc")
-	// Order by last update date (descending chronological order).
-	APIListEmailsRequestOrderByUpdatedAtDesc = APIListEmailsRequestOrderBy("updated_at_desc")
-	// Order by last update date (ascending chronological order).
-	APIListEmailsRequestOrderByUpdatedAtAsc = APIListEmailsRequestOrderBy("updated_at_asc")
-	// Order by status (descending alphabetical order).
-	APIListEmailsRequestOrderByStatusDesc = APIListEmailsRequestOrderBy("status_desc")
-	// Order by status (ascending alphabetical order).
-	APIListEmailsRequestOrderByStatusAsc = APIListEmailsRequestOrderBy("status_asc")
-	// Order by mail_from (descending alphabetical order).
-	APIListEmailsRequestOrderByMailFromDesc = APIListEmailsRequestOrderBy("mail_from_desc")
-	// Order by mail_from (ascending alphabetical order).
-	APIListEmailsRequestOrderByMailFromAsc = APIListEmailsRequestOrderBy("mail_from_asc")
-	// Order by mail recipient (descending alphabetical order).
-	APIListEmailsRequestOrderByMailRcptDesc = APIListEmailsRequestOrderBy("mail_rcpt_desc")
-	// Order by mail recipient (ascending alphabetical order).
-	APIListEmailsRequestOrderByMailRcptAsc = APIListEmailsRequestOrderBy("mail_rcpt_asc")
-	// Order by subject (descending alphabetical order).
-	APIListEmailsRequestOrderBySubjectDesc = APIListEmailsRequestOrderBy("subject_desc")
-	// Order by subject (ascending alphabetical order).
-	APIListEmailsRequestOrderBySubjectAsc = APIListEmailsRequestOrderBy("subject_asc")
-)
-
-func (enum APIListEmailsRequestOrderBy) String() string {
-	if enum == "" {
-		// return default value if empty
-		return "created_at_desc"
-	}
-	return string(enum)
-}
-
-func (enum APIListEmailsRequestOrderBy) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
-}
-
-func (enum *APIListEmailsRequestOrderBy) UnmarshalJSON(data []byte) error {
-	tmp := ""
-
-	if err := json.Unmarshal(data, &tmp); err != nil {
-		return err
-	}
-
-	*enum = APIListEmailsRequestOrderBy(APIListEmailsRequestOrderBy(tmp).String())
-	return nil
-}
-
 type DomainLastStatusRecordStatus string
 
 const (
@@ -283,6 +231,58 @@ func (enum *EmailStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+type ListEmailsRequestOrderBy string
+
+const (
+	// Order by creation date (descending chronological order).
+	ListEmailsRequestOrderByCreatedAtDesc = ListEmailsRequestOrderBy("created_at_desc")
+	// Order by creation date (ascending chronological order).
+	ListEmailsRequestOrderByCreatedAtAsc = ListEmailsRequestOrderBy("created_at_asc")
+	// Order by last update date (descending chronological order).
+	ListEmailsRequestOrderByUpdatedAtDesc = ListEmailsRequestOrderBy("updated_at_desc")
+	// Order by last update date (ascending chronological order).
+	ListEmailsRequestOrderByUpdatedAtAsc = ListEmailsRequestOrderBy("updated_at_asc")
+	// Order by status (descending alphabetical order).
+	ListEmailsRequestOrderByStatusDesc = ListEmailsRequestOrderBy("status_desc")
+	// Order by status (ascending alphabetical order).
+	ListEmailsRequestOrderByStatusAsc = ListEmailsRequestOrderBy("status_asc")
+	// Order by mail_from (descending alphabetical order).
+	ListEmailsRequestOrderByMailFromDesc = ListEmailsRequestOrderBy("mail_from_desc")
+	// Order by mail_from (ascending alphabetical order).
+	ListEmailsRequestOrderByMailFromAsc = ListEmailsRequestOrderBy("mail_from_asc")
+	// Order by mail recipient (descending alphabetical order).
+	ListEmailsRequestOrderByMailRcptDesc = ListEmailsRequestOrderBy("mail_rcpt_desc")
+	// Order by mail recipient (ascending alphabetical order).
+	ListEmailsRequestOrderByMailRcptAsc = ListEmailsRequestOrderBy("mail_rcpt_asc")
+	// Order by subject (descending alphabetical order).
+	ListEmailsRequestOrderBySubjectDesc = ListEmailsRequestOrderBy("subject_desc")
+	// Order by subject (ascending alphabetical order).
+	ListEmailsRequestOrderBySubjectAsc = ListEmailsRequestOrderBy("subject_asc")
+)
+
+func (enum ListEmailsRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_desc"
+	}
+	return string(enum)
+}
+
+func (enum ListEmailsRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListEmailsRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListEmailsRequestOrderBy(ListEmailsRequestOrderBy(tmp).String())
+	return nil
+}
+
 // EmailTry:
 type EmailTry struct {
 	// Rank: Rank number of this attempt to send the email.
@@ -307,16 +307,16 @@ type DomainStatistics struct {
 	CanceledCount uint32 `json:"canceled_count"`
 }
 
-// APICreateEmailRequestAddress:
-type APICreateEmailRequestAddress struct {
+// CreateEmailRequestAddress:
+type CreateEmailRequestAddress struct {
 	// Email: Email address.
 	Email string `json:"email"`
 	// Name: (Optional) Name displayed.
 	Name *string `json:"name"`
 }
 
-// APICreateEmailRequestAttachment:
-type APICreateEmailRequestAttachment struct {
+// CreateEmailRequestAttachment:
+type CreateEmailRequestAttachment struct {
 	// Name: Filename of the attachment.
 	Name string `json:"name"`
 	// Type: MIME type of the attachment.
@@ -411,24 +411,24 @@ type Domain struct {
 	Region scw.Region `json:"region"`
 }
 
-// APICancelEmailRequest:
-type APICancelEmailRequest struct {
+// CancelEmailRequest:
+type CancelEmailRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// EmailID: ID of the email to cancel.
 	EmailID string `json:"-"`
 }
 
-// APICheckDomainRequest:
-type APICheckDomainRequest struct {
+// CheckDomainRequest:
+type CheckDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// DomainID: ID of the domain to check.
 	DomainID string `json:"-"`
 }
 
-// APICreateDomainRequest:
-type APICreateDomainRequest struct {
+// CreateDomainRequest:
+type CreateDomainRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ProjectID: ID of the project to which the domain belongs.
@@ -439,18 +439,18 @@ type APICreateDomainRequest struct {
 	AcceptTos bool `json:"accept_tos"`
 }
 
-// APICreateEmailRequest:
-type APICreateEmailRequest struct {
+// CreateEmailRequest:
+type CreateEmailRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// From: Sender information. Must be from a checked domain declared in the Project.
-	From *APICreateEmailRequestAddress `json:"from"`
+	From *CreateEmailRequestAddress `json:"from"`
 	// To: An array of the primary recipient's information.
-	To []*APICreateEmailRequestAddress `json:"to"`
+	To []*CreateEmailRequestAddress `json:"to"`
 	// Cc: An array of the carbon copy recipient's information.
-	Cc []*APICreateEmailRequestAddress `json:"cc"`
+	Cc []*CreateEmailRequestAddress `json:"cc"`
 	// Bcc: An array of the blind carbon copy recipient's information.
-	Bcc []*APICreateEmailRequestAddress `json:"bcc"`
+	Bcc []*CreateEmailRequestAddress `json:"bcc"`
 	// Subject: Subject of the email.
 	Subject string `json:"subject"`
 	// Text: Text content.
@@ -460,111 +460,9 @@ type APICreateEmailRequest struct {
 	// ProjectID: ID of the Project in which to create the email.
 	ProjectID string `json:"project_id"`
 	// Attachments: Array of attachments.
-	Attachments []*APICreateEmailRequestAttachment `json:"attachments"`
+	Attachments []*CreateEmailRequestAttachment `json:"attachments"`
 	// SendBefore: Maximum date to deliver the email.
 	SendBefore *time.Time `json:"send_before,omitempty"`
-}
-
-// APIGetDomainLastStatusRequest:
-type APIGetDomainLastStatusRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DomainID: ID of the domain to delete.
-	DomainID string `json:"-"`
-}
-
-// APIGetDomainRequest:
-type APIGetDomainRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DomainID: ID of the domain.
-	DomainID string `json:"-"`
-}
-
-// APIGetEmailRequest:
-type APIGetEmailRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// EmailID: ID of the email to retrieve.
-	EmailID string `json:"-"`
-}
-
-// APIGetStatisticsRequest:
-type APIGetStatisticsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// ProjectID: (Optional) Number of emails for this Project.
-	ProjectID *string `json:"-"`
-	// DomainID: (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`).
-	DomainID *string `json:"-"`
-	// Since: (Optional) Number of emails created after this date.
-	Since *time.Time `json:"-"`
-	// Until: (Optional) Number of emails created before this date.
-	Until *time.Time `json:"-"`
-	// MailFrom: (Optional) Number of emails sent with this sender's email address.
-	MailFrom *string `json:"-"`
-}
-
-// APIListDomainsRequest:
-type APIListDomainsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Page: Requested page number. Value must be greater or equal to 1.
-	Page *int32 `json:"-"`
-	// PageSize: Page size.
-	PageSize *uint32 `json:"-"`
-	// ProjectID:
-	ProjectID *string `json:"-"`
-	// Status:
-	Status []DomainStatus `json:"-"`
-	// OrganizationID:
-	OrganizationID *string `json:"-"`
-	// Name:
-	Name *string `json:"-"`
-}
-
-// APIListEmailsRequest:
-type APIListEmailsRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// Page:
-	Page *int32 `json:"-"`
-	// PageSize:
-	PageSize *uint32 `json:"-"`
-	// ProjectID: (Optional) ID of the Project in which to list the emails.
-	ProjectID *string `json:"-"`
-	// DomainID: (Optional) ID of the domain for which to list the emails.
-	DomainID *string `json:"-"`
-	// MessageID: (Optional) ID of the message for which to list the emails.
-	MessageID *string `json:"-"`
-	// Since: (Optional) List emails created after this date.
-	Since *time.Time `json:"-"`
-	// Until: (Optional) List emails created before this date.
-	Until *time.Time `json:"-"`
-	// MailFrom: (Optional) List emails sent with this sender's email address.
-	MailFrom *string `json:"-"`
-	// Deprecated: MailTo: List emails sent to this recipient's email address.
-	MailTo *string `json:"-"`
-	// MailRcpt: (Optional) List emails sent to this recipient's email address.
-	MailRcpt *string `json:"-"`
-	// Statuses: (Optional) List emails with any of these statuses.
-	Statuses []EmailStatus `json:"-"`
-	// Subject: (Optional) List emails with this subject.
-	Subject *string `json:"-"`
-	// Search: (Optional) List emails by searching to all fields.
-	Search *string `json:"-"`
-	// OrderBy: (Optional) List emails corresponding to specific criteria.
-	OrderBy APIListEmailsRequestOrderBy `json:"-"`
-	// Flags: (Optional) List emails containing only specific flags.
-	Flags []EmailFlag `json:"-"`
-}
-
-// APIRevokeDomainRequest:
-type APIRevokeDomainRequest struct {
-	// Region:
-	Region scw.Region `json:"-"`
-	// DomainID: ID of the domain to delete.
-	DomainID string `json:"-"`
 }
 
 // CreateEmailResponse:
@@ -583,6 +481,64 @@ type DomainLastStatus struct {
 	SpfRecord *DomainLastStatusSpfRecord `json:"spf_record"`
 	// DkimRecord: The DKIM record verification data.
 	DkimRecord *DomainLastStatusDkimRecord `json:"dkim_record"`
+}
+
+// GetDomainLastStatusRequest:
+type GetDomainLastStatusRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DomainID: ID of the domain to delete.
+	DomainID string `json:"-"`
+}
+
+// GetDomainRequest:
+type GetDomainRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DomainID: ID of the domain.
+	DomainID string `json:"-"`
+}
+
+// GetEmailRequest:
+type GetEmailRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// EmailID: ID of the email to retrieve.
+	EmailID string `json:"-"`
+}
+
+// GetStatisticsRequest:
+type GetStatisticsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ProjectID: (Optional) Number of emails for this Project.
+	ProjectID *string `json:"-"`
+	// DomainID: (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`).
+	DomainID *string `json:"-"`
+	// Since: (Optional) Number of emails created after this date.
+	Since *time.Time `json:"-"`
+	// Until: (Optional) Number of emails created before this date.
+	Until *time.Time `json:"-"`
+	// MailFrom: (Optional) Number of emails sent with this sender's email address.
+	MailFrom *string `json:"-"`
+}
+
+// ListDomainsRequest:
+type ListDomainsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page: Requested page number. Value must be greater or equal to 1.
+	Page *int32 `json:"-"`
+	// PageSize: Page size.
+	PageSize *uint32 `json:"-"`
+	// ProjectID:
+	ProjectID *string `json:"-"`
+	// Status:
+	Status []DomainStatus `json:"-"`
+	// OrganizationID:
+	OrganizationID *string `json:"-"`
+	// Name:
+	Name *string `json:"-"`
 }
 
 // ListDomainsResponse:
@@ -612,6 +568,42 @@ func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Domains)), nil
 }
 
+// ListEmailsRequest:
+type ListEmailsRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// ProjectID: (Optional) ID of the Project in which to list the emails.
+	ProjectID *string `json:"-"`
+	// DomainID: (Optional) ID of the domain for which to list the emails.
+	DomainID *string `json:"-"`
+	// MessageID: (Optional) ID of the message for which to list the emails.
+	MessageID *string `json:"-"`
+	// Since: (Optional) List emails created after this date.
+	Since *time.Time `json:"-"`
+	// Until: (Optional) List emails created before this date.
+	Until *time.Time `json:"-"`
+	// MailFrom: (Optional) List emails sent with this sender's email address.
+	MailFrom *string `json:"-"`
+	// Deprecated: MailTo: List emails sent to this recipient's email address.
+	MailTo *string `json:"-"`
+	// MailRcpt: (Optional) List emails sent to this recipient's email address.
+	MailRcpt *string `json:"-"`
+	// Statuses: (Optional) List emails with any of these statuses.
+	Statuses []EmailStatus `json:"-"`
+	// Subject: (Optional) List emails with this subject.
+	Subject *string `json:"-"`
+	// Search: (Optional) List emails by searching to all fields.
+	Search *string `json:"-"`
+	// OrderBy: (Optional) List emails corresponding to specific criteria.
+	OrderBy ListEmailsRequestOrderBy `json:"-"`
+	// Flags: (Optional) List emails containing only specific flags.
+	Flags []EmailFlag `json:"-"`
+}
+
 // ListEmailsResponse:
 type ListEmailsResponse struct {
 	// TotalCount: Number of emails matching the requested criteria.
@@ -637,6 +629,14 @@ func (r *ListEmailsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	r.Emails = append(r.Emails, results.Emails...)
 	r.TotalCount += uint32(len(results.Emails))
 	return uint32(len(results.Emails)), nil
+}
+
+// RevokeDomainRequest:
+type RevokeDomainRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// DomainID: ID of the domain to delete.
+	DomainID string `json:"-"`
 }
 
 // Statistics:
@@ -835,7 +835,7 @@ func (s *API) Regions() []scw.Region {
 }
 
 // CreateEmail: You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain. The subject of the email must contain at least 6 characters.
-func (s *API) CreateEmail(req *APICreateEmailRequest, opts ...scw.RequestOption) (*CreateEmailResponse, error) {
+func (s *API) CreateEmail(req *CreateEmailRequest, opts ...scw.RequestOption) (*CreateEmailResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -870,7 +870,7 @@ func (s *API) CreateEmail(req *APICreateEmailRequest, opts ...scw.RequestOption)
 }
 
 // GetEmail: Retrieve information about a specific email using the `email_id` and `region` parameters.
-func (s *API) GetEmail(req *APIGetEmailRequest, opts ...scw.RequestOption) (*Email, error) {
+func (s *API) GetEmail(req *GetEmailRequest, opts ...scw.RequestOption) (*Email, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -900,7 +900,7 @@ func (s *API) GetEmail(req *APIGetEmailRequest, opts ...scw.RequestOption) (*Ema
 }
 
 // ListEmails: Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
-func (s *API) ListEmails(req *APIListEmailsRequest, opts ...scw.RequestOption) (*ListEmailsResponse, error) {
+func (s *API) ListEmails(req *ListEmailsRequest, opts ...scw.RequestOption) (*ListEmailsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -948,7 +948,7 @@ func (s *API) ListEmails(req *APIListEmailsRequest, opts ...scw.RequestOption) (
 }
 
 // GetStatistics: Get information on your emails' statuses.
-func (s *API) GetStatistics(req *APIGetStatisticsRequest, opts ...scw.RequestOption) (*Statistics, error) {
+func (s *API) GetStatistics(req *GetStatisticsRequest, opts ...scw.RequestOption) (*Statistics, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -982,7 +982,7 @@ func (s *API) GetStatistics(req *APIGetStatisticsRequest, opts ...scw.RequestOpt
 }
 
 // CancelEmail: You can cancel the sending of an email if it has not been sent yet. You must specify the `region` and the `email_id` of the email you want to cancel.
-func (s *API) CancelEmail(req *APICancelEmailRequest, opts ...scw.RequestOption) (*Email, error) {
+func (s *API) CancelEmail(req *CancelEmailRequest, opts ...scw.RequestOption) (*Email, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1017,7 +1017,7 @@ func (s *API) CancelEmail(req *APICancelEmailRequest, opts ...scw.RequestOption)
 }
 
 // CreateDomain: You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project.
-func (s *API) CreateDomain(req *APICreateDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+func (s *API) CreateDomain(req *CreateDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1052,7 +1052,7 @@ func (s *API) CreateDomain(req *APICreateDomainRequest, opts ...scw.RequestOptio
 }
 
 // GetDomain: Retrieve information about a specific domain using the `region` and `domain_id` parameters.
-func (s *API) GetDomain(req *APIGetDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+func (s *API) GetDomain(req *GetDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1082,7 +1082,7 @@ func (s *API) GetDomain(req *APIGetDomainRequest, opts ...scw.RequestOption) (*D
 }
 
 // ListDomains: Retrieve domains in a specific project or in a specific Organization using the `region` parameter.
-func (s *API) ListDomains(req *APIListDomainsRequest, opts ...scw.RequestOption) (*ListDomainsResponse, error) {
+func (s *API) ListDomains(req *ListDomainsRequest, opts ...scw.RequestOption) (*ListDomainsResponse, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1121,7 +1121,7 @@ func (s *API) ListDomains(req *APIListDomainsRequest, opts ...scw.RequestOption)
 }
 
 // RevokeDomain: You must specify the domain you want to delete by the `region` and `domain_id`. Deleting a domain is permanent and cannot be undone.
-func (s *API) RevokeDomain(req *APIRevokeDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+func (s *API) RevokeDomain(req *RevokeDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1156,7 +1156,7 @@ func (s *API) RevokeDomain(req *APIRevokeDomainRequest, opts ...scw.RequestOptio
 }
 
 // CheckDomain: Perform an immediate DNS check of a domain using the `region` and `domain_id` parameters.
-func (s *API) CheckDomain(req *APICheckDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
+func (s *API) CheckDomain(req *CheckDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
@@ -1191,7 +1191,7 @@ func (s *API) CheckDomain(req *APICheckDomainRequest, opts ...scw.RequestOption)
 }
 
 // GetDomainLastStatus: Display SPF and DKIM records status and potential errors, including the found records to make debugging easier.
-func (s *API) GetDomainLastStatus(req *APIGetDomainLastStatusRequest, opts ...scw.RequestOption) (*DomainLastStatus, error) {
+func (s *API) GetDomainLastStatus(req *GetDomainLastStatusRequest, opts ...scw.RequestOption) (*DomainLastStatus, error) {
 	var err error
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
