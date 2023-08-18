@@ -1551,11 +1551,11 @@ type CreateIPRequest struct {
 	// Project: Project ID in which the IP is reserved.
 	Project *string `json:"project,omitempty"`
 	// Tags: Tags of the IP.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags,omitempty"`
 	// Server: UUID of the Instance you want to attach the IP to.
 	Server *string `json:"server,omitempty"`
 	// Type: IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6').
-	Type IPType `json:"type"`
+	Type IPType `json:"type,omitempty"`
 }
 
 // CreateIPResponse:
@@ -1569,21 +1569,21 @@ type CreateImageRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Name of the image.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// RootVolume: UUID of the snapshot.
-	RootVolume string `json:"root_volume"`
+	RootVolume string `json:"root_volume,omitempty"`
 	// Arch: Architecture of the image.
-	Arch Arch `json:"arch"`
+	Arch Arch `json:"arch,omitempty"`
 	// Deprecated: DefaultBootscript: Default bootscript of the image.
 	DefaultBootscript *string `json:"default_bootscript,omitempty"`
 	// ExtraVolumes: Additional volumes of the image.
-	ExtraVolumes map[string]*VolumeTemplate `json:"extra_volumes"`
+	ExtraVolumes map[string]*VolumeTemplate `json:"extra_volumes,omitempty"`
 	// Deprecated: Organization: Organization ID of the image.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID of the image.
 	Project *string `json:"project,omitempty"`
 	// Tags: Tags of the image.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags,omitempty"`
 	// Public: True to create a public image.
 	Public *bool `json:"public,omitempty"`
 }
@@ -1599,17 +1599,17 @@ type CreatePlacementGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Name of the placement group.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Deprecated: Organization: Organization ID of the placement group.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID of the placement group.
 	Project *string `json:"project,omitempty"`
 	// Tags: Tags of the placement group.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags,omitempty"`
 	// PolicyMode: Operating mode of the placement group.
-	PolicyMode PlacementGroupPolicyMode `json:"policy_mode"`
+	PolicyMode PlacementGroupPolicyMode `json:"policy_mode,omitempty"`
 	// PolicyType: Policy type of the placement group.
-	PolicyType PlacementGroupPolicyType `json:"policy_type"`
+	PolicyType PlacementGroupPolicyType `json:"policy_type,omitempty"`
 }
 
 // CreatePlacementGroupResponse:
@@ -1625,11 +1625,11 @@ type CreatePrivateNICRequest struct {
 	// ServerID: UUID of the Instance the private NIC will be attached to.
 	ServerID string `json:"-"`
 	// PrivateNetworkID: UUID of the private network where the private NIC will be attached.
-	PrivateNetworkID string `json:"private_network_id"`
+	PrivateNetworkID string `json:"private_network_id,omitempty"`
 	// Tags: Private NIC tags.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags,omitempty"`
 	// IPIDs: Ip_ids defined from IPAM.
-	IPIDs []string `json:"ip_ids"`
+	IPIDs []string `json:"ip_ids,omitempty"`
 }
 
 // CreatePrivateNICResponse:
@@ -1643,25 +1643,25 @@ type CreateSecurityGroupRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Name of the security group.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Description: Description of the security group.
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 	// Deprecated: Organization: Organization ID the security group belongs to.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID the security group belong to.
 	Project *string `json:"project,omitempty"`
 	// Tags: Tags of the security group.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags,omitempty"`
 	// Deprecated: OrganizationDefault: Defines whether this security group becomes the default security group for new Instances.
 	OrganizationDefault *bool `json:"organization_default,omitempty"`
 	// ProjectDefault: Whether this security group becomes the default security group for new Instances.
 	ProjectDefault *bool `json:"project_default,omitempty"`
 	// Stateful: Whether the security group is stateful or not.
-	Stateful bool `json:"stateful"`
+	Stateful bool `json:"stateful,omitempty"`
 	// InboundDefaultPolicy: Default policy for inbound rules.
-	InboundDefaultPolicy SecurityGroupPolicy `json:"inbound_default_policy"`
+	InboundDefaultPolicy SecurityGroupPolicy `json:"inbound_default_policy,omitempty"`
 	// OutboundDefaultPolicy: Default policy for outbound rules.
-	OutboundDefaultPolicy SecurityGroupPolicy `json:"outbound_default_policy"`
+	OutboundDefaultPolicy SecurityGroupPolicy `json:"outbound_default_policy,omitempty"`
 	// EnableDefaultSecurity: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
 	EnableDefaultSecurity *bool `json:"enable_default_security,omitempty"`
 }
@@ -1679,21 +1679,21 @@ type CreateSecurityGroupRuleRequest struct {
 	// SecurityGroupID: UUID of the security group.
 	SecurityGroupID string `json:"-"`
 	// Protocol:
-	Protocol SecurityGroupRuleProtocol `json:"protocol"`
+	Protocol SecurityGroupRuleProtocol `json:"protocol,omitempty"`
 	// Direction:
-	Direction SecurityGroupRuleDirection `json:"direction"`
+	Direction SecurityGroupRuleDirection `json:"direction,omitempty"`
 	// Action:
-	Action SecurityGroupRuleAction `json:"action"`
+	Action SecurityGroupRuleAction `json:"action,omitempty"`
 	// IPRange:
-	IPRange scw.IPNet `json:"ip_range"`
+	IPRange scw.IPNet `json:"ip_range,omitempty"`
 	// DestPortFrom: Beginning of the range of ports to apply this rule to (inclusive).
 	DestPortFrom *uint32 `json:"dest_port_from,omitempty"`
 	// DestPortTo: End of the range of ports to apply this rule to (inclusive).
 	DestPortTo *uint32 `json:"dest_port_to,omitempty"`
 	// Position: Position of this rule in the security group rules list.
-	Position uint32 `json:"position"`
+	Position uint32 `json:"position,omitempty"`
 	// Editable: Indicates if this rule is editable (will be ignored).
-	Editable bool `json:"editable"`
+	Editable bool `json:"editable,omitempty"`
 }
 
 // CreateSecurityGroupRuleResponse:
@@ -1707,19 +1707,19 @@ type CreateServerRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Instance name.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// DynamicIPRequired: Define if a dynamic IPv4 is required for the Instance.
 	DynamicIPRequired *bool `json:"dynamic_ip_required,omitempty"`
 	// RoutedIPEnabled: If true, configure the Instance so it uses the new routed IP mode.
 	RoutedIPEnabled *bool `json:"routed_ip_enabled,omitempty"`
 	// CommercialType: Define the Instance commercial type (i.e. GP1-S).
-	CommercialType string `json:"commercial_type"`
+	CommercialType string `json:"commercial_type,omitempty"`
 	// Image: Instance image ID or label.
-	Image string `json:"image"`
+	Image string `json:"image,omitempty"`
 	// Volumes: Volumes attached to the server.
-	Volumes map[string]*VolumeServerTemplate `json:"volumes"`
+	Volumes map[string]*VolumeServerTemplate `json:"volumes,omitempty"`
 	// EnableIPv6: True if IPv6 is enabled on the server.
-	EnableIPv6 bool `json:"enable_ipv6"`
+	EnableIPv6 bool `json:"enable_ipv6,omitempty"`
 	// PublicIP: ID of the reserved IP to attach to the Instance.
 	PublicIP *string `json:"public_ip,omitempty"`
 	// PublicIPs: A list of reserved IP IDs to attach to the Instance.
@@ -1733,7 +1733,7 @@ type CreateServerRequest struct {
 	// Project: Instance Project ID.
 	Project *string `json:"project,omitempty"`
 	// Tags: Instance tags.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags,omitempty"`
 	// SecurityGroup: Security group ID.
 	SecurityGroup *string `json:"security_group,omitempty"`
 	// PlacementGroup: Placement group ID if Instance must be part of a placement group.
@@ -1751,7 +1751,7 @@ type CreateSnapshotRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Name of the snapshot.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// VolumeID: UUID of the volume.
 	VolumeID *string `json:"volume_id,omitempty"`
 	// Tags: Tags of the snapshot.
@@ -1762,7 +1762,7 @@ type CreateSnapshotRequest struct {
 	Project *string `json:"project,omitempty"`
 	// VolumeType: Overrides the volume_type of the snapshot.
 	// If omitted, the volume type of the original volume will be used.
-	VolumeType SnapshotVolumeType `json:"volume_type"`
+	VolumeType SnapshotVolumeType `json:"volume_type,omitempty"`
 	// Bucket: Bucket name for snapshot imports.
 	Bucket *string `json:"bucket,omitempty"`
 	// Key: Object key for snapshot imports.
@@ -1784,15 +1784,15 @@ type CreateVolumeRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Volume name.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Deprecated: Organization: Volume Organization ID.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Volume Project ID.
 	Project *string `json:"project,omitempty"`
 	// Tags: Volume tags.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags,omitempty"`
 	// VolumeType: Volume type.
-	VolumeType VolumeVolumeType `json:"volume_type"`
+	VolumeType VolumeVolumeType `json:"volume_type,omitempty"`
 	// Size: Volume disk size, must be a multiple of 512.
 	Size *scw.Size `json:"size,omitempty"`
 	// BaseVolume: ID of the volume on which this volume will be based.
@@ -1900,9 +1900,9 @@ type ExportSnapshotRequest struct {
 	// SnapshotID: Snapshot ID.
 	SnapshotID string `json:"-"`
 	// Bucket: S3 bucket name.
-	Bucket string `json:"bucket"`
+	Bucket string `json:"bucket,omitempty"`
 	// Key: S3 object key.
-	Key string `json:"key"`
+	Key string `json:"key,omitempty"`
 }
 
 // ExportSnapshotResponse:
@@ -2642,13 +2642,13 @@ type ServerActionRequest struct {
 	// ServerID: UUID of the Instance.
 	ServerID string `json:"-"`
 	// Action: Action to perform on the Instance.
-	Action ServerAction `json:"action"`
+	Action ServerAction `json:"action,omitempty"`
 	// Name: Name of the backup you want to create.
 	// This field should only be specified when performing a backup action.
 	Name *string `json:"name,omitempty"`
 	// Volumes: For each volume UUID, the snapshot parameters of the volume.
 	// This field should only be specified when performing a backup action.
-	Volumes map[string]*ServerActionRequestVolumeBackupTemplate `json:"volumes"`
+	Volumes map[string]*ServerActionRequestVolumeBackupTemplate `json:"volumes,omitempty"`
 }
 
 // ServerActionResponse:
@@ -2664,9 +2664,9 @@ type SetImageRequest struct {
 	// ID:
 	ID string `json:"-"`
 	// Name:
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Arch:
-	Arch Arch `json:"arch"`
+	Arch Arch `json:"arch,omitempty"`
 	// CreationDate:
 	CreationDate *time.Time `json:"creation_date,omitempty"`
 	// ModificationDate:
@@ -2674,19 +2674,19 @@ type SetImageRequest struct {
 	// Deprecated: DefaultBootscript:
 	DefaultBootscript *Bootscript `json:"default_bootscript,omitempty"`
 	// ExtraVolumes:
-	ExtraVolumes map[string]*Volume `json:"extra_volumes"`
+	ExtraVolumes map[string]*Volume `json:"extra_volumes,omitempty"`
 	// FromServer:
-	FromServer string `json:"from_server"`
+	FromServer string `json:"from_server,omitempty"`
 	// Organization:
-	Organization string `json:"organization"`
+	Organization string `json:"organization,omitempty"`
 	// Public:
-	Public bool `json:"public"`
+	Public bool `json:"public,omitempty"`
 	// RootVolume:
-	RootVolume *VolumeSummary `json:"root_volume"`
+	RootVolume *VolumeSummary `json:"root_volume,omitempty"`
 	// State:
-	State ImageState `json:"state"`
+	State ImageState `json:"state,omitempty"`
 	// Project:
-	Project string `json:"project"`
+	Project string `json:"project,omitempty"`
 	// Tags:
 	Tags *[]string `json:"tags,omitempty"`
 }
@@ -2698,15 +2698,15 @@ type SetPlacementGroupRequest struct {
 	// PlacementGroupID:
 	PlacementGroupID string `json:"-"`
 	// Name:
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Organization:
-	Organization string `json:"organization"`
+	Organization string `json:"organization,omitempty"`
 	// PolicyMode:
-	PolicyMode PlacementGroupPolicyMode `json:"policy_mode"`
+	PolicyMode PlacementGroupPolicyMode `json:"policy_mode,omitempty"`
 	// PolicyType:
-	PolicyType PlacementGroupPolicyType `json:"policy_type"`
+	PolicyType PlacementGroupPolicyType `json:"policy_type,omitempty"`
 	// Project:
-	Project string `json:"project"`
+	Project string `json:"project,omitempty"`
 	// Tags:
 	Tags *[]string `json:"tags,omitempty"`
 }
@@ -2724,7 +2724,7 @@ type SetPlacementGroupServersRequest struct {
 	// PlacementGroupID: UUID of the placement group you want to set.
 	PlacementGroupID string `json:"-"`
 	// Servers: An array of the Instances' UUIDs you want to configure.
-	Servers []string `json:"servers"`
+	Servers []string `json:"servers,omitempty"`
 }
 
 // SetPlacementGroupServersResponse:
@@ -2740,7 +2740,7 @@ type SetSecurityGroupRulesRequest struct {
 	// SecurityGroupID: UUID of the security group to update the rules on.
 	SecurityGroupID string `json:"-"`
 	// Rules: List of rules to update in the security group.
-	Rules []*SetSecurityGroupRulesRequestRule `json:"rules"`
+	Rules []*SetSecurityGroupRulesRequestRule `json:"rules,omitempty"`
 }
 
 // SetSecurityGroupRulesResponse:
@@ -2756,13 +2756,13 @@ type UpdateIPRequest struct {
 	// IP: IP ID or IP address.
 	IP string `json:"-"`
 	// Reverse: Reverse domain name.
-	Reverse *NullableStringValue `json:"reverse"`
+	Reverse *NullableStringValue `json:"reverse,omitempty"`
 	// Type: Convert a 'nat' IP to a 'routed_ipv4'.
-	Type IPType `json:"type"`
+	Type IPType `json:"type,omitempty"`
 	// Tags: An array of keywords you want to tag this IP with.
 	Tags *[]string `json:"tags,omitempty"`
 	// Server:
-	Server *NullableStringValue `json:"server"`
+	Server *NullableStringValue `json:"server,omitempty"`
 }
 
 // UpdateIPResponse:
@@ -2800,7 +2800,7 @@ type UpdatePlacementGroupServersRequest struct {
 	// PlacementGroupID: UUID of the placement group you want to update.
 	PlacementGroupID string `json:"-"`
 	// Servers: An array of the Instances' UUIDs you want to configure.
-	Servers []string `json:"servers"`
+	Servers []string `json:"servers,omitempty"`
 }
 
 // UpdatePlacementGroupServersResponse:
@@ -2842,17 +2842,17 @@ type UpdateServerRequest struct {
 	// RoutedIPEnabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
 	RoutedIPEnabled *bool `json:"routed_ip_enabled,omitempty"`
 	// PublicIPs:
-	PublicIPs []*ServerIP `json:"public_ips"`
+	PublicIPs []*ServerIP `json:"public_ips,omitempty"`
 	// EnableIPv6:
 	EnableIPv6 *bool `json:"enable_ipv6,omitempty"`
 	// Protected:
 	Protected *bool `json:"protected,omitempty"`
 	// SecurityGroup:
-	SecurityGroup *SecurityGroupTemplate `json:"security_group"`
+	SecurityGroup *SecurityGroupTemplate `json:"security_group,omitempty"`
 	// PlacementGroup: Placement group ID if Instance must be part of a placement group.
-	PlacementGroup *NullableStringValue `json:"placement_group"`
+	PlacementGroup *NullableStringValue `json:"placement_group,omitempty"`
 	// PrivateNics: Instance private NICs.
-	PrivateNics []*PrivateNIC `json:"private_nics"`
+	PrivateNics []*PrivateNIC `json:"private_nics,omitempty"`
 	// CommercialType: Warning: This field has some restrictions:
 	// - Cannot be changed if the Instance is not in `stopped` state.
 	// - Cannot be changed if the Instance is in a placement group.
@@ -2899,7 +2899,7 @@ type setSecurityGroupRequest struct {
 	// ID: ID of the security group (will be ignored).
 	ID string `json:"-"`
 	// Name: Name of the security group.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Tags: Tags of the security group.
 	Tags *[]string `json:"tags,omitempty"`
 	// CreationDate: Creation date of the security group (will be ignored).
@@ -2907,25 +2907,25 @@ type setSecurityGroupRequest struct {
 	// ModificationDate: Modification date of the security group (will be ignored).
 	ModificationDate *time.Time `json:"modification_date,omitempty"`
 	// Description: Description of the security group.
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 	// EnableDefaultSecurity: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
-	EnableDefaultSecurity bool `json:"enable_default_security"`
+	EnableDefaultSecurity bool `json:"enable_default_security,omitempty"`
 	// InboundDefaultPolicy: Default inbound policy.
-	InboundDefaultPolicy SecurityGroupPolicy `json:"inbound_default_policy"`
+	InboundDefaultPolicy SecurityGroupPolicy `json:"inbound_default_policy,omitempty"`
 	// OutboundDefaultPolicy: Default outbound policy.
-	OutboundDefaultPolicy SecurityGroupPolicy `json:"outbound_default_policy"`
+	OutboundDefaultPolicy SecurityGroupPolicy `json:"outbound_default_policy,omitempty"`
 	// Organization: Security groups Organization ID.
-	Organization string `json:"organization"`
+	Organization string `json:"organization,omitempty"`
 	// Project: Security group Project ID.
-	Project string `json:"project"`
+	Project string `json:"project,omitempty"`
 	// Deprecated: OrganizationDefault: Please use project_default instead.
 	OrganizationDefault *bool `json:"organization_default,omitempty"`
 	// ProjectDefault: True use this security group for future Instances created in this project.
-	ProjectDefault bool `json:"project_default"`
+	ProjectDefault bool `json:"project_default,omitempty"`
 	// Servers: Instances attached to this security group.
-	Servers []*ServerSummary `json:"servers"`
+	Servers []*ServerSummary `json:"servers,omitempty"`
 	// Stateful: True to set the security group as stateful.
-	Stateful bool `json:"stateful"`
+	Stateful bool `json:"stateful,omitempty"`
 }
 
 // setSecurityGroupResponse:
@@ -2943,23 +2943,23 @@ type setSecurityGroupRuleRequest struct {
 	// SecurityGroupRuleID:
 	SecurityGroupRuleID string `json:"-"`
 	// ID:
-	ID string `json:"id"`
+	ID string `json:"id,omitempty"`
 	// Protocol:
-	Protocol SecurityGroupRuleProtocol `json:"protocol"`
+	Protocol SecurityGroupRuleProtocol `json:"protocol,omitempty"`
 	// Direction:
-	Direction SecurityGroupRuleDirection `json:"direction"`
+	Direction SecurityGroupRuleDirection `json:"direction,omitempty"`
 	// Action:
-	Action SecurityGroupRuleAction `json:"action"`
+	Action SecurityGroupRuleAction `json:"action,omitempty"`
 	// IPRange:
-	IPRange scw.IPNet `json:"ip_range"`
+	IPRange scw.IPNet `json:"ip_range,omitempty"`
 	// DestPortFrom:
 	DestPortFrom *uint32 `json:"dest_port_from,omitempty"`
 	// DestPortTo:
 	DestPortTo *uint32 `json:"dest_port_to,omitempty"`
 	// Position:
-	Position uint32 `json:"position"`
+	Position uint32 `json:"position,omitempty"`
 	// Editable:
-	Editable bool `json:"editable"`
+	Editable bool `json:"editable,omitempty"`
 }
 
 // setSecurityGroupRuleResponse:
@@ -2975,63 +2975,63 @@ type setServerRequest struct {
 	// ID: Instance unique ID.
 	ID string `json:"-"`
 	// Name: Instance name.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Organization: Instance Organization ID.
-	Organization string `json:"organization"`
+	Organization string `json:"organization,omitempty"`
 	// Project: Instance Project ID.
-	Project string `json:"project"`
+	Project string `json:"project,omitempty"`
 	// AllowedActions: Provide a list of allowed actions on the server.
-	AllowedActions []ServerAction `json:"allowed_actions"`
+	AllowedActions []ServerAction `json:"allowed_actions,omitempty"`
 	// Tags: Tags associated with the Instance.
 	Tags *[]string `json:"tags,omitempty"`
 	// CommercialType: Instance commercial type (eg. GP1-M).
-	CommercialType string `json:"commercial_type"`
+	CommercialType string `json:"commercial_type,omitempty"`
 	// CreationDate: Instance creation date.
 	CreationDate *time.Time `json:"creation_date,omitempty"`
 	// DynamicIPRequired: True if a dynamic IPv4 is required.
-	DynamicIPRequired bool `json:"dynamic_ip_required"`
+	DynamicIPRequired bool `json:"dynamic_ip_required,omitempty"`
 	// RoutedIPEnabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
 	RoutedIPEnabled *bool `json:"routed_ip_enabled,omitempty"`
 	// EnableIPv6: True if IPv6 is enabled.
-	EnableIPv6 bool `json:"enable_ipv6"`
+	EnableIPv6 bool `json:"enable_ipv6,omitempty"`
 	// Hostname: Instance host name.
-	Hostname string `json:"hostname"`
+	Hostname string `json:"hostname,omitempty"`
 	// Image: Provide information on the Instance image.
-	Image *Image `json:"image"`
+	Image *Image `json:"image,omitempty"`
 	// Protected: Instance protection option is activated.
-	Protected bool `json:"protected"`
+	Protected bool `json:"protected,omitempty"`
 	// PrivateIP: Instance private IP address.
 	PrivateIP *string `json:"private_ip,omitempty"`
 	// PublicIP: Information about the public IP.
-	PublicIP *ServerIP `json:"public_ip"`
+	PublicIP *ServerIP `json:"public_ip,omitempty"`
 	// PublicIPs: Information about all the public IPs attached to the server.
-	PublicIPs []*ServerIP `json:"public_ips"`
+	PublicIPs []*ServerIP `json:"public_ips,omitempty"`
 	// ModificationDate: Instance modification date.
 	ModificationDate *time.Time `json:"modification_date,omitempty"`
 	// State: Instance state.
-	State ServerState `json:"state"`
+	State ServerState `json:"state,omitempty"`
 	// Location: Instance location.
-	Location *ServerLocation `json:"location"`
+	Location *ServerLocation `json:"location,omitempty"`
 	// IPv6: Instance IPv6 address.
-	IPv6 *ServerIPv6 `json:"ipv6"`
+	IPv6 *ServerIPv6 `json:"ipv6,omitempty"`
 	// Deprecated: Bootscript: Instance bootscript.
 	Bootscript *Bootscript `json:"bootscript,omitempty"`
 	// BootType: Instance boot type.
-	BootType BootType `json:"boot_type"`
+	BootType BootType `json:"boot_type,omitempty"`
 	// Volumes: Instance volumes.
-	Volumes map[string]*Volume `json:"volumes"`
+	Volumes map[string]*Volume `json:"volumes,omitempty"`
 	// SecurityGroup: Instance security group.
-	SecurityGroup *SecurityGroupSummary `json:"security_group"`
+	SecurityGroup *SecurityGroupSummary `json:"security_group,omitempty"`
 	// Maintenances: Instance planned maintenances.
-	Maintenances []*ServerMaintenance `json:"maintenances"`
+	Maintenances []*ServerMaintenance `json:"maintenances,omitempty"`
 	// StateDetail: Instance state_detail.
-	StateDetail string `json:"state_detail"`
+	StateDetail string `json:"state_detail,omitempty"`
 	// Arch: Instance architecture (refers to the CPU architecture used for the Instance, e.g. x86_64, arm64).
-	Arch Arch `json:"arch"`
+	Arch Arch `json:"arch,omitempty"`
 	// PlacementGroup: Instance placement group.
-	PlacementGroup *PlacementGroup `json:"placement_group"`
+	PlacementGroup *PlacementGroup `json:"placement_group,omitempty"`
 	// PrivateNics: Instance private NICs.
-	PrivateNics []*PrivateNIC `json:"private_nics"`
+	PrivateNics []*PrivateNIC `json:"private_nics,omitempty"`
 }
 
 // setServerResponse:
@@ -3047,25 +3047,25 @@ type setSnapshotRequest struct {
 	// SnapshotID:
 	SnapshotID string `json:"-"`
 	// ID:
-	ID string `json:"id"`
+	ID string `json:"id,omitempty"`
 	// Name:
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Organization:
-	Organization string `json:"organization"`
+	Organization string `json:"organization,omitempty"`
 	// VolumeType:
-	VolumeType VolumeVolumeType `json:"volume_type"`
+	VolumeType VolumeVolumeType `json:"volume_type,omitempty"`
 	// Size:
-	Size scw.Size `json:"size"`
+	Size scw.Size `json:"size,omitempty"`
 	// State:
-	State SnapshotState `json:"state"`
+	State SnapshotState `json:"state,omitempty"`
 	// BaseVolume:
-	BaseVolume *SnapshotBaseVolume `json:"base_volume"`
+	BaseVolume *SnapshotBaseVolume `json:"base_volume,omitempty"`
 	// CreationDate:
 	CreationDate *time.Time `json:"creation_date,omitempty"`
 	// ModificationDate:
 	ModificationDate *time.Time `json:"modification_date,omitempty"`
 	// Project:
-	Project string `json:"project"`
+	Project string `json:"project,omitempty"`
 	// Tags:
 	Tags *[]string `json:"tags,omitempty"`
 }
