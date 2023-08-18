@@ -320,7 +320,7 @@ type AccessSecretVersionByNameRequest struct {
 	// Revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
 	Revision string `json:"-"`
 	// ProjectID: (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // AccessSecretVersionRequest:
@@ -480,7 +480,7 @@ type GetSecretByNameRequest struct {
 	// SecretName: Name of the secret.
 	SecretName string `json:"-"`
 	// ProjectID: (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // GetSecretRequest:
@@ -500,7 +500,7 @@ type GetSecretVersionByNameRequest struct {
 	// Revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
 	Revision string `json:"-"`
 	// ProjectID: (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // GetSecretVersionRequest:
@@ -518,15 +518,15 @@ type ListFoldersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
+	ProjectID string `json:"-"`
 	// Path: Filter by path (optional).
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListFoldersRequestOrderBy `json:"order_by"`
+	OrderBy ListFoldersRequestOrderBy `json:"-"`
 }
 
 // ListFoldersResponse:
@@ -563,13 +563,13 @@ type ListSecretVersionsByNameRequest struct {
 	// SecretName: Name of the secret.
 	SecretName string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Status: Filter results by status.
-	Status []SecretVersionStatus `json:"status"`
+	Status []SecretVersionStatus `json:"-"`
 	// ProjectID: (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListSecretVersionsRequest:
@@ -579,11 +579,11 @@ type ListSecretVersionsRequest struct {
 	// SecretID: ID of the secret.
 	SecretID string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Status: Filter results by status.
-	Status []SecretVersionStatus `json:"status"`
+	Status []SecretVersionStatus `json:"-"`
 }
 
 // ListSecretVersionsResponse:
@@ -618,23 +618,23 @@ type ListSecretsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// OrganizationID: Filter by Organization ID (optional).
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Filter by Project ID (optional).
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrderBy:
-	OrderBy ListSecretsRequestOrderBy `json:"order_by"`
+	OrderBy ListSecretsRequestOrderBy `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Tags: List of tags to filter on (optional).
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// Name: Filter by secret name (optional).
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// IsManaged: Filter by managed / not managed (optional).
-	IsManaged *bool `json:"is_managed,omitempty"`
+	IsManaged *bool `json:"-"`
 	// Path: Filter by path (optional).
-	Path *string `json:"path,omitempty"`
+	Path *string `json:"-"`
 }
 
 // ListSecretsResponse:
@@ -669,11 +669,11 @@ type ListTagsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ProjectID: (Optional.) If not specified, Secret Manager will look for tags in all Projects.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListTagsResponse:

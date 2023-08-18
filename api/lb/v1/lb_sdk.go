@@ -1449,6 +1449,8 @@ type CreateACLRequest struct {
 type CreateBackendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
+	// LBID: Load Balancer ID.
+	LBID string `json:"-"`
 	// Name: Name for the backend.
 	Name string `json:"name"`
 	// ForwardProtocol: Protocol to be used by the backend when forwarding traffic to backend servers.
@@ -1461,8 +1463,6 @@ type CreateBackendRequest struct {
 	StickySessions StickySessionsType `json:"sticky_sessions"`
 	// StickySessionsCookieName: Cookie name for cookie-based sticky sessions.
 	StickySessionsCookieName string `json:"sticky_sessions_cookie_name"`
-	// LBID: Load Balancer ID.
-	LBID string `json:"-"`
 	// HealthCheck: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
 	HealthCheck *HealthCheck `json:"health_check"`
 	// ServerIP: List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
@@ -1549,12 +1549,12 @@ type CreateCertificateRequest struct {
 type CreateFrontendRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
+	// LBID: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
+	LBID string `json:"-"`
 	// Name: Name for the frontend.
 	Name string `json:"name"`
 	// InboundPort: Port the frontend should listen on.
 	InboundPort int32 `json:"inbound_port"`
-	// LBID: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
-	LBID string `json:"-"`
 	// BackendID: Backend ID (ID of the backend the frontend should pass traffic to).
 	BackendID string `json:"backend_id"`
 	// TimeoutClient: Maximum allowed inactivity time on the client side.
@@ -1702,7 +1702,7 @@ type DeleteLBRequest struct {
 	// LBID: ID of the Load Balancer to delete.
 	LBID string `json:"-"`
 	// ReleaseIP: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
-	ReleaseIP bool `json:"release_ip"`
+	ReleaseIP bool `json:"-"`
 }
 
 // DeleteRouteRequest:
@@ -1786,7 +1786,7 @@ type GetLBStatsRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// BackendID: ID of the backend.
-	BackendID *string `json:"backend_id,omitempty"`
+	BackendID *string `json:"-"`
 }
 
 // GetRouteRequest:
@@ -1845,13 +1845,13 @@ type ListACLsRequest struct {
 	// FrontendID: Frontend ID (ACLs attached to this frontend will be returned in the response).
 	FrontendID string `json:"-"`
 	// OrderBy: Sort order of ACLs in the response.
-	OrderBy ListACLRequestOrderBy `json:"order_by"`
+	OrderBy ListACLRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: The number of ACLs to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: ACL name to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListBackendStatsRequest:
@@ -1861,11 +1861,11 @@ type ListBackendStatsRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of items to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// BackendID: ID of the backend.
-	BackendID *string `json:"backend_id,omitempty"`
+	BackendID *string `json:"-"`
 }
 
 // ListBackendStatsResponse:
@@ -1902,13 +1902,13 @@ type ListBackendsRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// Name: Name of the backend to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Sort order of backends in the response.
-	OrderBy ListBackendsRequestOrderBy `json:"order_by"`
+	OrderBy ListBackendsRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of backends to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListBackendsResponse:
@@ -1945,13 +1945,13 @@ type ListCertificatesRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// OrderBy: Sort order of certificates in the response.
-	OrderBy ListCertificatesRequestOrderBy `json:"order_by"`
+	OrderBy ListCertificatesRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of certificates to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Certificate name to filter for, only certificates of this name will be returned.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListCertificatesResponse:
@@ -1988,13 +1988,13 @@ type ListFrontendsRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// Name: Name of the frontend to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Sort order of frontends in the response.
-	OrderBy ListFrontendsRequestOrderBy `json:"order_by"`
+	OrderBy ListFrontendsRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of frontends to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListFrontendsResponse:
@@ -2029,15 +2029,15 @@ type ListIPsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of IP addresses to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// IPAddress: IP address to filter for.
-	IPAddress *string `json:"ip_address,omitempty"`
+	IPAddress *string `json:"-"`
 	// OrganizationID: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListIPsResponse:
@@ -2071,14 +2071,14 @@ func (r *ListIPsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 type ListLBPrivateNetworksRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// OrderBy: Sort order of Private Network objects in the response.
-	OrderBy ListPrivateNetworksRequestOrderBy `json:"order_by"`
-	// PageSize: Number of objects to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
-	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
+	// OrderBy: Sort order of Private Network objects in the response.
+	OrderBy ListPrivateNetworksRequestOrderBy `json:"-"`
+	// PageSize: Number of objects to return.
+	PageSize *uint32 `json:"-"`
+	// Page: The page number to return, from the paginated results.
+	Page *int32 `json:"-"`
 }
 
 // ListLBPrivateNetworksResponse:
@@ -2113,9 +2113,9 @@ type ListLBTypesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: The number of items to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListLBTypesResponse:
@@ -2150,17 +2150,17 @@ type ListLBsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Load Balancer name to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Sort order of Load Balancers in the response.
-	OrderBy ListLBsRequestOrderBy `json:"order_by"`
+	OrderBy ListLBsRequestOrderBy `json:"-"`
 	// PageSize: Number of Load Balancers to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// OrganizationID: Organization ID to filter for, only Load Balancers from this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID to filter for, only Load Balancers from this Project will be returned.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListLBsResponse:
@@ -2195,13 +2195,13 @@ type ListRoutesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// OrderBy: Sort order of routes in the response.
-	OrderBy ListRoutesRequestOrderBy `json:"order_by"`
+	OrderBy ListRoutesRequestOrderBy `json:"-"`
 	// PageSize: The number of route objects to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// FrontendID: Frontend ID to filter for, only Routes from this Frontend will be returned.
-	FrontendID *string `json:"frontend_id,omitempty"`
+	FrontendID *string `json:"-"`
 }
 
 // ListRoutesResponse:
@@ -2236,17 +2236,17 @@ type ListSubscriberRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// OrderBy: Sort order of subscribers in the response.
-	OrderBy ListSubscriberRequestOrderBy `json:"order_by"`
+	OrderBy ListSubscriberRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: The number of items to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Subscriber name to search for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrganizationID: Filter subscribers by Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Filter subscribers by Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListSubscriberResponse:
@@ -2523,6 +2523,8 @@ func (m UpdateFrontendRequest) MarshalJSON() ([]byte, error) {
 type UpdateHealthCheckRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
+	// BackendID: Backend ID.
+	BackendID string `json:"-"`
 	// Port: Port to use for the backend server health check.
 	Port int32 `json:"port"`
 	// CheckDelay: Time to wait between two consecutive health checks.
@@ -2531,8 +2533,6 @@ type UpdateHealthCheckRequest struct {
 	CheckTimeout *time.Duration `json:"check_timeout,omitempty"`
 	// CheckMaxRetries: Number of consecutive unsuccessful health checks after which the server will be considered dead.
 	CheckMaxRetries int32 `json:"check_max_retries"`
-	// BackendID: Backend ID.
-	BackendID string `json:"-"`
 	// CheckSendProxy: Defines whether proxy protocol should be activated for the health check.
 	CheckSendProxy bool `json:"check_send_proxy"`
 	// TCPConfig: Object to configure a basic TCP health check.
@@ -2685,6 +2685,8 @@ type ZonedAPICreateACLRequest struct {
 type ZonedAPICreateBackendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
+	// LBID: Load Balancer ID.
+	LBID string `json:"-"`
 	// Name: Name for the backend.
 	Name string `json:"name"`
 	// ForwardProtocol: Protocol to be used by the backend when forwarding traffic to backend servers.
@@ -2697,8 +2699,6 @@ type ZonedAPICreateBackendRequest struct {
 	StickySessions StickySessionsType `json:"sticky_sessions"`
 	// StickySessionsCookieName: Cookie name for cookie-based sticky sessions.
 	StickySessionsCookieName string `json:"sticky_sessions_cookie_name"`
-	// LBID: Load Balancer ID.
-	LBID string `json:"-"`
 	// HealthCheck: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
 	HealthCheck *HealthCheck `json:"health_check"`
 	// ServerIP: List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
@@ -2785,12 +2785,12 @@ type ZonedAPICreateCertificateRequest struct {
 type ZonedAPICreateFrontendRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
+	// LBID: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
+	LBID string `json:"-"`
 	// Name: Name for the frontend.
 	Name string `json:"name"`
 	// InboundPort: Port the frontend should listen on.
 	InboundPort int32 `json:"inbound_port"`
-	// LBID: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
-	LBID string `json:"-"`
 	// BackendID: Backend ID (ID of the backend the frontend should pass traffic to).
 	BackendID string `json:"backend_id"`
 	// TimeoutClient: Maximum allowed inactivity time on the client side.
@@ -2938,7 +2938,7 @@ type ZonedAPIDeleteLBRequest struct {
 	// LBID: ID of the Load Balancer to delete.
 	LBID string `json:"-"`
 	// ReleaseIP: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
-	ReleaseIP bool `json:"release_ip"`
+	ReleaseIP bool `json:"-"`
 }
 
 // ZonedAPIDeleteRouteRequest:
@@ -3022,7 +3022,7 @@ type ZonedAPIGetLBStatsRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// BackendID: ID of the backend.
-	BackendID *string `json:"backend_id,omitempty"`
+	BackendID *string `json:"-"`
 }
 
 // ZonedAPIGetRouteRequest:
@@ -3048,13 +3048,13 @@ type ZonedAPIListACLsRequest struct {
 	// FrontendID: Frontend ID (ACLs attached to this frontend will be returned in the response).
 	FrontendID string `json:"-"`
 	// OrderBy: Sort order of ACLs in the response.
-	OrderBy ListACLRequestOrderBy `json:"order_by"`
+	OrderBy ListACLRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: The number of ACLs to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: ACL name to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ZonedAPIListBackendStatsRequest:
@@ -3064,11 +3064,11 @@ type ZonedAPIListBackendStatsRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of items to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// BackendID: ID of the backend.
-	BackendID *string `json:"backend_id,omitempty"`
+	BackendID *string `json:"-"`
 }
 
 // ZonedAPIListBackendsRequest:
@@ -3078,13 +3078,13 @@ type ZonedAPIListBackendsRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// Name: Name of the backend to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Sort order of backends in the response.
-	OrderBy ListBackendsRequestOrderBy `json:"order_by"`
+	OrderBy ListBackendsRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of backends to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ZonedAPIListCertificatesRequest:
@@ -3094,13 +3094,13 @@ type ZonedAPIListCertificatesRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// OrderBy: Sort order of certificates in the response.
-	OrderBy ListCertificatesRequestOrderBy `json:"order_by"`
+	OrderBy ListCertificatesRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of certificates to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Certificate name to filter for, only certificates of this name will be returned.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ZonedAPIListFrontendsRequest:
@@ -3110,13 +3110,13 @@ type ZonedAPIListFrontendsRequest struct {
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
 	// Name: Name of the frontend to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Sort order of frontends in the response.
-	OrderBy ListFrontendsRequestOrderBy `json:"order_by"`
+	OrderBy ListFrontendsRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of frontends to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ZonedAPIListIPsRequest:
@@ -3124,29 +3124,29 @@ type ZonedAPIListIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of IP addresses to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// IPAddress: IP address to filter for.
-	IPAddress *string `json:"ip_address,omitempty"`
+	IPAddress *string `json:"-"`
 	// OrganizationID: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ZonedAPIListLBPrivateNetworksRequest:
 type ZonedAPIListLBPrivateNetworksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Sort order of Private Network objects in the response.
-	OrderBy ListPrivateNetworksRequestOrderBy `json:"order_by"`
-	// PageSize: Number of objects to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
-	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
 	// LBID: Load Balancer ID.
 	LBID string `json:"-"`
+	// OrderBy: Sort order of Private Network objects in the response.
+	OrderBy ListPrivateNetworksRequestOrderBy `json:"-"`
+	// PageSize: Number of objects to return.
+	PageSize *uint32 `json:"-"`
+	// Page: The page number to return, from the paginated results.
+	Page *int32 `json:"-"`
 }
 
 // ZonedAPIListLBTypesRequest:
@@ -3154,9 +3154,9 @@ type ZonedAPIListLBTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: The number of items to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ZonedAPIListLBsRequest:
@@ -3164,17 +3164,17 @@ type ZonedAPIListLBsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Load Balancer name to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Sort order of Load Balancers in the response.
-	OrderBy ListLBsRequestOrderBy `json:"order_by"`
+	OrderBy ListLBsRequestOrderBy `json:"-"`
 	// PageSize: Number of Load Balancers to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// OrganizationID: Organization ID to filter for, only Load Balancers from this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID to filter for, only Load Balancers from this Project will be returned.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ZonedAPIListRoutesRequest:
@@ -3182,13 +3182,13 @@ type ZonedAPIListRoutesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Sort order of routes in the response.
-	OrderBy ListRoutesRequestOrderBy `json:"order_by"`
+	OrderBy ListRoutesRequestOrderBy `json:"-"`
 	// PageSize: The number of route objects to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// FrontendID: Frontend ID to filter for, only Routes from this Frontend will be returned.
-	FrontendID *string `json:"frontend_id,omitempty"`
+	FrontendID *string `json:"-"`
 }
 
 // ZonedAPIListSubscriberRequest:
@@ -3196,17 +3196,17 @@ type ZonedAPIListSubscriberRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Sort order of subscribers in the response.
-	OrderBy ListSubscriberRequestOrderBy `json:"order_by"`
+	OrderBy ListSubscriberRequestOrderBy `json:"-"`
 	// Page: The page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: The number of items to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Subscriber name to search for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrganizationID: Filter subscribers by Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Filter subscribers by Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ZonedAPIMigrateLBRequest:
@@ -3241,10 +3241,10 @@ type ZonedAPIRemoveBackendServersRequest struct {
 type ZonedAPISetACLsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
-	// ACLs: List of ACLs for this frontend. Any other existing ACLs on this frontend will be removed.
-	ACLs []*ACLSpec `json:"acls"`
 	// FrontendID: Frontend ID.
 	FrontendID string `json:"-"`
+	// ACLs: List of ACLs for this frontend. Any other existing ACLs on this frontend will be removed.
+	ACLs []*ACLSpec `json:"acls"`
 }
 
 // ZonedAPISetBackendServersRequest:
@@ -3439,6 +3439,8 @@ func (m ZonedAPIUpdateFrontendRequest) MarshalJSON() ([]byte, error) {
 type ZonedAPIUpdateHealthCheckRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
+	// BackendID: Backend ID.
+	BackendID string `json:"-"`
 	// Port: Port to use for the backend server health check.
 	Port int32 `json:"port"`
 	// CheckDelay: Time to wait between two consecutive health checks.
@@ -3447,8 +3449,6 @@ type ZonedAPIUpdateHealthCheckRequest struct {
 	CheckTimeout *time.Duration `json:"check_timeout,omitempty"`
 	// CheckMaxRetries: Number of consecutive unsuccessful health checks after which the server will be considered dead.
 	CheckMaxRetries int32 `json:"check_max_retries"`
-	// BackendID: Backend ID.
-	BackendID string `json:"-"`
 	// CheckSendProxy: Defines whether proxy protocol should be activated for the health check.
 	CheckSendProxy bool `json:"check_send_proxy"`
 	// TCPConfig: Object to configure a basic TCP health check.

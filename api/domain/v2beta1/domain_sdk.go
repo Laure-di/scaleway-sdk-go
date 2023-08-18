@@ -1732,7 +1732,7 @@ type DeleteDNSZoneRequest struct {
 	// DNSZone: DNS zone to delete.
 	DNSZone string `json:"-"`
 	// ProjectID: Project ID of the DNS zone to delete.
-	ProjectID string `json:"project_id"`
+	ProjectID string `json:"-"`
 }
 
 // DeleteDNSZoneResponse:
@@ -1804,7 +1804,7 @@ type ExportRawDNSZoneRequest struct {
 	// DNSZone: DNS zone to export.
 	DNSZone string `json:"-"`
 	// Format: DNS zone format.
-	Format RawFormat `json:"format"`
+	Format RawFormat `json:"-"`
 }
 
 // GetDNSZoneTsigKeyRequest:
@@ -1912,10 +1912,10 @@ func (r *ListContactsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 
 // ListDNSZoneNameserversRequest:
 type ListDNSZoneNameserversRequest struct {
-	// ProjectID: Project ID on which to filter the returned DNS zone name servers.
-	ProjectID *string `json:"project_id,omitempty"`
 	// DNSZone: DNS zone on which to filter the returned DNS zone name servers.
 	DNSZone string `json:"-"`
+	// ProjectID: Project ID on which to filter the returned DNS zone name servers.
+	ProjectID *string `json:"-"`
 }
 
 // ListDNSZoneNameserversResponse:
@@ -1926,22 +1926,22 @@ type ListDNSZoneNameserversResponse struct {
 
 // ListDNSZoneRecordsRequest:
 type ListDNSZoneRecordsRequest struct {
-	// ProjectID: Project ID on which to filter the returned DNS zone records.
-	ProjectID *string `json:"project_id,omitempty"`
-	// OrderBy: Sort order of the returned DNS zone records.
-	OrderBy ListDNSZoneRecordsRequestOrderBy `json:"order_by"`
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
-	// PageSize: Maximum number of DNS zone records per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
 	// DNSZone: DNS zone on which to filter the returned DNS zone records.
 	DNSZone string `json:"-"`
+	// ProjectID: Project ID on which to filter the returned DNS zone records.
+	ProjectID *string `json:"-"`
+	// OrderBy: Sort order of the returned DNS zone records.
+	OrderBy ListDNSZoneRecordsRequestOrderBy `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of DNS zone records per page.
+	PageSize *uint32 `json:"-"`
 	// Name: Name on which to filter the returned DNS zone records.
-	Name string `json:"name"`
+	Name string `json:"-"`
 	// Type: Record type on which to filter the returned DNS zone records.
-	Type RecordType `json:"type"`
+	Type RecordType `json:"-"`
 	// ID: Record ID on which to filter the returned DNS zone records.
-	ID *string `json:"id,omitempty"`
+	ID *string `json:"-"`
 }
 
 // ListDNSZoneRecordsResponse:
@@ -1973,12 +1973,12 @@ func (r *ListDNSZoneRecordsResponse) UnsafeAppend(res interface{}) (uint32, erro
 
 // ListDNSZoneVersionRecordsRequest:
 type ListDNSZoneVersionRecordsRequest struct {
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
-	// PageSize: Maximum number of DNS zones versions records per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
 	// DNSZoneVersionID:
 	DNSZoneVersionID string `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of DNS zones versions records per page.
+	PageSize *uint32 `json:"-"`
 }
 
 // ListDNSZoneVersionRecordsResponse:
@@ -2010,12 +2010,12 @@ func (r *ListDNSZoneVersionRecordsResponse) UnsafeAppend(res interface{}) (uint3
 
 // ListDNSZoneVersionsRequest:
 type ListDNSZoneVersionsRequest struct {
-	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
-	// PageSize: Maximum number of DNS zones versions per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
 	// DNSZone:
 	DNSZone string `json:"-"`
+	// Page: Page number to return, from the paginated results.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of DNS zones versions per page.
+	PageSize *uint32 `json:"-"`
 }
 
 // ListDNSZoneVersionsResponse:
@@ -2048,19 +2048,19 @@ func (r *ListDNSZoneVersionsResponse) UnsafeAppend(res interface{}) (uint32, err
 // ListDNSZonesRequest:
 type ListDNSZonesRequest struct {
 	// OrganizationID: Organization ID on which to filter the returned DNS zones.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID on which to filter the returned DNS zones.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrderBy: Sort order of the returned DNS zones.
-	OrderBy ListDNSZonesRequestOrderBy `json:"order_by"`
+	OrderBy ListDNSZonesRequestOrderBy `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of DNS zones to return per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Domain: Domain on which to filter the returned DNS zones.
-	Domain string `json:"domain"`
+	Domain string `json:"-"`
 	// DNSZone: DNS zone on which to filter the returned DNS zones.
-	DNSZone string `json:"dns_zone"`
+	DNSZone string `json:"-"`
 }
 
 // ListDNSZonesResponse:
@@ -2174,13 +2174,13 @@ func (r *ListRenewableDomainsResponse) UnsafeAppend(res interface{}) (uint32, er
 // ListSSLCertificatesRequest:
 type ListSSLCertificatesRequest struct {
 	// DNSZone:
-	DNSZone string `json:"dns_zone"`
+	DNSZone string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// ProjectID:
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListSSLCertificatesResponse:
@@ -2394,85 +2394,85 @@ type RegistrarAPIGetDomainRequest struct {
 // RegistrarAPIListContactsRequest:
 type RegistrarAPIListContactsRequest struct {
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Domain:
-	Domain *string `json:"domain,omitempty"`
+	Domain *string `json:"-"`
 	// ProjectID:
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID:
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Role:
-	Role ListContactsRequestRole `json:"role"`
+	Role ListContactsRequestRole `json:"-"`
 	// EmailStatus:
-	EmailStatus ContactEmailStatus `json:"email_status"`
+	EmailStatus ContactEmailStatus `json:"-"`
 }
 
 // RegistrarAPIListDomainHostsRequest:
 type RegistrarAPIListDomainHostsRequest struct {
-	// Page:
-	Page *int32 `json:"page,omitempty"`
-	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
 	// Domain:
 	Domain string `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
 }
 
 // RegistrarAPIListDomainsRequest:
 type RegistrarAPIListDomainsRequest struct {
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListDomainsRequestOrderBy `json:"order_by"`
+	OrderBy ListDomainsRequestOrderBy `json:"-"`
 	// Registrar:
-	Registrar *string `json:"registrar,omitempty"`
+	Registrar *string `json:"-"`
 	// Status:
-	Status DomainStatus `json:"status"`
+	Status DomainStatus `json:"-"`
 	// ProjectID:
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID:
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// IsExternal:
-	IsExternal *bool `json:"is_external,omitempty"`
+	IsExternal *bool `json:"-"`
 	// Domain:
-	Domain *string `json:"domain,omitempty"`
+	Domain *string `json:"-"`
 }
 
 // RegistrarAPIListRenewableDomainsRequest:
 type RegistrarAPIListRenewableDomainsRequest struct {
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListRenewableDomainsRequestOrderBy `json:"order_by"`
+	OrderBy ListRenewableDomainsRequestOrderBy `json:"-"`
 	// ProjectID:
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID:
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 }
 
 // RegistrarAPIListTasksRequest:
 type RegistrarAPIListTasksRequest struct {
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// ProjectID:
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID:
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Domain:
-	Domain *string `json:"domain,omitempty"`
+	Domain *string `json:"-"`
 	// Types:
-	Types []TaskType `json:"types"`
+	Types []TaskType `json:"-"`
 	// Statuses:
-	Statuses []TaskStatus `json:"statuses"`
+	Statuses []TaskStatus `json:"-"`
 	// OrderBy:
-	OrderBy ListTasksRequestOrderBy `json:"order_by"`
+	OrderBy ListTasksRequestOrderBy `json:"-"`
 }
 
 // RegistrarAPILockDomainTransferRequest:
@@ -2502,11 +2502,11 @@ type RegistrarAPIRenewDomainsRequest struct {
 // RegistrarAPISearchAvailableDomainsRequest:
 type RegistrarAPISearchAvailableDomainsRequest struct {
 	// Domains: A list of domain to search, TLD is optional.
-	Domains []string `json:"domains"`
+	Domains []string `json:"-"`
 	// Tlds: Array of tlds to search on.
-	Tlds []string `json:"tlds"`
+	Tlds []string `json:"-"`
 	// StrictSearch: Search exact match.
-	StrictSearch bool `json:"strict_search"`
+	StrictSearch bool `json:"-"`
 }
 
 // RegistrarAPITradeDomainRequest:

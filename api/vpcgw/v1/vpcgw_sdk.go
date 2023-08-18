@@ -722,7 +722,7 @@ type DeleteGatewayNetworkRequest struct {
 	// GatewayNetworkID: ID of the GatewayNetwork to delete.
 	GatewayNetworkID string `json:"-"`
 	// CleanupDHCP: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
-	CleanupDHCP bool `json:"cleanup_dhcp"`
+	CleanupDHCP bool `json:"-"`
 }
 
 // DeleteGatewayRequest:
@@ -732,7 +732,7 @@ type DeleteGatewayRequest struct {
 	// GatewayID: ID of the gateway to delete.
 	GatewayID string `json:"-"`
 	// CleanupDHCP: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
-	CleanupDHCP bool `json:"cleanup_dhcp"`
+	CleanupDHCP bool `json:"-"`
 }
 
 // DeleteIPRequest:
@@ -804,21 +804,21 @@ type ListDHCPEntriesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Order in which to return results.
-	OrderBy ListDHCPEntriesRequestOrderBy `json:"order_by"`
+	OrderBy ListDHCPEntriesRequestOrderBy `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: DHCP entries per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// GatewayNetworkID: Filter for entries on this GatewayNetwork.
-	GatewayNetworkID *string `json:"gateway_network_id,omitempty"`
+	GatewayNetworkID *string `json:"-"`
 	// MacAddress: Filter for entries with this MAC address.
-	MacAddress *string `json:"mac_address,omitempty"`
+	MacAddress *string `json:"-"`
 	// IPAddress: Filter for entries with this IP address.
-	IPAddress *net.IP `json:"ip_address,omitempty"`
+	IPAddress *net.IP `json:"-"`
 	// Hostname: Filter for entries with this hostname substring.
-	Hostname *string `json:"hostname,omitempty"`
+	Hostname *string `json:"-"`
 	// Type: Filter for entries of this type.
-	Type DHCPEntryType `json:"type"`
+	Type DHCPEntryType `json:"-"`
 }
 
 // ListDHCPEntriesResponse:
@@ -853,19 +853,19 @@ type ListDHCPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Order in which to return results.
-	OrderBy ListDHCPsRequestOrderBy `json:"order_by"`
+	OrderBy ListDHCPsRequestOrderBy `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: DHCP configurations per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrganizationID: Include only DHCP configuration objects in this Organization.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Include only DHCP configuration objects in this Project.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Address: Filter for DHCP configuration objects with this DHCP server IP address (the gateway's address in the Private Network).
-	Address *net.IP `json:"address,omitempty"`
+	Address *net.IP `json:"-"`
 	// HasAddress: Filter for DHCP configuration objects with subnets containing this IP address.
-	HasAddress *net.IP `json:"has_address,omitempty"`
+	HasAddress *net.IP `json:"-"`
 }
 
 // ListDHCPsResponse:
@@ -900,21 +900,21 @@ type ListGatewayNetworksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Order in which to return results.
-	OrderBy ListGatewayNetworksRequestOrderBy `json:"order_by"`
+	OrderBy ListGatewayNetworksRequestOrderBy `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: GatewayNetworks per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// GatewayID: Filter for GatewayNetworks connected to this gateway.
-	GatewayID *string `json:"gateway_id,omitempty"`
+	GatewayID *string `json:"-"`
 	// PrivateNetworkID: Filter for GatewayNetworks connected to this Private Network.
-	PrivateNetworkID *string `json:"private_network_id,omitempty"`
+	PrivateNetworkID *string `json:"-"`
 	// EnableMasquerade: Filter for GatewayNetworks with this `enable_masquerade` setting.
-	EnableMasquerade *bool `json:"enable_masquerade,omitempty"`
+	EnableMasquerade *bool `json:"-"`
 	// DHCPID: Filter for GatewayNetworks using this DHCP configuration.
-	DHCPID *string `json:"dhcp_id,omitempty"`
+	DHCPID *string `json:"-"`
 	// Status: Filter for GatewayNetworks with this current status this status. Use `unknown` to include all statuses.
-	Status GatewayNetworkStatus `json:"status"`
+	Status GatewayNetworkStatus `json:"-"`
 }
 
 // ListGatewayNetworksResponse:
@@ -961,25 +961,25 @@ type ListGatewaysRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Order in which to return results.
-	OrderBy ListGatewaysRequestOrderBy `json:"order_by"`
+	OrderBy ListGatewaysRequestOrderBy `json:"-"`
 	// Page: Page number to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Gateways per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrganizationID: Include only gateways in this Organization.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Include only gateways in this Project.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Name: Filter for gateways which have this search term in their name.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Tags: Filter for gateways with these tags.
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// Type: Filter for gateways of this type.
-	Type *string `json:"type,omitempty"`
+	Type *string `json:"-"`
 	// Status: Filter for gateways with this current status. Use `unknown` to include all statuses.
-	Status GatewayStatus `json:"status"`
+	Status GatewayStatus `json:"-"`
 	// PrivateNetworkID: Filter for gateways attached to this Private nNetwork.
-	PrivateNetworkID *string `json:"private_network_id,omitempty"`
+	PrivateNetworkID *string `json:"-"`
 }
 
 // ListGatewaysResponse:
@@ -1014,21 +1014,21 @@ type ListIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Order in which to return results.
-	OrderBy ListIPsRequestOrderBy `json:"order_by"`
+	OrderBy ListIPsRequestOrderBy `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: IP addresses per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrganizationID: Filter for IP addresses in this Organization.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Filter for IP addresses in this Project.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Tags: Filter for IP addresses with these tags.
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// Reverse: Filter for IP addresses that have a reverse containing this string.
-	Reverse *string `json:"reverse,omitempty"`
+	Reverse *string `json:"-"`
 	// IsFree: Filter based on whether the IP is attached to a gateway or not.
-	IsFree *bool `json:"is_free,omitempty"`
+	IsFree *bool `json:"-"`
 }
 
 // ListIPsResponse:
@@ -1063,17 +1063,17 @@ type ListPATRulesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Order in which to return results.
-	OrderBy ListPATRulesRequestOrderBy `json:"order_by"`
+	OrderBy ListPATRulesRequestOrderBy `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: PAT rules per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// GatewayID: Filter for PAT rules on this Gateway.
-	GatewayID *string `json:"gateway_id,omitempty"`
+	GatewayID *string `json:"-"`
 	// PrivateIP: Filter for PAT rules targeting this private ip.
-	PrivateIP *net.IP `json:"private_ip,omitempty"`
+	PrivateIP *net.IP `json:"-"`
 	// Protocol: Filter for PAT rules with this protocol.
-	Protocol PATRuleProtocol `json:"protocol"`
+	Protocol PATRuleProtocol `json:"-"`
 }
 
 // ListPATRulesResponse:

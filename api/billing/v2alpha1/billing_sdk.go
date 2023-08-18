@@ -180,13 +180,13 @@ type DownloadInvoiceRequest struct {
 	// InvoiceID: Invoice ID.
 	InvoiceID string `json:"-"`
 	// FileType: Wanted file type.
-	FileType DownloadInvoiceRequestFileType `json:"file_type"`
+	FileType DownloadInvoiceRequestFileType `json:"-"`
 }
 
 // GetConsumptionRequest:
 type GetConsumptionRequest struct {
 	// OrganizationID: Filter by organization ID.
-	OrganizationID string `json:"organization_id"`
+	OrganizationID string `json:"-"`
 }
 
 // GetConsumptionResponse:
@@ -200,19 +200,19 @@ type GetConsumptionResponse struct {
 // ListInvoicesRequest:
 type ListInvoicesRequest struct {
 	// OrganizationID: Organization ID to filter for, only invoices from this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// StartedAfter: Invoice's `start_date` is greater or equal to `started_after`.
-	StartedAfter *time.Time `json:"started_after,omitempty"`
+	StartedAfter *time.Time `json:"-"`
 	// StartedBefore: Invoice's `start_date` precedes `started_before`.
-	StartedBefore *time.Time `json:"started_before,omitempty"`
+	StartedBefore *time.Time `json:"-"`
 	// InvoiceType: Invoice type. It can either be `periodic` or `purchase`.
-	InvoiceType InvoiceType `json:"invoice_type"`
+	InvoiceType InvoiceType `json:"-"`
 	// Page: Positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Positive integer lower or equal to 100 to select the number of items to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: How invoices are ordered in the response.
-	OrderBy ListInvoicesRequestOrderBy `json:"order_by"`
+	OrderBy ListInvoicesRequestOrderBy `json:"-"`
 }
 
 // ListInvoicesResponse:

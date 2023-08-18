@@ -1507,11 +1507,11 @@ type GetInstanceMetricsRequest struct {
 	// InstanceID: UUID of the Database Instance.
 	InstanceID string `json:"-"`
 	// StartDate: Start date to gather metrics from.
-	StartDate *time.Time `json:"start_date,omitempty"`
+	StartDate *time.Time `json:"-"`
 	// EndDate: End date to gather metrics from.
-	EndDate *time.Time `json:"end_date,omitempty"`
+	EndDate *time.Time `json:"-"`
 	// MetricName: Name of the metric to gather.
-	MetricName *string `json:"metric_name,omitempty"`
+	MetricName *string `json:"-"`
 }
 
 // GetInstanceRequest:
@@ -1549,19 +1549,19 @@ type ListDatabaseBackupsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Name of the database backups.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Criteria to use when ordering database backups listing.
-	OrderBy ListDatabaseBackupsRequestOrderBy `json:"order_by"`
+	OrderBy ListDatabaseBackupsRequestOrderBy `json:"-"`
 	// InstanceID: UUID of the Database Instance.
-	InstanceID *string `json:"instance_id,omitempty"`
+	InstanceID *string `json:"-"`
 	// OrganizationID: Organization ID of the Organization the database backups belong to.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID of the Project the database backups belong to.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListDatabaseBackupsResponse:
@@ -1596,13 +1596,13 @@ type ListDatabaseEnginesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Name of the database engine.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Version: Version of the database engine.
-	Version *string `json:"version,omitempty"`
+	Version *string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListDatabaseEnginesResponse:
@@ -1636,20 +1636,20 @@ func (r *ListDatabaseEnginesResponse) UnsafeAppend(res interface{}) (uint32, err
 type ListDatabasesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// Name: Name of the database.
-	Name *string `json:"name,omitempty"`
-	// Managed: Defines whether or not the database is managed.
-	Managed *bool `json:"managed,omitempty"`
-	// Owner: User that owns this database.
-	Owner *string `json:"owner,omitempty"`
-	// OrderBy: Criteria to use when ordering database listing.
-	OrderBy ListDatabasesRequestOrderBy `json:"order_by"`
 	// InstanceID: UUID of the Database Instance to list the databases of.
 	InstanceID string `json:"-"`
+	// Name: Name of the database.
+	Name *string `json:"-"`
+	// Managed: Defines whether or not the database is managed.
+	Managed *bool `json:"-"`
+	// Owner: User that owns this database.
+	Owner *string `json:"-"`
+	// OrderBy: Criteria to use when ordering database listing.
+	OrderBy ListDatabasesRequestOrderBy `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListDatabasesResponse:
@@ -1686,9 +1686,9 @@ type ListInstanceACLRulesRequest struct {
 	// InstanceID: UUID of the Database Instance.
 	InstanceID string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListInstanceACLRulesResponse:
@@ -1739,7 +1739,7 @@ type ListInstanceLogsRequest struct {
 	// InstanceID: UUID of the Database Instance you want logs of.
 	InstanceID string `json:"-"`
 	// OrderBy: Criteria to use when ordering Database Instance logs listing.
-	OrderBy ListInstanceLogsRequestOrderBy `json:"order_by"`
+	OrderBy ListInstanceLogsRequestOrderBy `json:"-"`
 }
 
 // ListInstanceLogsResponse:
@@ -1753,19 +1753,19 @@ type ListInstancesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Tags: List Database Instances that have a given tag.
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// Name: Lists Database Instances that match a name pattern.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Criteria to use when ordering Database Instance listings.
-	OrderBy ListInstancesRequestOrderBy `json:"order_by"`
+	OrderBy ListInstancesRequestOrderBy `json:"-"`
 	// OrganizationID: Please use project_id instead.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID to list the Database Instance of.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListInstancesResponse:
@@ -1800,11 +1800,11 @@ type ListNodeTypesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// IncludeDisabledTypes: Defines whether or not to include disabled types.
-	IncludeDisabledTypes bool `json:"include_disabled_types"`
+	IncludeDisabledTypes bool `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListNodeTypesResponse:
@@ -1838,18 +1838,18 @@ func (r *ListNodeTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 type ListPrivilegesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// OrderBy: Criteria to use when ordering privileges listing.
-	OrderBy ListPrivilegesRequestOrderBy `json:"order_by"`
-	// Page:
-	Page *int32 `json:"page,omitempty"`
-	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
-	// DatabaseName: Name of the database.
-	DatabaseName *string `json:"database_name,omitempty"`
 	// InstanceID: UUID of the Database Instance.
 	InstanceID string `json:"-"`
+	// OrderBy: Criteria to use when ordering privileges listing.
+	OrderBy ListPrivilegesRequestOrderBy `json:"-"`
+	// Page:
+	Page *int32 `json:"-"`
+	// PageSize:
+	PageSize *uint32 `json:"-"`
+	// DatabaseName: Name of the database.
+	DatabaseName *string `json:"-"`
 	// UserName: Name of the user.
-	UserName *string `json:"user_name,omitempty"`
+	UserName *string `json:"-"`
 }
 
 // ListPrivilegesResponse:
@@ -1884,19 +1884,19 @@ type ListSnapshotsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Name: Name of the snapshot.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Criteria to use when ordering snapshot listing.
-	OrderBy ListSnapshotsRequestOrderBy `json:"order_by"`
+	OrderBy ListSnapshotsRequestOrderBy `json:"-"`
 	// InstanceID: UUID of the Database Instance.
-	InstanceID *string `json:"instance_id,omitempty"`
+	InstanceID *string `json:"-"`
 	// OrganizationID: Organization ID the snapshots belongs to.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID the snapshots belongs to.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListSnapshotsResponse:
@@ -1930,16 +1930,16 @@ func (r *ListSnapshotsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 type ListUsersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// Name: Name of the user.
-	Name *string `json:"name,omitempty"`
-	// OrderBy: Criteria to use when requesting user listing.
-	OrderBy ListUsersRequestOrderBy `json:"order_by"`
 	// InstanceID: UUID of the Database Instance.
 	InstanceID string `json:"-"`
+	// Name: Name of the user.
+	Name *string `json:"-"`
+	// OrderBy: Criteria to use when requesting user listing.
+	OrderBy ListUsersRequestOrderBy `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListUsersResponse:
@@ -2043,10 +2043,10 @@ type RestartInstanceRequest struct {
 type RestoreDatabaseBackupRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// DatabaseName: Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup).
-	DatabaseName *string `json:"database_name,omitempty"`
 	// DatabaseBackupID: Backup of a logical database.
 	DatabaseBackupID string `json:"-"`
+	// DatabaseName: Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup).
+	DatabaseName *string `json:"database_name,omitempty"`
 	// InstanceID: Defines the Database Instance where the backup has to be restored.
 	InstanceID string `json:"instance_id"`
 }
@@ -2113,6 +2113,8 @@ type UpdateDatabaseBackupRequest struct {
 type UpdateInstanceRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
+	// InstanceID: UUID of the Database Instance to update.
+	InstanceID string `json:"-"`
 	// BackupScheduleFrequency: In hours.
 	BackupScheduleFrequency *uint32 `json:"backup_schedule_frequency,omitempty"`
 	// BackupScheduleRetention: In days.
@@ -2121,8 +2123,6 @@ type UpdateInstanceRequest struct {
 	IsBackupScheduleDisabled *bool `json:"is_backup_schedule_disabled,omitempty"`
 	// Name: Name of the Database Instance.
 	Name *string `json:"name,omitempty"`
-	// InstanceID: UUID of the Database Instance to update.
-	InstanceID string `json:"-"`
 	// Tags: Tags of a Database Instance.
 	Tags *[]string `json:"tags,omitempty"`
 	// LogsPolicy: Logs policy of the Database Instance.

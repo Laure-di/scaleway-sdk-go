@@ -993,11 +993,11 @@ type ListOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of OS per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OfferID: Offer IDs to filter OSes for.
-	OfferID *string `json:"offer_id,omitempty"`
+	OfferID *string `json:"-"`
 }
 
 // ListOSResponse:
@@ -1032,11 +1032,11 @@ type ListOffersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of offers per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// SubscriptionPeriod: Subscription period type to filter offers by.
-	SubscriptionPeriod OfferSubscriptionPeriod `json:"subscription_period"`
+	SubscriptionPeriod OfferSubscriptionPeriod `json:"-"`
 }
 
 // ListOffersResponse:
@@ -1071,13 +1071,13 @@ type ListOptionsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of options per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OfferID: Offer ID to filter options for.
-	OfferID *string `json:"offer_id,omitempty"`
+	OfferID *string `json:"-"`
 	// Name: Name to filter options for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListOptionsResponse:
@@ -1114,11 +1114,11 @@ type ListServerEventsRequest struct {
 	// ServerID: ID of the server events searched.
 	ServerID string `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of server events per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the server events.
-	OrderBy ListServerEventsRequestOrderBy `json:"order_by"`
+	OrderBy ListServerEventsRequestOrderBy `json:"-"`
 }
 
 // ListServerEventsResponse:
@@ -1180,23 +1180,23 @@ type ListServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of servers per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the servers.
-	OrderBy ListServersRequestOrderBy `json:"order_by"`
+	OrderBy ListServersRequestOrderBy `json:"-"`
 	// Tags: Tags to filter for.
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// Status: Status to filter for.
-	Status []string `json:"status"`
+	Status []string `json:"-"`
 	// Name: Names to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrganizationID: Organization ID to filter for.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID to filter for.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OptionID: Option ID to filter for.
-	OptionID *string `json:"option_id,omitempty"`
+	OptionID *string `json:"-"`
 }
 
 // ListServersResponse:
@@ -1231,13 +1231,13 @@ type ListSettingsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Set the maximum list size.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Sort order for items in the response.
-	OrderBy ListSettingsRequestOrderBy `json:"order_by"`
+	OrderBy ListSettingsRequestOrderBy `json:"-"`
 	// ProjectID: ID of the Project.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListSettingsResponse:
@@ -1292,19 +1292,19 @@ type PrivateNetworkAPIListServerPrivateNetworksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: The sort order for the returned Private Networks.
-	OrderBy ListServerPrivateNetworksRequestOrderBy `json:"order_by"`
+	OrderBy ListServerPrivateNetworksRequestOrderBy `json:"-"`
 	// Page: The page number for the returned Private Networks.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: The maximum number of Private Networks per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// ServerID: Filter Private Networks by server ID.
-	ServerID *string `json:"server_id,omitempty"`
+	ServerID *string `json:"-"`
 	// PrivateNetworkID: Filter Private Networks by Private Network ID.
-	PrivateNetworkID *string `json:"private_network_id,omitempty"`
+	PrivateNetworkID *string `json:"-"`
 	// OrganizationID: Filter Private Networks by Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Filter Private Networks by Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // PrivateNetworkAPISetServerPrivateNetworksRequest:

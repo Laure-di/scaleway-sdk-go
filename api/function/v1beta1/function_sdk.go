@@ -1177,7 +1177,7 @@ type GetFunctionUploadURLRequest struct {
 	// FunctionID: UUID of the function to get the upload URL for.
 	FunctionID string `json:"-"`
 	// ContentLength: Size of the archive to upload in bytes.
-	ContentLength uint64 `json:"content_length"`
+	ContentLength uint64 `json:"-"`
 }
 
 // GetNamespaceRequest:
@@ -1213,7 +1213,7 @@ type IssueJWTRequest struct {
 	// NamespaceID:
 	NamespaceID *string `json:"namespace_id,omitempty"`
 	// ExpiresAt:
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	ExpiresAt *time.Time `json:"-"`
 }
 
 // ListCronsRequest:
@@ -1221,13 +1221,13 @@ type ListCronsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of crons per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the crons.
-	OrderBy ListCronsRequestOrderBy `json:"order_by"`
+	OrderBy ListCronsRequestOrderBy `json:"-"`
 	// FunctionID: UUID of the function.
-	FunctionID string `json:"function_id"`
+	FunctionID string `json:"-"`
 }
 
 // ListCronsResponse:
@@ -1262,13 +1262,13 @@ type ListDomainsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of domains per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the domains.
-	OrderBy ListDomainsRequestOrderBy `json:"order_by"`
+	OrderBy ListDomainsRequestOrderBy `json:"-"`
 	// FunctionID: UUID of the function the domain is assoicated with.
-	FunctionID string `json:"function_id"`
+	FunctionID string `json:"-"`
 }
 
 // ListDomainsResponse:
@@ -1336,19 +1336,19 @@ type ListFunctionsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of functions per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the functions.
-	OrderBy ListFunctionsRequestOrderBy `json:"order_by"`
+	OrderBy ListFunctionsRequestOrderBy `json:"-"`
 	// NamespaceID: UUID of the namespace the function belongs to.
-	NamespaceID string `json:"namespace_id"`
+	NamespaceID string `json:"-"`
 	// Name: Name of the function.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrganizationID: UUID of the Organziation the function belongs to.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: UUID of the Project the function belongs to.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListFunctionsResponse:
@@ -1385,11 +1385,11 @@ type ListLogsRequest struct {
 	// FunctionID: UUID of the function to get the logs for.
 	FunctionID string `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of logs per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the logs.
-	OrderBy ListLogsRequestOrderBy `json:"order_by"`
+	OrderBy ListLogsRequestOrderBy `json:"-"`
 }
 
 // ListLogsResponse:
@@ -1424,17 +1424,17 @@ type ListNamespacesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of namespaces per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the namespaces.
-	OrderBy ListNamespacesRequestOrderBy `json:"order_by"`
+	OrderBy ListNamespacesRequestOrderBy `json:"-"`
 	// Name: Name of the namespace.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrganizationID: UUID of the Organization the namespace belongs to.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: UUID of the Project the namespace belongs to.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListNamespacesResponse:
@@ -1469,15 +1469,15 @@ type ListTokensRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of tokens per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Sort order for the tokens.
-	OrderBy ListTokensRequestOrderBy `json:"order_by"`
+	OrderBy ListTokensRequestOrderBy `json:"-"`
 	// FunctionID: UUID of the function the token is assoicated with.
-	FunctionID *string `json:"function_id,omitempty"`
+	FunctionID *string `json:"-"`
 	// NamespaceID: UUID of the namespace the token is associated with.
-	NamespaceID *string `json:"namespace_id,omitempty"`
+	NamespaceID *string `json:"-"`
 }
 
 // ListTokensResponse:
@@ -1512,11 +1512,11 @@ type ListTriggersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListTriggersRequestOrderBy `json:"order_by"`
+	OrderBy ListTriggersRequestOrderBy `json:"-"`
 	// FunctionID:
 	FunctionID *string `json:"function_id,omitempty"`
 	// NamespaceID:

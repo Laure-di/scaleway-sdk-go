@@ -234,15 +234,15 @@ type GetHumanRequest struct {
 // ListHumansRequest:
 type ListHumansRequest struct {
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListHumansRequestOrderBy `json:"order_by"`
+	OrderBy ListHumansRequestOrderBy `json:"-"`
 	// OrganizationID:
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID:
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListHumansResponse:
@@ -295,7 +295,7 @@ type RunHumanRequest struct {
 // SmokeHumanRequest:
 type SmokeHumanRequest struct {
 	// Deprecated: HumanID: UUID of the human you want to make smoking.
-	HumanID *string `json:"-,omitempty"`
+	HumanID *string `json:"-"`
 }
 
 // UpdateHumanRequest:

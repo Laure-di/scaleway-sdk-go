@@ -177,17 +177,17 @@ type ListIPsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListIPsRequestOrderBy `json:"order_by"`
+	OrderBy ListIPsRequestOrderBy `json:"-"`
 	// ProjectID:
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID:
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Deprecated: Source:
-	Source *Source `json:"source,omitempty"`
+	Source *Source `json:"-"`
 	// Zonal:
 	Zonal *string `json:"zonal,omitempty"`
 	// ZonalNat:
@@ -199,21 +199,21 @@ type ListIPsRequest struct {
 	// SubnetID:
 	SubnetID *string `json:"subnet_id,omitempty"`
 	// Attached:
-	Attached *bool `json:"attached,omitempty"`
+	Attached *bool `json:"-"`
 	// ResourceID:
-	ResourceID *string `json:"resource_id,omitempty"`
+	ResourceID *string `json:"-"`
 	// ResourceType:
-	ResourceType ResourceType `json:"resource_type"`
+	ResourceType ResourceType `json:"-"`
 	// MacAddress:
-	MacAddress *string `json:"mac_address,omitempty"`
+	MacAddress *string `json:"-"`
 	// Tags:
-	Tags *[]string `json:"tags,omitempty"`
+	Tags *[]string `json:"-"`
 	// IsIPv6:
-	IsIPv6 *bool `json:"is_ipv6,omitempty"`
+	IsIPv6 *bool `json:"-"`
 	// ResourceName:
-	ResourceName *string `json:"resource_name,omitempty"`
+	ResourceName *string `json:"-"`
 	// ResourceIDs:
-	ResourceIDs []string `json:"resource_ids"`
+	ResourceIDs []string `json:"-"`
 }
 
 // ListIPsResponse:

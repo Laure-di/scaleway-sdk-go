@@ -381,7 +381,7 @@ type DeleteTagRequest struct {
 	// TagID: UUID of the tag.
 	TagID string `json:"-"`
 	// Deprecated: Force: If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
-	Force *bool `json:"force,omitempty"`
+	Force *bool `json:"-"`
 }
 
 // GetImageRequest:
@@ -413,19 +413,19 @@ type ListImagesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: A positive integer to choose the page to display.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
-	OrderBy ListImagesRequestOrderBy `json:"order_by"`
+	OrderBy ListImagesRequestOrderBy `json:"-"`
 	// NamespaceID: Filter by the namespace ID.
-	NamespaceID *string `json:"namespace_id,omitempty"`
+	NamespaceID *string `json:"-"`
 	// Name: Filter by the image name (exact match).
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrganizationID: Filter by Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Filter by Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListImagesResponse:
@@ -460,17 +460,17 @@ type ListNamespacesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: A positive integer to choose the page to display.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
-	OrderBy ListNamespacesRequestOrderBy `json:"order_by"`
+	OrderBy ListNamespacesRequestOrderBy `json:"-"`
 	// OrganizationID: Filter by Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Filter by Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Name: Filter by the namespace name (exact match).
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListNamespacesResponse:
@@ -504,16 +504,16 @@ func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 type ListTagsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// Page: A positive integer to choose the page to display.
-	Page *int32 `json:"page,omitempty"`
-	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
-	PageSize *uint32 `json:"page_size,omitempty"`
-	// OrderBy: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
-	OrderBy ListTagsRequestOrderBy `json:"order_by"`
 	// ImageID: UUID of the image.
 	ImageID string `json:"-"`
+	// Page: A positive integer to choose the page to display.
+	Page *int32 `json:"-"`
+	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+	OrderBy ListTagsRequestOrderBy `json:"-"`
 	// Name: Filter by the tag name (exact match).
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListTagsResponse:

@@ -302,13 +302,13 @@ type ListCredentialsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// NamespaceID: Namespace containing the credentials.
-	NamespaceID *string `json:"namespace_id,omitempty"`
+	NamespaceID *string `json:"-"`
 	// Page: Page number to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of credentials to return per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order in which to return results.
-	OrderBy ListCredentialsRequestOrderBy `json:"order_by"`
+	OrderBy ListCredentialsRequestOrderBy `json:"-"`
 }
 
 // ListCredentialsResponse:
@@ -343,15 +343,15 @@ type ListNamespacesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// OrganizationID: Include only namespaces in this Organization.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Include only namespaces in this Project.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Page: Page number to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of namespaces to return per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order in which to return results.
-	OrderBy ListNamespacesRequestOrderBy `json:"order_by"`
+	OrderBy ListNamespacesRequestOrderBy `json:"-"`
 }
 
 // ListNamespacesResponse:

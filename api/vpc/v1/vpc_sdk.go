@@ -128,23 +128,23 @@ type ListPrivateNetworksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Sort order of the returned Private Networks.
-	OrderBy ListPrivateNetworksRequestOrderBy `json:"order_by"`
+	OrderBy ListPrivateNetworksRequestOrderBy `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of Private Networks to return per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Name to filter for. Only Private Networks with names containing this string will be returned.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Tags: Tags to filter for. Only Private Networks with one or more matching tags will be returned.
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// OrganizationID: Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// PrivateNetworkIDs: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
-	PrivateNetworkIDs []string `json:"private_network_ids"`
+	PrivateNetworkIDs []string `json:"-"`
 	// IncludeRegional: Defines whether to include regional Private Networks in the response.
-	IncludeRegional *bool `json:"include_regional,omitempty"`
+	IncludeRegional *bool `json:"-"`
 }
 
 // ListPrivateNetworksResponse:

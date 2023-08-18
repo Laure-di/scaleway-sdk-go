@@ -392,10 +392,10 @@ type DeleteContactPointRequest struct {
 
 // DeleteGrafanaUserRequest: Request to delete a Grafana user.
 type DeleteGrafanaUserRequest struct {
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
 	// GrafanaUserID: ID of the Grafana user.
 	GrafanaUserID uint32 `json:"-"`
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
 }
 
 // DeleteTokenRequest:
@@ -419,19 +419,19 @@ type EnableManagedAlertsRequest struct {
 // GetCockpitMetricsRequest: Request to get a given Cockpit's metrics.
 type GetCockpitMetricsRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
-	ProjectID string `json:"project_id"`
+	ProjectID string `json:"-"`
 	// StartDate: Desired time range's start date for the metrics.
-	StartDate *time.Time `json:"start_date,omitempty"`
+	StartDate *time.Time `json:"-"`
 	// EndDate: Desired time range's end date for the metrics.
-	EndDate *time.Time `json:"end_date,omitempty"`
+	EndDate *time.Time `json:"-"`
 	// MetricName: Name of the metric requested.
-	MetricName *string `json:"metric_name,omitempty"`
+	MetricName *string `json:"-"`
 }
 
 // GetCockpitRequest:
 type GetCockpitRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
-	ProjectID string `json:"project_id"`
+	ProjectID string `json:"-"`
 }
 
 // GetTokenRequest:
@@ -443,11 +443,11 @@ type GetTokenRequest struct {
 // ListContactPointsRequest: Request to list all contact points.
 type ListContactPointsRequest struct {
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Page size.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// ProjectID: ID of the Project from which to list the contact points.
-	ProjectID string `json:"project_id"`
+	ProjectID string `json:"-"`
 }
 
 // ListContactPointsResponse: Response returned when listing contact points.
@@ -484,13 +484,13 @@ func (r *ListContactPointsResponse) UnsafeAppend(res interface{}) (uint32, error
 // ListGrafanaUsersRequest: Request to list all Grafana users.
 type ListGrafanaUsersRequest struct {
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Page size.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListGrafanaUsersRequestOrderBy `json:"order_by"`
+	OrderBy ListGrafanaUsersRequestOrderBy `json:"-"`
 	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
+	ProjectID string `json:"-"`
 }
 
 // ListGrafanaUsersResponse: Response returned when listing Grafana users.
@@ -523,11 +523,11 @@ func (r *ListGrafanaUsersResponse) UnsafeAppend(res interface{}) (uint32, error)
 // ListPlansRequest: Request to list all pricing plans.
 type ListPlansRequest struct {
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Page size.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListPlansRequestOrderBy `json:"order_by"`
+	OrderBy ListPlansRequestOrderBy `json:"-"`
 }
 
 // ListPlansResponse: Response returned when listing all pricing plans.
@@ -560,13 +560,13 @@ func (r *ListPlansResponse) UnsafeAppend(res interface{}) (uint64, error) {
 // ListTokensRequest:
 type ListTokensRequest struct {
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Page size.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListTokensRequestOrderBy `json:"order_by"`
+	OrderBy ListTokensRequestOrderBy `json:"-"`
 	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
+	ProjectID string `json:"-"`
 }
 
 // ListTokensResponse:
@@ -604,10 +604,10 @@ type ResetCockpitGrafanaRequest struct {
 
 // ResetGrafanaUserPasswordRequest: Request to reset a Grafana user's password.
 type ResetGrafanaUserPasswordRequest struct {
-	// ProjectID: ID of the Project.
-	ProjectID string `json:"project_id"`
 	// GrafanaUserID: ID of the Grafana user.
 	GrafanaUserID uint32 `json:"-"`
+	// ProjectID: ID of the Project.
+	ProjectID string `json:"project_id"`
 }
 
 // SelectPlanRequest: Request to select a specific pricing plan.

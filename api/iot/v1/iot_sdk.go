@@ -837,7 +837,7 @@ type DeleteHubRequest struct {
 	// HubID: Hub ID.
 	HubID string `json:"-"`
 	// DeleteDevices: Defines whether to force the deletion of devices added to this Hub or reject the operation.
-	DeleteDevices *bool `json:"delete_devices,omitempty"`
+	DeleteDevices *bool `json:"-"`
 }
 
 // DeleteNetworkRequest:
@@ -929,7 +929,7 @@ type GetDeviceMetricsRequest struct {
 	// DeviceID: Device ID.
 	DeviceID string `json:"-"`
 	// StartDate: Start date used to compute the best scale for the returned metrics.
-	StartDate *time.Time `json:"start_date,omitempty"`
+	StartDate *time.Time `json:"-"`
 }
 
 // GetDeviceMetricsResponse:
@@ -967,7 +967,7 @@ type GetHubMetricsRequest struct {
 	// HubID: Hub ID.
 	HubID string `json:"-"`
 	// StartDate: Start date used to compute the best scale for returned metrics.
-	StartDate *time.Time `json:"start_date,omitempty"`
+	StartDate *time.Time `json:"-"`
 }
 
 // GetHubMetricsResponse:
@@ -1015,19 +1015,19 @@ type ListDevicesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of devices to return within a page. Maximum value is 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Ordering of requested devices.
-	OrderBy ListDevicesRequestOrderBy `json:"order_by"`
+	OrderBy ListDevicesRequestOrderBy `json:"-"`
 	// Name: Name to filter for, only devices with this name will be returned.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// HubID: Hub ID to filter for, only devices attached to this Hub will be returned.
-	HubID *string `json:"hub_id,omitempty"`
+	HubID *string `json:"-"`
 	// AllowInsecure: Defines wheter to filter the allow_insecure flag.
-	AllowInsecure *bool `json:"allow_insecure,omitempty"`
+	AllowInsecure *bool `json:"-"`
 	// Status: Device status (enabled, disabled, etc.).
-	Status DeviceStatus `json:"status"`
+	Status DeviceStatus `json:"-"`
 }
 
 // ListDevicesResponse:
@@ -1062,17 +1062,17 @@ type ListHubsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of Hubs to return within a page. Maximum value is 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Sort order of Hubs in the response.
-	OrderBy ListHubsRequestOrderBy `json:"order_by"`
+	OrderBy ListHubsRequestOrderBy `json:"-"`
 	// ProjectID: Only list Hubs of this Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID: Only list Hubs of this Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Name: Hub name.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListHubsResponse:
@@ -1107,17 +1107,17 @@ type ListNetworksRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of networks to return. The maximum value is 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Ordering of requested routes.
-	OrderBy ListNetworksRequestOrderBy `json:"order_by"`
+	OrderBy ListNetworksRequestOrderBy `json:"-"`
 	// Name: Network name to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// HubID: Hub ID to filter for.
-	HubID *string `json:"hub_id,omitempty"`
+	HubID *string `json:"-"`
 	// TopicPrefix: Topic prefix to filter for.
-	TopicPrefix *string `json:"topic_prefix,omitempty"`
+	TopicPrefix *string `json:"-"`
 }
 
 // ListNetworksResponse:
@@ -1152,15 +1152,15 @@ type ListRoutesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of routes to return within a page. Maximum value is 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Ordering of requested routes.
-	OrderBy ListRoutesRequestOrderBy `json:"order_by"`
+	OrderBy ListRoutesRequestOrderBy `json:"-"`
 	// HubID: Hub ID to filter for.
-	HubID *string `json:"hub_id,omitempty"`
+	HubID *string `json:"-"`
 	// Name: Route name to filter for.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListRoutesResponse:

@@ -116,17 +116,17 @@ type GetProjectRequest struct {
 // ListProjectsRequest:
 type ListProjectsRequest struct {
 	// OrganizationID: Organization ID of the Project.
-	OrganizationID string `json:"organization_id"`
+	OrganizationID string `json:"-"`
 	// Name: Name of the Project.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Page: Page number for the returned Projects.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of Project per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Sort order of the returned Projects.
-	OrderBy ListProjectsRequestOrderBy `json:"order_by"`
+	OrderBy ListProjectsRequestOrderBy `json:"-"`
 	// ProjectIDs: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
-	ProjectIDs []string `json:"project_ids"`
+	ProjectIDs []string `json:"-"`
 }
 
 // ListProjectsResponse:

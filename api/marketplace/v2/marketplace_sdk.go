@@ -256,9 +256,9 @@ type GetVersionRequest struct {
 // ListCategoriesRequest:
 type ListCategoriesRequest struct {
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListCategoriesResponse:
@@ -291,17 +291,17 @@ func (r *ListCategoriesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 // ListImagesRequest:
 type ListImagesRequest struct {
 	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to display.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// OrderBy: Ordering to use.
-	OrderBy ListImagesRequestOrderBy `json:"order_by"`
+	OrderBy ListImagesRequestOrderBy `json:"-"`
 	// Arch: Choose for which machine architecture to return images.
-	Arch *string `json:"arch,omitempty"`
+	Arch *string `json:"-"`
 	// Category: Choose the category of images to get.
-	Category *string `json:"category,omitempty"`
+	Category *string `json:"-"`
 	// IncludeEol: Choose to include end-of-life images.
-	IncludeEol bool `json:"include_eol"`
+	IncludeEol bool `json:"-"`
 }
 
 // ListImagesResponse:
@@ -338,17 +338,17 @@ type ListLocalImagesRequest struct {
 	// VersionID:
 	VersionID *string `json:"version_id,omitempty"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// OrderBy:
-	OrderBy ListLocalImagesRequestOrderBy `json:"order_by"`
+	OrderBy ListLocalImagesRequestOrderBy `json:"-"`
 	// ImageLabel:
 	ImageLabel *string `json:"image_label,omitempty"`
 	// Zone:
-	Zone *scw.Zone `json:"zone,omitempty"`
+	Zone *scw.Zone `json:"-"`
 	// Type:
-	Type LocalImageType `json:"type"`
+	Type LocalImageType `json:"-"`
 }
 
 // ListLocalImagesResponse:
@@ -381,13 +381,13 @@ func (r *ListLocalImagesResponse) UnsafeAppend(res interface{}) (uint32, error) 
 // ListVersionsRequest:
 type ListVersionsRequest struct {
 	// ImageID:
-	ImageID string `json:"image_id"`
+	ImageID string `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// OrderBy:
-	OrderBy ListVersionsRequestOrderBy `json:"order_by"`
+	OrderBy ListVersionsRequestOrderBy `json:"-"`
 }
 
 // ListVersionsResponse:

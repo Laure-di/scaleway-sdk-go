@@ -560,11 +560,11 @@ type GetClusterMetricsRequest struct {
 	// ClusterID: UUID of the cluster.
 	ClusterID string `json:"-"`
 	// StartAt: Start date.
-	StartAt *time.Time `json:"start_at,omitempty"`
+	StartAt *time.Time `json:"-"`
 	// EndAt: End date.
-	EndAt *time.Time `json:"end_at,omitempty"`
+	EndAt *time.Time `json:"-"`
 	// MetricName: Name of the metric to gather.
-	MetricName *string `json:"metric_name,omitempty"`
+	MetricName *string `json:"-"`
 }
 
 // GetClusterRequest:
@@ -588,17 +588,17 @@ type ListClusterVersionsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// IncludeDisabled: Defines whether or not to include disabled Redis™ engine versions.
-	IncludeDisabled bool `json:"include_disabled"`
+	IncludeDisabled bool `json:"-"`
 	// IncludeBeta: Defines whether or not to include beta Redis™ engine versions.
-	IncludeBeta bool `json:"include_beta"`
+	IncludeBeta bool `json:"-"`
 	// IncludeDeprecated: Defines whether or not to include deprecated Redis™ engine versions.
-	IncludeDeprecated bool `json:"include_deprecated"`
+	IncludeDeprecated bool `json:"-"`
 	// Version: List Redis™ engine versions that match a given name pattern.
-	Version *string `json:"version,omitempty"`
+	Version *string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListClusterVersionsResponse:
@@ -633,21 +633,21 @@ type ListClustersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Tags: Filter by Database Instance tags.
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// Name: Filter by Database Instance names.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrderBy: Criteria to use when ordering the list.
-	OrderBy ListClustersRequestOrderBy `json:"order_by"`
+	OrderBy ListClustersRequestOrderBy `json:"-"`
 	// ProjectID: Filter by Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID: Filter by Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Version: Filter by Redis™ engine version.
-	Version *string `json:"version,omitempty"`
+	Version *string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListClustersResponse:
@@ -682,11 +682,11 @@ type ListNodeTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// IncludeDisabledTypes: Defines whether or not to include disabled types.
-	IncludeDisabledTypes bool `json:"include_disabled_types"`
+	IncludeDisabledTypes bool `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListNodeTypesResponse:
@@ -720,14 +720,14 @@ func (r *ListNodeTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 type MigrateClusterRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance to update.
+	ClusterID string `json:"-"`
 	// Version: Redis™ engine version of the Database Instance.
 	Version *string `json:"version,omitempty"`
 	// NodeType: Type of node to use for the Database Instance.
 	NodeType *string `json:"node_type,omitempty"`
 	// ClusterSize: Number of nodes for the Database Instance.
 	ClusterSize *uint32 `json:"cluster_size,omitempty"`
-	// ClusterID: UUID of the Database Instance to update.
-	ClusterID string `json:"-"`
 }
 
 // RenewClusterCertificateRequest:
@@ -784,6 +784,8 @@ type SetEndpointsResponse struct {
 type UpdateClusterRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
+	// ClusterID: UUID of the Database Instance to update.
+	ClusterID string `json:"-"`
 	// Name: Name of the Database Instance.
 	Name *string `json:"name,omitempty"`
 	// Tags: Database Instance tags.
@@ -792,8 +794,6 @@ type UpdateClusterRequest struct {
 	UserName *string `json:"user_name,omitempty"`
 	// Password: Password of the Database Instance user.
 	Password *string `json:"password,omitempty"`
-	// ClusterID: UUID of the Database Instance to update.
-	ClusterID string `json:"-"`
 }
 
 // UpdateEndpointRequest:

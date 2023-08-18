@@ -1897,12 +1897,12 @@ type DeleteVolumeRequest struct {
 type ExportSnapshotRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
+	// SnapshotID: Snapshot ID.
+	SnapshotID string `json:"-"`
 	// Bucket: S3 bucket name.
 	Bucket string `json:"bucket"`
 	// Key: S3 object key.
 	Key string `json:"key"`
-	// SnapshotID: Snapshot ID.
-	SnapshotID string `json:"-"`
 }
 
 // ExportSnapshotResponse:
@@ -1930,9 +1930,9 @@ type GetDashboardRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Organization:
-	Organization *string `json:"organization,omitempty"`
+	Organization *string `json:"-"`
 	// Project:
-	Project *string `json:"project,omitempty"`
+	Project *string `json:"-"`
 }
 
 // GetDashboardResponse:
@@ -2062,9 +2062,9 @@ type GetServerTypesAvailabilityRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to return.
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // GetServerTypesAvailabilityResponse:
@@ -2108,17 +2108,17 @@ type ListBootscriptsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Arch:
-	Arch *string `json:"arch,omitempty"`
+	Arch *string `json:"-"`
 	// Title:
-	Title *string `json:"title,omitempty"`
+	Title *string `json:"-"`
 	// Default:
-	Default *bool `json:"default,omitempty"`
+	Default *bool `json:"-"`
 	// Public:
-	Public *bool `json:"public,omitempty"`
+	Public *bool `json:"-"`
 	// PerPage:
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListBootscriptsResponse:
@@ -2159,17 +2159,17 @@ type ListIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Project: Project ID in which the IPs are reserved.
-	Project *string `json:"project,omitempty"`
+	Project *string `json:"-"`
 	// Organization: Organization ID in which the IPs are reserved.
-	Organization *string `json:"organization,omitempty"`
+	Organization *string `json:"-"`
 	// Tags: Filter IPs with these exact tags (to filter with several tags, use commas to separate them).
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"-"`
 	// Name: Filter on the IP address (Works as a LIKE operation on the IP address).
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to return.
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListIPsResponse:
@@ -2204,21 +2204,21 @@ type ListImagesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Organization:
-	Organization *string `json:"organization,omitempty"`
+	Organization *string `json:"-"`
 	// PerPage:
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// Name:
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Public:
-	Public *bool `json:"public,omitempty"`
+	Public *bool `json:"-"`
 	// Arch:
-	Arch *string `json:"arch,omitempty"`
+	Arch *string `json:"-"`
 	// Project:
-	Project *string `json:"project,omitempty"`
+	Project *string `json:"-"`
 	// Tags:
-	Tags *string `json:"tags,omitempty"`
+	Tags *string `json:"-"`
 }
 
 // ListImagesResponse:
@@ -2253,17 +2253,17 @@ type ListPlacementGroupsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to return.
-	PerPage *int32 `json:"per_page,omitempty"`
+	PerPage *int32 `json:"-"`
 	// Page: A positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// Organization: List only placement groups of this Organization ID.
-	Organization *string `json:"organization,omitempty"`
+	Organization *string `json:"-"`
 	// Project: List only placement groups of this Project ID.
-	Project *string `json:"project,omitempty"`
+	Project *string `json:"-"`
 	// Tags: List placement groups with these exact tags (to filter with several tags, use commas to separate them).
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"-"`
 	// Name: Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo").
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListPlacementGroupsResponse:
@@ -2300,11 +2300,11 @@ type ListPrivateNICsRequest struct {
 	// ServerID: Instance to which the private NIC is attached.
 	ServerID string `json:"-"`
 	// Tags: Private NIC tags.
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"-"`
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to return.
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListPrivateNICsResponse:
@@ -2341,9 +2341,9 @@ type ListSecurityGroupRulesRequest struct {
 	// SecurityGroupID: UUID of the security group.
 	SecurityGroupID string `json:"-"`
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to return.
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListSecurityGroupRulesResponse:
@@ -2378,19 +2378,19 @@ type ListSecurityGroupsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Name: Name of the security group.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Organization: Security group Organization ID.
-	Organization *string `json:"organization,omitempty"`
+	Organization *string `json:"-"`
 	// Project: Security group Project ID.
-	Project *string `json:"project,omitempty"`
+	Project *string `json:"-"`
 	// Tags: List security groups with these exact tags (to filter with several tags, use commas to separate them).
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"-"`
 	// ProjectDefault: Filter security groups with this value for project_default.
-	ProjectDefault *bool `json:"project_default,omitempty"`
+	ProjectDefault *bool `json:"-"`
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to return.
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListSecurityGroupsResponse:
@@ -2453,31 +2453,31 @@ type ListServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to return.
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// Organization: List only Instances of this Organization ID.
-	Organization *string `json:"organization,omitempty"`
+	Organization *string `json:"-"`
 	// Project: List only Instances of this Project ID.
-	Project *string `json:"project,omitempty"`
+	Project *string `json:"-"`
 	// Name: Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo").
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// PrivateIP: List Instances by private_ip.
-	PrivateIP *net.IP `json:"private_ip,omitempty"`
+	PrivateIP *net.IP `json:"-"`
 	// WithoutIP: List Instances that are not attached to a public IP.
-	WithoutIP *bool `json:"without_ip,omitempty"`
+	WithoutIP *bool `json:"-"`
 	// CommercialType: List Instances of this commercial type.
-	CommercialType *string `json:"commercial_type,omitempty"`
+	CommercialType *string `json:"-"`
 	// State: List Instances in this state.
-	State *ServerState `json:"state,omitempty"`
+	State *ServerState `json:"-"`
 	// Tags: List Instances with these exact tags (to filter with several tags, use commas to separate them).
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"-"`
 	// PrivateNetwork: List Instances in this Private Network.
-	PrivateNetwork *string `json:"private_network,omitempty"`
+	PrivateNetwork *string `json:"-"`
 	// Order: Define the order of the returned servers.
-	Order ListServersRequestOrder `json:"order"`
+	Order ListServersRequestOrder `json:"-"`
 	// PrivateNetworks: List Instances from the given Private Networks (use commas to separate them).
-	PrivateNetworks []string `json:"private_networks,omitempty"`
+	PrivateNetworks []string `json:"-"`
 }
 
 // ListServersResponse:
@@ -2512,9 +2512,9 @@ type ListServersTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// PerPage:
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListServersTypesResponse:
@@ -2530,17 +2530,17 @@ type ListSnapshotsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Organization:
-	Organization *string `json:"organization,omitempty"`
+	Organization *string `json:"-"`
 	// PerPage:
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// Name:
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Project:
-	Project *string `json:"project,omitempty"`
+	Project *string `json:"-"`
 	// Tags:
-	Tags *string `json:"tags,omitempty"`
+	Tags *string `json:"-"`
 }
 
 // ListSnapshotsResponse:
@@ -2575,19 +2575,19 @@ type ListVolumesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// VolumeType: Filter by volume type.
-	VolumeType *VolumeVolumeType `json:"volume_type,omitempty"`
+	VolumeType *VolumeVolumeType `json:"-"`
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to return.
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// Organization: Filter volume by Organization ID.
-	Organization *string `json:"organization,omitempty"`
+	Organization *string `json:"-"`
 	// Project: Filter volume by Project ID.
-	Project *string `json:"project,omitempty"`
+	Project *string `json:"-"`
 	// Tags: Filter volumes with these exact tags (to filter with several tags, use commas to separate them).
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"-"`
 	// Name: Filter volume by name (for eg. "vol" will return "myvolume" but not "data").
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListVolumesResponse:
@@ -2622,9 +2622,9 @@ type ListVolumesTypesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// PerPage:
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListVolumesTypesResponse:
@@ -3044,6 +3044,8 @@ type setServerResponse struct {
 type setSnapshotRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
+	// SnapshotID:
+	SnapshotID string `json:"-"`
 	// ID:
 	ID string `json:"id"`
 	// Name:
@@ -3064,8 +3066,6 @@ type setSnapshotRequest struct {
 	ModificationDate *time.Time `json:"modification_date,omitempty"`
 	// Project:
 	Project string `json:"project"`
-	// SnapshotID:
-	SnapshotID string `json:"-"`
 	// Tags:
 	Tags *[]string `json:"tags,omitempty"`
 }

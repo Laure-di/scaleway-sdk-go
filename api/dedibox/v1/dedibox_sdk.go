@@ -1937,9 +1937,9 @@ type GetOSRequest struct {
 	// OsID: ID of the OS.
 	OsID uint64 `json:"-"`
 	// ServerID: ID of the server.
-	ServerID uint64 `json:"server_id"`
+	ServerID uint64 `json:"-"`
 	// ProjectID: Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // GetOfferRequest:
@@ -1949,7 +1949,7 @@ type GetOfferRequest struct {
 	// OfferID: ID of offer.
 	OfferID uint64 `json:"-"`
 	// ProjectID: Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // GetOrderedServiceRequest:
@@ -1973,7 +1973,7 @@ type GetRemainingQuotaRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// ProjectID: Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // GetRemainingQuotaResponse:
@@ -2071,18 +2071,18 @@ type ListFailoverIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *uint32 `json:"page,omitempty"`
+	Page *uint32 `json:"-"`
 	// PageSize: Number of failovers IP per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the failovers IP.
-	OrderBy ListFailoverIPsRequestOrderBy `json:"order_by"`
+	OrderBy ListFailoverIPsRequestOrderBy `json:"-"`
 	// ProjectID: Filter failovers IP by project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Search: Filter failovers IP which matching with this field.
-	Search *string `json:"search,omitempty"`
+	Search *string `json:"-"`
 	// OnlyAvailable: True: return all failovers IP not attached on server
 	// false: return all failovers IP attached on server.
-	OnlyAvailable *bool `json:"only_available,omitempty"`
+	OnlyAvailable *bool `json:"-"`
 }
 
 // ListFailoverIPsResponse:
@@ -2117,17 +2117,17 @@ type ListOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *uint32 `json:"page,omitempty"`
+	Page *uint32 `json:"-"`
 	// PageSize: Number of OS per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the OS.
-	OrderBy ListOSRequestOrderBy `json:"order_by"`
+	OrderBy ListOSRequestOrderBy `json:"-"`
 	// Type: Type of the OS.
-	Type OSType `json:"type"`
+	Type OSType `json:"-"`
 	// ServerID: Filter OS by compatible server ID.
-	ServerID uint64 `json:"server_id"`
+	ServerID uint64 `json:"-"`
 	// ProjectID: Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListOSResponse:
@@ -2162,27 +2162,27 @@ type ListOffersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *uint32 `json:"page,omitempty"`
+	Page *uint32 `json:"-"`
 	// PageSize: Number of offer per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the offers.
-	OrderBy ListOffersRequestOrderBy `json:"order_by"`
+	OrderBy ListOffersRequestOrderBy `json:"-"`
 	// CommercialRange: Filter on commercial range.
-	CommercialRange *string `json:"commercial_range,omitempty"`
+	CommercialRange *string `json:"-"`
 	// Catalog: Filter on catalog.
-	Catalog OfferCatalog `json:"catalog"`
+	Catalog OfferCatalog `json:"-"`
 	// ProjectID: Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// IsFailoverIP: Get the current failover IP offer.
-	IsFailoverIP *bool `json:"is_failover_ip,omitempty"`
+	IsFailoverIP *bool `json:"-"`
 	// IsFailoverBlock: Get the current failover IP block offer.
-	IsFailoverBlock *bool `json:"is_failover_block,omitempty"`
+	IsFailoverBlock *bool `json:"-"`
 	// SoldIn: Filter offers depending on their datacenter.
-	SoldIn []string `json:"sold_in,omitempty"`
+	SoldIn []string `json:"-"`
 	// AvailableOnly: Set this filter to true to only return available offers.
-	AvailableOnly *bool `json:"available_only,omitempty"`
+	AvailableOnly *bool `json:"-"`
 	// IsRpnSan: Get the RPN SAN offers.
-	IsRpnSan *bool `json:"is_rpn_san,omitempty"`
+	IsRpnSan *bool `json:"-"`
 }
 
 // ListOffersResponse:
@@ -2216,14 +2216,14 @@ func (r *ListOffersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 type ListServerDisksRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
-	// Page: Page number.
-	Page *uint32 `json:"page,omitempty"`
-	// PageSize: Number of server disk per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
-	// OrderBy: Order of the server disks.
-	OrderBy ListServerDisksRequestOrderBy `json:"order_by"`
 	// ServerID: Server ID of the server disks.
 	ServerID uint64 `json:"-"`
+	// Page: Page number.
+	Page *uint32 `json:"-"`
+	// PageSize: Number of server disk per page.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Order of the server disks.
+	OrderBy ListServerDisksRequestOrderBy `json:"-"`
 }
 
 // ListServerDisksResponse:
@@ -2257,14 +2257,14 @@ func (r *ListServerDisksResponse) UnsafeAppend(res interface{}) (uint32, error) 
 type ListServerEventsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
-	// Page: Page number.
-	Page *uint32 `json:"page,omitempty"`
-	// PageSize: Number of server event per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
-	// OrderBy: Order of the server events.
-	OrderBy ListServerEventsRequestOrderBy `json:"order_by"`
 	// ServerID: Server ID of the server events.
 	ServerID uint64 `json:"-"`
+	// Page: Page number.
+	Page *uint32 `json:"-"`
+	// PageSize: Number of server event per page.
+	PageSize *uint32 `json:"-"`
+	// OrderBy: Order of the server events.
+	OrderBy ListServerEventsRequestOrderBy `json:"-"`
 }
 
 // ListServerEventsResponse:
@@ -2299,15 +2299,15 @@ type ListServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *uint32 `json:"page,omitempty"`
+	Page *uint32 `json:"-"`
 	// PageSize: Number of server per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the servers.
-	OrderBy ListServersRequestOrderBy `json:"order_by"`
+	OrderBy ListServersRequestOrderBy `json:"-"`
 	// ProjectID: Filter servers by project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Search: Filter servers by hostname.
-	Search *string `json:"search,omitempty"`
+	Search *string `json:"-"`
 }
 
 // ListServersResponse:
@@ -2342,13 +2342,13 @@ type ListServicesRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Page number.
-	Page *uint32 `json:"page,omitempty"`
+	Page *uint32 `json:"-"`
 	// PageSize: Number of service per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the services.
-	OrderBy ListServicesRequestOrderBy `json:"order_by"`
+	OrderBy ListServicesRequestOrderBy `json:"-"`
 	// ProjectID: Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListServicesResponse:
@@ -2382,12 +2382,12 @@ func (r *ListServicesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 type ListSubscribableServerOptionsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
-	// Page: Page number.
-	Page *uint32 `json:"page,omitempty"`
-	// PageSize: Number of subscribable server option per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
 	// ServerID: Server ID of the subscribable server options.
 	ServerID uint64 `json:"-"`
+	// Page: Page number.
+	Page *uint32 `json:"-"`
+	// PageSize: Number of subscribable server option per page.
+	PageSize *uint32 `json:"-"`
 }
 
 // ListSubscribableServerOptionsResponse:

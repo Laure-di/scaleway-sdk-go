@@ -362,21 +362,21 @@ type ListFlexibleIPsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Sort order of the returned flexible IPs.
-	OrderBy ListFlexibleIPsRequestOrderBy `json:"order_by"`
+	OrderBy ListFlexibleIPsRequestOrderBy `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of flexible IPs per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Tags: Filter by tag, only flexible IPs with one or more matching tags will be returned.
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// Status: Filter by status, only flexible IPs with this status will be returned.
-	Status []FlexibleIPStatus `json:"status"`
+	Status []FlexibleIPStatus `json:"-"`
 	// ServerIDs: Filter by server IDs, only flexible IPs with these server IDs will be returned.
-	ServerIDs []string `json:"server_ids"`
+	ServerIDs []string `json:"-"`
 	// OrganizationID: Filter by Organization ID, only flexible IPs from this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Filter by Project ID, only flexible IPs from this Project will be returned.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListFlexibleIPsResponse:

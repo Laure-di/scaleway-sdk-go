@@ -1114,7 +1114,7 @@ type IssueJWTRequest struct {
 	// NamespaceID:
 	NamespaceID *string `json:"namespace_id,omitempty"`
 	// ExpiresAt:
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	ExpiresAt *time.Time `json:"-"`
 }
 
 // ListContainersRequest:
@@ -1122,19 +1122,19 @@ type ListContainersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of containers per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the containers.
-	OrderBy ListContainersRequestOrderBy `json:"order_by"`
+	OrderBy ListContainersRequestOrderBy `json:"-"`
 	// NamespaceID: UUID of the namespace the container belongs to.
-	NamespaceID string `json:"namespace_id"`
+	NamespaceID string `json:"-"`
 	// Name: Name of the container.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrganizationID: UUID of the Organization the container belongs to.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: UUID of the Project the container belongs to.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListContainersResponse:
@@ -1169,13 +1169,13 @@ type ListCronsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of crons per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the crons.
-	OrderBy ListCronsRequestOrderBy `json:"order_by"`
+	OrderBy ListCronsRequestOrderBy `json:"-"`
 	// ContainerID: UUID of the container invoked by the cron.
-	ContainerID string `json:"container_id"`
+	ContainerID string `json:"-"`
 }
 
 // ListCronsResponse:
@@ -1210,13 +1210,13 @@ type ListDomainsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of domains per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the domains.
-	OrderBy ListDomainsRequestOrderBy `json:"order_by"`
+	OrderBy ListDomainsRequestOrderBy `json:"-"`
 	// ContainerID: UUID of the container the domain belongs to.
-	ContainerID string `json:"container_id"`
+	ContainerID string `json:"-"`
 }
 
 // ListDomainsResponse:
@@ -1253,11 +1253,11 @@ type ListLogsRequest struct {
 	// ContainerID: UUID of the container.
 	ContainerID string `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of logs per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the logs.
-	OrderBy ListLogsRequestOrderBy `json:"order_by"`
+	OrderBy ListLogsRequestOrderBy `json:"-"`
 }
 
 // ListLogsResponse:
@@ -1292,17 +1292,17 @@ type ListNamespacesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of namespaces per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the namespaces.
-	OrderBy ListNamespacesRequestOrderBy `json:"order_by"`
+	OrderBy ListNamespacesRequestOrderBy `json:"-"`
 	// Name: Name of the namespaces.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrganizationID: UUID of the Organization the namespace belongs to.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: UUID of the Project the namespace belongs to.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 }
 
 // ListNamespacesResponse:
@@ -1337,15 +1337,15 @@ type ListTokensRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of tokens per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Order of the tokens.
-	OrderBy ListTokensRequestOrderBy `json:"order_by"`
+	OrderBy ListTokensRequestOrderBy `json:"-"`
 	// ContainerID: UUID of the container the token belongs to.
-	ContainerID *string `json:"container_id,omitempty"`
+	ContainerID *string `json:"-"`
 	// NamespaceID: UUID of the namespace the token belongs to.
-	NamespaceID *string `json:"namespace_id,omitempty"`
+	NamespaceID *string `json:"-"`
 }
 
 // ListTokensResponse:
@@ -1380,11 +1380,11 @@ type ListTriggersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListTriggersRequestOrderBy `json:"order_by"`
+	OrderBy ListTriggersRequestOrderBy `json:"-"`
 	// ContainerID:
 	ContainerID *string `json:"container_id,omitempty"`
 	// NamespaceID:

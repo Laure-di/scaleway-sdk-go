@@ -130,9 +130,9 @@ type GetVersionResponse struct {
 // ListImagesRequest:
 type ListImagesRequest struct {
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to display.
-	PerPage *uint32 `json:"per_page,omitempty"`
+	PerPage *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to display.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListImagesResponse:

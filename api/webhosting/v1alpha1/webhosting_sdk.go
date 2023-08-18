@@ -503,21 +503,21 @@ type ListHostingsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number to return, from the paginated results (must be a positive integer).
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of Web Hosting plans to return (must be a positive integer lower or equal to 100).
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy: Sort order for Web Hosting plans in the response.
-	OrderBy ListHostingsRequestOrderBy `json:"order_by"`
+	OrderBy ListHostingsRequestOrderBy `json:"-"`
 	// Tags: Tags to filter for, only Web Hosting plans with matching tags will be returned.
-	Tags *[]string `json:"tags,omitempty"`
+	Tags *[]string `json:"-"`
 	// Statuses: Statuses to filter for, only Web Hosting plans with matching statuses will be returned.
-	Statuses []HostingStatus `json:"statuses"`
+	Statuses []HostingStatus `json:"-"`
 	// Domain: Domain to filter for, only Web Hosting plans associated with this domain will be returned.
-	Domain *string `json:"domain,omitempty"`
+	Domain *string `json:"-"`
 	// ProjectID: Project ID to filter for, only Web Hosting plans from this Project will be returned.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 }
 
 // ListHostingsResponse:
@@ -552,13 +552,13 @@ type ListOffersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// OrderBy: Sort order of offers in the response.
-	OrderBy ListOffersRequestOrderBy `json:"order_by"`
+	OrderBy ListOffersRequestOrderBy `json:"-"`
 	// WithoutOptions: Defines whether the response should consist of offers only, without options.
-	WithoutOptions bool `json:"without_options"`
+	WithoutOptions bool `json:"-"`
 	// OnlyOptions: Defines whether the response should consist of options only, without offers.
-	OnlyOptions bool `json:"only_options"`
+	OnlyOptions bool `json:"-"`
 	// HostingID: ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
-	HostingID *string `json:"hosting_id,omitempty"`
+	HostingID *string `json:"-"`
 }
 
 // ListOffersResponse:

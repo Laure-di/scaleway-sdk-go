@@ -918,7 +918,7 @@ type GetQuotumRequest struct {
 	// QuotumName: Name of the quota to get.
 	QuotumName string `json:"-"`
 	// OrganizationID: ID of the Organization.
-	OrganizationID string `json:"organization_id"`
+	OrganizationID string `json:"-"`
 }
 
 // GetSSHKeyRequest:
@@ -936,29 +936,29 @@ type GetUserRequest struct {
 // ListAPIKeysRequest:
 type ListAPIKeysRequest struct {
 	// OrderBy: Criteria for sorting results.
-	OrderBy ListAPIKeysRequestOrderBy `json:"order_by"`
+	OrderBy ListAPIKeysRequestOrderBy `json:"-"`
 	// Page: Page number. Value must be greater or equal to 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrganizationID: ID of Organization.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Deprecated: ApplicationID: ID of application that bears the API key.
 	ApplicationID *string `json:"application_id,omitempty"`
 	// Deprecated: UserID: ID of user that bears the API key.
 	UserID *string `json:"user_id,omitempty"`
 	// Editable: Defines whether to filter out editable API keys or not.
-	Editable *bool `json:"editable,omitempty"`
+	Editable *bool `json:"-"`
 	// Expired: Defines whether to filter out expired API keys or not.
-	Expired *bool `json:"expired,omitempty"`
+	Expired *bool `json:"-"`
 	// AccessKey: Filter by access key.
-	AccessKey *string `json:"access_key,omitempty"`
+	AccessKey *string `json:"-"`
 	// Description: Filter by description.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"-"`
 	// BearerID: Filter by bearer ID.
-	BearerID *string `json:"bearer_id,omitempty"`
+	BearerID *string `json:"-"`
 	// BearerType: Filter by type of bearer.
-	BearerType BearerType `json:"bearer_type"`
+	BearerType BearerType `json:"-"`
 }
 
 // ListAPIKeysResponse:
@@ -991,19 +991,19 @@ func (r *ListAPIKeysResponse) UnsafeAppend(res interface{}) (uint32, error) {
 // ListApplicationsRequest:
 type ListApplicationsRequest struct {
 	// OrderBy: Criteria for sorting results.
-	OrderBy ListApplicationsRequestOrderBy `json:"order_by"`
+	OrderBy ListApplicationsRequestOrderBy `json:"-"`
 	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// Name: Name of the application to filter.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// OrganizationID: ID of the Organization to filter.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Editable: Defines whether to filter out editable applications or not.
-	Editable *bool `json:"editable,omitempty"`
+	Editable *bool `json:"-"`
 	// ApplicationIDs: Filter by list of IDs.
-	ApplicationIDs []string `json:"application_ids"`
+	ApplicationIDs []string `json:"-"`
 }
 
 // ListApplicationsResponse:
@@ -1036,21 +1036,21 @@ func (r *ListApplicationsResponse) UnsafeAppend(res interface{}) (uint32, error)
 // ListGroupsRequest:
 type ListGroupsRequest struct {
 	// OrderBy: Sort order of groups.
-	OrderBy ListGroupsRequestOrderBy `json:"order_by"`
+	OrderBy ListGroupsRequestOrderBy `json:"-"`
 	// Page: Requested page number. Value must be greater or equal to 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of items per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrganizationID: Filter by Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Name: Name of group to find.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// ApplicationIDs: Filter by a list of application IDs.
-	ApplicationIDs []string `json:"application_ids"`
+	ApplicationIDs []string `json:"-"`
 	// UserIDs: Filter by a list of user IDs.
-	UserIDs []string `json:"user_ids"`
+	UserIDs []string `json:"-"`
 	// GroupIDs: Filter by a list of group IDs.
-	GroupIDs []string `json:"group_ids"`
+	GroupIDs []string `json:"-"`
 }
 
 // ListGroupsResponse:
@@ -1083,15 +1083,15 @@ func (r *ListGroupsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 // ListJWTsRequest:
 type ListJWTsRequest struct {
 	// OrderBy: Criteria for sorting results.
-	OrderBy ListJWTsRequestOrderBy `json:"order_by"`
+	OrderBy ListJWTsRequestOrderBy `json:"-"`
 	// AudienceID: ID of the user to search.
-	AudienceID *string `json:"audience_id,omitempty"`
+	AudienceID *string `json:"-"`
 	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: Page number. Value must be greater to 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// Expired: Filter out expired JWTs or not.
-	Expired *bool `json:"expired,omitempty"`
+	Expired *bool `json:"-"`
 }
 
 // ListJWTsResponse:
@@ -1124,13 +1124,13 @@ func (r *ListJWTsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 // ListPermissionSetsRequest:
 type ListPermissionSetsRequest struct {
 	// OrderBy: Criteria for sorting results.
-	OrderBy ListPermissionSetsRequestOrderBy `json:"order_by"`
+	OrderBy ListPermissionSetsRequestOrderBy `json:"-"`
 	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// OrganizationID: Filter by Organization ID.
-	OrganizationID string `json:"organization_id"`
+	OrganizationID string `json:"-"`
 }
 
 // ListPermissionSetsResponse:
@@ -1163,25 +1163,25 @@ func (r *ListPermissionSetsResponse) UnsafeAppend(res interface{}) (uint32, erro
 // ListPoliciesRequest:
 type ListPoliciesRequest struct {
 	// OrderBy: Criteria for sorting results.
-	OrderBy ListPoliciesRequestOrderBy `json:"order_by"`
+	OrderBy ListPoliciesRequestOrderBy `json:"-"`
 	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// OrganizationID: ID of the Organization to filter.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Editable: Defines whether or not filter out editable policies.
-	Editable *bool `json:"editable,omitempty"`
+	Editable *bool `json:"-"`
 	// UserIDs: Defines whether or not to filter by list of user IDs.
-	UserIDs []string `json:"user_ids"`
+	UserIDs []string `json:"-"`
 	// GroupIDs: Defines whether or not to filter by list of group IDs.
-	GroupIDs []string `json:"group_ids"`
+	GroupIDs []string `json:"-"`
 	// ApplicationIDs: Filter by a list of application IDs.
-	ApplicationIDs []string `json:"application_ids"`
+	ApplicationIDs []string `json:"-"`
 	// NoPrincipal: Defines whether or not the policy is attributed to a principal.
-	NoPrincipal *bool `json:"no_principal,omitempty"`
+	NoPrincipal *bool `json:"-"`
 	// PolicyName: Name of the policy to fetch.
-	PolicyName *string `json:"policy_name,omitempty"`
+	PolicyName *string `json:"-"`
 }
 
 // ListPoliciesResponse:
@@ -1214,13 +1214,13 @@ func (r *ListPoliciesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 // ListQuotaRequest:
 type ListQuotaRequest struct {
 	// OrderBy: Criteria for sorting results.
-	OrderBy ListQuotaRequestOrderBy `json:"order_by"`
+	OrderBy ListQuotaRequestOrderBy `json:"-"`
 	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// OrganizationID: Filter by Organization ID.
-	OrganizationID string `json:"organization_id"`
+	OrganizationID string `json:"-"`
 }
 
 // ListQuotaResponse:
@@ -1253,11 +1253,11 @@ func (r *ListQuotaResponse) UnsafeAppend(res interface{}) (uint64, error) {
 // ListRulesRequest:
 type ListRulesRequest struct {
 	// PolicyID: Id of policy to search.
-	PolicyID *string `json:"policy_id,omitempty"`
+	PolicyID *string `json:"-"`
 	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: Page number. Value must be greater than 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 }
 
 // ListRulesResponse:
@@ -1290,19 +1290,19 @@ func (r *ListRulesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 // ListSSHKeysRequest:
 type ListSSHKeysRequest struct {
 	// OrderBy: Sort order of the SSH keys.
-	OrderBy ListSSHKeysRequestOrderBy `json:"order_by"`
+	OrderBy ListSSHKeysRequestOrderBy `json:"-"`
 	// Page: Requested page number. Value must be greater or equal to 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Number of items per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrganizationID: Filter by Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Name: Name of group to find.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// ProjectID: Filter by Project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Disabled: Defines whether to include disabled SSH keys or not.
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool `json:"-"`
 }
 
 // ListSSHKeysResponse:
@@ -1335,17 +1335,17 @@ func (r *ListSSHKeysResponse) UnsafeAppend(res interface{}) (uint32, error) {
 // ListUsersRequest:
 type ListUsersRequest struct {
 	// OrderBy: Criteria for sorting results.
-	OrderBy ListUsersRequestOrderBy `json:"order_by"`
+	OrderBy ListUsersRequestOrderBy `json:"-"`
 	// PageSize: Number of results per page. Value must be between 1 and 100.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Page: Page number. Value must be greater or equal to 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// OrganizationID: ID of the Organization to filter.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// UserIDs: Filter by list of IDs.
-	UserIDs []string `json:"user_ids"`
+	UserIDs []string `json:"-"`
 	// Mfa: Filter by MFA status.
-	Mfa *bool `json:"mfa,omitempty"`
+	Mfa *bool `json:"-"`
 }
 
 // ListUsersResponse:

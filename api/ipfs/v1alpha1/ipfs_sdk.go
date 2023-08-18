@@ -303,10 +303,10 @@ type CreateVolumeRequest struct {
 type DeletePinRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// VolumeID:
-	VolumeID string `json:"volume_id"`
 	// PinID:
 	PinID string `json:"-"`
+	// VolumeID:
+	VolumeID string `json:"-"`
 }
 
 // DeleteVolumeRequest:
@@ -321,10 +321,10 @@ type DeleteVolumeRequest struct {
 type GetPinRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// VolumeID:
-	VolumeID string `json:"volume_id"`
 	// PinID:
 	PinID string `json:"-"`
+	// VolumeID:
+	VolumeID string `json:"-"`
 }
 
 // GetVolumeRequest:
@@ -340,19 +340,19 @@ type ListPinsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// VolumeID:
-	VolumeID string `json:"volume_id"`
+	VolumeID string `json:"-"`
 	// ProjectID:
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID:
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListPinsRequestOrderBy `json:"order_by"`
+	OrderBy ListPinsRequestOrderBy `json:"-"`
 	// Status:
-	Status PinStatus `json:"status"`
+	Status PinStatus `json:"-"`
 }
 
 // ListPinsResponse:
@@ -387,13 +387,13 @@ type ListVolumesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ProjectID:
-	ProjectID string `json:"project_id"`
+	ProjectID string `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// OrderBy:
-	OrderBy ListVolumesRequestOrderBy `json:"order_by"`
+	OrderBy ListVolumesRequestOrderBy `json:"-"`
 }
 
 // ListVolumesResponse:
@@ -427,10 +427,10 @@ func (r *ListVolumesResponse) UnsafeAppend(res interface{}) (uint64, error) {
 type ReplacePinRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
-	// VolumeID:
-	VolumeID string `json:"volume_id"`
 	// PinID:
 	PinID string `json:"-"`
+	// VolumeID:
+	VolumeID string `json:"volume_id"`
 	// Cid:
 	Cid string `json:"cid"`
 	// Name:

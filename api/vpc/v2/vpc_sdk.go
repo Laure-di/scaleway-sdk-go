@@ -270,25 +270,25 @@ type ListPrivateNetworksRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// OrderBy: Sort order of the returned Private Networks.
-	OrderBy ListPrivateNetworksRequestOrderBy `json:"order_by"`
+	OrderBy ListPrivateNetworksRequestOrderBy `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of Private Networks to return per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Name to filter for. Only Private Networks with names containing this string will be returned.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Tags: Tags to filter for. Only Private Networks with one or more matching tags will be returned.
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// OrganizationID: Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// PrivateNetworkIDs: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
-	PrivateNetworkIDs []string `json:"private_network_ids"`
+	PrivateNetworkIDs []string `json:"-"`
 	// VpcID: VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
-	VpcID *string `json:"vpc_id,omitempty"`
+	VpcID *string `json:"-"`
 	// DHCPEnabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
-	DHCPEnabled *bool `json:"dhcp_enabled,omitempty"`
+	DHCPEnabled *bool `json:"-"`
 }
 
 // ListPrivateNetworksResponse:
@@ -323,21 +323,21 @@ type ListVPCsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// OrderBy: Sort order of the returned VPCs.
-	OrderBy ListVPCsRequestOrderBy `json:"order_by"`
+	OrderBy ListVPCsRequestOrderBy `json:"-"`
 	// Page: Page number to return, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of VPCs to return per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Name to filter for. Only VPCs with names containing this string will be returned.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Tags: Tags to filter for. Only VPCs with one more more matching tags will be returned.
-	Tags []string `json:"tags"`
+	Tags []string `json:"-"`
 	// OrganizationID: Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID to filter for. Only VPCs belonging to this Project will be returned.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// IsDefault: Defines whether to filter only for VPCs which are the default one for their Project.
-	IsDefault *bool `json:"is_default,omitempty"`
+	IsDefault *bool `json:"-"`
 }
 
 // ListVPCsResponse:

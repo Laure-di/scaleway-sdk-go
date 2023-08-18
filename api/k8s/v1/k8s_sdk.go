@@ -1078,7 +1078,7 @@ type DeleteClusterRequest struct {
 	// ClusterID: ID of the cluster to delete.
 	ClusterID string `json:"-"`
 	// WithAdditionalResources: Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted.
-	WithAdditionalResources bool `json:"with_additional_resources"`
+	WithAdditionalResources bool `json:"-"`
 }
 
 // DeleteNodeRequest:
@@ -1088,9 +1088,9 @@ type DeleteNodeRequest struct {
 	// NodeID: ID of the node to replace.
 	NodeID string `json:"-"`
 	// SkipDrain: Skip draining node from its workload.
-	SkipDrain bool `json:"skip_drain"`
+	SkipDrain bool `json:"-"`
 	// Replace: Add a new node after the deletion of this node.
-	Replace bool `json:"replace"`
+	Replace bool `json:"-"`
 }
 
 // DeletePoolRequest:
@@ -1215,9 +1215,9 @@ type ListClusterTypesRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Page number, from the paginated results, to return for cluster-types.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of clusters per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListClusterTypesResponse:
@@ -1252,21 +1252,21 @@ type ListClustersRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// OrganizationID: Organization ID on which to filter the returned clusters.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// ProjectID: Project ID on which to filter the returned clusters.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrderBy: Sort order of returned clusters.
-	OrderBy ListClustersRequestOrderBy `json:"order_by"`
+	OrderBy ListClustersRequestOrderBy `json:"-"`
 	// Page: Page number to return for clusters, from the paginated results.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of clusters per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Name to filter on, only clusters containing this substring in their name will be returned.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Status: Status to filter on, only clusters with this status will be returned.
-	Status ClusterStatus `json:"status"`
+	Status ClusterStatus `json:"-"`
 	// Type: Type to filter on, only clusters with this type will be returned.
-	Type *string `json:"type,omitempty"`
+	Type *string `json:"-"`
 }
 
 // ListClustersResponse:
@@ -1303,17 +1303,17 @@ type ListNodesRequest struct {
 	// ClusterID: Cluster ID from which the nodes will be listed from.
 	ClusterID string `json:"-"`
 	// PoolID: Pool ID on which to filter the returned nodes.
-	PoolID *string `json:"pool_id,omitempty"`
+	PoolID *string `json:"-"`
 	// OrderBy: Sort order of the returned nodes.
-	OrderBy ListNodesRequestOrderBy `json:"order_by"`
+	OrderBy ListNodesRequestOrderBy `json:"-"`
 	// Page: Page number for the returned nodes.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of nodes per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Name to filter on, only nodes containing this substring in their name will be returned.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Status: Status to filter on, only nodes with this status will be returned.
-	Status NodeStatus `json:"status"`
+	Status NodeStatus `json:"-"`
 }
 
 // ListNodesResponse:
@@ -1350,15 +1350,15 @@ type ListPoolsRequest struct {
 	// ClusterID: ID of the cluster whose pools will be listed.
 	ClusterID string `json:"-"`
 	// OrderBy: Sort order of returned pools.
-	OrderBy ListPoolsRequestOrderBy `json:"order_by"`
+	OrderBy ListPoolsRequestOrderBy `json:"-"`
 	// Page: Page number for the returned pools.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Maximum number of pools per page.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// Name: Name to filter on, only pools containing this substring in their name will be returned.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 	// Status: Status to filter on, only pools with this status will be returned.
-	Status PoolStatus `json:"status"`
+	Status PoolStatus `json:"-"`
 }
 
 // ListPoolsResponse:

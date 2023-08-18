@@ -512,15 +512,15 @@ type GetStatisticsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// ProjectID: (Optional) Number of emails for this Project.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// DomainID: (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`).
-	DomainID *string `json:"domain_id,omitempty"`
+	DomainID *string `json:"-"`
 	// Since: (Optional) Number of emails created after this date.
-	Since *time.Time `json:"since,omitempty"`
+	Since *time.Time `json:"-"`
 	// Until: (Optional) Number of emails created before this date.
-	Until *time.Time `json:"until,omitempty"`
+	Until *time.Time `json:"-"`
 	// MailFrom: (Optional) Number of emails sent with this sender's email address.
-	MailFrom *string `json:"mail_from,omitempty"`
+	MailFrom *string `json:"-"`
 }
 
 // ListDomainsRequest:
@@ -528,17 +528,17 @@ type ListDomainsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page: Requested page number. Value must be greater or equal to 1.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Page size.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// ProjectID:
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// Status:
-	Status []DomainStatus `json:"status"`
+	Status []DomainStatus `json:"-"`
 	// OrganizationID:
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Name:
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListDomainsResponse:
@@ -573,35 +573,35 @@ type ListEmailsRequest struct {
 	// Region:
 	Region scw.Region `json:"-"`
 	// Page:
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize:
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// ProjectID: (Optional) ID of the Project in which to list the emails.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// DomainID: (Optional) ID of the domain for which to list the emails.
-	DomainID *string `json:"domain_id,omitempty"`
+	DomainID *string `json:"-"`
 	// MessageID: (Optional) ID of the message for which to list the emails.
-	MessageID *string `json:"message_id,omitempty"`
+	MessageID *string `json:"-"`
 	// Since: (Optional) List emails created after this date.
-	Since *time.Time `json:"since,omitempty"`
+	Since *time.Time `json:"-"`
 	// Until: (Optional) List emails created before this date.
-	Until *time.Time `json:"until,omitempty"`
+	Until *time.Time `json:"-"`
 	// MailFrom: (Optional) List emails sent with this sender's email address.
-	MailFrom *string `json:"mail_from,omitempty"`
+	MailFrom *string `json:"-"`
 	// Deprecated: MailTo: List emails sent to this recipient's email address.
-	MailTo *string `json:"mail_to,omitempty"`
+	MailTo *string `json:"-"`
 	// MailRcpt: (Optional) List emails sent to this recipient's email address.
-	MailRcpt *string `json:"mail_rcpt,omitempty"`
+	MailRcpt *string `json:"-"`
 	// Statuses: (Optional) List emails with any of these statuses.
-	Statuses []EmailStatus `json:"statuses"`
+	Statuses []EmailStatus `json:"-"`
 	// Subject: (Optional) List emails with this subject.
-	Subject *string `json:"subject,omitempty"`
+	Subject *string `json:"-"`
 	// Search: (Optional) List emails by searching to all fields.
-	Search *string `json:"search,omitempty"`
+	Search *string `json:"-"`
 	// OrderBy: (Optional) List emails corresponding to specific criteria.
-	OrderBy ListEmailsRequestOrderBy `json:"order_by"`
+	OrderBy ListEmailsRequestOrderBy `json:"-"`
 	// Flags: (Optional) List emails containing only specific flags.
-	Flags []EmailFlag `json:"flags"`
+	Flags []EmailFlag `json:"-"`
 }
 
 // ListEmailsResponse:

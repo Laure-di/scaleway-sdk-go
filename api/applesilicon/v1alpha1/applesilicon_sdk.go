@@ -270,13 +270,13 @@ type ListOSRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// Page: Positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Positive integer lower or equal to 100 to select the number of items to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 	// ServerType: List of compatible server types.
-	ServerType *string `json:"server_type,omitempty"`
+	ServerType *string `json:"-"`
 	// Name: Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12")).
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"-"`
 }
 
 // ListOSResponse:
@@ -323,15 +323,15 @@ type ListServersRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// OrderBy: Sort order of the returned servers.
-	OrderBy ListServersRequestOrderBy `json:"order_by"`
+	OrderBy ListServersRequestOrderBy `json:"-"`
 	// ProjectID: Only list servers of this project ID.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"-"`
 	// OrganizationID: Only list servers of this Organization ID.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string `json:"-"`
 	// Page: Positive integer to choose the page to return.
-	Page *int32 `json:"page,omitempty"`
+	Page *int32 `json:"-"`
 	// PageSize: Positive integer lower or equal to 100 to select the number of items to return.
-	PageSize *uint32 `json:"page_size,omitempty"`
+	PageSize *uint32 `json:"-"`
 }
 
 // ListServersResponse:
