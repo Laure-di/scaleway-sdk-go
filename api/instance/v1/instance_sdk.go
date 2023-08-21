@@ -1016,17 +1016,17 @@ type PlacementGroup struct {
 // PrivateNIC:
 type PrivateNIC struct {
 	// ID: Private NIC unique ID.
-	ID string `json:"id"`
+	ID string `json:"id,omitempty"`
 	// ServerID: Instance to which the private NIC is attached.
-	ServerID string `json:"server_id"`
+	ServerID string `json:"server_id,omitempty"`
 	// PrivateNetworkID: Private Network the private NIC is attached to.
-	PrivateNetworkID string `json:"private_network_id"`
+	PrivateNetworkID string `json:"private_network_id,omitempty"`
 	// MacAddress: Private NIC MAC address.
-	MacAddress string `json:"mac_address"`
+	MacAddress string `json:"mac_address,omitempty"`
 	// State: Private NIC state.
 	State PrivateNICState `json:"state"`
 	// Tags: Private NIC tags.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags,omitempty"`
 }
 
 // SecurityGroupSummary:
@@ -1040,17 +1040,17 @@ type SecurityGroupSummary struct {
 // ServerIP:
 type ServerIP struct {
 	// ID: Unique ID of the IP address.
-	ID string `json:"id"`
+	ID string `json:"id,omitempty"`
 	// Address: Instance's public IP-Address.
-	Address net.IP `json:"address"`
+	Address net.IP `json:"address,omitempty"`
 	// Gateway: Gateway's IP address.
-	Gateway net.IP `json:"gateway"`
+	Gateway net.IP `json:"gateway,omitempty"`
 	// Netmask: CIDR netmask.
-	Netmask string `json:"netmask"`
+	Netmask string `json:"netmask,omitempty"`
 	// Family: IP address family (inet or inet6).
 	Family ServerIPIPFamily `json:"family"`
 	// Dynamic: True if the IP address is dynamic.
-	Dynamic bool `json:"dynamic"`
+	Dynamic bool `json:"dynamic,omitempty"`
 	// ProvisioningMode: Information about this address provisioning mode.
 	ProvisioningMode ServerIPProvisioningMode `json:"provisioning_mode"`
 }
@@ -1192,11 +1192,11 @@ type IP struct {
 // VolumeTemplate:
 type VolumeTemplate struct {
 	// ID: UUID of the volume.
-	ID string `json:"id"`
+	ID string `json:"id,omitempty"`
 	// Name: Name of the volume.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Size: Disk size of the volume, must be a multiple of 512.
-	Size scw.Size `json:"size"`
+	Size scw.Size `json:"size,omitempty"`
 	// VolumeType: Type of the volume.
 	VolumeType VolumeVolumeType `json:"volume_type"`
 	// Deprecated: Organization: Organization ID of the volume.
@@ -1270,21 +1270,21 @@ type SecurityGroupRule struct {
 // VolumeServerTemplate:
 type VolumeServerTemplate struct {
 	// ID: UUID of the volume.
-	ID *string `json:"id"`
+	ID *string `json:"id,omitempty"`
 	// Boot: Force the Instance to boot on this volume.
-	Boot *bool `json:"boot"`
+	Boot *bool `json:"boot,omitempty"`
 	// Name: Name of the volume.
-	Name *string `json:"name"`
+	Name *string `json:"name,omitempty"`
 	// Size: Disk size of the volume, must be a multiple of 512.
-	Size *scw.Size `json:"size"`
+	Size *scw.Size `json:"size,omitempty"`
 	// VolumeType: Type of the volume.
 	VolumeType VolumeVolumeType `json:"volume_type"`
 	// BaseSnapshot: ID of the snapshot on which this volume will be based.
-	BaseSnapshot *string `json:"base_snapshot"`
+	BaseSnapshot *string `json:"base_snapshot,omitempty"`
 	// Organization: Organization ID of the volume.
-	Organization *string `json:"organization"`
+	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID of the volume.
-	Project *string `json:"project"`
+	Project *string `json:"project,omitempty"`
 }
 
 // Server:
@@ -1529,17 +1529,17 @@ type SetSecurityGroupRulesRequestRule struct {
 // NullableStringValue:
 type NullableStringValue struct {
 	// Null:
-	Null bool `json:"null"`
+	Null bool `json:"null,omitempty"`
 	// Value:
-	Value string `json:"value"`
+	Value string `json:"value,omitempty"`
 }
 
 // SecurityGroupTemplate:
 type SecurityGroupTemplate struct {
 	// ID:
-	ID string `json:"id"`
+	ID string `json:"id,omitempty"`
 	// Name:
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 }
 
 // CreateIPRequest:
