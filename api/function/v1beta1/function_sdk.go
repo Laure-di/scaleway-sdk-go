@@ -1016,8 +1016,6 @@ type CreateFunctionRequest struct {
 	Privacy FunctionPrivacy `json:"privacy"`
 	// Description: Description of the function.
 	Description *string `json:"description,omitempty"`
-	// Deprecated: DomainName: Domain name associated with the function.
-	DomainName *string `json:"domain_name,omitempty"`
 	// SecretEnvironmentVariables:
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 	// HTTPOption: Possible values:
@@ -1594,8 +1592,6 @@ type UpdateFunctionRequest struct {
 	Privacy FunctionPrivacy `json:"privacy"`
 	// Description: Description of the function.
 	Description *string `json:"description,omitempty"`
-	// Deprecated: DomainName: Domain name associated with the function.
-	DomainName *string `json:"domain_name,omitempty"`
 	// SecretEnvironmentVariables: Secret environment variables of the function.
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 	// HTTPOption: Possible values:

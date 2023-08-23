@@ -126,20 +126,6 @@ type Resource struct {
 	Name *string `json:"name"`
 }
 
-// Source:
-type Source struct {
-	// Zonal:
-	Zonal *string `json:"zonal,omitempty"`
-	// ZonalNat:
-	ZonalNat *string `json:"zonal_nat,omitempty"`
-	// Regional:
-	Regional *bool `json:"regional,omitempty"`
-	// PrivateNetworkID:
-	PrivateNetworkID *string `json:"private_network_id,omitempty"`
-	// SubnetID:
-	SubnetID *string `json:"subnet_id,omitempty"`
-}
-
 // IP:
 type IP struct {
 	// ID:
@@ -186,8 +172,6 @@ type ListIPsRequest struct {
 	ProjectID *string `json:"-"`
 	// OrganizationID:
 	OrganizationID *string `json:"-"`
-	// Deprecated: Source:
-	Source *Source `json:"-"`
 	// Zonal:
 	Zonal *string `json:"zonal,omitempty"`
 	// ZonalNat:

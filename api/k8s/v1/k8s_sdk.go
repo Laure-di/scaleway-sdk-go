@@ -889,8 +889,6 @@ type Cluster struct {
 	PrivateNetworkID *string `json:"private_network_id"`
 	// CommitmentEndsAt: Date on which it will be possible to switch to a smaller offer.
 	CommitmentEndsAt *time.Time `json:"commitment_ends_at"`
-	// AuditLog: Enables the Kubernetes audit logging feature. Audit logs are sent to Cockpit. Please note that this feature is only available for clusters with a Dedicated Control Plane (https://www.scaleway.com/en/kubernetes-dedicated-control-plane/).
-	AuditLog bool `json:"audit_log"`
 }
 
 // Node:
@@ -1021,8 +1019,6 @@ type CreateClusterRequest struct {
 	ApiserverCertSans []string `json:"apiserver_cert_sans"`
 	// PrivateNetworkID: Private network ID for internal cluster communication (cannot be changed later).
 	PrivateNetworkID *string `json:"private_network_id,omitempty"`
-	// AuditLog: Enables the Kubernetes audit logging feature. Audit logs are sent to Cockpit. Please note that this feature is only available for clusters with a Dedicated Control Plane (https://www.scaleway.com/en/kubernetes-dedicated-control-plane/).
-	AuditLog bool `json:"audit_log"`
 }
 
 // CreateExternalNodeRequest:
@@ -1472,8 +1468,6 @@ type UpdateClusterRequest struct {
 	OpenIDConnectConfig *UpdateClusterRequestOpenIDConnectConfig `json:"open_id_connect_config"`
 	// ApiserverCertSans: Additional Subject Alternative Names for the Kubernetes API server certificate.
 	ApiserverCertSans *[]string `json:"apiserver_cert_sans,omitempty"`
-	// AuditLog: Enables the Kubernetes audit logging feature. Audit logs are sent to Cockpit. Please note that this feature is only available for clusters with a Dedicated Control Plane (https://www.scaleway.com/en/kubernetes-dedicated-control-plane/).
-	AuditLog *bool `json:"audit_log,omitempty"`
 }
 
 // UpdatePoolRequest:

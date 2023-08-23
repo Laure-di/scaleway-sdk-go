@@ -1605,8 +1605,6 @@ type CreateIPRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 	// Reverse: Reverse DNS (domain name) for the IP address.
 	Reverse *string `json:"reverse,omitempty"`
-	// IsIPv6: If true, creates a Flexible IP with an ipv6 address.
-	IsIPv6 bool `json:"is_ipv6"`
 }
 
 // CreateLBRequest:
@@ -1625,8 +1623,6 @@ type CreateLBRequest struct {
 	IPID *string `json:"ip_id,omitempty"`
 	// AssignFlexibleIP: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
 	AssignFlexibleIP *bool `json:"assign_flexible_ip,omitempty"`
-	// IPIDs: List of IP IDs to attach to the Load Balancer.
-	IPIDs []string `json:"ip_ids"`
 	// Tags: List of tags for the Load Balancer.
 	Tags []string `json:"tags"`
 	// Type: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
@@ -2841,8 +2837,6 @@ type ZonedAPICreateIPRequest struct {
 	ProjectID *string `json:"project_id,omitempty"`
 	// Reverse: Reverse DNS (domain name) for the IP address.
 	Reverse *string `json:"reverse,omitempty"`
-	// IsIPv6: If true, creates a Flexible IP with an ipv6 address.
-	IsIPv6 bool `json:"is_ipv6"`
 }
 
 // ZonedAPICreateLBRequest:
@@ -2861,8 +2855,6 @@ type ZonedAPICreateLBRequest struct {
 	IPID *string `json:"ip_id,omitempty"`
 	// AssignFlexibleIP: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
 	AssignFlexibleIP *bool `json:"assign_flexible_ip,omitempty"`
-	// IPIDs: List of IP IDs to attach to the Load Balancer.
-	IPIDs []string `json:"ip_ids"`
 	// Tags: List of tags for the Load Balancer.
 	Tags []string `json:"tags"`
 	// Type: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.

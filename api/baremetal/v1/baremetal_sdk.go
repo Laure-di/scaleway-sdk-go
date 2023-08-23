@@ -670,8 +670,6 @@ type CreateServerRequestInstall struct {
 	ServiceUser *string `json:"service_user"`
 	// ServicePassword: Password used for the service to install.
 	ServicePassword *string `json:"service_password"`
-	// UserData: Cloud-init file.
-	UserData *scw.File `json:"user_data"`
 }
 
 // OS:
@@ -984,8 +982,6 @@ type InstallServerRequest struct {
 	ServiceUser *string `json:"service_user,omitempty"`
 	// ServicePassword: Password used for the service to install.
 	ServicePassword *string `json:"service_password,omitempty"`
-	// UserData: Cloud-init file.
-	UserData *scw.File `json:"user_data,omitempty"`
 }
 
 // ListOSRequest:

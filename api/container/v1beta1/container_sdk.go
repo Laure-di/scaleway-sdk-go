@@ -915,8 +915,6 @@ type CreateContainerRequest struct {
 	RegistryImage *string `json:"registry_image,omitempty"`
 	// MaxConcurrency: Number of maximum concurrent executions of the container.
 	MaxConcurrency *uint32 `json:"max_concurrency,omitempty"`
-	// Deprecated: DomainName: Domain name associated with the container.
-	DomainName *string `json:"domain_name,omitempty"`
 	// Protocol: Protocol the container uses.
 	Protocol ContainerProtocol `json:"protocol"`
 	// Port: Port the container listens on.
@@ -1448,8 +1446,6 @@ type UpdateContainerRequest struct {
 	RegistryImage *string `json:"registry_image,omitempty"`
 	// MaxConcurrency: Number of maximum concurrent executions of the container.
 	MaxConcurrency *uint32 `json:"max_concurrency,omitempty"`
-	// Deprecated: DomainName:
-	DomainName *string `json:"domain_name,omitempty"`
 	// Protocol:
 	Protocol ContainerProtocol `json:"protocol"`
 	// Port:

@@ -1030,6 +1030,8 @@ const (
 	TaskTypeUpdateHost = TaskType("update_host")
 	// Delete domain's hostname.
 	TaskTypeDeleteHost = TaskType("delete_host")
+	// Move a domain to another project.
+	TaskTypeMoveProject = TaskType("move_project")
 )
 
 func (enum TaskType) String() string {
