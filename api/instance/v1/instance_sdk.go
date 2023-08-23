@@ -906,7 +906,7 @@ type Volume struct {
 	// Name: Volume name.
 	Name string `json:"name"`
 	// Deprecated: ExportURI: Show the volume NBD export URI.
-	ExportURI *string `json:"export_uri,omitempty"`
+	ExportURI *string `json:"export_uri"`
 	// Size: Volume disk size.
 	Size scw.Size `json:"size"`
 	// VolumeType: Volume type.
@@ -970,7 +970,7 @@ type Image struct {
 	// ModificationDate:
 	ModificationDate *time.Time `json:"modification_date"`
 	// Deprecated: DefaultBootscript:
-	DefaultBootscript *Bootscript `json:"default_bootscript,omitempty"`
+	DefaultBootscript *Bootscript `json:"default_bootscript"`
 	// ExtraVolumes:
 	ExtraVolumes map[string]*Volume `json:"extra_volumes"`
 	// FromServer:
@@ -1024,7 +1024,7 @@ type PrivateNIC struct {
 	// MacAddress: Private NIC MAC address.
 	MacAddress string `json:"mac_address,omitempty"`
 	// State: Private NIC state.
-	State PrivateNICState `json:"state"`
+	State PrivateNICState `json:"state,omitempty"`
 	// Tags: Private NIC tags.
 	Tags []string `json:"tags,omitempty"`
 }
@@ -1048,11 +1048,11 @@ type ServerIP struct {
 	// Netmask: CIDR netmask.
 	Netmask string `json:"netmask,omitempty"`
 	// Family: IP address family (inet or inet6).
-	Family ServerIPIPFamily `json:"family"`
+	Family ServerIPIPFamily `json:"family,omitempty"`
 	// Dynamic: True if the IP address is dynamic.
 	Dynamic bool `json:"dynamic,omitempty"`
 	// ProvisioningMode: Information about this address provisioning mode.
-	ProvisioningMode ServerIPProvisioningMode `json:"provisioning_mode"`
+	ProvisioningMode ServerIPProvisioningMode `json:"provisioning_mode,omitempty"`
 }
 
 // ServerIPv6:
@@ -1198,7 +1198,7 @@ type VolumeTemplate struct {
 	// Size: Disk size of the volume, must be a multiple of 512.
 	Size scw.Size `json:"size,omitempty"`
 	// VolumeType: Type of the volume.
-	VolumeType VolumeVolumeType `json:"volume_type"`
+	VolumeType VolumeVolumeType `json:"volume_type,omitempty"`
 	// Deprecated: Organization: Organization ID of the volume.
 	Organization *string `json:"organization,omitempty"`
 	// Project: Project ID of the volume.
@@ -1226,7 +1226,7 @@ type SecurityGroup struct {
 	// Tags: Security group tags.
 	Tags []string `json:"tags"`
 	// Deprecated: OrganizationDefault: True if it is your default security group for this Organization ID.
-	OrganizationDefault *bool `json:"organization_default,omitempty"`
+	OrganizationDefault *bool `json:"organization_default"`
 	// ProjectDefault: True if it is your default security group for this Project ID.
 	ProjectDefault bool `json:"project_default"`
 	// CreationDate: Security group creation date.
@@ -1278,7 +1278,7 @@ type VolumeServerTemplate struct {
 	// Size: Disk size of the volume, must be a multiple of 512.
 	Size *scw.Size `json:"size,omitempty"`
 	// VolumeType: Type of the volume.
-	VolumeType VolumeVolumeType `json:"volume_type"`
+	VolumeType VolumeVolumeType `json:"volume_type,omitempty"`
 	// BaseSnapshot: ID of the snapshot on which this volume will be based.
 	BaseSnapshot *string `json:"base_snapshot,omitempty"`
 	// Organization: Organization ID of the volume.
@@ -1334,7 +1334,7 @@ type Server struct {
 	// IPv6: Instance IPv6 address.
 	IPv6 *ServerIPv6 `json:"ipv6"`
 	// Deprecated: Bootscript: Instance bootscript.
-	Bootscript *Bootscript `json:"bootscript,omitempty"`
+	Bootscript *Bootscript `json:"bootscript"`
 	// BootType: Instance boot type.
 	BootType BootType `json:"boot_type"`
 	// Volumes: Instance volumes.
@@ -1460,7 +1460,7 @@ type GetServerTypesAvailabilityResponseAvailability struct {
 // ServerType:
 type ServerType struct {
 	// Deprecated: MonthlyPrice: Estimated monthly price, for a 30 days month, in Euro.
-	MonthlyPrice *float32 `json:"monthly_price,omitempty"`
+	MonthlyPrice *float32 `json:"monthly_price"`
 	// HourlyPrice: Hourly price in Euro.
 	HourlyPrice float32 `json:"hourly_price"`
 	// AltNames: Alternative Instance name, if any.
@@ -1499,7 +1499,7 @@ type VolumeType struct {
 type ServerActionRequestVolumeBackupTemplate struct {
 	// VolumeType: Overrides the `volume_type` of the snapshot for this volume.
 	// If omitted, the volume type of the original volume will be used.
-	VolumeType SnapshotVolumeType `json:"volume_type"`
+	VolumeType SnapshotVolumeType `json:"volume_type,omitempty"`
 }
 
 // SetSecurityGroupRulesRequestRule:
@@ -1555,7 +1555,7 @@ type CreateIPRequest struct {
 	// Server: UUID of the Instance you want to attach the IP to.
 	Server *string `json:"server,omitempty"`
 	// Type: IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6').
-	Type IPType `json:"type"`
+	Type IPType `json:"type,omitempty"`
 }
 
 // CreateIPResponse:
@@ -1573,7 +1573,7 @@ type CreateImageRequest struct {
 	// RootVolume: UUID of the snapshot.
 	RootVolume string `json:"root_volume,omitempty"`
 	// Arch: Architecture of the image.
-	Arch Arch `json:"arch"`
+	Arch Arch `json:"arch,omitempty"`
 	// Deprecated: DefaultBootscript: Default bootscript of the image.
 	DefaultBootscript *string `json:"default_bootscript,omitempty"`
 	// ExtraVolumes: Additional volumes of the image.
@@ -1607,9 +1607,9 @@ type CreatePlacementGroupRequest struct {
 	// Tags: Tags of the placement group.
 	Tags []string `json:"tags,omitempty"`
 	// PolicyMode: Operating mode of the placement group.
-	PolicyMode PlacementGroupPolicyMode `json:"policy_mode"`
+	PolicyMode PlacementGroupPolicyMode `json:"policy_mode,omitempty"`
 	// PolicyType: Policy type of the placement group.
-	PolicyType PlacementGroupPolicyType `json:"policy_type"`
+	PolicyType PlacementGroupPolicyType `json:"policy_type,omitempty"`
 }
 
 // CreatePlacementGroupResponse:
@@ -1659,9 +1659,9 @@ type CreateSecurityGroupRequest struct {
 	// Stateful: Whether the security group is stateful or not.
 	Stateful bool `json:"stateful,omitempty"`
 	// InboundDefaultPolicy: Default policy for inbound rules.
-	InboundDefaultPolicy SecurityGroupPolicy `json:"inbound_default_policy"`
+	InboundDefaultPolicy SecurityGroupPolicy `json:"inbound_default_policy,omitempty"`
 	// OutboundDefaultPolicy: Default policy for outbound rules.
-	OutboundDefaultPolicy SecurityGroupPolicy `json:"outbound_default_policy"`
+	OutboundDefaultPolicy SecurityGroupPolicy `json:"outbound_default_policy,omitempty"`
 	// EnableDefaultSecurity: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
 	EnableDefaultSecurity *bool `json:"enable_default_security,omitempty"`
 }
@@ -1679,11 +1679,11 @@ type CreateSecurityGroupRuleRequest struct {
 	// SecurityGroupID: UUID of the security group.
 	SecurityGroupID string `json:"-"`
 	// Protocol:
-	Protocol SecurityGroupRuleProtocol `json:"protocol"`
+	Protocol SecurityGroupRuleProtocol `json:"protocol,omitempty"`
 	// Direction:
-	Direction SecurityGroupRuleDirection `json:"direction"`
+	Direction SecurityGroupRuleDirection `json:"direction,omitempty"`
 	// Action:
-	Action SecurityGroupRuleAction `json:"action"`
+	Action SecurityGroupRuleAction `json:"action,omitempty"`
 	// IPRange:
 	IPRange scw.IPNet `json:"ip_range,omitempty"`
 	// DestPortFrom: Beginning of the range of ports to apply this rule to (inclusive).
@@ -1762,7 +1762,7 @@ type CreateSnapshotRequest struct {
 	Project *string `json:"project,omitempty"`
 	// VolumeType: Overrides the volume_type of the snapshot.
 	// If omitted, the volume type of the original volume will be used.
-	VolumeType SnapshotVolumeType `json:"volume_type"`
+	VolumeType SnapshotVolumeType `json:"volume_type,omitempty"`
 	// Bucket: Bucket name for snapshot imports.
 	Bucket *string `json:"bucket,omitempty"`
 	// Key: Object key for snapshot imports.
@@ -1792,7 +1792,7 @@ type CreateVolumeRequest struct {
 	// Tags: Volume tags.
 	Tags []string `json:"tags,omitempty"`
 	// VolumeType: Volume type.
-	VolumeType VolumeVolumeType `json:"volume_type"`
+	VolumeType VolumeVolumeType `json:"volume_type,omitempty"`
 	// Size: Volume disk size, must be a multiple of 512.
 	Size *scw.Size `json:"size,omitempty"`
 	// BaseVolume: ID of the volume on which this volume will be based.
@@ -2642,7 +2642,7 @@ type ServerActionRequest struct {
 	// ServerID: UUID of the Instance.
 	ServerID string `json:"-"`
 	// Action: Action to perform on the Instance.
-	Action ServerAction `json:"action"`
+	Action ServerAction `json:"action,omitempty"`
 	// Name: Name of the backup you want to create.
 	// This field should only be specified when performing a backup action.
 	Name *string `json:"name,omitempty"`
@@ -2758,7 +2758,7 @@ type UpdateIPRequest struct {
 	// Reverse: Reverse domain name.
 	Reverse *NullableStringValue `json:"reverse,omitempty"`
 	// Type: Convert a 'nat' IP to a 'routed_ipv4'.
-	Type IPType `json:"type"`
+	Type IPType `json:"type,omitempty"`
 	// Tags: An array of keywords you want to tag this IP with.
 	Tags *[]string `json:"tags,omitempty"`
 	// Server:
