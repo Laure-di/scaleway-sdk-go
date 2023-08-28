@@ -295,7 +295,7 @@ type RunHumanRequest struct {
 // SmokeHumanRequest:
 type SmokeHumanRequest struct {
 	// Deprecated: HumanID: UUID of the human you want to make smoking.
-	HumanID *string `json:"-"`
+	HumanID string `json:"-"`
 }
 
 // UpdateHumanRequest:
@@ -322,13 +322,7 @@ type UpdateHumanRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// Test is a fake service that aim to manage fake humans. It is used for internal and public end-to-end tests.
-//
-// This service don't use the Scaleway authentication service but a fake one.
-// It allows to use this test service publicly without requiring a Scaleway account.
-//
-// First, you need to register a user with `scw test human register` to get an access-key.
-// Then, you can use other test commands by setting the SCW_SECRET_KEY env variable.
+// No Auth Service for end-to-end testing.
 type API struct {
 	client *scw.Client
 }

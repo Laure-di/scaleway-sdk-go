@@ -30,7 +30,6 @@ import (
 	_ "github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	_ "github.com/scaleway/scaleway-sdk-go/api/secret/v1alpha1"
 	_ "github.com/scaleway/scaleway-sdk-go/api/test/v1"
-	_ "github.com/scaleway/scaleway-sdk-go/api/testinternal/v1"
 	_ "github.com/scaleway/scaleway-sdk-go/api/tem/v1alpha1"
 	_ "github.com/scaleway/scaleway-sdk-go/api/vpc/v1"
 	_ "github.com/scaleway/scaleway-sdk-go/api/vpc/v2"

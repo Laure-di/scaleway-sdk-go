@@ -242,119 +242,7 @@ func (r *ListInvoicesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Invoices)), nil
 }
 
-// Public cloud services are based on the “pay as you go” model, which means that you only pay for what you use. Your monthly invoice is calculated at the end of each month and based on your hourly resource usage during the month.
-//
-// With Scaleway’s Billing API, you can manage the billing of your Scaleway cloud services.
-//
-// (switchcolumn)
-// <Message type="note">
-// You may also be interested in the [Account API](https://www.scaleway.com/en/developers/api/account/) to manage your Projects, and the [IAM API](https://www.scaleway.com/en/developers/api/iam/) to manage users, permissions and API keys in your Organization.
-// </Message>
-// (switchcolumn)
-//
-// ## Concepts and pricing
-//
-// Refer to our [Account concepts page](https://www.scaleway.com/en/docs/console/my-account/concepts/) to find more information on features like billing alerts, and our [dedicated pricing page](https://www.scaleway.com/en/pricing/?tags=available) for full details about the rates applied on each Scaleway product.
-//
-// (switchcolumn)
-// (switchcolumn)
-//
-// ## Quickstart
-//
-// 1. Configure your environment variables.
-//
-//	<Message type="note">
-//	This is an optional step that seeks to simplify your usage of the API.
-//	</Message>
-//
-//	```bash
-//	export SCW_SECRET_KEY="<API secret key>"
-//	export SCW_ORGANIZATION_ID="<Scaleway Organization ID>"
-//	```
-//
-// 2. Run the following command to obtain your consumption over the current month.
-//
-//	```bash
-//	curl -X GET \
-//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
-//	  -H "Content-Type: application/json" \
-//	  "https://api.scaleway.com/billing/v2alpha1/consumption?organization_id=$SCW_ORGANIZATION_ID"
-//	```
-//
-// 3. Run the following command to list your invoices.
-//
-//	```bash
-//	curl -X GET \
-//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
-//	  -H "Content-Type: application/json" \
-//	  "https://api.scaleway.com/billing/v2alpha1/invoices"
-//	```
-//
-//	You should get an output similar to the following one, providing details about your invoices.
-//
-//	<Message type="note">
-//	This is a response example, the UUIDs displayed are not real.
-//	</Message>
-//
-//	```bash
-//	{
-//	  "total_count": "1",
-//	  "invoices": [
-//	    {
-//	      "id": "66f588c7-91e9-5ce9-cedb-4733f791cf73",
-//	      "start_date": "2022-03-22T12:34:56.123456Z",
-//	      "issued_date": "2022-03-22T12:34:56.123456Z",
-//	      "due_date": "2022-03-22T12:34:56.123456Z",
-//	      "total_untaxed": {
-//	        "currency_code": "EUR",
-//	        "units": "9",
-//	        "nanos": "360000000"
-//	      },
-//	      "total_taxed": {
-//	        "currency_code": "EUR",
-//	        "units": "9",
-//	        "nanos": "360000000"
-//	      },
-//	      "invoice_type": "periodic",
-//	      "number": "0"
-//	    }
-//	  ]
-//	}
-//	```
-//
-// 4. Run the following command to download an invoice based on its ID.
-//
-//	Make sure to replace the example ID in the URL with the actual invoice ID you want to download.
-//
-//	```bash
-//	curl -X GET \
-//	  -H "X-Auth-Token: $SCW_SECRET_KEY" \
-//	  -H "Content-Type: application/json" \
-//	  "https://api.scaleway.com/billing/v2alpha1/invoices/66f588c7-91e9-5ce9-cedb-4733f791cf73/download"
-//	```
-//
-// (switchcolumn)
-// <Message type="requirement">
-// - You have an account and are logged into the [Scaleway console](https://console.scaleway.com/organization)
-// - You have created an [API key](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/) and that the API key has sufficient [IAM permissions](https://www.scaleway.com/en/docs/identity-and-access-management/iam/reference-content/permission-sets/) to perform the actions described on this page
-// - You have [installed `curl`](https://curl.se/download.html)
-// </Message>
-// (switchcolumn)
-//
-// ## Technical limitations
-//
-// The following limitations apply to use of the Billing API:
-//
-// - You must have appropriate IAM permissions to manage billing. If you are the Owner of the Organization, you will automatically have these permissions. Otherwise, you will need a policy giving you the BillingManager permission set. If you were previously a Billing Administrator, you will automatically have been migrated to the BillingAdministrator group when you activated IAM, which gives you the appropriate permissions.
-// - You only need BillingReadOnly permissions to query consumption.
-//
-// ## Going further
-//
-// For more help using Scaleway’s Billing API, check out the following resources:
-//
-// - Our [main documentation](https://www.scaleway.com/en/docs/console/my-account/)
-// - Our [Slack Community](https://www.scaleway-community.slack.com/)
-// - Our [support ticketing system](https://www.scaleway.com/en/docs/console/my-account/how-to/open-a-support-ticket/).
+// This API allows you to query your consumption.
 type API struct {
 	client *scw.Client
 }
@@ -366,8 +254,7 @@ func NewAPI(client *scw.Client) *API {
 	}
 }
 
-// GetConsumption: The consumption reflects the amount of money you have spent for the products you have used.
-// The consumption value is monetary and is not computed in real time.
+// GetConsumption:
 func (s *API) GetConsumption(req *GetConsumptionRequest, opts ...scw.RequestOption) (*GetConsumptionResponse, error) {
 	var err error
 
@@ -389,7 +276,7 @@ func (s *API) GetConsumption(req *GetConsumptionRequest, opts ...scw.RequestOpti
 	return &resp, nil
 }
 
-// ListInvoices: List all your invoices, filtering by `start_date` and `invoice_type`. Each invoice has its own ID.
+// ListInvoices:
 func (s *API) ListInvoices(req *ListInvoicesRequest, opts ...scw.RequestOption) (*ListInvoicesResponse, error) {
 	var err error
 
@@ -417,7 +304,7 @@ func (s *API) ListInvoices(req *ListInvoicesRequest, opts ...scw.RequestOption) 
 	return &resp, nil
 }
 
-// DownloadInvoice: Download a specific invoice, specified by its ID.
+// DownloadInvoice:
 func (s *API) DownloadInvoice(req *DownloadInvoiceRequest, opts ...scw.RequestOption) (*scw.File, error) {
 	var err error
 

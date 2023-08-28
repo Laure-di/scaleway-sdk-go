@@ -459,51 +459,7 @@ type UpdateVolumeRequest struct {
 	Tags *[]string `json:"tags,omitempty"`
 }
 
-// The InterPlanetary File System (IPFS) is a modular suite of open data storage and exchange protocols. Anybody can participate in this peer-to-peer network. In mid-2022 more than 300K nodes were a part of the network. Content stored on IPFS nodes is powered by a content-addressing design, making it location-agnostic, verifiable, and immutable. This design makes IPFS a good choice for versioning, archiving, NFT, or ample content storage and distribution.
-//
-// Scaleway pinning service enables you to keep (to 'pin') your data always available on the public IPFS network. Our pinning service is available in all of our regions to increase the accessibility of your data.
-//
-// ## Concepts
-//
-// Refer to our [dedicated concepts page](https://www.scaleway.com/en/docs/labs/ipfs/concepts/) to find definitions of all IPFS-related terminologies.
-//
-// ## Quickstart
-// Refer to our dedicated [IPFS Pinning Quickstart page](https://www.scaleway.com/en/docs/labs/ipfs/quickstart/) to begin using the service.
-//
-// You can also find a tutorial on [how to manage volumes](https://www.scaleway.com/en/docs/labs/ipfs/api-cli/volumes-operations/) and [pins](https://www.scaleway.com/en/docs/labs/ipfs/api-cli/ipfs-operations/).
-//
-// You can find also detailed explainations on [how to get a pinned content](https://www.scaleway.com/en/docs/labs/ipfs/api-cli/ipfs-get-content/).
-//
-// ## Technical information
-// The Scaleway IPFS pinning service provides features such as:
-// - Unlimited storage via our Object Storage backend
-// - Possibility to pin a remote content by an URL
-//
-// ### Data privacy
-// - Data is **public**: our IPFS nodes are bootstrapped with public IPFS nodes. This implies that **any pinned content will be available on the public** IPFS network
-// - Data is **shared**: public IPFS nodes can **fetch and host** your pinned content. Your data could be hosted **anywhere** (France, Europe, America, the Moon...). Scaleway is not enabled to delete once a content is delivered to external peers
-// - Data is **not encrypted**: be aware that we do not apply any encryption algorithm over your data
-//
-// In consequence, consider to pin public-compatible data and/or encrypt by your own your content.
-//
-// ### 0% SLA
-// We strive to provide you with the best possible experience on our IPFS pinning. However, this is an experimental service. This is why we are not able to contractually commit to a level of service, hence an SLA of 0%.
-// The guarantees of these "Labs" offers are detailed in our special conditions for BETA services.
-//
-// ### Clients
-// The Scaleway IPFS Pinning service is available on different clients:
-//
-// - [Kubo CLI](https://www.scaleway.com/en/docs/labs/ipfs/api-cli/ipfs-cli/)
-// - [IPFS desktop](https://www.scaleway.com/en/docs/labs/ipfs/api-cli/ipfs-desktop/)
-// - Scaleway CLI to [manage volumes](https://www.scaleway.com/en/docs/labs/ipfs/api-cli/volumes-operations/) and [pins](https://www.scaleway.com/en/docs/labs/ipfs/api-cli/ipfs-operations/)
-//
-// ### Regions
-// Scaleway's infrastructure is spread across different [regions and Availability Zones](https://www.scaleway.com/en/docs/console/my-account/reference-content/products-availability/).
-//
-// Scaleway IPFS pinning service is available in the Paris, Amsterdam and Warsaw regions, which are represented by the following path parameters:
-// - `fr-par`
-// - `nl-ams`
-// - `pl-waw`.
+// IPFS Pinning service API.
 type API struct {
 	client *scw.Client
 }
