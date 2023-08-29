@@ -2075,6 +2075,27 @@ type GetServerTypesAvailabilityResponse struct {
 	TotalCount uint32 `json:"total_count"`
 }
 
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *GetServerTypesAvailabilityResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *GetServerTypesAvailabilityResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*GetServerTypesAvailabilityResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	for k, v := range results.Servers {
+		r.Servers[k] = v
+	}
+	r.TotalCount += uint32(len(results.Servers))
+	return uint32(len(results.Servers)), nil
+}
+
 // GetSnapshotRequest:
 type GetSnapshotRequest struct {
 	// Zone:
@@ -2253,7 +2274,7 @@ type ListPlacementGroupsRequest struct {
 	// Zone:
 	Zone scw.Zone `json:"-"`
 	// PerPage: A positive integer lower or equal to 100 to select the number of items to return.
-	PerPage *int32 `json:"-"`
+	PerPage *uint32 `json:"-"`
 	// Page: A positive integer to choose the page to return.
 	Page *int32 `json:"-"`
 	// Organization: List only placement groups of this Organization ID.
@@ -2525,6 +2546,27 @@ type ListServersTypesResponse struct {
 	Servers map[string]*ServerType `json:"servers"`
 }
 
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListServersTypesResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListServersTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListServersTypesResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	for k, v := range results.Servers {
+		r.Servers[k] = v
+	}
+	r.TotalCount += uint32(len(results.Servers))
+	return uint32(len(results.Servers)), nil
+}
+
 // ListSnapshotsRequest:
 type ListSnapshotsRequest struct {
 	// Zone:
@@ -2633,6 +2675,27 @@ type ListVolumesTypesResponse struct {
 	TotalCount uint32 `json:"total_count"`
 	// Volumes: Map of volume types.
 	Volumes map[string]*VolumeType `json:"volumes"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListVolumesTypesResponse) UnsafeGetTotalCount() uint32 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListVolumesTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
+	results, ok := res.(*ListVolumesTypesResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	for k, v := range results.Volumes {
+		r.Volumes[k] = v
+	}
+	r.TotalCount += uint32(len(results.Volumes))
+	return uint32(len(results.Volumes)), nil
 }
 
 // ServerActionRequest:
