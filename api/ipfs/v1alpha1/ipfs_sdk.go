@@ -39,6 +39,36 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
+type ListNamesRequestOrderBy string
+
+const (
+	ListNamesRequestOrderByCreatedAtAsc  = ListNamesRequestOrderBy("created_at_asc")
+	ListNamesRequestOrderByCreatedAtDesc = ListNamesRequestOrderBy("created_at_desc")
+)
+
+func (enum ListNamesRequestOrderBy) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "created_at_asc"
+	}
+	return string(enum)
+}
+
+func (enum ListNamesRequestOrderBy) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *ListNamesRequestOrderBy) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = ListNamesRequestOrderBy(ListNamesRequestOrderBy(tmp).String())
+	return nil
+}
+
 type ListPinsRequestOrderBy string
 
 const (
@@ -96,6 +126,39 @@ func (enum *ListVolumesRequestOrderBy) UnmarshalJSON(data []byte) error {
 	}
 
 	*enum = ListVolumesRequestOrderBy(ListVolumesRequestOrderBy(tmp).String())
+	return nil
+}
+
+type NameStatus string
+
+const (
+	NameStatusUnknownStatus = NameStatus("unknown_status")
+	NameStatusQueued        = NameStatus("queued")
+	NameStatusPublishing    = NameStatus("publishing")
+	NameStatusFailed        = NameStatus("failed")
+	NameStatusPublished     = NameStatus("published")
+)
+
+func (enum NameStatus) String() string {
+	if enum == "" {
+		// return default value if empty
+		return "unknown_status"
+	}
+	return string(enum)
+}
+
+func (enum NameStatus) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf(`"%s"`, enum)), nil
+}
+
+func (enum *NameStatus) UnmarshalJSON(data []byte) error {
+	tmp := ""
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	*enum = NameStatus(NameStatus(tmp).String())
 	return nil
 }
 
@@ -221,6 +284,30 @@ type PinOptions struct {
 	ReplicationCount uint32 `json:"replication_count"`
 }
 
+// Name:
+type Name struct {
+	// NameID:
+	NameID string `json:"name_id"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// CreatedAt:
+	CreatedAt *time.Time `json:"created_at"`
+	// UpdatedAt:
+	UpdatedAt *time.Time `json:"updated_at"`
+	// Tags:
+	Tags []string `json:"tags"`
+	// Name:
+	Name string `json:"name"`
+	// Key:
+	Key string `json:"key"`
+	// Status:
+	Status NameStatus `json:"status"`
+	// Value:
+	Value string `json:"value"`
+	// Region:
+	Region scw.Region `json:"region"`
+}
+
 // Pin:
 type Pin struct {
 	// PinID:
@@ -317,6 +404,22 @@ type DeleteVolumeRequest struct {
 	VolumeID string `json:"-"`
 }
 
+// ExportKeyNameResponse:
+type ExportKeyNameResponse struct {
+	// NameID:
+	NameID string `json:"name_id"`
+	// ProjectID:
+	ProjectID string `json:"project_id"`
+	// CreatedAt:
+	CreatedAt *time.Time `json:"created_at"`
+	// UpdatedAt:
+	UpdatedAt *time.Time `json:"updated_at"`
+	// PublicKey:
+	PublicKey string `json:"public_key"`
+	// PrivateKey:
+	PrivateKey string `json:"private_key"`
+}
+
 // GetPinRequest:
 type GetPinRequest struct {
 	// Region:
@@ -333,6 +436,113 @@ type GetVolumeRequest struct {
 	Region scw.Region `json:"-"`
 	// VolumeID: Volume ID.
 	VolumeID string `json:"-"`
+}
+
+// IpnsAPICreateNameRequest:
+type IpnsAPICreateNameRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ProjectID: Project ID.
+	ProjectID string `json:"project_id"`
+	// Name: Name for your records.
+	Name string `json:"name"`
+	// Value: Value you want to associate with your records, CID or IPNS key.
+	Value string `json:"value"`
+}
+
+// IpnsAPIDeleteNameRequest:
+type IpnsAPIDeleteNameRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NameID: Name ID you wish to delete.
+	NameID string `json:"-"`
+}
+
+// IpnsAPIExportKeyNameRequest:
+type IpnsAPIExportKeyNameRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NameID: Name ID whose keys you want to export.
+	NameID string `json:"-"`
+}
+
+// IpnsAPIGetNameRequest:
+type IpnsAPIGetNameRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NameID: Name ID whose information you want to retrieve.
+	NameID string `json:"-"`
+}
+
+// IpnsAPIImportKeyNameRequest:
+type IpnsAPIImportKeyNameRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ProjectID: Project ID.
+	ProjectID string `json:"project_id"`
+	// Name: Name for your records.
+	Name string `json:"name"`
+	// PrivateKey: Base64 private key.
+	PrivateKey string `json:"private_key"`
+	// Value: Value you want to associate with your records, CID or IPNS key.
+	Value string `json:"value"`
+}
+
+// IpnsAPIListNamesRequest:
+type IpnsAPIListNamesRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// ProjectID: Project ID.
+	ProjectID *string `json:"-"`
+	// OrganizationID: Organization ID.
+	OrganizationID *string `json:"-"`
+	// OrderBy: Sort the order of the returned names.
+	OrderBy ListNamesRequestOrderBy `json:"-"`
+	// Page: Page number.
+	Page *int32 `json:"-"`
+	// PageSize: Maximum number of names to return per page.
+	PageSize *uint32 `json:"-"`
+}
+
+// IpnsAPIUpdateNameRequest:
+type IpnsAPIUpdateNameRequest struct {
+	// Region:
+	Region scw.Region `json:"-"`
+	// NameID: Name ID you wish to update.
+	NameID string `json:"-"`
+	// Name: New name you want to associate with your record.
+	Name *string `json:"name,omitempty"`
+	// Tags: New tags you want to associate with your record.
+	Tags *[]string `json:"tags,omitempty"`
+	// Value: Value you want to associate with your records, CID or IPNS key.
+	Value *string `json:"value,omitempty"`
+}
+
+// ListNamesResponse:
+type ListNamesResponse struct {
+	// Names:
+	Names []*Name `json:"names"`
+	// TotalCount:
+	TotalCount uint64 `json:"total_count"`
+}
+
+// UnsafeGetTotalCount should not be used
+// Internal usage only
+func (r *ListNamesResponse) UnsafeGetTotalCount() uint64 {
+	return r.TotalCount
+}
+
+// UnsafeAppend should not be used
+// Internal usage only
+func (r *ListNamesResponse) UnsafeAppend(res interface{}) (uint64, error) {
+	results, ok := res.(*ListNamesResponse)
+	if !ok {
+		return 0, errors.New("%T type cannot be appended to type %T", res, r)
+	}
+
+	r.Names = append(r.Names, results.Names...)
+	r.TotalCount += uint64(len(results.Names))
+	return uint64(len(results.Names)), nil
 }
 
 // ListPinsRequest:
@@ -855,4 +1065,249 @@ func (s *API) DeletePin(req *DeletePinRequest, opts ...scw.RequestOption) error 
 		return err
 	}
 	return nil
+}
+
+type IpnsAPI struct {
+	client *scw.Client
+}
+
+// NewIpnsAPI returns a IpnsAPI object from a Scaleway client.
+func NewIpnsAPI(client *scw.Client) *IpnsAPI {
+	return &IpnsAPI{
+		client: client,
+	}
+}
+func (s *IpnsAPI) Regions() []scw.Region {
+	return []scw.Region{scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw}
+}
+
+// CreateName: You can use the `ipns key` command to list and generate more names and their respective keys.
+func (s *IpnsAPI) CreateName(req *IpnsAPICreateNameRequest, opts ...scw.RequestOption) (*Name, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/ipfs/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/names",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Name
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetName: Retrieve information about a specific name.
+func (s *IpnsAPI) GetName(req *IpnsAPIGetNameRequest, opts ...scw.RequestOption) (*Name, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.NameID) == "" {
+		return nil, errors.New("field NameID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/ipfs/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/names/" + fmt.Sprint(req.NameID) + "",
+	}
+
+	var resp Name
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// DeleteName: Delete a name by its ID.
+func (s *IpnsAPI) DeleteName(req *IpnsAPIDeleteNameRequest, opts ...scw.RequestOption) error {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.NameID) == "" {
+		return errors.New("field NameID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "DELETE",
+		Path:   "/ipfs/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/names/" + fmt.Sprint(req.NameID) + "",
+	}
+
+	err = s.client.Do(scwReq, nil, opts...)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// ListNames: Retrieve information about all names from a Project ID.
+func (s *IpnsAPI) ListNames(req *IpnsAPIListNamesRequest, opts ...scw.RequestOption) (*ListNamesResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	defaultPageSize, exist := s.client.GetDefaultPageSize()
+	if (req.PageSize == nil || *req.PageSize == 0) && exist {
+		req.PageSize = &defaultPageSize
+	}
+
+	query := url.Values{}
+	parameter.AddToQuery(query, "project_id", req.ProjectID)
+	parameter.AddToQuery(query, "organization_id", req.OrganizationID)
+	parameter.AddToQuery(query, "order_by", req.OrderBy)
+	parameter.AddToQuery(query, "page", req.Page)
+	parameter.AddToQuery(query, "page_size", req.PageSize)
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/ipfs/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/names",
+		Query:  query,
+	}
+
+	var resp ListNamesResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// UpdateName: Update name information (CID, tag, name...).
+func (s *IpnsAPI) UpdateName(req *IpnsAPIUpdateNameRequest, opts ...scw.RequestOption) (*Name, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.NameID) == "" {
+		return nil, errors.New("field NameID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "PATCH",
+		Path:   "/ipfs/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/names/" + fmt.Sprint(req.NameID) + "",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Name
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ExportKeyName: Export a private key by its ID.
+func (s *IpnsAPI) ExportKeyName(req *IpnsAPIExportKeyNameRequest, opts ...scw.RequestOption) (*ExportKeyNameResponse, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	if fmt.Sprint(req.NameID) == "" {
+		return nil, errors.New("field NameID cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "GET",
+		Path:   "/ipfs/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/names/" + fmt.Sprint(req.NameID) + "/export-key",
+	}
+
+	var resp ExportKeyNameResponse
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ImportKeyName: Import a private key.
+func (s *IpnsAPI) ImportKeyName(req *IpnsAPIImportKeyNameRequest, opts ...scw.RequestOption) (*Name, error) {
+	var err error
+	if req.Region == "" {
+		defaultRegion, _ := s.client.GetDefaultRegion()
+		req.Region = defaultRegion
+	}
+	if req.ProjectID == "" {
+		defaultProjectID, _ := s.client.GetDefaultProjectID()
+		req.ProjectID = defaultProjectID
+	}
+
+	if fmt.Sprint(req.Region) == "" {
+		return nil, errors.New("field Region cannot be empty in request")
+	}
+
+	scwReq := &scw.ScalewayRequest{
+		Method: "POST",
+		Path:   "/ipfs/v1alpha1/regions/" + fmt.Sprint(req.Region) + "/names/import-key",
+	}
+
+	err = scwReq.SetBody(req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp Name
+
+	err = s.client.Do(scwReq, &resp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
 }

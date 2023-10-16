@@ -2111,6 +2111,9 @@ func (r *GetServerTypesAvailabilityResponse) UnsafeAppend(res interface{}) (uint
 		return 0, errors.New("%T type cannot be appended to type %T", res, r)
 	}
 
+	if r.Servers == nil {
+		r.Servers = make(map[string]*GetServerTypesAvailabilityResponseAvailability)
+	}
 	for k, v := range results.Servers {
 		r.Servers[k] = v
 	}
@@ -2588,6 +2591,9 @@ func (r *ListServersTypesResponse) UnsafeAppend(res interface{}) (uint32, error)
 		return 0, errors.New("%T type cannot be appended to type %T", res, r)
 	}
 
+	if r.Servers == nil {
+		r.Servers = make(map[string]*ServerType)
+	}
 	for k, v := range results.Servers {
 		r.Servers[k] = v
 	}
@@ -2721,6 +2727,9 @@ func (r *ListVolumesTypesResponse) UnsafeAppend(res interface{}) (uint32, error)
 		return 0, errors.New("%T type cannot be appended to type %T", res, r)
 	}
 
+	if r.Volumes == nil {
+		r.Volumes = make(map[string]*VolumeType)
+	}
 	for k, v := range results.Volumes {
 		r.Volumes[k] = v
 	}
@@ -2955,7 +2964,7 @@ type UpdateServerRequest struct {
 	// RoutedIPEnabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
 	RoutedIPEnabled *bool `json:"routed_ip_enabled,omitempty"`
 	// PublicIPs: A list of reserved IP IDs to attach to the Instance.
-	PublicIPs []string `json:"public_ips,omitempty"`
+	PublicIPs *[]string `json:"public_ips,omitempty"`
 	// EnableIPv6:
 	EnableIPv6 *bool `json:"enable_ipv6,omitempty"`
 	// Protected:
@@ -2965,7 +2974,7 @@ type UpdateServerRequest struct {
 	// PlacementGroup: Placement group ID if Instance must be part of a placement group.
 	PlacementGroup *NullableStringValue `json:"placement_group,omitempty"`
 	// PrivateNics: Instance private NICs.
-	PrivateNics []string `json:"private_nics,omitempty"`
+	PrivateNics *[]string `json:"private_nics,omitempty"`
 	// CommercialType: Warning: This field has some restrictions:
 	// - Cannot be changed if the Instance is not in `stopped` state.
 	// - Cannot be changed if the Instance is in a placement group.

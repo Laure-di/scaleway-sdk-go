@@ -685,8 +685,8 @@ type SecretHashedValue struct {
 
 // TriggerMnqNatsClientConfig:
 type TriggerMnqNatsClientConfig struct {
-	// MnqNamespaceID:
-	MnqNamespaceID string `json:"mnq_namespace_id"`
+	// Deprecated: MnqNamespaceID:
+	MnqNamespaceID *string `json:"mnq_namespace_id,omitempty"`
 	// Subject:
 	Subject string `json:"subject"`
 	// MnqProjectID:
@@ -695,12 +695,14 @@ type TriggerMnqNatsClientConfig struct {
 	MnqRegion string `json:"mnq_region"`
 	// MnqCredentialID:
 	MnqCredentialID *string `json:"mnq_credential_id"`
+	// MnqNatsAccountID:
+	MnqNatsAccountID string `json:"mnq_nats_account_id"`
 }
 
 // TriggerMnqSqsClientConfig:
 type TriggerMnqSqsClientConfig struct {
-	// MnqNamespaceID:
-	MnqNamespaceID string `json:"mnq_namespace_id"`
+	// Deprecated: MnqNamespaceID:
+	MnqNamespaceID *string `json:"mnq_namespace_id,omitempty"`
 	// Queue:
 	Queue string `json:"queue"`
 	// MnqProjectID:
@@ -733,8 +735,8 @@ type Secret struct {
 
 // CreateTriggerRequestMnqNatsClientConfig:
 type CreateTriggerRequestMnqNatsClientConfig struct {
-	// MnqNamespaceID:
-	MnqNamespaceID string `json:"mnq_namespace_id"`
+	// Deprecated: MnqNamespaceID:
+	MnqNamespaceID *string `json:"mnq_namespace_id,omitempty"`
 	// Subject:
 	Subject string `json:"subject"`
 	// MnqProjectID:
@@ -747,8 +749,8 @@ type CreateTriggerRequestMnqNatsClientConfig struct {
 
 // CreateTriggerRequestMnqSqsClientConfig:
 type CreateTriggerRequestMnqSqsClientConfig struct {
-	// MnqNamespaceID:
-	MnqNamespaceID string `json:"mnq_namespace_id"`
+	// Deprecated: MnqNamespaceID:
+	MnqNamespaceID *string `json:"mnq_namespace_id,omitempty"`
 	// Queue:
 	Queue string `json:"queue"`
 	// MnqProjectID:
