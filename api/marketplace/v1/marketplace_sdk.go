@@ -39,107 +39,120 @@ var (
 	_ = namegenerator.GetRandomName
 )
 
-// LocalImage:
+// LocalImage: local image.
 type LocalImage struct {
-	// ID: Version you will typically use to define an image in an API call.
+	// ID: version you will typically use to define an image in an API call.
 	ID string `json:"id"`
-	// CompatibleCommercialTypes: List of all commercial types that are compatible with this local image.
+
+	// CompatibleCommercialTypes: list of all commercial types that are compatible with this local image.
 	CompatibleCommercialTypes []string `json:"compatible_commercial_types"`
-	// Arch: Supported architecture for this local image.
+
+	// Arch: supported architecture for this local image.
 	Arch string `json:"arch"`
-	// Zone: Availability Zone where this local image is available.
+
+	// Zone: availability Zone where this local image is available.
 	Zone scw.Zone `json:"zone"`
 }
 
-// Organization:
+// Organization: organization.
 type Organization struct {
-	// ID:
 	ID string `json:"id"`
-	// Name:
+
 	Name string `json:"name"`
 }
 
-// Version:
+// Version: version.
 type Version struct {
 	// ID: UUID of this version.
 	ID string `json:"id"`
-	// Name: Name of this version.
+
+	// Name: name of this version.
 	Name string `json:"name"`
-	// CreationDate: Creation date of this image version.
+
+	// CreationDate: creation date of this image version.
 	CreationDate *time.Time `json:"creation_date"`
-	// ModificationDate: Date of the last modification of this version.
+
+	// ModificationDate: date of the last modification of this version.
 	ModificationDate *time.Time `json:"modification_date"`
-	// LocalImages: List of local images available in this version.
+
+	// LocalImages: list of local images available in this version.
 	LocalImages []*LocalImage `json:"local_images"`
 }
 
-// Image:
+// Image: image.
 type Image struct {
 	// ID: UUID of this image.
 	ID string `json:"id"`
-	// Name: Name of the image.
+
+	// Name: name of the image.
 	Name string `json:"name"`
-	// Description: Text description of this image.
+
+	// Description: text description of this image.
 	Description string `json:"description"`
+
 	// Logo: URL of this image's logo.
 	Logo string `json:"logo"`
-	// Categories: List of categories this image belongs to.
+
+	// Categories: list of categories this image belongs to.
 	Categories []string `json:"categories"`
-	// CreationDate: Creation date of this image.
+
+	// CreationDate: creation date of this image.
 	CreationDate *time.Time `json:"creation_date"`
-	// ModificationDate: Date of the last modification of this image.
+
+	// ModificationDate: date of the last modification of this image.
 	ModificationDate *time.Time `json:"modification_date"`
-	// ValidUntil: Expiration date of this image.
+
+	// ValidUntil: expiration date of this image.
 	ValidUntil *time.Time `json:"valid_until"`
-	// Label: Typically an identifier for a distribution (ex. "ubuntu_focal").
+
+	// Label: typically an identifier for a distribution (ex. "ubuntu_focal").
 	Label string `json:"label"`
-	// Versions: List of versions of this image.
+
+	// Versions: list of versions of this image.
 	Versions []*Version `json:"versions"`
-	// Organization: Organization this image belongs to.
+
+	// Organization: organization this image belongs to.
 	Organization *Organization `json:"organization"`
-	// CurrentPublicVersion:
+
 	CurrentPublicVersion string `json:"current_public_version"`
 }
 
-// GetImageRequest:
+// GetImageRequest: get image request.
 type GetImageRequest struct {
-	// ImageID: Display the image name.
+	// ImageID: display the image name.
 	ImageID string `json:"-"`
 }
 
-// GetImageResponse:
+// GetImageResponse: get image response.
 type GetImageResponse struct {
-	// Image:
 	Image *Image `json:"image"`
 }
 
-// GetVersionRequest:
+// GetVersionRequest: get version request.
 type GetVersionRequest struct {
-	// ImageID:
 	ImageID string `json:"-"`
-	// VersionID:
+
 	VersionID string `json:"-"`
 }
 
-// GetVersionResponse:
+// GetVersionResponse: get version response.
 type GetVersionResponse struct {
-	// Version:
 	Version *Version `json:"version"`
 }
 
-// ListImagesRequest:
+// ListImagesRequest: list images request.
 type ListImagesRequest struct {
-	// PerPage: A positive integer lower or equal to 100 to select the number of items to display.
+	// PerPage: a positive integer lower or equal to 100 to select the number of items to display.
 	PerPage *uint32 `json:"-"`
-	// Page: A positive integer to choose the page to display.
+
+	// Page: a positive integer to choose the page to display.
 	Page *int32 `json:"-"`
 }
 
-// ListImagesResponse:
+// ListImagesResponse: list images response.
 type ListImagesResponse struct {
-	// Images:
 	Images []*Image `json:"images"`
-	// TotalCount:
+
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -162,17 +175,15 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Images)), nil
 }
 
-// ListVersionsRequest:
+// ListVersionsRequest: list versions request.
 type ListVersionsRequest struct {
-	// ImageID:
 	ImageID string `json:"-"`
 }
 
-// ListVersionsResponse:
+// ListVersionsResponse: list versions response.
 type ListVersionsResponse struct {
-	// Versions:
 	Versions []*Version `json:"versions"`
-	// TotalCount:
+
 	TotalCount uint32 `json:"total_count"`
 }
 

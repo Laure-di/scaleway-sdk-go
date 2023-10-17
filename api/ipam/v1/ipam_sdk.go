@@ -114,117 +114,159 @@ func (enum *ResourceType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Resource:
+// Resource: resource.
 type Resource struct {
-	// Type: Type of resource the IP is attached to.
+	// Type: type of resource the IP is attached to.
+	// Default value: unknown_type
 	Type ResourceType `json:"type"`
+
 	// ID: ID of the resource the IP is attached to.
 	ID string `json:"id"`
-	// MacAddress: MAC of the resource the IP is attached to.
+
+	// MacAddress: mAC of the resource the IP is attached to.
 	MacAddress *string `json:"mac_address"`
-	// Name: When the IP is in a Private Network, then a DNS record is available to resolve the resource name to this IP.
+
+	// Name: when the IP is in a Private Network, then a DNS record is available to resolve the resource name to this IP.
 	Name *string `json:"name"`
 }
 
-// Source:
+// Source: source.
 type Source struct {
-	// Zonal: This source is global.
+	// Zonal: this source is global.
+	// Precisely one of Zonal, PrivateNetworkID, SubnetID must be set.
 	Zonal *string `json:"zonal,omitempty"`
-	// PrivateNetworkID: This source is specific.
+
+	// PrivateNetworkID: this source is specific.
+	// Precisely one of Zonal, PrivateNetworkID, SubnetID must be set.
 	PrivateNetworkID *string `json:"private_network_id,omitempty"`
-	// SubnetID: This source is specific.
+
+	// SubnetID: this source is specific.
+	// Precisely one of Zonal, PrivateNetworkID, SubnetID must be set.
 	SubnetID *string `json:"subnet_id,omitempty"`
 }
 
-// IP:
+// IP: ip.
 type IP struct {
 	// ID: IP ID.
 	ID string `json:"id"`
-	// Address: IPv4 or IPv6 address in CIDR notation.
+
+	// Address: iPv4 or IPv6 address in CIDR notation.
 	Address scw.IPNet `json:"address"`
-	// ProjectID: Scaleway Project the IP belongs to.
+
+	// ProjectID: scaleway Project the IP belongs to.
 	ProjectID string `json:"project_id"`
-	// IsIPv6: Defines whether the IP is an IPv6 (false = IPv4).
+
+	// IsIPv6: defines whether the IP is an IPv6 (false = IPv4).
 	IsIPv6 bool `json:"is_ipv6"`
-	// CreatedAt: Date the IP was booked.
+
+	// CreatedAt: date the IP was booked.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date the IP was last modified.
+
+	// UpdatedAt: date the IP was last modified.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Source: Source pool where the IP was booked in.
+
+	// Source: source pool where the IP was booked in.
 	Source *Source `json:"source"`
-	// Resource: Resource which the IP is attached to.
+
+	// Resource: resource which the IP is attached to.
 	Resource *Resource `json:"resource"`
-	// Tags: Tags for the IP.
+
+	// Tags: tags for the IP.
 	Tags []string `json:"tags"`
-	// Region: Region of the IP.
+
+	// Region: region of the IP.
 	Region scw.Region `json:"region"`
-	// Zone: Zone of the IP, if zonal.
+
+	// Zone: zone of the IP, if zonal.
 	Zone *scw.Zone `json:"zone"`
 }
 
-// BookIPRequest:
+// BookIPRequest: book ip request.
 type BookIPRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// ProjectID: When creating an IP in a Private Network, the Project must match the Private Network's Project.
+
+	// ProjectID: when creating an IP in a Private Network, the Project must match the Private Network's Project.
 	ProjectID string `json:"project_id"`
-	// Source: Source in which to book the IP. Not all sources are available for booking.
+
+	// Source: source in which to book the IP. Not all sources are available for booking.
 	Source *Source `json:"source"`
-	// IsIPv6: Request an IPv6 instead of an IPv4.
+
+	// IsIPv6: request an IPv6 instead of an IPv4.
 	IsIPv6 bool `json:"is_ipv6"`
-	// Address: Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
+
+	// Address: note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
 	Address *net.IP `json:"address,omitempty"`
-	// Tags: Tags for the IP.
+
+	// Tags: tags for the IP.
 	Tags []string `json:"tags"`
 }
 
-// GetIPRequest:
+// GetIPRequest: get ip request.
 type GetIPRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// IPID: IP ID.
 	IPID string `json:"-"`
 }
 
-// ListIPsRequest:
+// ListIPsRequest: list i ps request.
 type ListIPsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// OrderBy: Sort order of the returned IPs.
+
+	// OrderBy: sort order of the returned IPs.
+	// Default value: created_at_desc
 	OrderBy ListIPsRequestOrderBy `json:"-"`
-	// Page: Page number to return, from the paginated results.
+
+	// Page: page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Maximum number of IPs to return per page.
+
+	// PageSize: maximum number of IPs to return per page.
 	PageSize *uint32 `json:"-"`
-	// ProjectID: Project ID to filter for. Only IPs belonging to this Project will be returned.
+
+	// ProjectID: project ID to filter for. Only IPs belonging to this Project will be returned.
 	ProjectID *string `json:"-"`
-	// Zonal: Zone to filter for. Only IPs that are zonal, and in this zone, will be returned.
+
+	// Zonal: zone to filter for. Only IPs that are zonal, and in this zone, will be returned.
+	// Precisely one of Zonal, PrivateNetworkID must be set.
 	Zonal *string `json:"zonal,omitempty"`
-	// PrivateNetworkID: Only IPs that are private, and in this Private Network, will be returned.
+
+	// PrivateNetworkID: only IPs that are private, and in this Private Network, will be returned.
+	// Precisely one of Zonal, PrivateNetworkID must be set.
 	PrivateNetworkID *string `json:"private_network_id,omitempty"`
-	// Attached: Defines whether to filter only for IPs which are attached to a resource.
+
+	// Attached: defines whether to filter only for IPs which are attached to a resource.
 	Attached *bool `json:"-"`
-	// ResourceID: Resource ID to filter for. Only IPs attached to this resource will be returned.
+
+	// ResourceID: resource ID to filter for. Only IPs attached to this resource will be returned.
 	ResourceID *string `json:"-"`
-	// ResourceType: Resource type to filter for. Only IPs attached to this type of resource will be returned.
+
+	// ResourceType: resource type to filter for. Only IPs attached to this type of resource will be returned.
+	// Default value: unknown_type
 	ResourceType ResourceType `json:"-"`
-	// MacAddress: MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned.
+
+	// MacAddress: mAC address to filter for. Only IPs attached to a resource with this MAC address will be returned.
 	MacAddress *string `json:"-"`
-	// Tags: Tags to filter for, only IPs with one or more matching tags will be returned.
+
+	// Tags: tags to filter for, only IPs with one or more matching tags will be returned.
 	Tags []string `json:"-"`
-	// OrganizationID: Organization ID to filter for. Only IPs belonging to this Organization will be returned.
+
+	// OrganizationID: organization ID to filter for. Only IPs belonging to this Organization will be returned.
 	OrganizationID *string `json:"-"`
-	// IsIPv6: Defines whether to filter only for IPv4s or IPv6s.
+
+	// IsIPv6: defines whether to filter only for IPv4s or IPv6s.
 	IsIPv6 *bool `json:"-"`
-	// ResourceName: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
+
+	// ResourceName: attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
 	ResourceName *string `json:"-"`
 }
 
-// ListIPsResponse:
+// ListIPsResponse: list i ps response.
 type ListIPsResponse struct {
-	// TotalCount:
 	TotalCount uint64 `json:"total_count"`
-	// IPs:
+
 	IPs []*IP `json:"ips"`
 }
 
@@ -247,21 +289,24 @@ func (r *ListIPsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.IPs)), nil
 }
 
-// ReleaseIPRequest:
+// ReleaseIPRequest: release ip request.
 type ReleaseIPRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// IPID: IP ID.
 	IPID string `json:"-"`
 }
 
-// UpdateIPRequest:
+// UpdateIPRequest: update ip request.
 type UpdateIPRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// IPID: IP ID.
 	IPID string `json:"-"`
-	// Tags: Tags for the IP.
+
+	// Tags: tags for the IP.
 	Tags *[]string `json:"tags,omitempty"`
 }
 
@@ -283,10 +328,12 @@ func (s *API) Regions() []scw.Region {
 // BookIP: Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.
 func (s *API) BookIP(req *BookIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -318,6 +365,7 @@ func (s *API) BookIP(req *BookIPRequest, opts ...scw.RequestOption) (*IP, error)
 // ReleaseIP: Release an IP not currently attached to a resource, and returns it to the available IP pool.
 func (s *API) ReleaseIP(req *ReleaseIPRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -351,6 +399,7 @@ func (s *API) ReleaseIP(req *ReleaseIPRequest, opts ...scw.RequestOption) error 
 // GetIP: Retrieve details of an existing IP, specified by its IP ID.
 func (s *API) GetIP(req *GetIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -381,6 +430,7 @@ func (s *API) GetIP(req *GetIPRequest, opts ...scw.RequestOption) (*IP, error) {
 // UpdateIP: Update parameters including tags of the specified IP.
 func (s *API) UpdateIP(req *UpdateIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -416,10 +466,12 @@ func (s *API) UpdateIP(req *UpdateIPRequest, opts ...scw.RequestOption) (*IP, er
 // ListIPs: List existing IPs in the specified region using various filters. For example, you can filter for IPs within a specified Private Network, or for public IPs within a specified Project. By default, the IPs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
 func (s *API) ListIPs(req *ListIPsRequest, opts ...scw.RequestOption) (*ListIPsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize

@@ -159,97 +159,100 @@ func (enum *ListHumansRequestOrderBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Human:
+// Human: human.
 type Human struct {
-	// ID:
 	ID string `json:"id"`
-	// OrganizationID:
+
 	OrganizationID string `json:"organization_id"`
-	// CreatedAt:
+
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt:
+
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Height:
+
 	Height float64 `json:"height"`
-	// ShoeSize:
+
 	ShoeSize float32 `json:"shoe_size"`
-	// AltitudeInMeter:
+
 	AltitudeInMeter int32 `json:"altitude_in_meter"`
-	// AltitudeInMillimeter:
+
 	AltitudeInMillimeter int64 `json:"altitude_in_millimeter"`
-	// FingersCount:
+
 	FingersCount uint32 `json:"fingers_count"`
-	// HairCount:
+
 	HairCount uint64 `json:"hair_count"`
-	// IsHappy:
+
 	IsHappy bool `json:"is_happy"`
-	// EyesColor:
+
+	// EyesColor: default value: unknown
 	EyesColor EyeColors `json:"eyes_color"`
-	// Status:
+
+	// Status: default value: unknown
 	Status HumanStatus `json:"status"`
-	// Name:
+
 	Name string `json:"name"`
-	// ProjectID:
+
 	ProjectID string `json:"project_id"`
 }
 
-// CreateHumanRequest:
+// CreateHumanRequest: create human request.
 type CreateHumanRequest struct {
-	// Height:
 	Height float64 `json:"height"`
-	// ShoeSize:
+
 	ShoeSize float32 `json:"shoe_size"`
-	// AltitudeInMeter:
+
 	AltitudeInMeter int32 `json:"altitude_in_meter"`
-	// AltitudeInMillimeter:
+
 	AltitudeInMillimeter int64 `json:"altitude_in_millimeter"`
-	// FingersCount:
+
 	FingersCount uint32 `json:"fingers_count"`
-	// HairCount:
+
 	HairCount uint64 `json:"hair_count"`
-	// IsHappy:
+
 	IsHappy bool `json:"is_happy"`
-	// EyesColor:
+
+	// EyesColor: default value: unknown
 	EyesColor EyeColors `json:"eyes_color"`
-	// Deprecated: OrganizationID:
+
+	// Deprecated
+	// Precisely one of OrganizationID, ProjectID must be set.
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// Name:
+
 	Name string `json:"name"`
-	// ProjectID:
+
+	// Precisely one of OrganizationID, ProjectID must be set.
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
-// DeleteHumanRequest:
+// DeleteHumanRequest: delete human request.
 type DeleteHumanRequest struct {
 	// HumanID: UUID of the human you want to delete.
 	HumanID string `json:"-"`
 }
 
-// GetHumanRequest:
+// GetHumanRequest: get human request.
 type GetHumanRequest struct {
 	// HumanID: UUID of the human you want to get.
 	HumanID string `json:"-"`
 }
 
-// ListHumansRequest:
+// ListHumansRequest: list humans request.
 type ListHumansRequest struct {
-	// Page:
 	Page *int32 `json:"-"`
-	// PageSize:
+
 	PageSize *uint32 `json:"-"`
-	// OrderBy:
+
+	// OrderBy: default value: created_at_asc
 	OrderBy ListHumansRequestOrderBy `json:"-"`
-	// OrganizationID:
+
 	OrganizationID *string `json:"-"`
-	// ProjectID:
+
 	ProjectID *string `json:"-"`
 }
 
-// ListHumansResponse:
+// ListHumansResponse: list humans response.
 type ListHumansResponse struct {
-	// TotalCount:
 	TotalCount uint32 `json:"total_count"`
-	// Humans:
+
 	Humans []*Human `json:"humans"`
 }
 
@@ -272,53 +275,52 @@ func (r *ListHumansResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Humans)), nil
 }
 
-// RegisterRequest:
+// RegisterRequest: register request.
 type RegisterRequest struct {
-	// Username:
 	Username string `json:"username"`
 }
 
-// RegisterResponse:
+// RegisterResponse: register response.
 type RegisterResponse struct {
-	// SecretKey:
 	SecretKey string `json:"secret_key"`
-	// AccessKey:
+
 	AccessKey string `json:"access_key"`
 }
 
-// RunHumanRequest:
+// RunHumanRequest: run human request.
 type RunHumanRequest struct {
 	// HumanID: UUID of the human you want to make run.
 	HumanID string `json:"-"`
 }
 
-// SmokeHumanRequest:
+// SmokeHumanRequest: smoke human request.
 type SmokeHumanRequest struct {
 	// Deprecated: HumanID: UUID of the human you want to make smoking.
 	HumanID string `json:"-"`
 }
 
-// UpdateHumanRequest:
+// UpdateHumanRequest: update human request.
 type UpdateHumanRequest struct {
 	// HumanID: UUID of the human you want to update.
 	HumanID string `json:"-"`
-	// Height:
+
 	Height *float64 `json:"height,omitempty"`
-	// ShoeSize:
+
 	ShoeSize *float32 `json:"shoe_size,omitempty"`
-	// AltitudeInMeter:
+
 	AltitudeInMeter *int32 `json:"altitude_in_meter,omitempty"`
-	// AltitudeInMillimeter:
+
 	AltitudeInMillimeter *int64 `json:"altitude_in_millimeter,omitempty"`
-	// FingersCount:
+
 	FingersCount *uint32 `json:"fingers_count,omitempty"`
-	// HairCount:
+
 	HairCount *uint64 `json:"hair_count,omitempty"`
-	// IsHappy:
+
 	IsHappy *bool `json:"is_happy,omitempty"`
-	// EyesColor:
+
+	// EyesColor: default value: unknown
 	EyesColor EyeColors `json:"eyes_color"`
-	// Name:
+
 	Name *string `json:"name,omitempty"`
 }
 

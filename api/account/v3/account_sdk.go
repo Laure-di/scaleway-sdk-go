@@ -75,27 +75,33 @@ func (enum *ListProjectsRequestOrderBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Project:
+// Project: project.
 type Project struct {
 	// ID: ID of the Project.
 	ID string `json:"id"`
-	// Name: Name of the Project.
+
+	// Name: name of the Project.
 	Name string `json:"name"`
-	// OrganizationID: Organization ID of the Project.
+
+	// OrganizationID: organization ID of the Project.
 	OrganizationID string `json:"organization_id"`
-	// CreatedAt: Creation date of the Project.
+
+	// CreatedAt: creation date of the Project.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Update date of the Project.
+
+	// UpdatedAt: update date of the Project.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Description: Description of the Project.
+
+	// Description: description of the Project.
 	Description string `json:"description"`
 }
 
-// ListProjectsResponse:
+// ListProjectsResponse: list projects response.
 type ListProjectsResponse struct {
-	// TotalCount: Total number of Projects.
+	// TotalCount: total number of Projects.
 	TotalCount uint64 `json:"total_count"`
-	// Projects: Paginated returned Projects.
+
+	// Projects: paginated returned Projects.
 	Projects []*Project `json:"projects"`
 }
 
@@ -118,51 +124,61 @@ func (r *ListProjectsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Projects)), nil
 }
 
-// ProjectAPICreateProjectRequest:
+// ProjectAPICreateProjectRequest: project api create project request.
 type ProjectAPICreateProjectRequest struct {
-	// Name: Name of the Project.
+	// Name: name of the Project.
 	Name string `json:"name"`
-	// OrganizationID: Organization ID of the Project.
+
+	// OrganizationID: organization ID of the Project.
 	OrganizationID string `json:"organization_id"`
-	// Description: Description of the Project.
+
+	// Description: description of the Project.
 	Description string `json:"description"`
 }
 
-// ProjectAPIDeleteProjectRequest:
+// ProjectAPIDeleteProjectRequest: project api delete project request.
 type ProjectAPIDeleteProjectRequest struct {
-	// ProjectID: Project ID of the Project.
+	// ProjectID: project ID of the Project.
 	ProjectID string `json:"-"`
 }
 
-// ProjectAPIGetProjectRequest:
+// ProjectAPIGetProjectRequest: project api get project request.
 type ProjectAPIGetProjectRequest struct {
-	// ProjectID: Project ID of the Project.
+	// ProjectID: project ID of the Project.
 	ProjectID string `json:"-"`
 }
 
-// ProjectAPIListProjectsRequest:
+// ProjectAPIListProjectsRequest: project api list projects request.
 type ProjectAPIListProjectsRequest struct {
-	// OrganizationID: Organization ID of the Project.
+	// OrganizationID: organization ID of the Project.
 	OrganizationID string `json:"-"`
-	// Name: Name of the Project.
+
+	// Name: name of the Project.
 	Name *string `json:"-"`
-	// Page: Page number for the returned Projects.
+
+	// Page: page number for the returned Projects.
 	Page *int32 `json:"-"`
-	// PageSize: Maximum number of Project per page.
+
+	// PageSize: maximum number of Project per page.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Sort order of the returned Projects.
+
+	// OrderBy: sort order of the returned Projects.
+	// Default value: created_at_asc
 	OrderBy ListProjectsRequestOrderBy `json:"-"`
-	// ProjectIDs: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
+
+	// ProjectIDs: project IDs to filter for. The results will be limited to any Projects with an ID in this array.
 	ProjectIDs []string `json:"-"`
 }
 
-// ProjectAPIUpdateProjectRequest:
+// ProjectAPIUpdateProjectRequest: project api update project request.
 type ProjectAPIUpdateProjectRequest struct {
-	// ProjectID: Project ID of the Project.
+	// ProjectID: project ID of the Project.
 	ProjectID string `json:"-"`
-	// Name: Name of the Project.
+
+	// Name: name of the Project.
 	Name *string `json:"name,omitempty"`
-	// Description: Description of the Project.
+
+	// Description: description of the Project.
 	Description *string `json:"description,omitempty"`
 }
 
@@ -181,6 +197,7 @@ func NewProjectAPI(client *scw.Client) *ProjectAPI {
 // CreateProject: Generate a new Project for an Organization, specifying its configuration including name and description.
 func (s *ProjectAPI) CreateProject(req *ProjectAPICreateProjectRequest, opts ...scw.RequestOption) (*Project, error) {
 	var err error
+
 	if req.OrganizationID == "" {
 		defaultOrganizationID, _ := s.client.GetDefaultOrganizationID()
 		req.OrganizationID = defaultOrganizationID
@@ -239,6 +256,7 @@ func (s *ProjectAPI) ListProjects(req *ProjectAPIListProjectsRequest, opts ...sc
 // GetProject: Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
 func (s *ProjectAPI) GetProject(req *ProjectAPIGetProjectRequest, opts ...scw.RequestOption) (*Project, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -265,6 +283,7 @@ func (s *ProjectAPI) GetProject(req *ProjectAPIGetProjectRequest, opts ...scw.Re
 // DeleteProject: Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
 func (s *ProjectAPI) DeleteProject(req *ProjectAPIDeleteProjectRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -289,6 +308,7 @@ func (s *ProjectAPI) DeleteProject(req *ProjectAPIDeleteProjectRequest, opts ...
 // UpdateProject: Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
 func (s *ProjectAPI) UpdateProject(req *ProjectAPIUpdateProjectRequest, opts ...scw.RequestOption) (*Project, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID

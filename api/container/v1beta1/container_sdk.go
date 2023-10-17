@@ -619,531 +619,652 @@ func (enum *TriggerStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// SecretHashedValue:
+// SecretHashedValue: secret hashed value.
 type SecretHashedValue struct {
-	// Key:
 	Key string `json:"key"`
-	// HashedValue:
+
 	HashedValue string `json:"hashed_value"`
 }
 
-// TriggerMnqNatsClientConfig:
+// TriggerMnqNatsClientConfig: trigger mnq nats client config.
 type TriggerMnqNatsClientConfig struct {
-	// Deprecated: MnqNamespaceID:
+	// Deprecated
 	MnqNamespaceID *string `json:"mnq_namespace_id,omitempty"`
-	// Subject:
+
 	Subject string `json:"subject"`
-	// MnqProjectID:
+
 	MnqProjectID string `json:"mnq_project_id"`
-	// MnqRegion:
+
 	MnqRegion string `json:"mnq_region"`
-	// MnqCredentialID:
+
 	MnqCredentialID *string `json:"mnq_credential_id"`
-	// MnqNatsAccountID:
+
 	MnqNatsAccountID string `json:"mnq_nats_account_id"`
 }
 
-// TriggerMnqSqsClientConfig:
+// TriggerMnqSqsClientConfig: trigger mnq sqs client config.
 type TriggerMnqSqsClientConfig struct {
-	// Deprecated: MnqNamespaceID:
+	// Deprecated
 	MnqNamespaceID *string `json:"mnq_namespace_id,omitempty"`
-	// Queue:
+
 	Queue string `json:"queue"`
-	// MnqProjectID:
+
 	MnqProjectID string `json:"mnq_project_id"`
-	// MnqRegion:
+
 	MnqRegion string `json:"mnq_region"`
-	// MnqCredentialID:
+
 	MnqCredentialID *string `json:"mnq_credential_id"`
 }
 
-// TriggerSqsClientConfig:
+// TriggerSqsClientConfig: trigger sqs client config.
 type TriggerSqsClientConfig struct {
-	// Endpoint:
 	Endpoint string `json:"endpoint"`
-	// QueueURL:
+
 	QueueURL string `json:"queue_url"`
-	// AccessKey:
+
 	AccessKey string `json:"access_key"`
-	// SecretKey:
+
 	SecretKey string `json:"secret_key"`
 }
 
-// Secret:
+// Secret: secret.
 type Secret struct {
-	// Key:
 	Key string `json:"key"`
-	// Value:
+
 	Value *string `json:"value"`
 }
 
-// CreateTriggerRequestMnqNatsClientConfig:
+// CreateTriggerRequestMnqNatsClientConfig: create trigger request mnq nats client config.
 type CreateTriggerRequestMnqNatsClientConfig struct {
-	// Deprecated: MnqNamespaceID:
+	// Deprecated
 	MnqNamespaceID *string `json:"mnq_namespace_id,omitempty"`
-	// Subject:
+
 	Subject string `json:"subject"`
-	// MnqProjectID:
+
 	MnqProjectID string `json:"mnq_project_id"`
-	// MnqRegion:
+
 	MnqRegion string `json:"mnq_region"`
-	// MnqNatsAccountID:
+
 	MnqNatsAccountID string `json:"mnq_nats_account_id"`
 }
 
-// CreateTriggerRequestMnqSqsClientConfig:
+// CreateTriggerRequestMnqSqsClientConfig: create trigger request mnq sqs client config.
 type CreateTriggerRequestMnqSqsClientConfig struct {
-	// Deprecated: MnqNamespaceID:
+	// Deprecated
 	MnqNamespaceID *string `json:"mnq_namespace_id,omitempty"`
-	// Queue:
+
 	Queue string `json:"queue"`
-	// MnqProjectID:
+
 	MnqProjectID string `json:"mnq_project_id"`
-	// MnqRegion:
+
 	MnqRegion string `json:"mnq_region"`
 }
 
-// CreateTriggerRequestSqsClientConfig:
+// CreateTriggerRequestSqsClientConfig: create trigger request sqs client config.
 type CreateTriggerRequestSqsClientConfig struct {
-	// Endpoint:
 	Endpoint string `json:"endpoint"`
-	// QueueURL:
+
 	QueueURL string `json:"queue_url"`
-	// AccessKey:
+
 	AccessKey string `json:"access_key"`
-	// SecretKey:
+
 	SecretKey string `json:"secret_key"`
 }
 
-// Container:
+// Container: container.
 type Container struct {
 	// ID: UUID of the container.
 	ID string `json:"id"`
-	// Name: Name of the container.
+
+	// Name: name of the container.
 	Name string `json:"name"`
+
 	// NamespaceID: UUID of the namespace the container belongs to.
 	NamespaceID string `json:"namespace_id"`
-	// Status: Status of the container.
+
+	// Status: status of the container.
+	// Default value: unknown
 	Status ContainerStatus `json:"status"`
-	// EnvironmentVariables: Environment variables of the container.
+
+	// EnvironmentVariables: environment variables of the container.
 	EnvironmentVariables map[string]string `json:"environment_variables"`
-	// MinScale: Minimum number of instances to scale the container to.
+
+	// MinScale: minimum number of instances to scale the container to.
 	MinScale uint32 `json:"min_scale"`
-	// MaxScale: Maximum number of instances to scale the container to.
+
+	// MaxScale: maximum number of instances to scale the container to.
 	MaxScale uint32 `json:"max_scale"`
-	// MemoryLimit: Memory limit of the container in MB.
+
+	// MemoryLimit: memory limit of the container in MB.
 	MemoryLimit uint32 `json:"memory_limit"`
+
 	// CPULimit: CPU limit of the container in mvCPU.
 	CPULimit uint32 `json:"cpu_limit"`
-	// Timeout: Processing time limit for the container.
+
+	// Timeout: processing time limit for the container.
 	Timeout *scw.Duration `json:"timeout"`
-	// ErrorMessage: Last error message of the container.
+
+	// ErrorMessage: last error message of the container.
 	ErrorMessage *string `json:"error_message"`
-	// Privacy: Privacy setting of the container.
+
+	// Privacy: privacy setting of the container.
+	// Default value: unknown_privacy
 	Privacy ContainerPrivacy `json:"privacy"`
-	// Description: Description of the container.
+
+	// Description: description of the container.
 	Description *string `json:"description"`
-	// RegistryImage: Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+
+	// RegistryImage: name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
 	RegistryImage string `json:"registry_image"`
-	// MaxConcurrency: Number of maximum concurrent executions of the container.
+
+	// MaxConcurrency: number of maximum concurrent executions of the container.
 	MaxConcurrency uint32 `json:"max_concurrency"`
-	// DomainName: Domain name attributed to the contaioner.
+
+	// DomainName: domain name attributed to the contaioner.
 	DomainName string `json:"domain_name"`
-	// Protocol: Protocol the container uses.
+
+	// Protocol: protocol the container uses.
+	// Default value: unknown_protocol
 	Protocol ContainerProtocol `json:"protocol"`
-	// Port: Port the container listens on.
+
+	// Port: port the container listens on.
 	Port uint32 `json:"port"`
-	// SecretEnvironmentVariables: Secret environment variables of the container.
+
+	// SecretEnvironmentVariables: secret environment variables of the container.
 	SecretEnvironmentVariables []*SecretHashedValue `json:"secret_environment_variables"`
-	// HTTPOption: Possible values:
+
+	// HTTPOption: possible values:
 	//  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
 	//  - enabled: Serve both HTTP and HTTPS traffic.
+	// Default value: unknown_http_option
 	HTTPOption ContainerHTTPOption `json:"http_option"`
-	// Region: Region in which the container will be deployed.
+
+	// Region: region in which the container will be deployed.
 	Region scw.Region `json:"region"`
 }
 
-// Cron:
+// Cron: cron.
 type Cron struct {
 	// ID: UUID of the cron.
 	ID string `json:"id"`
+
 	// ContainerID: UUID of the container invoked by this cron.
 	ContainerID string `json:"container_id"`
-	// Schedule: UNIX cron shedule.
+
+	// Schedule: uNIX cron shedule.
 	Schedule string `json:"schedule"`
-	// Args: Arguments to pass with the cron.
+
+	// Args: arguments to pass with the cron.
 	Args *scw.JSONObject `json:"args"`
-	// Status: Status of the cron.
+
+	// Status: status of the cron.
+	// Default value: unknown
 	Status CronStatus `json:"status"`
-	// Name: Name of the cron.
+
+	// Name: name of the cron.
 	Name string `json:"name"`
 }
 
-// Domain:
+// Domain: domain.
 type Domain struct {
 	// ID: UUID of the domain.
 	ID string `json:"id"`
-	// Hostname: Domain assigned to the container.
+
+	// Hostname: domain assigned to the container.
 	Hostname string `json:"hostname"`
+
 	// ContainerID: UUID of the container.
 	ContainerID string `json:"container_id"`
+
 	// URL: URL (TBD).
 	URL string `json:"url"`
-	// Status: Status of the domain.
+
+	// Status: status of the domain.
+	// Default value: unknown
 	Status DomainStatus `json:"status"`
-	// ErrorMessage: Last error message of the domain.
+
+	// ErrorMessage: last error message of the domain.
 	ErrorMessage *string `json:"error_message"`
 }
 
-// Log:
+// Log: log.
 type Log struct {
-	// Message:
 	Message string `json:"message"`
-	// Timestamp:
+
 	Timestamp *time.Time `json:"timestamp"`
-	// ID:
+
 	ID string `json:"id"`
-	// Level: Contains the severity of the log (info, debug, error, ...).
+
+	// Level: contains the severity of the log (info, debug, error, ...).
 	Level string `json:"level"`
-	// Source: Source of the log (core runtime or user code).
+
+	// Source: source of the log (core runtime or user code).
 	Source string `json:"source"`
-	// Stream: Can be stdout or stderr.
+
+	// Stream: can be stdout or stderr.
+	// Default value: unknown
 	Stream LogStream `json:"stream"`
 }
 
-// Namespace:
+// Namespace: namespace.
 type Namespace struct {
 	// ID: UUID of the namespace.
 	ID string `json:"id"`
-	// Name: Name of the namespace.
+
+	// Name: name of the namespace.
 	Name string `json:"name"`
-	// EnvironmentVariables: Environment variables of the namespace.
+
+	// EnvironmentVariables: environment variables of the namespace.
 	EnvironmentVariables map[string]string `json:"environment_variables"`
+
 	// OrganizationID: UUID of the Organization the namespace belongs to.
 	OrganizationID string `json:"organization_id"`
+
 	// ProjectID: UUID of the Project the namespace belongs to.
 	ProjectID string `json:"project_id"`
-	// Status: Status of the namespace.
+
+	// Status: status of the namespace.
+	// Default value: unknown
 	Status NamespaceStatus `json:"status"`
+
 	// RegistryNamespaceID: UUID of the registry namespace.
 	RegistryNamespaceID string `json:"registry_namespace_id"`
-	// ErrorMessage: Last error message of the namesace.
+
+	// ErrorMessage: last error message of the namesace.
 	ErrorMessage *string `json:"error_message"`
-	// RegistryEndpoint: Registry endpoint of the namespace.
+
+	// RegistryEndpoint: registry endpoint of the namespace.
 	RegistryEndpoint string `json:"registry_endpoint"`
-	// Description: Description of the endpoint.
+
+	// Description: description of the endpoint.
 	Description *string `json:"description"`
-	// SecretEnvironmentVariables: Secret environment variables of the namespace.
+
+	// SecretEnvironmentVariables: secret environment variables of the namespace.
 	SecretEnvironmentVariables []*SecretHashedValue `json:"secret_environment_variables"`
-	// Region: Region in which the namespace will be created.
+
+	// Region: region in which the namespace will be created.
 	Region scw.Region `json:"region"`
 }
 
-// Token:
+// Token: token.
 type Token struct {
 	// ID: UUID of the token.
 	ID string `json:"id"`
-	// Token: Identifier of the token.
+
+	// Token: identifier of the token.
 	Token string `json:"token"`
+
 	// ContainerID: UUID of the container the token belongs to.
+	// Precisely one of ContainerID, NamespaceID must be set.
 	ContainerID *string `json:"container_id,omitempty"`
+
 	// NamespaceID: UUID of the namespace the token belongs to.
+	// Precisely one of ContainerID, NamespaceID must be set.
 	NamespaceID *string `json:"namespace_id,omitempty"`
-	// Deprecated: PublicKey: Public key of the token.
+
+	// Deprecated: PublicKey: public key of the token.
 	PublicKey *string `json:"public_key,omitempty"`
-	// Status: Status of the token.
+
+	// Status: status of the token.
+	// Default value: unknown
 	Status TokenStatus `json:"status"`
-	// Description: Description of the token.
+
+	// Description: description of the token.
 	Description *string `json:"description"`
-	// ExpiresAt: Expiry date of the token.
+
+	// ExpiresAt: expiry date of the token.
 	ExpiresAt *time.Time `json:"expires_at"`
 }
 
-// Trigger:
+// Trigger: trigger.
 type Trigger struct {
-	// ID:
 	ID string `json:"id"`
-	// Name:
+
 	Name string `json:"name"`
-	// Description:
+
 	Description string `json:"description"`
-	// InputType:
+
+	// InputType: default value: unknown_input_type
 	InputType TriggerInputType `json:"input_type"`
-	// Status:
+
+	// Status: default value: unknown_status
 	Status TriggerStatus `json:"status"`
-	// ErrorMessage:
+
 	ErrorMessage *string `json:"error_message"`
-	// ContainerID:
+
 	ContainerID string `json:"container_id"`
-	// ScwSqsConfig:
+
+	// Precisely one of ScwSqsConfig, SqsConfig, ScwNatsConfig must be set.
 	ScwSqsConfig *TriggerMnqSqsClientConfig `json:"scw_sqs_config,omitempty"`
-	// SqsConfig:
+
+	// Precisely one of ScwSqsConfig, SqsConfig, ScwNatsConfig must be set.
 	SqsConfig *TriggerSqsClientConfig `json:"sqs_config,omitempty"`
-	// ScwNatsConfig:
+
+	// Precisely one of ScwSqsConfig, SqsConfig, ScwNatsConfig must be set.
 	ScwNatsConfig *TriggerMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
 }
 
-// UpdateTriggerRequestSqsClientConfig:
+// UpdateTriggerRequestSqsClientConfig: update trigger request sqs client config.
 type UpdateTriggerRequestSqsClientConfig struct {
-	// AccessKey:
 	AccessKey *string `json:"access_key"`
-	// SecretKey:
+
 	SecretKey *string `json:"secret_key"`
 }
 
-// CreateContainerRequest:
+// CreateContainerRequest: create container request.
 type CreateContainerRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// NamespaceID: UUID of the namespace the container belongs to.
 	NamespaceID string `json:"namespace_id"`
-	// Name: Name of the container.
+
+	// Name: name of the container.
 	Name string `json:"name"`
-	// EnvironmentVariables: Environment variables of the container.
+
+	// EnvironmentVariables: environment variables of the container.
 	EnvironmentVariables *map[string]string `json:"environment_variables,omitempty"`
-	// MinScale: Minimum number of instances to scale the container to.
+
+	// MinScale: minimum number of instances to scale the container to.
 	MinScale *uint32 `json:"min_scale,omitempty"`
-	// MaxScale: Maximum number of instances to scale the container to.
+
+	// MaxScale: maximum number of instances to scale the container to.
 	MaxScale *uint32 `json:"max_scale,omitempty"`
-	// MemoryLimit: Memory limit of the container in MB.
+
+	// MemoryLimit: memory limit of the container in MB.
 	MemoryLimit *uint32 `json:"memory_limit,omitempty"`
+
 	// CPULimit: CPU limit of the container in mvCPU.
 	CPULimit *uint32 `json:"cpu_limit,omitempty"`
-	// Timeout: Processing time limit for the container.
+
+	// Timeout: processing time limit for the container.
 	Timeout *scw.Duration `json:"timeout,omitempty"`
-	// Privacy: Privacy setting of the container.
+
+	// Privacy: privacy setting of the container.
+	// Default value: unknown_privacy
 	Privacy ContainerPrivacy `json:"privacy"`
-	// Description: Description of the container.
+
+	// Description: description of the container.
 	Description *string `json:"description,omitempty"`
-	// RegistryImage: Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+
+	// RegistryImage: name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
 	RegistryImage *string `json:"registry_image,omitempty"`
-	// MaxConcurrency: Number of maximum concurrent executions of the container.
+
+	// MaxConcurrency: number of maximum concurrent executions of the container.
 	MaxConcurrency *uint32 `json:"max_concurrency,omitempty"`
-	// Protocol: Protocol the container uses.
+
+	// Protocol: protocol the container uses.
+	// Default value: unknown_protocol
 	Protocol ContainerProtocol `json:"protocol"`
-	// Port: Port the container listens on.
+
+	// Port: port the container listens on.
 	Port *uint32 `json:"port,omitempty"`
-	// SecretEnvironmentVariables: Secret environment variables of the container.
+
+	// SecretEnvironmentVariables: secret environment variables of the container.
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
-	// HTTPOption: Possible values:
+
+	// HTTPOption: possible values:
 	//  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
 	//  - enabled: Serve both HTTP and HTTPS traffic.
+	// Default value: unknown_http_option
 	HTTPOption ContainerHTTPOption `json:"http_option"`
 }
 
-// CreateCronRequest:
+// CreateCronRequest: create cron request.
 type CreateCronRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ContainerID: UUID of the container to invoke by the cron.
 	ContainerID string `json:"container_id"`
-	// Schedule: UNIX cron shedule.
+
+	// Schedule: uNIX cron shedule.
 	Schedule string `json:"schedule"`
-	// Args: Arguments to pass with the cron.
+
+	// Args: arguments to pass with the cron.
 	Args *scw.JSONObject `json:"args,omitempty"`
-	// Name: Name of the cron to create.
+
+	// Name: name of the cron to create.
 	Name *string `json:"name,omitempty"`
 }
 
-// CreateDomainRequest:
+// CreateDomainRequest: create domain request.
 type CreateDomainRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Hostname: Domain to assign.
+
+	// Hostname: domain to assign.
 	Hostname string `json:"hostname"`
+
 	// ContainerID: UUID of the container to assign the domain to.
 	ContainerID string `json:"container_id"`
 }
 
-// CreateNamespaceRequest:
+// CreateNamespaceRequest: create namespace request.
 type CreateNamespaceRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Name: Name of the namespace to create.
+
+	// Name: name of the namespace to create.
 	Name string `json:"name"`
-	// EnvironmentVariables: Environment variables of the namespace to create.
+
+	// EnvironmentVariables: environment variables of the namespace to create.
 	EnvironmentVariables *map[string]string `json:"environment_variables,omitempty"`
+
 	// ProjectID: UUID of the Project in which the namespace will be created.
 	ProjectID string `json:"project_id"`
-	// Description: Description of the namespace to create.
+
+	// Description: description of the namespace to create.
 	Description *string `json:"description,omitempty"`
-	// SecretEnvironmentVariables: Secret environment variables of the namespace to create.
+
+	// SecretEnvironmentVariables: secret environment variables of the namespace to create.
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 }
 
-// CreateTokenRequest:
+// CreateTokenRequest: create token request.
 type CreateTokenRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ContainerID: UUID of the container to create the token for.
+	// Precisely one of ContainerID, NamespaceID must be set.
 	ContainerID *string `json:"container_id,omitempty"`
+
 	// NamespaceID: UUID of the namespace to create the token for.
+	// Precisely one of ContainerID, NamespaceID must be set.
 	NamespaceID *string `json:"namespace_id,omitempty"`
-	// Description: Description of the token.
+
+	// Description: description of the token.
 	Description *string `json:"description,omitempty"`
-	// ExpiresAt: Expiry date of the token.
+
+	// ExpiresAt: expiry date of the token.
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 }
 
-// CreateTriggerRequest:
+// CreateTriggerRequest: create trigger request.
 type CreateTriggerRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Name:
+
 	Name string `json:"name"`
-	// Description:
+
 	Description *string `json:"description,omitempty"`
-	// ContainerID:
+
 	ContainerID string `json:"container_id"`
-	// ScwSqsConfig:
+
+	// Precisely one of ScwSqsConfig, SqsConfig, ScwNatsConfig must be set.
 	ScwSqsConfig *CreateTriggerRequestMnqSqsClientConfig `json:"scw_sqs_config,omitempty"`
-	// SqsConfig:
+
+	// Precisely one of ScwSqsConfig, SqsConfig, ScwNatsConfig must be set.
 	SqsConfig *CreateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
-	// ScwNatsConfig:
+
+	// Precisely one of ScwSqsConfig, SqsConfig, ScwNatsConfig must be set.
 	ScwNatsConfig *CreateTriggerRequestMnqNatsClientConfig `json:"scw_nats_config,omitempty"`
 }
 
-// DeleteContainerRequest:
+// DeleteContainerRequest: delete container request.
 type DeleteContainerRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ContainerID: UUID of the container to delete.
 	ContainerID string `json:"-"`
 }
 
-// DeleteCronRequest:
+// DeleteCronRequest: delete cron request.
 type DeleteCronRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// CronID: UUID of the cron to delete.
 	CronID string `json:"-"`
 }
 
-// DeleteDomainRequest:
+// DeleteDomainRequest: delete domain request.
 type DeleteDomainRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// DomainID: UUID of the domain to delete.
 	DomainID string `json:"-"`
 }
 
-// DeleteNamespaceRequest:
+// DeleteNamespaceRequest: delete namespace request.
 type DeleteNamespaceRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// NamespaceID: UUID of the namespace to delete.
 	NamespaceID string `json:"-"`
 }
 
-// DeleteTokenRequest:
+// DeleteTokenRequest: delete token request.
 type DeleteTokenRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// TokenID: UUID of the token to delete.
 	TokenID string `json:"-"`
 }
 
-// DeleteTriggerRequest:
+// DeleteTriggerRequest: delete trigger request.
 type DeleteTriggerRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// TriggerID:
+
 	TriggerID string `json:"-"`
 }
 
-// DeployContainerRequest:
+// DeployContainerRequest: deploy container request.
 type DeployContainerRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ContainerID: UUID of the container to deploy.
 	ContainerID string `json:"-"`
 }
 
-// GetContainerRequest:
+// GetContainerRequest: get container request.
 type GetContainerRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ContainerID: UUID of the container to get.
 	ContainerID string `json:"-"`
 }
 
-// GetCronRequest:
+// GetCronRequest: get cron request.
 type GetCronRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// CronID: UUID of the cron to get.
 	CronID string `json:"-"`
 }
 
-// GetDomainRequest:
+// GetDomainRequest: get domain request.
 type GetDomainRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// DomainID: UUID of the domain to get.
 	DomainID string `json:"-"`
 }
 
-// GetNamespaceRequest:
+// GetNamespaceRequest: get namespace request.
 type GetNamespaceRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// NamespaceID: UUID of the namespace to get.
 	NamespaceID string `json:"-"`
 }
 
-// GetTokenRequest:
+// GetTokenRequest: get token request.
 type GetTokenRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// TokenID: UUID of the token to get.
 	TokenID string `json:"-"`
 }
 
-// GetTriggerRequest:
+// GetTriggerRequest: get trigger request.
 type GetTriggerRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// TriggerID:
+
 	TriggerID string `json:"-"`
 }
 
-// IssueJWTRequest:
+// IssueJWTRequest: issue jwt request.
 type IssueJWTRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// ContainerID:
+
+	// Precisely one of ContainerID, NamespaceID must be set.
 	ContainerID *string `json:"container_id,omitempty"`
-	// NamespaceID:
+
+	// Precisely one of ContainerID, NamespaceID must be set.
 	NamespaceID *string `json:"namespace_id,omitempty"`
-	// ExpiresAt:
+
 	ExpiresAt *time.Time `json:"-"`
 }
 
-// ListContainersRequest:
+// ListContainersRequest: list containers request.
 type ListContainersRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Number of containers per page.
+
+	// PageSize: number of containers per page.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Order of the containers.
+
+	// OrderBy: order of the containers.
+	// Default value: created_at_asc
 	OrderBy ListContainersRequestOrderBy `json:"-"`
+
 	// NamespaceID: UUID of the namespace the container belongs to.
 	NamespaceID string `json:"-"`
-	// Name: Name of the container.
+
+	// Name: name of the container.
 	Name *string `json:"-"`
+
 	// OrganizationID: UUID of the Organization the container belongs to.
 	OrganizationID *string `json:"-"`
+
 	// ProjectID: UUID of the Project the container belongs to.
 	ProjectID *string `json:"-"`
 }
 
-// ListContainersResponse:
+// ListContainersResponse: list containers response.
 type ListContainersResponse struct {
-	// Containers: Array of containers.
+	// Containers: array of containers.
 	Containers []*Container `json:"containers"`
-	// TotalCount: Total number of containers.
+
+	// TotalCount: total number of containers.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1166,25 +1287,31 @@ func (r *ListContainersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Containers)), nil
 }
 
-// ListCronsRequest:
+// ListCronsRequest: list crons request.
 type ListCronsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Number of crons per page.
+
+	// PageSize: number of crons per page.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Order of the crons.
+
+	// OrderBy: order of the crons.
+	// Default value: created_at_asc
 	OrderBy ListCronsRequestOrderBy `json:"-"`
+
 	// ContainerID: UUID of the container invoked by the cron.
 	ContainerID string `json:"-"`
 }
 
-// ListCronsResponse:
+// ListCronsResponse: list crons response.
 type ListCronsResponse struct {
-	// Crons: Array of crons.
+	// Crons: array of crons.
 	Crons []*Cron `json:"crons"`
-	// TotalCount: Total number of crons.
+
+	// TotalCount: total number of crons.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1207,25 +1334,31 @@ func (r *ListCronsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Crons)), nil
 }
 
-// ListDomainsRequest:
+// ListDomainsRequest: list domains request.
 type ListDomainsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Number of domains per page.
+
+	// PageSize: number of domains per page.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Order of the domains.
+
+	// OrderBy: order of the domains.
+	// Default value: created_at_asc
 	OrderBy ListDomainsRequestOrderBy `json:"-"`
+
 	// ContainerID: UUID of the container the domain belongs to.
 	ContainerID string `json:"-"`
 }
 
-// ListDomainsResponse:
+// ListDomainsResponse: list domains response.
 type ListDomainsResponse struct {
-	// Domains: Array of domains.
+	// Domains: array of domains.
 	Domains []*Domain `json:"domains"`
-	// TotalCount: Total number of domains.
+
+	// TotalCount: total number of domains.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1248,25 +1381,29 @@ func (r *ListDomainsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Domains)), nil
 }
 
-// ListLogsRequest:
+// ListLogsRequest: list logs request.
 type ListLogsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ContainerID: UUID of the container.
 	ContainerID string `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Number of logs per page.
+
+	// PageSize: number of logs per page.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Order of the logs.
+
+	// OrderBy: order of the logs.
+	// Default value: timestamp_desc
 	OrderBy ListLogsRequestOrderBy `json:"-"`
 }
 
-// ListLogsResponse:
+// ListLogsResponse: list logs response.
 type ListLogsResponse struct {
-	// Logs:
 	Logs []*Log `json:"logs"`
-	// TotalCount:
+
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1289,29 +1426,37 @@ func (r *ListLogsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Logs)), nil
 }
 
-// ListNamespacesRequest:
+// ListNamespacesRequest: list namespaces request.
 type ListNamespacesRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Number of namespaces per page.
+
+	// PageSize: number of namespaces per page.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Order of the namespaces.
+
+	// OrderBy: order of the namespaces.
+	// Default value: created_at_asc
 	OrderBy ListNamespacesRequestOrderBy `json:"-"`
-	// Name: Name of the namespaces.
+
+	// Name: name of the namespaces.
 	Name *string `json:"-"`
+
 	// OrganizationID: UUID of the Organization the namespace belongs to.
 	OrganizationID *string `json:"-"`
+
 	// ProjectID: UUID of the Project the namespace belongs to.
 	ProjectID *string `json:"-"`
 }
 
-// ListNamespacesResponse:
+// ListNamespacesResponse: list namespaces response.
 type ListNamespacesResponse struct {
-	// Namespaces: Array of the namespaces.
+	// Namespaces: array of the namespaces.
 	Namespaces []*Namespace `json:"namespaces"`
-	// TotalCount: Total number of namespaces.
+
+	// TotalCount: total number of namespaces.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1334,27 +1479,32 @@ func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Namespaces)), nil
 }
 
-// ListTokensRequest:
+// ListTokensRequest: list tokens request.
 type ListTokensRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Number of tokens per page.
+
+	// PageSize: number of tokens per page.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Order of the tokens.
+
+	// OrderBy: order of the tokens.
+	// Default value: created_at_asc
 	OrderBy ListTokensRequestOrderBy `json:"-"`
+
 	// ContainerID: UUID of the container the token belongs to.
 	ContainerID *string `json:"-"`
+
 	// NamespaceID: UUID of the namespace the token belongs to.
 	NamespaceID *string `json:"-"`
 }
 
-// ListTokensResponse:
+// ListTokensResponse: list tokens response.
 type ListTokensResponse struct {
-	// Tokens:
 	Tokens []*Token `json:"tokens"`
-	// TotalCount:
+
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1377,29 +1527,32 @@ func (r *ListTokensResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tokens)), nil
 }
 
-// ListTriggersRequest:
+// ListTriggersRequest: list triggers request.
 type ListTriggersRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page:
+
 	Page *int32 `json:"-"`
-	// PageSize:
+
 	PageSize *uint32 `json:"-"`
-	// OrderBy:
+
+	// OrderBy: default value: created_at_asc
 	OrderBy ListTriggersRequestOrderBy `json:"-"`
-	// ContainerID:
+
+	// Precisely one of ContainerID, NamespaceID, ProjectID must be set.
 	ContainerID *string `json:"container_id,omitempty"`
-	// NamespaceID:
+
+	// Precisely one of ContainerID, NamespaceID, ProjectID must be set.
 	NamespaceID *string `json:"namespace_id,omitempty"`
-	// ProjectID:
+
+	// Precisely one of ContainerID, NamespaceID, ProjectID must be set.
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
-// ListTriggersResponse:
+// ListTriggersResponse: list triggers response.
 type ListTriggersResponse struct {
-	// Triggers:
 	Triggers []*Trigger `json:"triggers"`
-	// TotalCount:
+
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1422,87 +1575,113 @@ func (r *ListTriggersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Triggers)), nil
 }
 
-// UpdateContainerRequest:
+// UpdateContainerRequest: update container request.
 type UpdateContainerRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ContainerID: UUID of the container to update.
 	ContainerID string `json:"-"`
-	// EnvironmentVariables: Environment variables of the container.
+
+	// EnvironmentVariables: environment variables of the container.
 	EnvironmentVariables *map[string]string `json:"environment_variables,omitempty"`
-	// MinScale: Minimum number of instances to scale the container to.
+
+	// MinScale: minimum number of instances to scale the container to.
 	MinScale *uint32 `json:"min_scale,omitempty"`
-	// MaxScale: Maximum number of instances to scale the container to.
+
+	// MaxScale: maximum number of instances to scale the container to.
 	MaxScale *uint32 `json:"max_scale,omitempty"`
-	// MemoryLimit: Memory limit of the container in MB.
+
+	// MemoryLimit: memory limit of the container in MB.
 	MemoryLimit *uint32 `json:"memory_limit,omitempty"`
+
 	// CPULimit: CPU limit of the container in mvCPU.
 	CPULimit *uint32 `json:"cpu_limit,omitempty"`
-	// Timeout: Processing time limit for the container.
+
+	// Timeout: processing time limit for the container.
 	Timeout *scw.Duration `json:"timeout,omitempty"`
-	// Redeploy: Defines whether to redeploy failed containers.
+
+	// Redeploy: defines whether to redeploy failed containers.
 	Redeploy *bool `json:"redeploy,omitempty"`
-	// Privacy: Privacy settings of the container.
+
+	// Privacy: privacy settings of the container.
+	// Default value: unknown_privacy
 	Privacy ContainerPrivacy `json:"privacy"`
-	// Description: Description of the container.
+
+	// Description: description of the container.
 	Description *string `json:"description,omitempty"`
-	// RegistryImage: Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+
+	// RegistryImage: name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
 	RegistryImage *string `json:"registry_image,omitempty"`
-	// MaxConcurrency: Number of maximum concurrent executions of the container.
+
+	// MaxConcurrency: number of maximum concurrent executions of the container.
 	MaxConcurrency *uint32 `json:"max_concurrency,omitempty"`
-	// Protocol:
+
+	// Protocol: default value: unknown_protocol
 	Protocol ContainerProtocol `json:"protocol"`
-	// Port:
+
 	Port *uint32 `json:"port,omitempty"`
-	// SecretEnvironmentVariables:
+
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
-	// HTTPOption: Possible values:
+
+	// HTTPOption: possible values:
 	//  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
 	//  - enabled: Serve both HTTP and HTTPS traffic.
+	// Default value: unknown_http_option
 	HTTPOption ContainerHTTPOption `json:"http_option"`
 }
 
-// UpdateCronRequest:
+// UpdateCronRequest: update cron request.
 type UpdateCronRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// CronID: UUID of the cron to update.
 	CronID string `json:"-"`
+
 	// ContainerID: UUID of the container invoked by the cron.
 	ContainerID *string `json:"container_id,omitempty"`
-	// Schedule: UNIX cron schedule.
+
+	// Schedule: uNIX cron schedule.
 	Schedule *string `json:"schedule,omitempty"`
-	// Args: Arguments to pass with the cron.
+
+	// Args: arguments to pass with the cron.
 	Args *scw.JSONObject `json:"args,omitempty"`
-	// Name: Name of the cron.
+
+	// Name: name of the cron.
 	Name *string `json:"name,omitempty"`
 }
 
-// UpdateNamespaceRequest:
+// UpdateNamespaceRequest: update namespace request.
 type UpdateNamespaceRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// NamespaceID: UUID of the namespace to update.
 	NamespaceID string `json:"-"`
-	// EnvironmentVariables: Environment variables of the namespace to update.
+
+	// EnvironmentVariables: environment variables of the namespace to update.
 	EnvironmentVariables *map[string]string `json:"environment_variables,omitempty"`
-	// Description: Description of the namespace to update.
+
+	// Description: description of the namespace to update.
 	Description *string `json:"description,omitempty"`
-	// SecretEnvironmentVariables: Secret environment variables of the namespace to update.
+
+	// SecretEnvironmentVariables: secret environment variables of the namespace to update.
 	SecretEnvironmentVariables []*Secret `json:"secret_environment_variables"`
 }
 
-// UpdateTriggerRequest:
+// UpdateTriggerRequest: update trigger request.
 type UpdateTriggerRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// TriggerID:
+
 	TriggerID string `json:"-"`
-	// Name:
+
 	Name *string `json:"name,omitempty"`
-	// Description:
+
 	Description *string `json:"description,omitempty"`
-	// SqsConfig:
+
+	// Precisely one of SqsConfig must be set.
 	SqsConfig *UpdateTriggerRequestSqsClientConfig `json:"sqs_config,omitempty"`
 }
 
@@ -1524,10 +1703,12 @@ func (s *API) Regions() []scw.Region {
 // ListNamespaces: List all namespaces in a specified region.
 func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -1563,6 +1744,7 @@ func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOpti
 // GetNamespace: Get the namespace associated with the specified ID.
 func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1593,10 +1775,12 @@ func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) 
 // CreateNamespace: Create a new namespace in a specified region.
 func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1632,6 +1816,7 @@ func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOp
 // UpdateNamespace: Update the space associated with the specified ID.
 func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1667,6 +1852,7 @@ func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOp
 // DeleteNamespace: Delete the namespace associated with the specified ID.
 func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1697,10 +1883,12 @@ func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOp
 // ListContainers: List all containers for a specified region.
 func (s *API) ListContainers(req *ListContainersRequest, opts ...scw.RequestOption) (*ListContainersResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -1737,6 +1925,7 @@ func (s *API) ListContainers(req *ListContainersRequest, opts ...scw.RequestOpti
 // GetContainer: Get the container associated with the specified ID.
 func (s *API) GetContainer(req *GetContainerRequest, opts ...scw.RequestOption) (*Container, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1767,6 +1956,7 @@ func (s *API) GetContainer(req *GetContainerRequest, opts ...scw.RequestOption) 
 // CreateContainer: Create a new container in the specified region.
 func (s *API) CreateContainer(req *CreateContainerRequest, opts ...scw.RequestOption) (*Container, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1798,6 +1988,7 @@ func (s *API) CreateContainer(req *CreateContainerRequest, opts ...scw.RequestOp
 // UpdateContainer: Update the container associated with the specified ID.
 func (s *API) UpdateContainer(req *UpdateContainerRequest, opts ...scw.RequestOption) (*Container, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1833,6 +2024,7 @@ func (s *API) UpdateContainer(req *UpdateContainerRequest, opts ...scw.RequestOp
 // DeleteContainer: Delete the container associated with the specified ID.
 func (s *API) DeleteContainer(req *DeleteContainerRequest, opts ...scw.RequestOption) (*Container, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1863,6 +2055,7 @@ func (s *API) DeleteContainer(req *DeleteContainerRequest, opts ...scw.RequestOp
 // DeployContainer: Deploy a container associated with the specified ID.
 func (s *API) DeployContainer(req *DeployContainerRequest, opts ...scw.RequestOption) (*Container, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1898,10 +2091,12 @@ func (s *API) DeployContainer(req *DeployContainerRequest, opts ...scw.RequestOp
 // ListCrons: List all your crons.
 func (s *API) ListCrons(req *ListCronsRequest, opts ...scw.RequestOption) (*ListCronsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -1935,6 +2130,7 @@ func (s *API) ListCrons(req *ListCronsRequest, opts ...scw.RequestOption) (*List
 // GetCron: Get the cron associated with the specified ID.
 func (s *API) GetCron(req *GetCronRequest, opts ...scw.RequestOption) (*Cron, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1965,6 +2161,7 @@ func (s *API) GetCron(req *GetCronRequest, opts ...scw.RequestOption) (*Cron, er
 // CreateCron: Create a new cron.
 func (s *API) CreateCron(req *CreateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1996,6 +2193,7 @@ func (s *API) CreateCron(req *CreateCronRequest, opts ...scw.RequestOption) (*Cr
 // UpdateCron: Update the cron associated with the specified ID.
 func (s *API) UpdateCron(req *UpdateCronRequest, opts ...scw.RequestOption) (*Cron, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2031,6 +2229,7 @@ func (s *API) UpdateCron(req *UpdateCronRequest, opts ...scw.RequestOption) (*Cr
 // DeleteCron: Delete the cron associated with the specified ID.
 func (s *API) DeleteCron(req *DeleteCronRequest, opts ...scw.RequestOption) (*Cron, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2061,10 +2260,12 @@ func (s *API) DeleteCron(req *DeleteCronRequest, opts ...scw.RequestOption) (*Cr
 // ListLogs: List the logs of the container with the specified ID.
 func (s *API) ListLogs(req *ListLogsRequest, opts ...scw.RequestOption) (*ListLogsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -2101,10 +2302,12 @@ func (s *API) ListLogs(req *ListLogsRequest, opts ...scw.RequestOption) (*ListLo
 // ListDomains: List all domain name bindings in a specified region.
 func (s *API) ListDomains(req *ListDomainsRequest, opts ...scw.RequestOption) (*ListDomainsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -2138,6 +2341,7 @@ func (s *API) ListDomains(req *ListDomainsRequest, opts ...scw.RequestOption) (*
 // GetDomain: Get a domain name binding for the container with the specified ID.
 func (s *API) GetDomain(req *GetDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2168,6 +2372,7 @@ func (s *API) GetDomain(req *GetDomainRequest, opts ...scw.RequestOption) (*Doma
 // CreateDomain: Create a domain name binding for the container with the specified ID.
 func (s *API) CreateDomain(req *CreateDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2199,6 +2404,7 @@ func (s *API) CreateDomain(req *CreateDomainRequest, opts ...scw.RequestOption) 
 // DeleteDomain: Delete the domain name binding with the specific ID.
 func (s *API) DeleteDomain(req *DeleteDomainRequest, opts ...scw.RequestOption) (*Domain, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2229,6 +2435,7 @@ func (s *API) DeleteDomain(req *DeleteDomainRequest, opts ...scw.RequestOption) 
 // Deprecated: IssueJWT:
 func (s *API) IssueJWT(req *IssueJWTRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2261,6 +2468,7 @@ func (s *API) IssueJWT(req *IssueJWTRequest, opts ...scw.RequestOption) (*Token,
 // CreateToken: Create a new revocable token.
 func (s *API) CreateToken(req *CreateTokenRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2292,6 +2500,7 @@ func (s *API) CreateToken(req *CreateTokenRequest, opts ...scw.RequestOption) (*
 // GetToken: Get a token with a specified ID.
 func (s *API) GetToken(req *GetTokenRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2322,10 +2531,12 @@ func (s *API) GetToken(req *GetTokenRequest, opts ...scw.RequestOption) (*Token,
 // ListTokens: List all tokens belonging to a specified Organization or Project.
 func (s *API) ListTokens(req *ListTokensRequest, opts ...scw.RequestOption) (*ListTokensResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -2360,6 +2571,7 @@ func (s *API) ListTokens(req *ListTokensRequest, opts ...scw.RequestOption) (*Li
 // DeleteToken: Delete a token with a specified ID.
 func (s *API) DeleteToken(req *DeleteTokenRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2390,6 +2602,7 @@ func (s *API) DeleteToken(req *DeleteTokenRequest, opts ...scw.RequestOption) (*
 // CreateTrigger: Create a new trigger for a specified container.
 func (s *API) CreateTrigger(req *CreateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2421,6 +2634,7 @@ func (s *API) CreateTrigger(req *CreateTriggerRequest, opts ...scw.RequestOption
 // GetTrigger: Get a trigger with a specified ID.
 func (s *API) GetTrigger(req *GetTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2451,10 +2665,12 @@ func (s *API) GetTrigger(req *GetTriggerRequest, opts ...scw.RequestOption) (*Tr
 // ListTriggers: List all triggers belonging to a specified Organization or Project.
 func (s *API) ListTriggers(req *ListTriggersRequest, opts ...scw.RequestOption) (*ListTriggersResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -2495,6 +2711,7 @@ func (s *API) ListTriggers(req *ListTriggersRequest, opts ...scw.RequestOption) 
 // UpdateTrigger: Update a trigger with a specified ID.
 func (s *API) UpdateTrigger(req *UpdateTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -2530,6 +2747,7 @@ func (s *API) UpdateTrigger(req *UpdateTriggerRequest, opts ...scw.RequestOption
 // DeleteTrigger: Delete a trigger with a specified ID.
 func (s *API) DeleteTrigger(req *DeleteTriggerRequest, opts ...scw.RequestOption) (*Trigger, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion

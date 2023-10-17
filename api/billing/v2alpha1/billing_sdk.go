@@ -141,85 +141,109 @@ func (enum *ListInvoicesRequestOrderBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// GetConsumptionResponseConsumption:
+// GetConsumptionResponseConsumption: get consumption response consumption.
 type GetConsumptionResponseConsumption struct {
-	// Value: Monetary value of the consumption.
+	// Value: monetary value of the consumption.
 	Value *scw.Money `json:"value"`
-	// Description: Description of the consumption.
+
+	// Description: description of the consumption.
 	Description string `json:"description"`
-	// ProjectID: Project ID of the consumption.
+
+	// ProjectID: project ID of the consumption.
 	ProjectID string `json:"project_id"`
-	// Category: Category of the consumption.
+
+	// Category: category of the consumption.
 	Category string `json:"category"`
-	// OperationPath: Unique identifier of the product.
+
+	// OperationPath: unique identifier of the product.
 	OperationPath string `json:"operation_path"`
 }
 
-// Invoice:
+// Invoice: invoice.
 type Invoice struct {
-	// ID: Invoice ID.
+	// ID: invoice ID.
 	ID string `json:"id"`
-	// StartDate: Start date of the billing period.
+
+	// StartDate: start date of the billing period.
 	StartDate *time.Time `json:"start_date"`
-	// IssuedDate: Date when the invoice was sent to the customer.
+
+	// IssuedDate: date when the invoice was sent to the customer.
 	IssuedDate *time.Time `json:"issued_date"`
-	// DueDate: Payment time limit, set according to the Organization's payment conditions.
+
+	// DueDate: payment time limit, set according to the Organization's payment conditions.
 	DueDate *time.Time `json:"due_date"`
-	// TotalUntaxed: Total amount, untaxed.
+
+	// TotalUntaxed: total amount, untaxed.
 	TotalUntaxed *scw.Money `json:"total_untaxed"`
-	// TotalTaxed: Total amount, taxed.
+
+	// TotalTaxed: total amount, taxed.
 	TotalTaxed *scw.Money `json:"total_taxed"`
-	// InvoiceType: Type of invoice.
+
+	// InvoiceType: type of invoice.
+	// Default value: unknown_type
 	InvoiceType InvoiceType `json:"invoice_type"`
-	// Number: Invoice number.
+
+	// Number: invoice number.
 	Number int32 `json:"number"`
 }
 
-// DownloadInvoiceRequest:
+// DownloadInvoiceRequest: download invoice request.
 type DownloadInvoiceRequest struct {
-	// InvoiceID: Invoice ID.
+	// InvoiceID: invoice ID.
 	InvoiceID string `json:"-"`
-	// FileType: Wanted file type.
+
+	// FileType: wanted file type.
+	// Default value: pdf
 	FileType DownloadInvoiceRequestFileType `json:"-"`
 }
 
-// GetConsumptionRequest:
+// GetConsumptionRequest: get consumption request.
 type GetConsumptionRequest struct {
-	// OrganizationID: Filter by organization ID.
+	// OrganizationID: filter by organization ID.
 	OrganizationID string `json:"-"`
 }
 
-// GetConsumptionResponse:
+// GetConsumptionResponse: get consumption response.
 type GetConsumptionResponse struct {
-	// Consumptions: Detailed consumption list.
+	// Consumptions: detailed consumption list.
 	Consumptions []*GetConsumptionResponseConsumption `json:"consumptions"`
-	// UpdatedAt: Last consumption update date.
+
+	// UpdatedAt: last consumption update date.
 	UpdatedAt *time.Time `json:"updated_at"`
 }
 
-// ListInvoicesRequest:
+// ListInvoicesRequest: list invoices request.
 type ListInvoicesRequest struct {
-	// OrganizationID: Organization ID to filter for, only invoices from this Organization will be returned.
+	// OrganizationID: organization ID to filter for, only invoices from this Organization will be returned.
 	OrganizationID *string `json:"-"`
-	// StartedAfter: Invoice's `start_date` is greater or equal to `started_after`.
+
+	// StartedAfter: invoice's `start_date` is greater or equal to `started_after`.
 	StartedAfter *time.Time `json:"-"`
-	// StartedBefore: Invoice's `start_date` precedes `started_before`.
+
+	// StartedBefore: invoice's `start_date` precedes `started_before`.
 	StartedBefore *time.Time `json:"-"`
-	// InvoiceType: Invoice type. It can either be `periodic` or `purchase`.
+
+	// InvoiceType: invoice type. It can either be `periodic` or `purchase`.
+	// Default value: unknown_type
 	InvoiceType InvoiceType `json:"-"`
-	// Page: Positive integer to choose the page to return.
+
+	// Page: positive integer to choose the page to return.
 	Page *int32 `json:"-"`
-	// PageSize: Positive integer lower or equal to 100 to select the number of items to return.
+
+	// PageSize: positive integer lower or equal to 100 to select the number of items to return.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: How invoices are ordered in the response.
+
+	// OrderBy: how invoices are ordered in the response.
+	// Default value: invoice_number_desc
 	OrderBy ListInvoicesRequestOrderBy `json:"-"`
 }
 
-// ListInvoicesResponse:
+// ListInvoicesResponse: list invoices response.
 type ListInvoicesResponse struct {
-	// TotalCount: Total number of invoices.
+	// TotalCount: total number of invoices.
 	TotalCount uint32 `json:"total_count"`
-	// Invoices: Paginated returned invoices.
+
+	// Invoices: paginated returned invoices.
 	Invoices []*Invoice `json:"invoices"`
 }
 

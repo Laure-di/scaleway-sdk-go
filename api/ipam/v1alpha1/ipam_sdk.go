@@ -114,107 +114,117 @@ func (enum *ResourceType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Resource:
+// Resource: resource.
 type Resource struct {
-	// Type:
+	// Type: default value: unknown_type
 	Type ResourceType `json:"type"`
-	// ID:
+
 	ID string `json:"id"`
-	// MacAddress:
+
 	MacAddress *string `json:"mac_address"`
-	// Name:
+
 	Name *string `json:"name"`
 }
 
-// Reverse:
+// Reverse: reverse.
 type Reverse struct {
-	// Hostname:
 	Hostname string `json:"hostname"`
-	// Address:
+
 	Address *scw.IPNet `json:"address"`
 }
 
-// IP:
+// IP: ip.
 type IP struct {
-	// ID:
 	ID string `json:"id"`
-	// Address:
+
 	Address scw.IPNet `json:"address"`
-	// ProjectID:
+
 	ProjectID string `json:"project_id"`
-	// IsIPv6:
+
 	IsIPv6 bool `json:"is_ipv6"`
-	// CreatedAt:
+
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt:
+
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Regional:
+
+	// Precisely one of Regional, Zonal, ZonalNat, SubnetID must be set.
 	Regional *bool `json:"regional,omitempty"`
-	// Zonal:
+
+	// Precisely one of Regional, Zonal, ZonalNat, SubnetID must be set.
 	Zonal *string `json:"zonal,omitempty"`
-	// ZonalNat:
+
+	// Precisely one of Regional, Zonal, ZonalNat, SubnetID must be set.
 	ZonalNat *string `json:"zonal_nat,omitempty"`
-	// SubnetID:
+
+	// Precisely one of Regional, Zonal, ZonalNat, SubnetID must be set.
 	SubnetID *string `json:"subnet_id,omitempty"`
-	// Resource:
+
 	Resource *Resource `json:"resource"`
-	// Tags:
+
 	Tags []string `json:"tags"`
-	// Reverses:
+
 	Reverses []*Reverse `json:"reverses"`
-	// Region:
+
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"region"`
-	// Zone:
+
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone *scw.Zone `json:"zone"`
 }
 
-// ListIPsRequest:
+// ListIPsRequest: list i ps request.
 type ListIPsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page:
+
 	Page *int32 `json:"-"`
-	// PageSize:
+
 	PageSize *uint32 `json:"-"`
-	// OrderBy:
+
+	// OrderBy: default value: created_at_desc
 	OrderBy ListIPsRequestOrderBy `json:"-"`
-	// ProjectID:
+
 	ProjectID *string `json:"-"`
-	// OrganizationID:
+
 	OrganizationID *string `json:"-"`
-	// Zonal:
+
+	// Precisely one of Zonal, ZonalNat, Regional, PrivateNetworkID, SubnetID must be set.
 	Zonal *string `json:"zonal,omitempty"`
-	// ZonalNat:
+
+	// Precisely one of Zonal, ZonalNat, Regional, PrivateNetworkID, SubnetID must be set.
 	ZonalNat *string `json:"zonal_nat,omitempty"`
-	// Regional:
+
+	// Precisely one of Zonal, ZonalNat, Regional, PrivateNetworkID, SubnetID must be set.
 	Regional *bool `json:"regional,omitempty"`
-	// PrivateNetworkID:
+
+	// Precisely one of Zonal, ZonalNat, Regional, PrivateNetworkID, SubnetID must be set.
 	PrivateNetworkID *string `json:"private_network_id,omitempty"`
-	// SubnetID:
+
+	// Precisely one of Zonal, ZonalNat, Regional, PrivateNetworkID, SubnetID must be set.
 	SubnetID *string `json:"subnet_id,omitempty"`
-	// Attached:
+
 	Attached *bool `json:"-"`
-	// ResourceID:
+
 	ResourceID *string `json:"-"`
-	// ResourceType:
+
+	// ResourceType: default value: unknown_type
 	ResourceType ResourceType `json:"-"`
-	// MacAddress:
+
 	MacAddress *string `json:"-"`
-	// Tags:
+
 	Tags *[]string `json:"-"`
-	// IsIPv6:
+
 	IsIPv6 *bool `json:"-"`
-	// ResourceName:
+
 	ResourceName *string `json:"-"`
-	// ResourceIDs:
+
 	ResourceIDs []string `json:"-"`
 }
 
-// ListIPsResponse:
+// ListIPsResponse: list i ps response.
 type ListIPsResponse struct {
-	// TotalCount:
 	TotalCount uint64 `json:"total_count"`
-	// IPs:
+
 	IPs []*IP `json:"ips"`
 }
 
@@ -255,10 +265,12 @@ func (s *API) Regions() []scw.Region {
 // ListIPs: Find IP addresses.
 func (s *API) ListIPs(req *ListIPsRequest, opts ...scw.RequestOption) (*ListIPsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize

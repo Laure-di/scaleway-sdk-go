@@ -167,105 +167,117 @@ func (enum *LocalImageType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Category:
+// Category: category.
 type Category struct {
-	// ID:
 	ID string `json:"id"`
-	// Name:
+
 	Name string `json:"name"`
-	// Description:
+
 	Description string `json:"description"`
 }
 
-// Image:
+// Image: image.
 type Image struct {
 	// ID: UUID of this image.
 	ID string `json:"id"`
-	// Name: Name of the image.
+
+	// Name: name of the image.
 	Name string `json:"name"`
-	// Description: Text description of this image.
+
+	// Description: text description of this image.
 	Description string `json:"description"`
+
 	// Logo: URL of this image's logo.
 	Logo string `json:"logo"`
-	// Categories: List of categories this image belongs to.
+
+	// Categories: list of categories this image belongs to.
 	Categories []string `json:"categories"`
-	// CreatedAt: Creation date of this image.
+
+	// CreatedAt: creation date of this image.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date of the last modification of this image.
+
+	// UpdatedAt: date of the last modification of this image.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// ValidUntil: Expiration date of this image.
+
+	// ValidUntil: expiration date of this image.
 	ValidUntil *time.Time `json:"valid_until"`
-	// Label: Typically an identifier for a distribution (ex. "ubuntu_focal").
+
+	// Label: typically an identifier for a distribution (ex. "ubuntu_focal").
 	Label string `json:"label"`
 }
 
-// LocalImage:
+// LocalImage: local image.
 type LocalImage struct {
-	// ID: Version you will typically use to define an image in an API call.
+	// ID: version you will typically use to define an image in an API call.
 	ID string `json:"id"`
-	// CompatibleCommercialTypes: List of all commercial types that are compatible with this local image.
+
+	// CompatibleCommercialTypes: list of all commercial types that are compatible with this local image.
 	CompatibleCommercialTypes []string `json:"compatible_commercial_types"`
-	// Arch: Supported architecture for this local image.
+
+	// Arch: supported architecture for this local image.
 	Arch string `json:"arch"`
-	// Zone: Availability Zone where this local image is available.
+
+	// Zone: availability Zone where this local image is available.
 	Zone scw.Zone `json:"zone"`
-	// Label: Image label this image belongs to.
+
+	// Label: image label this image belongs to.
 	Label string `json:"label"`
-	// Type: Type of this local image.
+
+	// Type: type of this local image.
+	// Default value: unknown_type
 	Type LocalImageType `json:"type"`
 }
 
-// Version:
+// Version: version.
 type Version struct {
 	// ID: UUID of this version.
 	ID string `json:"id"`
-	// Name: Name of this version.
+
+	// Name: name of this version.
 	Name string `json:"name"`
-	// CreatedAt: Creation date of this image version.
+
+	// CreatedAt: creation date of this image version.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date of the last modification of this version.
+
+	// UpdatedAt: date of the last modification of this version.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// PublishedAt: Date this version was officially published.
+
+	// PublishedAt: date this version was officially published.
 	PublishedAt *time.Time `json:"published_at"`
 }
 
-// GetCategoryRequest:
+// GetCategoryRequest: get category request.
 type GetCategoryRequest struct {
-	// CategoryID:
 	CategoryID string `json:"-"`
 }
 
-// GetImageRequest:
+// GetImageRequest: get image request.
 type GetImageRequest struct {
-	// ImageID: Display the image name.
+	// ImageID: display the image name.
 	ImageID string `json:"-"`
 }
 
-// GetLocalImageRequest:
+// GetLocalImageRequest: get local image request.
 type GetLocalImageRequest struct {
-	// LocalImageID:
 	LocalImageID string `json:"-"`
 }
 
-// GetVersionRequest:
+// GetVersionRequest: get version request.
 type GetVersionRequest struct {
-	// VersionID:
 	VersionID string `json:"-"`
 }
 
-// ListCategoriesRequest:
+// ListCategoriesRequest: list categories request.
 type ListCategoriesRequest struct {
-	// PageSize:
 	PageSize *uint32 `json:"-"`
-	// Page:
+
 	Page *int32 `json:"-"`
 }
 
-// ListCategoriesResponse:
+// ListCategoriesResponse: list categories response.
 type ListCategoriesResponse struct {
-	// Categories:
 	Categories []*Category `json:"categories"`
-	// TotalCount:
+
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -288,27 +300,32 @@ func (r *ListCategoriesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Categories)), nil
 }
 
-// ListImagesRequest:
+// ListImagesRequest: list images request.
 type ListImagesRequest struct {
-	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
+	// PageSize: a positive integer lower or equal to 100 to select the number of items to display.
 	PageSize *uint32 `json:"-"`
-	// Page: A positive integer to choose the page to display.
+
+	// Page: a positive integer to choose the page to display.
 	Page *int32 `json:"-"`
-	// OrderBy: Ordering to use.
+
+	// OrderBy: ordering to use.
+	// Default value: name_asc
 	OrderBy ListImagesRequestOrderBy `json:"-"`
-	// Arch: Choose for which machine architecture to return images.
+
+	// Arch: choose for which machine architecture to return images.
 	Arch *string `json:"-"`
-	// Category: Choose the category of images to get.
+
+	// Category: choose the category of images to get.
 	Category *string `json:"-"`
-	// IncludeEol: Choose to include end-of-life images.
+
+	// IncludeEol: choose to include end-of-life images.
 	IncludeEol bool `json:"-"`
 }
 
-// ListImagesResponse:
+// ListImagesResponse: list images response.
 type ListImagesResponse struct {
-	// Images:
 	Images []*Image `json:"images"`
-	// TotalCount:
+
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -331,31 +348,35 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Images)), nil
 }
 
-// ListLocalImagesRequest:
+// ListLocalImagesRequest: list local images request.
 type ListLocalImagesRequest struct {
-	// ImageID:
+	// Precisely one of ImageID, VersionID, ImageLabel must be set.
 	ImageID *string `json:"image_id,omitempty"`
-	// VersionID:
+
+	// Precisely one of ImageID, VersionID, ImageLabel must be set.
 	VersionID *string `json:"version_id,omitempty"`
-	// PageSize:
+
 	PageSize *uint32 `json:"-"`
-	// Page:
+
 	Page *int32 `json:"-"`
-	// OrderBy:
+
+	// OrderBy: default value: created_at_asc
 	OrderBy ListLocalImagesRequestOrderBy `json:"-"`
-	// ImageLabel:
+
+	// Precisely one of ImageID, VersionID, ImageLabel must be set.
 	ImageLabel *string `json:"image_label,omitempty"`
-	// Zone:
+
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone *scw.Zone `json:"-"`
-	// Type:
+
+	// Type: default value: unknown_type
 	Type LocalImageType `json:"-"`
 }
 
-// ListLocalImagesResponse:
+// ListLocalImagesResponse: list local images response.
 type ListLocalImagesResponse struct {
-	// LocalImages:
 	LocalImages []*LocalImage `json:"local_images"`
-	// TotalCount:
+
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -378,23 +399,22 @@ func (r *ListLocalImagesResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.LocalImages)), nil
 }
 
-// ListVersionsRequest:
+// ListVersionsRequest: list versions request.
 type ListVersionsRequest struct {
-	// ImageID:
 	ImageID string `json:"-"`
-	// PageSize:
+
 	PageSize *uint32 `json:"-"`
-	// Page:
+
 	Page *int32 `json:"-"`
-	// OrderBy:
+
+	// OrderBy: default value: created_at_asc
 	OrderBy ListVersionsRequestOrderBy `json:"-"`
 }
 
-// ListVersionsResponse:
+// ListVersionsResponse: list versions response.
 type ListVersionsResponse struct {
-	// Versions:
 	Versions []*Version `json:"versions"`
-	// TotalCount:
+
 	TotalCount uint32 `json:"total_count"`
 }
 

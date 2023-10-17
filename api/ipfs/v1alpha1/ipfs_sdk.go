@@ -244,285 +244,318 @@ func (enum *PinStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// PinCIDMeta:
+// PinCIDMeta: pin cid meta.
 type PinCIDMeta struct {
-	// ID:
 	ID *string `json:"id"`
 }
 
-// PinCID:
+// PinCID: pin cid.
 type PinCID struct {
-	// Cid:
 	Cid *string `json:"cid"`
-	// Name:
+
 	Name *string `json:"name"`
-	// Origins:
+
 	Origins []string `json:"origins"`
-	// Meta:
+
 	Meta *PinCIDMeta `json:"meta"`
 }
 
-// PinInfo:
+// PinInfo: pin info.
 type PinInfo struct {
-	// ID:
 	ID *string `json:"id"`
-	// URL:
+
 	URL *string `json:"url"`
-	// Size:
+
 	Size *uint64 `json:"size"`
-	// Progress:
+
 	Progress *uint32 `json:"progress"`
-	// StatusDetails:
+
+	// StatusDetails: default value: unknown_details
 	StatusDetails PinDetails `json:"status_details"`
 }
 
-// PinOptions:
+// PinOptions: pin options.
 type PinOptions struct {
-	// RequiredZones:
 	RequiredZones []string `json:"required_zones"`
-	// ReplicationCount:
+
 	ReplicationCount uint32 `json:"replication_count"`
 }
 
-// Name:
+// Name: name.
 type Name struct {
-	// NameID:
 	NameID string `json:"name_id"`
-	// ProjectID:
+
 	ProjectID string `json:"project_id"`
-	// CreatedAt:
+
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt:
+
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Tags:
+
 	Tags []string `json:"tags"`
-	// Name:
+
 	Name string `json:"name"`
-	// Key:
+
 	Key string `json:"key"`
-	// Status:
+
+	// Status: default value: unknown_status
 	Status NameStatus `json:"status"`
-	// Value:
+
 	Value string `json:"value"`
-	// Region:
+
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"region"`
 }
 
-// Pin:
+// Pin: pin.
 type Pin struct {
-	// PinID:
 	PinID string `json:"pin_id"`
-	// Status:
+
+	// Status: default value: unknown_status
 	Status PinStatus `json:"status"`
-	// CreatedAt:
+
 	CreatedAt *time.Time `json:"created_at"`
-	// Cid:
+
 	Cid *PinCID `json:"cid"`
-	// Delegates:
+
 	Delegates []string `json:"delegates"`
-	// Info:
+
 	Info *PinInfo `json:"info"`
 }
 
-// Volume:
+// Volume: volume.
 type Volume struct {
-	// ID:
 	ID string `json:"id"`
-	// ProjectID:
+
 	ProjectID string `json:"project_id"`
-	// Region:
+
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"region"`
-	// CountPin:
+
 	CountPin uint64 `json:"count_pin"`
-	// CreatedAt:
+
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt:
+
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Tags:
+
 	Tags []string `json:"tags"`
-	// Name:
+
 	Name string `json:"name"`
-	// Size:
+
 	Size *uint64 `json:"size"`
 }
 
-// CreatePinByCIDRequest:
+// CreatePinByCIDRequest: create pin by cid request.
 type CreatePinByCIDRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// VolumeID: Volume ID on which you want to pin your content.
+
+	// VolumeID: volume ID on which you want to pin your content.
 	VolumeID string `json:"volume_id"`
-	// Cid: CID containing the content you want to pin.
+
+	// Cid: cID containing the content you want to pin.
 	Cid string `json:"cid"`
-	// Origins: Node containing the content you want to pin.
+
+	// Origins: node containing the content you want to pin.
 	Origins []string `json:"origins"`
-	// Name: Pin name.
+
+	// Name: pin name.
 	Name *string `json:"name,omitempty"`
-	// PinOptions: Pin options.
+
+	// PinOptions: pin options.
 	PinOptions *PinOptions `json:"pin_options"`
 }
 
-// CreatePinByURLRequest:
+// CreatePinByURLRequest: create pin by url request.
 type CreatePinByURLRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// VolumeID: Volume ID on which you want to pin your content.
+
+	// VolumeID: volume ID on which you want to pin your content.
 	VolumeID string `json:"volume_id"`
+
 	// URL: URL containing the content you want to pin.
 	URL string `json:"url"`
-	// Name: Pin name.
+
+	// Name: pin name.
 	Name *string `json:"name,omitempty"`
-	// PinOptions: Pin options.
+
+	// PinOptions: pin options.
 	PinOptions *PinOptions `json:"pin_options"`
 }
 
-// CreateVolumeRequest:
+// CreateVolumeRequest: create volume request.
 type CreateVolumeRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// ProjectID: Project ID.
+
+	// ProjectID: project ID.
 	ProjectID string `json:"project_id"`
-	// Name: Volume name.
+
+	// Name: volume name.
 	Name string `json:"name"`
 }
 
-// DeletePinRequest:
+// DeletePinRequest: delete pin request.
 type DeletePinRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// PinID: Pin ID you want to remove from the volume.
+
+	// PinID: pin ID you want to remove from the volume.
 	PinID string `json:"-"`
-	// VolumeID: Volume ID.
+
+	// VolumeID: volume ID.
 	VolumeID string `json:"volume_id"`
 }
 
-// DeleteVolumeRequest:
+// DeleteVolumeRequest: delete volume request.
 type DeleteVolumeRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// VolumeID: Volume ID.
+
+	// VolumeID: volume ID.
 	VolumeID string `json:"-"`
 }
 
-// ExportKeyNameResponse:
+// ExportKeyNameResponse: export key name response.
 type ExportKeyNameResponse struct {
-	// NameID:
 	NameID string `json:"name_id"`
-	// ProjectID:
+
 	ProjectID string `json:"project_id"`
-	// CreatedAt:
+
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt:
+
 	UpdatedAt *time.Time `json:"updated_at"`
-	// PublicKey:
+
 	PublicKey string `json:"public_key"`
-	// PrivateKey:
+
 	PrivateKey string `json:"private_key"`
 }
 
-// GetPinRequest:
+// GetPinRequest: get pin request.
 type GetPinRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// PinID: Pin ID of which you want to obtain information.
+
+	// PinID: pin ID of which you want to obtain information.
 	PinID string `json:"-"`
-	// VolumeID: Volume ID.
+
+	// VolumeID: volume ID.
 	VolumeID string `json:"volume_id"`
 }
 
-// GetVolumeRequest:
+// GetVolumeRequest: get volume request.
 type GetVolumeRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// VolumeID: Volume ID.
+
+	// VolumeID: volume ID.
 	VolumeID string `json:"-"`
 }
 
-// IpnsAPICreateNameRequest:
+// IpnsAPICreateNameRequest: ipns api create name request.
 type IpnsAPICreateNameRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// ProjectID: Project ID.
+
+	// ProjectID: project ID.
 	ProjectID string `json:"project_id"`
-	// Name: Name for your records.
+
+	// Name: name for your records.
 	Name string `json:"name"`
-	// Value: Value you want to associate with your records, CID or IPNS key.
+
+	// Value: value you want to associate with your records, CID or IPNS key.
 	Value string `json:"value"`
 }
 
-// IpnsAPIDeleteNameRequest:
+// IpnsAPIDeleteNameRequest: ipns api delete name request.
 type IpnsAPIDeleteNameRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// NameID: Name ID you wish to delete.
+
+	// NameID: name ID you wish to delete.
 	NameID string `json:"-"`
 }
 
-// IpnsAPIExportKeyNameRequest:
+// IpnsAPIExportKeyNameRequest: ipns api export key name request.
 type IpnsAPIExportKeyNameRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// NameID: Name ID whose keys you want to export.
+
+	// NameID: name ID whose keys you want to export.
 	NameID string `json:"-"`
 }
 
-// IpnsAPIGetNameRequest:
+// IpnsAPIGetNameRequest: ipns api get name request.
 type IpnsAPIGetNameRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// NameID: Name ID whose information you want to retrieve.
+
+	// NameID: name ID whose information you want to retrieve.
 	NameID string `json:"-"`
 }
 
-// IpnsAPIImportKeyNameRequest:
+// IpnsAPIImportKeyNameRequest: ipns api import key name request.
 type IpnsAPIImportKeyNameRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// ProjectID: Project ID.
+
+	// ProjectID: project ID.
 	ProjectID string `json:"project_id"`
-	// Name: Name for your records.
+
+	// Name: name for your records.
 	Name string `json:"name"`
-	// PrivateKey: Base64 private key.
+
+	// PrivateKey: base64 private key.
 	PrivateKey string `json:"private_key"`
-	// Value: Value you want to associate with your records, CID or IPNS key.
+
+	// Value: value you want to associate with your records, CID or IPNS key.
 	Value string `json:"value"`
 }
 
-// IpnsAPIListNamesRequest:
+// IpnsAPIListNamesRequest: ipns api list names request.
 type IpnsAPIListNamesRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// ProjectID: Project ID.
+
+	// ProjectID: project ID.
 	ProjectID *string `json:"-"`
-	// OrganizationID: Organization ID.
+
+	// OrganizationID: organization ID.
 	OrganizationID *string `json:"-"`
-	// OrderBy: Sort the order of the returned names.
+
+	// OrderBy: sort the order of the returned names.
+	// Default value: created_at_asc
 	OrderBy ListNamesRequestOrderBy `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Maximum number of names to return per page.
+
+	// PageSize: maximum number of names to return per page.
 	PageSize *uint32 `json:"-"`
 }
 
-// IpnsAPIUpdateNameRequest:
+// IpnsAPIUpdateNameRequest: ipns api update name request.
 type IpnsAPIUpdateNameRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// NameID: Name ID you wish to update.
+
+	// NameID: name ID you wish to update.
 	NameID string `json:"-"`
-	// Name: New name you want to associate with your record.
+
+	// Name: new name you want to associate with your record.
 	Name *string `json:"name,omitempty"`
-	// Tags: New tags you want to associate with your record.
+
+	// Tags: new tags you want to associate with your record.
 	Tags *[]string `json:"tags,omitempty"`
-	// Value: Value you want to associate with your records, CID or IPNS key.
+
+	// Value: value you want to associate with your records, CID or IPNS key.
 	Value *string `json:"value,omitempty"`
 }
 
-// ListNamesResponse:
+// ListNamesResponse: list names response.
 type ListNamesResponse struct {
-	// Names:
 	Names []*Name `json:"names"`
-	// TotalCount:
+
 	TotalCount uint64 `json:"total_count"`
 }
 
@@ -545,31 +578,39 @@ func (r *ListNamesResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Names)), nil
 }
 
-// ListPinsRequest:
+// ListPinsRequest: list pins request.
 type ListPinsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// VolumeID: Volume ID of which you want to list the pins.
+
+	// VolumeID: volume ID of which you want to list the pins.
 	VolumeID string `json:"-"`
-	// ProjectID: Project ID.
+
+	// ProjectID: project ID.
 	ProjectID *string `json:"-"`
-	// OrganizationID: Organization ID.
+
+	// OrganizationID: organization ID.
 	OrganizationID *string `json:"-"`
-	// OrderBy: Sort order of the returned Volume.
+
+	// OrderBy: sort order of the returned Volume.
+	// Default value: created_at_asc
 	OrderBy ListPinsRequestOrderBy `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Maximum number of volumes to return per page.
+
+	// PageSize: maximum number of volumes to return per page.
 	PageSize *uint32 `json:"-"`
-	// Status: List pins by status.
+
+	// Status: list pins by status.
+	// Default value: unknown_status
 	Status PinStatus `json:"-"`
 }
 
-// ListPinsResponse:
+// ListPinsResponse: list pins response.
 type ListPinsResponse struct {
-	// TotalCount:
 	TotalCount uint64 `json:"total_count"`
-	// Pins:
+
 	Pins []*Pin `json:"pins"`
 }
 
@@ -592,25 +633,29 @@ func (r *ListPinsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Pins)), nil
 }
 
-// ListVolumesRequest:
+// ListVolumesRequest: list volumes request.
 type ListVolumesRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// ProjectID: Project ID, only volumes belonging to this project will be listed.
+
+	// ProjectID: project ID, only volumes belonging to this project will be listed.
 	ProjectID string `json:"-"`
-	// OrderBy: Sort the order of the returned volumes.
+
+	// OrderBy: sort the order of the returned volumes.
+	// Default value: created_at_asc
 	OrderBy ListVolumesRequestOrderBy `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Maximum number of volumes to return per page.
+
+	// PageSize: maximum number of volumes to return per page.
 	PageSize *uint32 `json:"-"`
 }
 
-// ListVolumesResponse:
+// ListVolumesResponse: list volumes response.
 type ListVolumesResponse struct {
-	// Volumes:
 	Volumes []*Volume `json:"volumes"`
-	// TotalCount:
+
 	TotalCount uint64 `json:"total_count"`
 }
 
@@ -633,39 +678,47 @@ func (r *ListVolumesResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Volumes)), nil
 }
 
-// ReplacePinRequest:
+// ReplacePinRequest: replace pin request.
 type ReplacePinRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// PinID: Pin ID whose information you wish to replace.
+
+	// PinID: pin ID whose information you wish to replace.
 	PinID string `json:"-"`
-	// VolumeID: Volume ID.
+
+	// VolumeID: volume ID.
 	VolumeID string `json:"volume_id"`
-	// Cid: New CID you want to pin in place of the old one.
+
+	// Cid: new CID you want to pin in place of the old one.
 	Cid string `json:"cid"`
-	// Name: New name to replace.
+
+	// Name: new name to replace.
 	Name *string `json:"name,omitempty"`
-	// Origins: Node containing the content you want to pin.
+
+	// Origins: node containing the content you want to pin.
 	Origins []string `json:"origins"`
-	// PinOptions: Pin options.
+
+	// PinOptions: pin options.
 	PinOptions *PinOptions `json:"pin_options"`
 }
 
-// ReplacePinResponse:
+// ReplacePinResponse: replace pin response.
 type ReplacePinResponse struct {
-	// Pin:
 	Pin *Pin `json:"pin"`
 }
 
-// UpdateVolumeRequest:
+// UpdateVolumeRequest: update volume request.
 type UpdateVolumeRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// VolumeID: Volume ID.
+
+	// VolumeID: volume ID.
 	VolumeID string `json:"-"`
-	// Name: Volume name.
+
+	// Name: volume name.
 	Name *string `json:"name,omitempty"`
-	// Tags: Tags of the volume.
+
+	// Tags: tags of the volume.
 	Tags *[]string `json:"tags,omitempty"`
 }
 
@@ -689,10 +742,12 @@ func (s *API) Regions() []scw.Region {
 // Should be the first command you made because every pin must be attached to a volume.
 func (s *API) CreateVolume(req *CreateVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -724,6 +779,7 @@ func (s *API) CreateVolume(req *CreateVolumeRequest, opts ...scw.RequestOption) 
 // GetVolume: Retrieve information about a specific volume.
 func (s *API) GetVolume(req *GetVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -754,14 +810,17 @@ func (s *API) GetVolume(req *GetVolumeRequest, opts ...scw.RequestOption) (*Volu
 // ListVolumes: Retrieve information about all volumes from a Project ID.
 func (s *API) ListVolumes(req *ListVolumesRequest, opts ...scw.RequestOption) (*ListVolumesResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -795,6 +854,7 @@ func (s *API) ListVolumes(req *ListVolumesRequest, opts ...scw.RequestOption) (*
 // UpdateVolume: Update volume information (tag, name...).
 func (s *API) UpdateVolume(req *UpdateVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -830,6 +890,7 @@ func (s *API) UpdateVolume(req *UpdateVolumeRequest, opts ...scw.RequestOption) 
 // DeleteVolume: Delete a volume by its ID and every pin attached to this volume. This process can take a while to conclude, depending on the size of your pinned content.
 func (s *API) DeleteVolume(req *DeleteVolumeRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -862,6 +923,7 @@ func (s *API) DeleteVolume(req *DeleteVolumeRequest, opts ...scw.RequestOption) 
 // A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.
 func (s *API) CreatePinByURL(req *CreatePinByURLRequest, opts ...scw.RequestOption) (*Pin, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -897,6 +959,7 @@ func (s *API) CreatePinByURL(req *CreatePinByURLRequest, opts ...scw.RequestOpti
 // A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.
 func (s *API) CreatePinByCID(req *CreatePinByCIDRequest, opts ...scw.RequestOption) (*Pin, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -928,6 +991,7 @@ func (s *API) CreatePinByCID(req *CreatePinByCIDRequest, opts ...scw.RequestOpti
 // ReplacePin:
 func (s *API) ReplacePin(req *ReplacePinRequest, opts ...scw.RequestOption) (*ReplacePinResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -963,6 +1027,7 @@ func (s *API) ReplacePin(req *ReplacePinRequest, opts ...scw.RequestOption) (*Re
 // GetPin: Retrieve information about the provided **pin ID**, such as status, last modification, and CID.
 func (s *API) GetPin(req *GetPinRequest, opts ...scw.RequestOption) (*Pin, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -997,10 +1062,12 @@ func (s *API) GetPin(req *GetPinRequest, opts ...scw.RequestOption) (*Pin, error
 // ListPins: Retrieve information about all pins within a volume.
 func (s *API) ListPins(req *ListPinsRequest, opts ...scw.RequestOption) (*ListPinsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -1038,6 +1105,7 @@ func (s *API) ListPins(req *ListPinsRequest, opts ...scw.RequestOption) (*ListPi
 // This content can therefore be removed and no longer provided on the IPFS network.
 func (s *API) DeletePin(req *DeletePinRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1084,10 +1152,12 @@ func (s *IpnsAPI) Regions() []scw.Region {
 // CreateName: You can use the `ipns key` command to list and generate more names and their respective keys.
 func (s *IpnsAPI) CreateName(req *IpnsAPICreateNameRequest, opts ...scw.RequestOption) (*Name, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1119,6 +1189,7 @@ func (s *IpnsAPI) CreateName(req *IpnsAPICreateNameRequest, opts ...scw.RequestO
 // GetName: Retrieve information about a specific name.
 func (s *IpnsAPI) GetName(req *IpnsAPIGetNameRequest, opts ...scw.RequestOption) (*Name, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1149,6 +1220,7 @@ func (s *IpnsAPI) GetName(req *IpnsAPIGetNameRequest, opts ...scw.RequestOption)
 // DeleteName: Delete a name by its ID.
 func (s *IpnsAPI) DeleteName(req *IpnsAPIDeleteNameRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1177,10 +1249,12 @@ func (s *IpnsAPI) DeleteName(req *IpnsAPIDeleteNameRequest, opts ...scw.RequestO
 // ListNames: Retrieve information about all names from a Project ID.
 func (s *IpnsAPI) ListNames(req *IpnsAPIListNamesRequest, opts ...scw.RequestOption) (*ListNamesResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -1215,6 +1289,7 @@ func (s *IpnsAPI) ListNames(req *IpnsAPIListNamesRequest, opts ...scw.RequestOpt
 // UpdateName: Update name information (CID, tag, name...).
 func (s *IpnsAPI) UpdateName(req *IpnsAPIUpdateNameRequest, opts ...scw.RequestOption) (*Name, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1250,6 +1325,7 @@ func (s *IpnsAPI) UpdateName(req *IpnsAPIUpdateNameRequest, opts ...scw.RequestO
 // ExportKeyName: Export a private key by its ID.
 func (s *IpnsAPI) ExportKeyName(req *IpnsAPIExportKeyNameRequest, opts ...scw.RequestOption) (*ExportKeyNameResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -1280,10 +1356,12 @@ func (s *IpnsAPI) ExportKeyName(req *IpnsAPIExportKeyNameRequest, opts ...scw.Re
 // ImportKeyName: Import a private key.
 func (s *IpnsAPI) ImportKeyName(req *IpnsAPIImportKeyNameRequest, opts ...scw.RequestOption) (*Name, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID

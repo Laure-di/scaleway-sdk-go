@@ -837,9 +837,9 @@ func (enum *StickySessionsType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// SubscriberEmailConfig:
+// SubscriberEmailConfig: subscriber email config.
 type SubscriberEmailConfig struct {
-	// Email: Email address to send alerts to.
+	// Email: email address to send alerts to.
 	Email string `json:"email"`
 }
 
@@ -849,133 +849,178 @@ type SubscriberWebhookConfig struct {
 	URI string `json:"uri"`
 }
 
-// HealthCheckHTTPConfig:
+// HealthCheckHTTPConfig: health check http config.
 type HealthCheckHTTPConfig struct {
-	// URI: The HTTP URI to use when performing a health check on backend servers.
+	// URI: the HTTP URI to use when performing a health check on backend servers.
 	URI string `json:"uri"`
-	// Method: The HTTP method used when performing a health check on backend servers.
+
+	// Method: the HTTP method used when performing a health check on backend servers.
 	Method string `json:"method"`
-	// Code: The HTTP response code that should be returned for a health check to be considered successful.
+
+	// Code: the HTTP response code that should be returned for a health check to be considered successful.
 	Code *int32 `json:"code"`
-	// HostHeader: The HTTP host header used when performing a health check on backend servers.
+
+	// HostHeader: the HTTP host header used when performing a health check on backend servers.
 	HostHeader string `json:"host_header"`
 }
 
-// HealthCheckHTTPSConfig:
+// HealthCheckHTTPSConfig: health check https config.
 type HealthCheckHTTPSConfig struct {
-	// URI: The HTTP URI to use when performing a health check on backend servers.
+	// URI: the HTTP URI to use when performing a health check on backend servers.
 	URI string `json:"uri"`
-	// Method: The HTTP method used when performing a health check on backend servers.
+
+	// Method: the HTTP method used when performing a health check on backend servers.
 	Method string `json:"method"`
-	// Code: The HTTP response code that should be returned for a health check to be considered successful.
+
+	// Code: the HTTP response code that should be returned for a health check to be considered successful.
 	Code *int32 `json:"code"`
-	// HostHeader: The HTTP host header used when performing a health check on backend servers.
+
+	// HostHeader: the HTTP host header used when performing a health check on backend servers.
 	HostHeader string `json:"host_header"`
-	// Sni: The SNI value used when performing a health check on backend servers over SSL.
+
+	// Sni: the SNI value used when performing a health check on backend servers over SSL.
 	Sni string `json:"sni"`
 }
 
-// HealthCheckLdapConfig:
+// HealthCheckLdapConfig: health check ldap config.
 type HealthCheckLdapConfig struct {
 }
 
-// HealthCheckMysqlConfig:
+// HealthCheckMysqlConfig: health check mysql config.
 type HealthCheckMysqlConfig struct {
-	// User: MySQL user to use for the health check.
+	// User: mySQL user to use for the health check.
 	User string `json:"user"`
 }
 
-// HealthCheckPgsqlConfig:
+// HealthCheckPgsqlConfig: health check pgsql config.
 type HealthCheckPgsqlConfig struct {
-	// User: PostgreSQL user to use for the health check.
+	// User: postgreSQL user to use for the health check.
 	User string `json:"user"`
 }
 
-// HealthCheckRedisConfig:
+// HealthCheckRedisConfig: health check redis config.
 type HealthCheckRedisConfig struct {
 }
 
-// HealthCheckTCPConfig:
+// HealthCheckTCPConfig: health check tcp config.
 type HealthCheckTCPConfig struct {
 }
 
-// IP:
+// IP: ip.
 type IP struct {
 	// ID: IP address ID.
 	ID string `json:"id"`
+
 	// IPAddress: IP address.
 	IPAddress string `json:"ip_address"`
-	// OrganizationID: Organization ID of the Scaleway Organization the IP address is in.
+
+	// OrganizationID: organization ID of the Scaleway Organization the IP address is in.
 	OrganizationID string `json:"organization_id"`
-	// ProjectID: Project ID of the Scaleway Project the IP address is in.
+
+	// ProjectID: project ID of the Scaleway Project the IP address is in.
 	ProjectID string `json:"project_id"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID *string `json:"lb_id"`
-	// Reverse: Reverse DNS (domain name) of the IP address.
+
+	// Reverse: reverse DNS (domain name) of the IP address.
 	Reverse string `json:"reverse"`
-	// Deprecated: Region: The region the IP address is in.
+
+	// Deprecated: Region: the region the IP address is in.
 	Region *scw.Region `json:"region,omitempty"`
-	// Zone: The zone the IP address is in.
+
+	// Zone: the zone the IP address is in.
 	Zone scw.Zone `json:"zone"`
 }
 
-// Instance:
+// Instance: instance.
 type Instance struct {
-	// ID: Underlying Instance ID.
+	// ID: underlying Instance ID.
 	ID string `json:"id"`
-	// Status: Instance status.
+
+	// Status: instance status.
+	// Default value: unknown
 	Status InstanceStatus `json:"status"`
-	// IPAddress: Instance IP address.
+
+	// IPAddress: instance IP address.
 	IPAddress string `json:"ip_address"`
-	// CreatedAt: Date on which the Instance was created.
+
+	// CreatedAt: date on which the Instance was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date on which the Instance was last updated.
+
+	// UpdatedAt: date on which the Instance was last updated.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Deprecated: Region: The region the Instance is in.
+
+	// Deprecated: Region: the region the Instance is in.
 	Region *scw.Region `json:"region,omitempty"`
-	// Zone: The zone the Instance is in.
+
+	// Zone: the zone the Instance is in.
 	Zone scw.Zone `json:"zone"`
 }
 
 // Subscriber: Subscriber.
 type Subscriber struct {
-	// ID: Subscriber ID.
+	// ID: subscriber ID.
 	ID string `json:"id"`
-	// Name: Subscriber name.
+
+	// Name: subscriber name.
 	Name string `json:"name"`
-	// EmailConfig: Email address of subscriber.
+
+	// EmailConfig: email address of subscriber.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	EmailConfig *SubscriberEmailConfig `json:"email_config,omitempty"`
-	// WebhookConfig: Webhook URI of subscriber.
+
+	// WebhookConfig: webhook URI of subscriber.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	WebhookConfig *SubscriberWebhookConfig `json:"webhook_config,omitempty"`
 }
 
-// HealthCheck:
+// HealthCheck: health check.
 type HealthCheck struct {
-	// Port: Port to use for the backend server health check.
+	// Port: port to use for the backend server health check.
 	Port int32 `json:"port"`
-	// CheckDelay: Time to wait between two consecutive health checks.
+
+	// CheckDelay: time to wait between two consecutive health checks.
 	CheckDelay *time.Duration `json:"check_delay"`
-	// CheckTimeout: Maximum time a backend server has to reply to the health check.
+
+	// CheckTimeout: maximum time a backend server has to reply to the health check.
 	CheckTimeout *time.Duration `json:"check_timeout"`
-	// CheckMaxRetries: Number of consecutive unsuccessful health checks after which the server will be considered dead.
+
+	// CheckMaxRetries: number of consecutive unsuccessful health checks after which the server will be considered dead.
 	CheckMaxRetries int32 `json:"check_max_retries"`
-	// TCPConfig: Object to configure a basic TCP health check.
+
+	// TCPConfig: object to configure a basic TCP health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	TCPConfig *HealthCheckTCPConfig `json:"tcp_config,omitempty"`
-	// MysqlConfig: Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+
+	// MysqlConfig: object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	MysqlConfig *HealthCheckMysqlConfig `json:"mysql_config,omitempty"`
-	// PgsqlConfig: Object to configure a PostgreSQL health check.
+
+	// PgsqlConfig: object to configure a PostgreSQL health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	PgsqlConfig *HealthCheckPgsqlConfig `json:"pgsql_config,omitempty"`
-	// LdapConfig: Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
+
+	// LdapConfig: object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	LdapConfig *HealthCheckLdapConfig `json:"ldap_config,omitempty"`
-	// RedisConfig: Object to configure a Redis health check. The response is analyzed to find the +PONG response message.
+
+	// RedisConfig: object to configure a Redis health check. The response is analyzed to find the +PONG response message.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	RedisConfig *HealthCheckRedisConfig `json:"redis_config,omitempty"`
-	// HTTPConfig: Object to configure an HTTP health check.
+
+	// HTTPConfig: object to configure an HTTP health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	HTTPConfig *HealthCheckHTTPConfig `json:"http_config,omitempty"`
-	// HTTPSConfig: Object to configure an HTTPS health check.
+
+	// HTTPSConfig: object to configure an HTTPS health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	HTTPSConfig *HealthCheckHTTPSConfig `json:"https_config,omitempty"`
-	// CheckSendProxy: Defines whether proxy protocol should be activated for the health check.
+
+	// CheckSendProxy: defines whether proxy protocol should be activated for the health check.
 	CheckSendProxy bool `json:"check_send_proxy"`
-	// TransientCheckDelay: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
+
+	// TransientCheckDelay: time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
 	TransientCheckDelay *scw.Duration `json:"transient_check_delay"`
 }
 
@@ -1011,111 +1056,164 @@ func (m HealthCheck) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// LB:
+// LB: lb.
 type LB struct {
-	// ID: Underlying Instance ID.
+	// ID: underlying Instance ID.
 	ID string `json:"id"`
-	// Name: Load Balancer name.
+
+	// Name: load Balancer name.
 	Name string `json:"name"`
-	// Description: Load Balancer description.
+
+	// Description: load Balancer description.
 	Description string `json:"description"`
-	// Status: Load Balancer status.
+
+	// Status: load Balancer status.
+	// Default value: unknown
 	Status LBStatus `json:"status"`
-	// Instances: List of underlying Instances.
+
+	// Instances: list of underlying Instances.
 	Instances []*Instance `json:"instances"`
-	// OrganizationID: Scaleway Organization ID.
+
+	// OrganizationID: scaleway Organization ID.
 	OrganizationID string `json:"organization_id"`
-	// ProjectID: Scaleway Project ID.
+
+	// ProjectID: scaleway Project ID.
 	ProjectID string `json:"project_id"`
-	// IP: List of IP addresses attached to the Load Balancer.
+
+	// IP: list of IP addresses attached to the Load Balancer.
 	IP []*IP `json:"ip"`
-	// Tags: Load Balancer tags.
+
+	// Tags: load Balancer tags.
 	Tags []string `json:"tags"`
-	// FrontendCount: Number of frontends the Load Balancer has.
+
+	// FrontendCount: number of frontends the Load Balancer has.
 	FrontendCount int32 `json:"frontend_count"`
-	// BackendCount: Number of backends the Load Balancer has.
+
+	// BackendCount: number of backends the Load Balancer has.
 	BackendCount int32 `json:"backend_count"`
-	// Type: Load Balancer offer type.
+
+	// Type: load Balancer offer type.
 	Type string `json:"type"`
-	// Subscriber: Subscriber information.
+
+	// Subscriber: subscriber information.
 	Subscriber *Subscriber `json:"subscriber"`
-	// SslCompatibilityLevel: Determines the minimal SSL version which needs to be supported on client side.
+
+	// SslCompatibilityLevel: determines the minimal SSL version which needs to be supported on client side.
+	// Default value: ssl_compatibility_level_unknown
 	SslCompatibilityLevel SSLCompatibilityLevel `json:"ssl_compatibility_level"`
-	// CreatedAt: Date on which the Load Balancer was created.
+
+	// CreatedAt: date on which the Load Balancer was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date on which the Load Balancer was last updated.
+
+	// UpdatedAt: date on which the Load Balancer was last updated.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// PrivateNetworkCount: Number of Private Networks attached to the Load Balancer.
+
+	// PrivateNetworkCount: number of Private Networks attached to the Load Balancer.
 	PrivateNetworkCount int32 `json:"private_network_count"`
-	// RouteCount: Number of routes configured on the Load Balancer.
+
+	// RouteCount: number of routes configured on the Load Balancer.
 	RouteCount int32 `json:"route_count"`
-	// Deprecated: Region: The region the Load Balancer is in.
+
+	// Deprecated: Region: the region the Load Balancer is in.
 	Region *scw.Region `json:"region,omitempty"`
-	// Zone: The zone the Load Balancer is in.
+
+	// Zone: the zone the Load Balancer is in.
 	Zone scw.Zone `json:"zone"`
 }
 
-// ACLActionRedirect:
+// ACLActionRedirect: acl action redirect.
 type ACLActionRedirect struct {
-	// Type: Redirect type.
+	// Type: redirect type.
+	// Default value: location
 	Type ACLActionRedirectRedirectType `json:"type"`
-	// Target: Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}.
+
+	// Target: redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}.
 	Target string `json:"target"`
+
 	// Code: HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.
 	Code *int32 `json:"code"`
 }
 
-// Backend:
+// Backend: backend.
 type Backend struct {
-	// ID: Backend ID.
+	// ID: backend ID.
 	ID string `json:"id"`
-	// Name: Name of the backend.
+
+	// Name: name of the backend.
 	Name string `json:"name"`
-	// ForwardProtocol: Protocol used by the backend when forwarding traffic to backend servers.
+
+	// ForwardProtocol: protocol used by the backend when forwarding traffic to backend servers.
+	// Default value: tcp
 	ForwardProtocol Protocol `json:"forward_protocol"`
-	// ForwardPort: Port used by the backend when forwarding traffic to backend servers.
+
+	// ForwardPort: port used by the backend when forwarding traffic to backend servers.
 	ForwardPort int32 `json:"forward_port"`
-	// ForwardPortAlgorithm: Load balancing algorithm to use when determining which backend server to forward new traffic to.
+
+	// ForwardPortAlgorithm: load balancing algorithm to use when determining which backend server to forward new traffic to.
+	// Default value: roundrobin
 	ForwardPortAlgorithm ForwardPortAlgorithm `json:"forward_port_algorithm"`
-	// StickySessions: Defines whether sticky sessions (binding a particular session to a particular backend server) are activated and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+
+	// StickySessions: defines whether sticky sessions (binding a particular session to a particular backend server) are activated and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+	// Default value: none
 	StickySessions StickySessionsType `json:"sticky_sessions"`
-	// StickySessionsCookieName: Cookie name for cookie-based sticky sessions.
+
+	// StickySessionsCookieName: cookie name for cookie-based sticky sessions.
 	StickySessionsCookieName string `json:"sticky_sessions_cookie_name"`
-	// HealthCheck: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
+
+	// HealthCheck: object defining the health check to be carried out by the backend when checking the status and health of backend servers.
 	HealthCheck *HealthCheck `json:"health_check"`
-	// Pool: List of IP addresses of backend servers attached to this backend.
+
+	// Pool: list of IP addresses of backend servers attached to this backend.
 	Pool []string `json:"pool"`
-	// LB: Load Balancer the backend is attached to.
+
+	// LB: load Balancer the backend is attached to.
 	LB *LB `json:"lb"`
-	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
+
+	// Deprecated: SendProxyV2: deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
-	// TimeoutServer: Maximum allowed time for a backend server to process a request.
+
+	// TimeoutServer: maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server"`
-	// TimeoutConnect: Maximum allowed time for establishing a connection to a backend server.
+
+	// TimeoutConnect: maximum allowed time for establishing a connection to a backend server.
 	TimeoutConnect *time.Duration `json:"timeout_connect"`
-	// TimeoutTunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
+
+	// TimeoutTunnel: maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
 	TimeoutTunnel *time.Duration `json:"timeout_tunnel"`
-	// OnMarkedDownAction: Action to take when a backend server is marked as down.
+
+	// OnMarkedDownAction: action to take when a backend server is marked as down.
+	// Default value: on_marked_down_action_none
 	OnMarkedDownAction OnMarkedDownAction `json:"on_marked_down_action"`
-	// ProxyProtocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+
+	// ProxyProtocol: protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+	// Default value: proxy_protocol_unknown
 	ProxyProtocol ProxyProtocol `json:"proxy_protocol"`
-	// CreatedAt: Date at which the backend was created.
+
+	// CreatedAt: date at which the backend was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date at which the backend was updated.
+
+	// UpdatedAt: date at which the backend was updated.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// FailoverHost: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+
+	// FailoverHost: scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
 	FailoverHost *string `json:"failover_host"`
-	// SslBridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
+
+	// SslBridging: defines whether to enable SSL bridging between the Load Balancer and backend servers.
 	SslBridging *bool `json:"ssl_bridging"`
-	// IgnoreSslServerVerify: Defines whether the server certificate verification should be ignored.
+
+	// IgnoreSslServerVerify: defines whether the server certificate verification should be ignored.
 	IgnoreSslServerVerify *bool `json:"ignore_ssl_server_verify"`
-	// RedispatchAttemptCount: Whether to use another backend server on each attempt.
+
+	// RedispatchAttemptCount: whether to use another backend server on each attempt.
 	RedispatchAttemptCount *int32 `json:"redispatch_attempt_count"`
-	// MaxRetries: Number of retries when a backend server connection failed.
+
+	// MaxRetries: number of retries when a backend server connection failed.
 	MaxRetries *int32 `json:"max_retries"`
-	// MaxConnections: Maximum number of connections allowed per backend server.
+
+	// MaxConnections: maximum number of connections allowed per backend server.
 	MaxConnections *int32 `json:"max_connections"`
-	// TimeoutQueue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
+
+	// TimeoutQueue: maximum time for a request to be left pending in queue when `max_connections` is reached.
 	TimeoutQueue *scw.Duration `json:"timeout_queue"`
 }
 
@@ -1155,81 +1253,112 @@ func (m Backend) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// Certificate:
+// Certificate: certificate.
 type Certificate struct {
-	// Type: Certificate type (Let's Encrypt or custom).
+	// Type: certificate type (Let's Encrypt or custom).
+	// Default value: letsencryt
 	Type CertificateType `json:"type"`
-	// ID: Certificate ID.
+
+	// ID: certificate ID.
 	ID string `json:"id"`
-	// CommonName: Main domain name of certificate.
+
+	// CommonName: main domain name of certificate.
 	CommonName string `json:"common_name"`
-	// SubjectAlternativeName: Alternative domain names.
+
+	// SubjectAlternativeName: alternative domain names.
 	SubjectAlternativeName []string `json:"subject_alternative_name"`
-	// Fingerprint: Identifier (SHA-1) of the certificate.
+
+	// Fingerprint: identifier (SHA-1) of the certificate.
 	Fingerprint string `json:"fingerprint"`
-	// NotValidBefore: Lower validity bound.
+
+	// NotValidBefore: lower validity bound.
 	NotValidBefore *time.Time `json:"not_valid_before"`
-	// NotValidAfter: Upper validity bound.
+
+	// NotValidAfter: upper validity bound.
 	NotValidAfter *time.Time `json:"not_valid_after"`
-	// Status: Certificate status.
+
+	// Status: certificate status.
+	// Default value: pending
 	Status CertificateStatus `json:"status"`
-	// LB: Load Balancer object the certificate is attached to.
+
+	// LB: load Balancer object the certificate is attached to.
 	LB *LB `json:"lb"`
-	// Name: Certificate name.
+
+	// Name: certificate name.
 	Name string `json:"name"`
-	// CreatedAt: Date on which the certificate was created.
+
+	// CreatedAt: date on which the certificate was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date on which the certificate was last updated.
+
+	// UpdatedAt: date on which the certificate was last updated.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// StatusDetails: Additional information about the certificate status (useful in case of certificate generation failure, for example).
+
+	// StatusDetails: additional information about the certificate status (useful in case of certificate generation failure, for example).
 	StatusDetails *string `json:"status_details"`
 }
 
-// ACLAction:
+// ACLAction: acl action.
 type ACLAction struct {
-	// Type: Action to take when incoming traffic matches an ACL filter.
+	// Type: action to take when incoming traffic matches an ACL filter.
+	// Default value: allow
 	Type ACLActionType `json:"type"`
-	// Redirect: Redirection parameters when using an ACL with a `redirect` action.
+
+	// Redirect: redirection parameters when using an ACL with a `redirect` action.
 	Redirect *ACLActionRedirect `json:"redirect"`
 }
 
-// ACLMatch:
+// ACLMatch: acl match.
 type ACLMatch struct {
-	// IPSubnet: List of IPs or CIDR v4/v6 addresses to filter for from the client side.
+	// IPSubnet: list of IPs or CIDR v4/v6 addresses to filter for from the client side.
 	IPSubnet []*string `json:"ip_subnet"`
-	// HTTPFilter: Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
+
+	// HTTPFilter: type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
+	// Default value: acl_http_filter_none
 	HTTPFilter ACLHTTPFilter `json:"http_filter"`
-	// HTTPFilterValue: List of values to filter for.
+
+	// HTTPFilterValue: list of values to filter for.
 	HTTPFilterValue []*string `json:"http_filter_value"`
-	// HTTPFilterOption: Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
+
+	// HTTPFilterOption: name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
 	HTTPFilterOption *string `json:"http_filter_option"`
-	// Invert: Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
+
+	// Invert: defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
 	Invert bool `json:"invert"`
 }
 
-// Frontend:
+// Frontend: frontend.
 type Frontend struct {
-	// ID: Frontend ID.
+	// ID: frontend ID.
 	ID string `json:"id"`
-	// Name: Name of the frontend.
+
+	// Name: name of the frontend.
 	Name string `json:"name"`
-	// InboundPort: Port the frontend listens on.
+
+	// InboundPort: port the frontend listens on.
 	InboundPort int32 `json:"inbound_port"`
-	// Backend: Backend object the frontend is attached to.
+
+	// Backend: backend object the frontend is attached to.
 	Backend *Backend `json:"backend"`
-	// LB: Load Balancer object the frontend is attached to.
+
+	// LB: load Balancer object the frontend is attached to.
 	LB *LB `json:"lb"`
-	// TimeoutClient: Maximum allowed inactivity time on the client side.
+
+	// TimeoutClient: maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client"`
-	// Deprecated: Certificate: Certificate, deprecated in favor of certificate_ids array.
+
+	// Deprecated: Certificate: certificate, deprecated in favor of certificate_ids array.
 	Certificate *Certificate `json:"certificate,omitempty"`
-	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
+
+	// CertificateIDs: list of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs []string `json:"certificate_ids"`
-	// CreatedAt: Date on which the frontend was created.
+
+	// CreatedAt: date on which the frontend was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date on which the frontend was last updated.
+
+	// UpdatedAt: date on which the frontend was last updated.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// EnableHTTP3: Defines whether to enable HTTP/3 protocol on the frontend.
+
+	// EnableHTTP3: defines whether to enable HTTP/3 protocol on the frontend.
 	EnableHTTP3 bool `json:"enable_http3"`
 }
 
@@ -1261,239 +1390,327 @@ func (m Frontend) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// PrivateNetworkDHCPConfig:
+// PrivateNetworkDHCPConfig: private network dhcp config.
 type PrivateNetworkDHCPConfig struct {
-	// Deprecated: IPID:
+	// Deprecated
 	IPID *string `json:"ip_id,omitempty"`
 }
 
-// PrivateNetworkIpamConfig:
+// PrivateNetworkIpamConfig: private network ipam config.
 type PrivateNetworkIpamConfig struct {
 }
 
-// PrivateNetworkStaticConfig:
+// PrivateNetworkStaticConfig: private network static config.
 type PrivateNetworkStaticConfig struct {
-	// Deprecated: IPAddress: Array of a local IP address for the Load Balancer on this Private Network.
+	// Deprecated: IPAddress: array of a local IP address for the Load Balancer on this Private Network.
 	IPAddress *[]string `json:"ip_address,omitempty"`
 }
 
-// RouteMatch:
+// RouteMatch: route match.
 type RouteMatch struct {
-	// Sni: Value to match in the Server Name Indication TLS extension (SNI) field from an incoming connection made via an SSL/TLS transport layer. This field should be set for routes on TCP Load Balancers.
+	// Sni: value to match in the Server Name Indication TLS extension (SNI) field from an incoming connection made via an SSL/TLS transport layer. This field should be set for routes on TCP Load Balancers.
+	// Precisely one of Sni, HostHeader must be set.
 	Sni *string `json:"sni,omitempty"`
-	// HostHeader: Value to match in the HTTP Host request header from an incoming connection. This field should be set for routes on HTTP Load Balancers.
+
+	// HostHeader: value to match in the HTTP Host request header from an incoming connection. This field should be set for routes on HTTP Load Balancers.
+	// Precisely one of Sni, HostHeader must be set.
 	HostHeader *string `json:"host_header,omitempty"`
 }
 
-// CreateCertificateRequestCustomCertificate:
+// CreateCertificateRequestCustomCertificate: create certificate request custom certificate.
 type CreateCertificateRequestCustomCertificate struct {
-	// CertificateChain: Full PEM-formatted certificate, consisting of the entire certificate chain including public key, private key, and (optionally) Certificate Authorities.
+	// CertificateChain: full PEM-formatted certificate, consisting of the entire certificate chain including public key, private key, and (optionally) Certificate Authorities.
 	CertificateChain string `json:"certificate_chain"`
 }
 
-// CreateCertificateRequestLetsencryptConfig:
+// CreateCertificateRequestLetsencryptConfig: create certificate request letsencrypt config.
 type CreateCertificateRequestLetsencryptConfig struct {
-	// CommonName: Main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address).
+	// CommonName: main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address).
 	CommonName string `json:"common_name"`
-	// SubjectAlternativeName: Alternative domain names (all domain names must exist and resolve to your Load Balancer IP address).
+
+	// SubjectAlternativeName: alternative domain names (all domain names must exist and resolve to your Load Balancer IP address).
 	SubjectAlternativeName []string `json:"subject_alternative_name"`
 }
 
-// BackendServerStats:
+// BackendServerStats: backend server stats.
 type BackendServerStats struct {
 	// InstanceID: ID of your Load Balancer's underlying Instance.
 	InstanceID string `json:"instance_id"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"backend_id"`
-	// IP: IPv4 or IPv6 address of the backend server.
+
+	// IP: iPv4 or IPv6 address of the backend server.
 	IP string `json:"ip"`
-	// ServerState: Server operational state (stopped/starting/running/stopping).
+
+	// ServerState: server operational state (stopped/starting/running/stopping).
+	// Default value: stopped
 	ServerState BackendServerStatsServerState `json:"server_state"`
-	// ServerStateChangedAt: Time since last operational change.
+
+	// ServerStateChangedAt: time since last operational change.
 	ServerStateChangedAt *time.Time `json:"server_state_changed_at"`
-	// LastHealthCheckStatus: Last health check status (unknown/neutral/failed/passed/condpass).
+
+	// LastHealthCheckStatus: last health check status (unknown/neutral/failed/passed/condpass).
+	// Default value: unknown
 	LastHealthCheckStatus BackendServerStatsHealthCheckStatus `json:"last_health_check_status"`
 }
 
-// ACL:
+// ACL: acl.
 type ACL struct {
 	// ID: ACL ID.
 	ID string `json:"id"`
+
 	// Name: ACL name.
 	Name string `json:"name"`
+
 	// Match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
 	Match *ACLMatch `json:"match"`
-	// Action: Action to take when incoming traffic matches an ACL filter.
+
+	// Action: action to take when incoming traffic matches an ACL filter.
 	Action *ACLAction `json:"action"`
+
 	// Frontend: ACL is attached to this frontend object.
 	Frontend *Frontend `json:"frontend"`
-	// Index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+
+	// Index: priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
 	Index int32 `json:"index"`
-	// CreatedAt: Date on which the ACL was created.
+
+	// CreatedAt: date on which the ACL was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date on which the ACL was last updated.
+
+	// UpdatedAt: date on which the ACL was last updated.
 	UpdatedAt *time.Time `json:"updated_at"`
+
 	// Description: ACL description.
 	Description string `json:"description"`
 }
 
-// PrivateNetwork:
+// PrivateNetwork: private network.
 type PrivateNetwork struct {
-	// LB: Load Balancer object which is attached to the Private Network.
+	// LB: load Balancer object which is attached to the Private Network.
 	LB *LB `json:"lb"`
-	// IpamIDs: IPAM IDs of the booked IP addresses.
+
+	// IpamIDs: iPAM IDs of the booked IP addresses.
 	IpamIDs []string `json:"ipam_ids"`
-	// Deprecated: StaticConfig: Object containing an array of a local IP address for the Load Balancer on this Private Network.
+
+	// Deprecated: StaticConfig: object containing an array of a local IP address for the Load Balancer on this Private Network.
+	// Precisely one of StaticConfig, DHCPConfig, IpamConfig must be set.
 	StaticConfig *PrivateNetworkStaticConfig `json:"static_config,omitempty"`
-	// Deprecated: DHCPConfig: Object containing DHCP-assigned IP addresses.
+
+	// Deprecated: DHCPConfig: object containing DHCP-assigned IP addresses.
+	// Precisely one of StaticConfig, DHCPConfig, IpamConfig must be set.
 	DHCPConfig *PrivateNetworkDHCPConfig `json:"dhcp_config,omitempty"`
-	// Deprecated: IpamConfig: For internal use only.
+
+	// Deprecated: IpamConfig: for internal use only.
+	// Precisely one of StaticConfig, DHCPConfig, IpamConfig must be set.
 	IpamConfig *PrivateNetworkIpamConfig `json:"ipam_config,omitempty"`
-	// PrivateNetworkID: Private Network ID.
+
+	// PrivateNetworkID: private Network ID.
 	PrivateNetworkID string `json:"private_network_id"`
-	// Status: Status of Private Network connection.
+
+	// Status: status of Private Network connection.
+	// Default value: unknown
 	Status PrivateNetworkStatus `json:"status"`
-	// CreatedAt: Date on which the Private Network was created.
+
+	// CreatedAt: date on which the Private Network was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date on which the PN was last updated.
+
+	// UpdatedAt: date on which the PN was last updated.
 	UpdatedAt *time.Time `json:"updated_at"`
 }
 
-// LBType:
+// LBType: lb type.
 type LBType struct {
-	// Name: Load Balancer commercial offer type name.
+	// Name: load Balancer commercial offer type name.
 	Name string `json:"name"`
-	// StockStatus: Current stock status for a given Load Balancer type.
+
+	// StockStatus: current stock status for a given Load Balancer type.
+	// Default value: unknown
 	StockStatus LBTypeStock `json:"stock_status"`
-	// Description: Load Balancer commercial offer type description.
+
+	// Description: load Balancer commercial offer type description.
 	Description string `json:"description"`
-	// Deprecated: Region: The region the Load Balancer stock is in.
+
+	// Deprecated: Region: the region the Load Balancer stock is in.
 	Region *scw.Region `json:"region,omitempty"`
-	// Zone: The zone the Load Balancer stock is in.
+
+	// Zone: the zone the Load Balancer stock is in.
 	Zone scw.Zone `json:"zone"`
 }
 
-// Route:
+// Route: route.
 type Route struct {
-	// ID: Route ID.
+	// ID: route ID.
 	ID string `json:"id"`
+
 	// FrontendID: ID of the source frontend.
 	FrontendID string `json:"frontend_id"`
+
 	// BackendID: ID of the target backend.
 	BackendID string `json:"backend_id"`
-	// Match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
+
+	// Match: object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
 	Match *RouteMatch `json:"match"`
-	// CreatedAt: Date on which the route was created.
+
+	// CreatedAt: date on which the route was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date on which the route was last updated.
+
+	// UpdatedAt: date on which the route was last updated.
 	UpdatedAt *time.Time `json:"updated_at"`
 }
 
-// ACLSpec:
+// ACLSpec: acl spec.
 type ACLSpec struct {
 	// Name: ACL name.
 	Name string `json:"name"`
-	// Action: Action to take when incoming traffic matches an ACL filter.
+
+	// Action: action to take when incoming traffic matches an ACL filter.
 	Action *ACLAction `json:"action"`
+
 	// Match: ACL match filter object. One of `ip_subnet` or `http_filter` and `http_filter_value` are required.
 	Match *ACLMatch `json:"match"`
-	// Index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+
+	// Index: priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
 	Index int32 `json:"index"`
+
 	// Description: ACL description.
 	Description string `json:"description"`
 }
 
-// AddBackendServersRequest:
+// AddBackendServersRequest: add backend servers request.
 type AddBackendServersRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// ServerIP: List of IP addresses to add to backend servers.
+
+	// ServerIP: list of IP addresses to add to backend servers.
 	ServerIP []string `json:"server_ip"`
 }
 
-// AttachPrivateNetworkRequest:
+// AttachPrivateNetworkRequest: attach private network request.
 type AttachPrivateNetworkRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// PrivateNetworkID: Private Network ID.
+
+	// PrivateNetworkID: private Network ID.
 	PrivateNetworkID string `json:"-"`
-	// Deprecated: StaticConfig: Object containing an array of a local IP address for the Load Balancer on this Private Network.
+
+	// Deprecated: StaticConfig: object containing an array of a local IP address for the Load Balancer on this Private Network.
+	// Precisely one of StaticConfig, DHCPConfig, IpamConfig must be set.
 	StaticConfig *PrivateNetworkStaticConfig `json:"static_config,omitempty"`
-	// Deprecated: DHCPConfig: Defines whether to let DHCP assign IP addresses.
+
+	// Deprecated: DHCPConfig: defines whether to let DHCP assign IP addresses.
+	// Precisely one of StaticConfig, DHCPConfig, IpamConfig must be set.
 	DHCPConfig *PrivateNetworkDHCPConfig `json:"dhcp_config,omitempty"`
-	// Deprecated: IpamConfig: For internal use only.
+
+	// Deprecated: IpamConfig: for internal use only.
+	// Precisely one of StaticConfig, DHCPConfig, IpamConfig must be set.
 	IpamConfig *PrivateNetworkIpamConfig `json:"ipam_config,omitempty"`
 }
 
 // CreateACLRequest: Add an ACL to a Load Balancer frontend.
 type CreateACLRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// FrontendID: Frontend ID to attach the ACL to.
+
+	// FrontendID: frontend ID to attach the ACL to.
 	FrontendID string `json:"-"`
+
 	// Name: ACL name.
 	Name string `json:"name"`
-	// Action: Action to take when incoming traffic matches an ACL filter.
+
+	// Action: action to take when incoming traffic matches an ACL filter.
 	Action *ACLAction `json:"action"`
+
 	// Match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
 	Match *ACLMatch `json:"match"`
-	// Index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+
+	// Index: priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
 	Index int32 `json:"index"`
+
 	// Description: ACL description.
 	Description string `json:"description"`
 }
 
-// CreateBackendRequest:
+// CreateBackendRequest: create backend request.
 type CreateBackendRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Name for the backend.
+
+	// Name: name for the backend.
 	Name string `json:"name"`
-	// ForwardProtocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+
+	// ForwardProtocol: protocol to be used by the backend when forwarding traffic to backend servers.
+	// Default value: tcp
 	ForwardProtocol Protocol `json:"forward_protocol"`
-	// ForwardPort: Port to be used by the backend when forwarding traffic to backend servers.
+
+	// ForwardPort: port to be used by the backend when forwarding traffic to backend servers.
 	ForwardPort int32 `json:"forward_port"`
-	// ForwardPortAlgorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
+
+	// ForwardPortAlgorithm: load balancing algorithm to be used when determining which backend server to forward new traffic to.
+	// Default value: roundrobin
 	ForwardPortAlgorithm ForwardPortAlgorithm `json:"forward_port_algorithm"`
-	// StickySessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+
+	// StickySessions: defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+	// Default value: none
 	StickySessions StickySessionsType `json:"sticky_sessions"`
-	// StickySessionsCookieName: Cookie name for cookie-based sticky sessions.
+
+	// StickySessionsCookieName: cookie name for cookie-based sticky sessions.
 	StickySessionsCookieName string `json:"sticky_sessions_cookie_name"`
-	// HealthCheck: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
+
+	// HealthCheck: object defining the health check to be carried out by the backend when checking the status and health of backend servers.
 	HealthCheck *HealthCheck `json:"health_check"`
-	// ServerIP: List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
+
+	// ServerIP: list of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
 	ServerIP []string `json:"server_ip"`
-	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
+
+	// Deprecated: SendProxyV2: deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
-	// TimeoutServer: Maximum allowed time for a backend server to process a request.
+
+	// TimeoutServer: maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server,omitempty"`
-	// TimeoutConnect: Maximum allowed time for establishing a connection to a backend server.
+
+	// TimeoutConnect: maximum allowed time for establishing a connection to a backend server.
 	TimeoutConnect *time.Duration `json:"timeout_connect,omitempty"`
-	// TimeoutTunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
+
+	// TimeoutTunnel: maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
 	TimeoutTunnel *time.Duration `json:"timeout_tunnel,omitempty"`
-	// OnMarkedDownAction: Action to take when a backend server is marked as down.
+
+	// OnMarkedDownAction: action to take when a backend server is marked as down.
+	// Default value: on_marked_down_action_none
 	OnMarkedDownAction OnMarkedDownAction `json:"on_marked_down_action"`
-	// ProxyProtocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+
+	// ProxyProtocol: protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+	// Default value: proxy_protocol_unknown
 	ProxyProtocol ProxyProtocol `json:"proxy_protocol"`
-	// FailoverHost: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+
+	// FailoverHost: scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
 	FailoverHost *string `json:"failover_host,omitempty"`
-	// SslBridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
+
+	// SslBridging: defines whether to enable SSL bridging between the Load Balancer and backend servers.
 	SslBridging *bool `json:"ssl_bridging,omitempty"`
-	// IgnoreSslServerVerify: Defines whether the server certificate verification should be ignored.
+
+	// IgnoreSslServerVerify: defines whether the server certificate verification should be ignored.
 	IgnoreSslServerVerify *bool `json:"ignore_ssl_server_verify,omitempty"`
-	// RedispatchAttemptCount: Whether to use another backend server on each attempt.
+
+	// RedispatchAttemptCount: whether to use another backend server on each attempt.
 	RedispatchAttemptCount *int32 `json:"redispatch_attempt_count,omitempty"`
-	// MaxRetries: Number of retries when a backend server connection failed.
+
+	// MaxRetries: number of retries when a backend server connection failed.
 	MaxRetries *int32 `json:"max_retries,omitempty"`
-	// MaxConnections: Maximum number of connections allowed per backend server.
+
+	// MaxConnections: maximum number of connections allowed per backend server.
 	MaxConnections *int32 `json:"max_connections,omitempty"`
-	// TimeoutQueue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
+
+	// TimeoutQueue: maximum time for a request to be left pending in queue when `max_connections` is reached.
 	TimeoutQueue *scw.Duration `json:"timeout_queue,omitempty"`
 }
 
@@ -1533,39 +1750,53 @@ func (m CreateBackendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// CreateCertificateRequest:
+// CreateCertificateRequest: create certificate request.
 type CreateCertificateRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Name for the certificate.
+
+	// Name: name for the certificate.
 	Name string `json:"name"`
-	// Letsencrypt: Object to define a new Let's Encrypt certificate to be generated.
+
+	// Letsencrypt: object to define a new Let's Encrypt certificate to be generated.
+	// Precisely one of Letsencrypt, CustomCertificate must be set.
 	Letsencrypt *CreateCertificateRequestLetsencryptConfig `json:"letsencrypt,omitempty"`
-	// CustomCertificate: Object to define an existing custom certificate to be imported.
+
+	// CustomCertificate: object to define an existing custom certificate to be imported.
+	// Precisely one of Letsencrypt, CustomCertificate must be set.
 	CustomCertificate *CreateCertificateRequestCustomCertificate `json:"custom_certificate,omitempty"`
 }
 
-// CreateFrontendRequest:
+// CreateFrontendRequest: create frontend request.
 type CreateFrontendRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
+
+	// LBID: load Balancer ID (ID of the Load Balancer to attach the frontend to).
 	LBID string `json:"-"`
-	// Name: Name for the frontend.
+
+	// Name: name for the frontend.
 	Name string `json:"name"`
-	// InboundPort: Port the frontend should listen on.
+
+	// InboundPort: port the frontend should listen on.
 	InboundPort int32 `json:"inbound_port"`
-	// BackendID: Backend ID (ID of the backend the frontend should pass traffic to).
+
+	// BackendID: backend ID (ID of the backend the frontend should pass traffic to).
 	BackendID string `json:"backend_id"`
-	// TimeoutClient: Maximum allowed inactivity time on the client side.
+
+	// TimeoutClient: maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client,omitempty"`
-	// Deprecated: CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
+
+	// Deprecated: CertificateID: certificate ID, deprecated in favor of certificate_ids array.
 	CertificateID *string `json:"certificate_id,omitempty"`
-	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
+
+	// CertificateIDs: list of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs *[]string `json:"certificate_ids,omitempty"`
-	// EnableHTTP3: Defines whether to enable HTTP/3 protocol on the frontend.
+
+	// EnableHTTP3: defines whether to enable HTTP/3 protocol on the frontend.
 	EnableHTTP3 bool `json:"enable_http3"`
 }
 
@@ -1597,223 +1828,273 @@ func (m CreateFrontendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// CreateIPRequest:
+// CreateIPRequest: create ip request.
 type CreateIPRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Deprecated: OrganizationID: Organization ID of the Organization where the IP address should be created.
+
+	// Deprecated: OrganizationID: organization ID of the Organization where the IP address should be created.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// ProjectID: Project ID of the Project where the IP address should be created.
+
+	// ProjectID: project ID of the Project where the IP address should be created.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	ProjectID *string `json:"project_id,omitempty"`
-	// Reverse: Reverse DNS (domain name) for the IP address.
+
+	// Reverse: reverse DNS (domain name) for the IP address.
 	Reverse *string `json:"reverse,omitempty"`
 }
 
-// CreateLBRequest:
+// CreateLBRequest: create lb request.
 type CreateLBRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Deprecated: OrganizationID: Scaleway Organization to create the Load Balancer in.
+
+	// Deprecated: OrganizationID: scaleway Organization to create the Load Balancer in.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// ProjectID: Scaleway Project to create the Load Balancer in.
+
+	// ProjectID: scaleway Project to create the Load Balancer in.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	ProjectID *string `json:"project_id,omitempty"`
-	// Name: Name for the Load Balancer.
+
+	// Name: name for the Load Balancer.
 	Name string `json:"name"`
-	// Description: Description for the Load Balancer.
+
+	// Description: description for the Load Balancer.
 	Description string `json:"description"`
+
 	// Deprecated: IPID: ID of an existing flexible IP address to attach to the Load Balancer.
 	IPID *string `json:"ip_id,omitempty"`
-	// AssignFlexibleIP: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+
+	// AssignFlexibleIP: defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
 	AssignFlexibleIP *bool `json:"assign_flexible_ip,omitempty"`
-	// Tags: List of tags for the Load Balancer.
+
+	// Tags: list of tags for the Load Balancer.
 	Tags []string `json:"tags"`
-	// Type: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
+
+	// Type: load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
 	Type string `json:"type"`
-	// SslCompatibilityLevel: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+
+	// SslCompatibilityLevel: determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+	// Default value: ssl_compatibility_level_unknown
 	SslCompatibilityLevel SSLCompatibilityLevel `json:"ssl_compatibility_level"`
 }
 
-// CreateRouteRequest:
+// CreateRouteRequest: create route request.
 type CreateRouteRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// FrontendID: ID of the source frontend to create the route on.
 	FrontendID string `json:"frontend_id"`
+
 	// BackendID: ID of the target backend for the route.
 	BackendID string `json:"backend_id"`
-	// Match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
+
+	// Match: object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
 	Match *RouteMatch `json:"match,omitempty"`
 }
 
 // CreateSubscriberRequest: Create a new alert subscriber (webhook or email).
 type CreateSubscriberRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Name: Subscriber name.
+
+	// Name: subscriber name.
 	Name string `json:"name"`
-	// EmailConfig: Email address configuration.
+
+	// EmailConfig: email address configuration.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	EmailConfig *SubscriberEmailConfig `json:"email_config,omitempty"`
-	// WebhookConfig: WebHook URI configuration.
+
+	// WebhookConfig: webHook URI configuration.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	WebhookConfig *SubscriberWebhookConfig `json:"webhook_config,omitempty"`
-	// Deprecated: OrganizationID: Organization ID to create the subscriber in.
+
+	// Deprecated: OrganizationID: organization ID to create the subscriber in.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// ProjectID: Project ID to create the subscriber in.
+
+	// ProjectID: project ID to create the subscriber in.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
-// DeleteACLRequest:
+// DeleteACLRequest: delete acl request.
 type DeleteACLRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ACLID: ACL ID.
 	ACLID string `json:"-"`
 }
 
-// DeleteBackendRequest:
+// DeleteBackendRequest: delete backend request.
 type DeleteBackendRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// BackendID: ID of the backend to delete.
 	BackendID string `json:"-"`
 }
 
-// DeleteCertificateRequest:
+// DeleteCertificateRequest: delete certificate request.
 type DeleteCertificateRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// CertificateID: Certificate ID.
+
+	// CertificateID: certificate ID.
 	CertificateID string `json:"-"`
 }
 
-// DeleteFrontendRequest:
+// DeleteFrontendRequest: delete frontend request.
 type DeleteFrontendRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// FrontendID: ID of the frontend to delete.
 	FrontendID string `json:"-"`
 }
 
-// DeleteLBRequest:
+// DeleteLBRequest: delete lb request.
 type DeleteLBRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// LBID: ID of the Load Balancer to delete.
 	LBID string `json:"-"`
-	// ReleaseIP: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
+
+	// ReleaseIP: defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
 	ReleaseIP bool `json:"release_ip"`
 }
 
-// DeleteRouteRequest:
+// DeleteRouteRequest: delete route request.
 type DeleteRouteRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// RouteID: Route ID.
+
+	// RouteID: route ID.
 	RouteID string `json:"-"`
 }
 
-// DeleteSubscriberRequest:
+// DeleteSubscriberRequest: delete subscriber request.
 type DeleteSubscriberRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// SubscriberID: Subscriber ID.
+
+	// SubscriberID: subscriber ID.
 	SubscriberID string `json:"-"`
 }
 
-// DetachPrivateNetworkRequest:
+// DetachPrivateNetworkRequest: detach private network request.
 type DetachPrivateNetworkRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load balancer ID.
+
+	// LBID: load balancer ID.
 	LBID string `json:"-"`
-	// PrivateNetworkID: Set your instance private network id.
+
+	// PrivateNetworkID: set your instance private network id.
 	PrivateNetworkID string `json:"-"`
 }
 
-// GetACLRequest:
+// GetACLRequest: get acl request.
 type GetACLRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ACLID: ACL ID.
 	ACLID string `json:"-"`
 }
 
-// GetBackendRequest:
+// GetBackendRequest: get backend request.
 type GetBackendRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
 }
 
-// GetCertificateRequest:
+// GetCertificateRequest: get certificate request.
 type GetCertificateRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// CertificateID: Certificate ID.
+
+	// CertificateID: certificate ID.
 	CertificateID string `json:"-"`
 }
 
-// GetFrontendRequest:
+// GetFrontendRequest: get frontend request.
 type GetFrontendRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// FrontendID: Frontend ID.
+
+	// FrontendID: frontend ID.
 	FrontendID string `json:"-"`
 }
 
-// GetIPRequest:
+// GetIPRequest: get ip request.
 type GetIPRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// IPID: IP address ID.
 	IPID string `json:"-"`
 }
 
-// GetLBRequest:
+// GetLBRequest: get lb request.
 type GetLBRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
 }
 
 // GetLBStatsRequest: Get Load Balancer stats.
 type GetLBStatsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
+
 	// BackendID: ID of the backend.
 	BackendID *string `json:"backend_id,omitempty"`
 }
 
-// GetRouteRequest:
+// GetRouteRequest: get route request.
 type GetRouteRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// RouteID: Route ID.
+
+	// RouteID: route ID.
 	RouteID string `json:"-"`
 }
 
-// GetSubscriberRequest:
+// GetSubscriberRequest: get subscriber request.
 type GetSubscriberRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// SubscriberID: Subscriber ID.
+
+	// SubscriberID: subscriber ID.
 	SubscriberID string `json:"-"`
 }
 
-// LBStats:
+// LBStats: lb stats.
 type LBStats struct {
-	// BackendServersStats: List of objects containing Load Balancer statistics.
+	// BackendServersStats: list of objects containing Load Balancer statistics.
 	BackendServersStats []*BackendServerStats `json:"backend_servers_stats"`
 }
 
-// ListACLResponse:
+// ListACLResponse: list acl response.
 type ListACLResponse struct {
-	// ACLs: List of ACL objects.
+	// ACLs: list of ACL objects.
 	ACLs []*ACL `json:"acls"`
-	// TotalCount: The total number of objects.
+
+	// TotalCount: the total number of objects.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1836,41 +2117,52 @@ func (r *ListACLResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.ACLs)), nil
 }
 
-// ListACLsRequest:
+// ListACLsRequest: list ac ls request.
 type ListACLsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// FrontendID: Frontend ID (ACLs attached to this frontend will be returned in the response).
+
+	// FrontendID: frontend ID (ACLs attached to this frontend will be returned in the response).
 	FrontendID string `json:"-"`
-	// OrderBy: Sort order of ACLs in the response.
+
+	// OrderBy: sort order of ACLs in the response.
+	// Default value: created_at_asc
 	OrderBy ListACLRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: The number of ACLs to return.
+
+	// PageSize: the number of ACLs to return.
 	PageSize *uint32 `json:"-"`
+
 	// Name: ACL name to filter for.
 	Name *string `json:"-"`
 }
 
-// ListBackendStatsRequest:
+// ListBackendStatsRequest: list backend stats request.
 type ListBackendStatsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of items to return.
+
+	// PageSize: number of items to return.
 	PageSize *uint32 `json:"-"`
+
 	// BackendID: ID of the backend.
 	BackendID *string `json:"-"`
 }
 
-// ListBackendStatsResponse:
+// ListBackendStatsResponse: list backend stats response.
 type ListBackendStatsResponse struct {
-	// BackendServersStats: List of objects containing backend server statistics.
+	// BackendServersStats: list of objects containing backend server statistics.
 	BackendServersStats []*BackendServerStats `json:"backend_servers_stats"`
-	// TotalCount: The total number of objects.
+
+	// TotalCount: the total number of objects.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1893,27 +2185,34 @@ func (r *ListBackendStatsResponse) UnsafeAppend(res interface{}) (uint32, error)
 	return uint32(len(results.BackendServersStats)), nil
 }
 
-// ListBackendsRequest:
+// ListBackendsRequest: list backends request.
 type ListBackendsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Name of the backend to filter for.
+
+	// Name: name of the backend to filter for.
 	Name *string `json:"-"`
-	// OrderBy: Sort order of backends in the response.
+
+	// OrderBy: sort order of backends in the response.
+	// Default value: created_at_asc
 	OrderBy ListBackendsRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of backends to return.
+
+	// PageSize: number of backends to return.
 	PageSize *uint32 `json:"-"`
 }
 
-// ListBackendsResponse:
+// ListBackendsResponse: list backends response.
 type ListBackendsResponse struct {
-	// Backends: List of backend objects of a given Load Balancer.
+	// Backends: list of backend objects of a given Load Balancer.
 	Backends []*Backend `json:"backends"`
-	// TotalCount: Total count of backend objects, without pagination.
+
+	// TotalCount: total count of backend objects, without pagination.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1936,27 +2235,34 @@ func (r *ListBackendsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Backends)), nil
 }
 
-// ListCertificatesRequest:
+// ListCertificatesRequest: list certificates request.
 type ListCertificatesRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// OrderBy: Sort order of certificates in the response.
+
+	// OrderBy: sort order of certificates in the response.
+	// Default value: created_at_asc
 	OrderBy ListCertificatesRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of certificates to return.
+
+	// PageSize: number of certificates to return.
 	PageSize *uint32 `json:"-"`
-	// Name: Certificate name to filter for, only certificates of this name will be returned.
+
+	// Name: certificate name to filter for, only certificates of this name will be returned.
 	Name *string `json:"-"`
 }
 
-// ListCertificatesResponse:
+// ListCertificatesResponse: list certificates response.
 type ListCertificatesResponse struct {
-	// Certificates: List of certificate objects.
+	// Certificates: list of certificate objects.
 	Certificates []*Certificate `json:"certificates"`
-	// TotalCount: The total number of objects.
+
+	// TotalCount: the total number of objects.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1979,27 +2285,34 @@ func (r *ListCertificatesResponse) UnsafeAppend(res interface{}) (uint32, error)
 	return uint32(len(results.Certificates)), nil
 }
 
-// ListFrontendsRequest:
+// ListFrontendsRequest: list frontends request.
 type ListFrontendsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Name of the frontend to filter for.
+
+	// Name: name of the frontend to filter for.
 	Name *string `json:"-"`
-	// OrderBy: Sort order of frontends in the response.
+
+	// OrderBy: sort order of frontends in the response.
+	// Default value: created_at_asc
 	OrderBy ListFrontendsRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of frontends to return.
+
+	// PageSize: number of frontends to return.
 	PageSize *uint32 `json:"-"`
 }
 
-// ListFrontendsResponse:
+// ListFrontendsResponse: list frontends response.
 type ListFrontendsResponse struct {
-	// Frontends: List of frontend objects of a given Load Balancer.
+	// Frontends: list of frontend objects of a given Load Balancer.
 	Frontends []*Frontend `json:"frontends"`
-	// TotalCount: Total count of frontend objects, without pagination.
+
+	// TotalCount: total count of frontend objects, without pagination.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -2022,27 +2335,33 @@ func (r *ListFrontendsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Frontends)), nil
 }
 
-// ListIPsRequest:
+// ListIPsRequest: list i ps request.
 type ListIPsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of IP addresses to return.
+
+	// PageSize: number of IP addresses to return.
 	PageSize *uint32 `json:"-"`
+
 	// IPAddress: IP address to filter for.
 	IPAddress *string `json:"-"`
-	// OrganizationID: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
+
+	// OrganizationID: organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
+
+	// ProjectID: project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
 	ProjectID *string `json:"-"`
 }
 
-// ListIPsResponse:
+// ListIPsResponse: list i ps response.
 type ListIPsResponse struct {
-	// IPs: List of IP address objects.
+	// IPs: list of IP address objects.
 	IPs []*IP `json:"ips"`
-	// TotalCount: Total count of IP address objects, without pagination.
+
+	// TotalCount: total count of IP address objects, without pagination.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -2065,25 +2384,31 @@ func (r *ListIPsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.IPs)), nil
 }
 
-// ListLBPrivateNetworksRequest:
+// ListLBPrivateNetworksRequest: list lb private networks request.
 type ListLBPrivateNetworksRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// OrderBy: Sort order of Private Network objects in the response.
+
+	// OrderBy: sort order of Private Network objects in the response.
+	// Default value: created_at_asc
 	OrderBy ListPrivateNetworksRequestOrderBy `json:"-"`
-	// PageSize: Number of objects to return.
+
+	// PageSize: number of objects to return.
 	PageSize *uint32 `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
 }
 
-// ListLBPrivateNetworksResponse:
+// ListLBPrivateNetworksResponse: list lb private networks response.
 type ListLBPrivateNetworksResponse struct {
-	// PrivateNetwork: List of Private Network objects attached to the Load Balancer.
+	// PrivateNetwork: list of Private Network objects attached to the Load Balancer.
 	PrivateNetwork []*PrivateNetwork `json:"private_network"`
-	// TotalCount: Total number of objects in the response.
+
+	// TotalCount: total number of objects in the response.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -2106,21 +2431,24 @@ func (r *ListLBPrivateNetworksResponse) UnsafeAppend(res interface{}) (uint32, e
 	return uint32(len(results.PrivateNetwork)), nil
 }
 
-// ListLBTypesRequest:
+// ListLBTypesRequest: list lb types request.
 type ListLBTypesRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: The number of items to return.
+
+	// PageSize: the number of items to return.
 	PageSize *uint32 `json:"-"`
 }
 
-// ListLBTypesResponse:
+// ListLBTypesResponse: list lb types response.
 type ListLBTypesResponse struct {
-	// LBTypes: List of Load Balancer commercial offer type objects.
+	// LBTypes: list of Load Balancer commercial offer type objects.
 	LBTypes []*LBType `json:"lb_types"`
-	// TotalCount: Total number of Load Balancer offer type objects.
+
+	// TotalCount: total number of Load Balancer offer type objects.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -2143,29 +2471,37 @@ func (r *ListLBTypesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.LBTypes)), nil
 }
 
-// ListLBsRequest:
+// ListLBsRequest: list l bs request.
 type ListLBsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Name: Load Balancer name to filter for.
+
+	// Name: load Balancer name to filter for.
 	Name *string `json:"-"`
-	// OrderBy: Sort order of Load Balancers in the response.
+
+	// OrderBy: sort order of Load Balancers in the response.
+	// Default value: created_at_asc
 	OrderBy ListLBsRequestOrderBy `json:"-"`
-	// PageSize: Number of Load Balancers to return.
+
+	// PageSize: number of Load Balancers to return.
 	PageSize *uint32 `json:"-"`
-	// Page: Page number to return, from the paginated results.
+
+	// Page: page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// OrganizationID: Organization ID to filter for, only Load Balancers from this Organization will be returned.
+
+	// OrganizationID: organization ID to filter for, only Load Balancers from this Organization will be returned.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Project ID to filter for, only Load Balancers from this Project will be returned.
+
+	// ProjectID: project ID to filter for, only Load Balancers from this Project will be returned.
 	ProjectID *string `json:"-"`
 }
 
-// ListLBsResponse:
+// ListLBsResponse: list l bs response.
 type ListLBsResponse struct {
-	// LBs: List of Load Balancer objects.
+	// LBs: list of Load Balancer objects.
 	LBs []*LB `json:"lbs"`
-	// TotalCount: The total number of Load Balancer objects.
+
+	// TotalCount: the total number of Load Balancer objects.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -2188,25 +2524,31 @@ func (r *ListLBsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.LBs)), nil
 }
 
-// ListRoutesRequest:
+// ListRoutesRequest: list routes request.
 type ListRoutesRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// OrderBy: Sort order of routes in the response.
+
+	// OrderBy: sort order of routes in the response.
+	// Default value: created_at_asc
 	OrderBy ListRoutesRequestOrderBy `json:"-"`
-	// PageSize: The number of route objects to return.
+
+	// PageSize: the number of route objects to return.
 	PageSize *uint32 `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// FrontendID: Frontend ID to filter for, only Routes from this Frontend will be returned.
+
+	// FrontendID: frontend ID to filter for, only Routes from this Frontend will be returned.
 	FrontendID *string `json:"-"`
 }
 
-// ListRoutesResponse:
+// ListRoutesResponse: list routes response.
 type ListRoutesResponse struct {
-	// Routes: List of route objects.
+	// Routes: list of route objects.
 	Routes []*Route `json:"routes"`
-	// TotalCount: The total number of route objects.
+
+	// TotalCount: the total number of route objects.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -2229,29 +2571,37 @@ func (r *ListRoutesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Routes)), nil
 }
 
-// ListSubscriberRequest:
+// ListSubscriberRequest: list subscriber request.
 type ListSubscriberRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// OrderBy: Sort order of subscribers in the response.
+
+	// OrderBy: sort order of subscribers in the response.
+	// Default value: created_at_asc
 	OrderBy ListSubscriberRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: The number of items to return.
+
+	// PageSize: the number of items to return.
 	PageSize *uint32 `json:"-"`
-	// Name: Subscriber name to search for.
+
+	// Name: subscriber name to search for.
 	Name *string `json:"-"`
-	// OrganizationID: Filter subscribers by Organization ID.
+
+	// OrganizationID: filter subscribers by Organization ID.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Filter subscribers by Project ID.
+
+	// ProjectID: filter subscribers by Project ID.
 	ProjectID *string `json:"-"`
 }
 
-// ListSubscriberResponse:
+// ListSubscriberResponse: list subscriber response.
 type ListSubscriberResponse struct {
-	// Subscribers: List of subscriber objects.
+	// Subscribers: list of subscriber objects.
 	Subscribers []*Subscriber `json:"subscribers"`
-	// TotalCount: The total number of objects.
+
+	// TotalCount: the total number of objects.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -2274,39 +2624,45 @@ func (r *ListSubscriberResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Subscribers)), nil
 }
 
-// MigrateLBRequest:
+// MigrateLBRequest: migrate lb request.
 type MigrateLBRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Type: Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
+
+	// Type: load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
 	Type string `json:"type"`
 }
 
-// ReleaseIPRequest:
+// ReleaseIPRequest: release ip request.
 type ReleaseIPRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// IPID: IP address ID.
 	IPID string `json:"-"`
 }
 
-// RemoveBackendServersRequest:
+// RemoveBackendServersRequest: remove backend servers request.
 type RemoveBackendServersRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// ServerIP: List of IP addresses to remove from backend servers.
+
+	// ServerIP: list of IP addresses to remove from backend servers.
 	ServerIP []string `json:"server_ip"`
 }
 
-// SetACLsResponse:
+// SetACLsResponse: set ac ls response.
 type SetACLsResponse struct {
-	// ACLs: List of ACL objects.
+	// ACLs: list of ACL objects.
 	ACLs []*ACL `json:"acls"`
-	// TotalCount: The total number of ACL objects.
+
+	// TotalCount: the total number of ACL objects.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -2329,95 +2685,131 @@ func (r *SetACLsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.ACLs)), nil
 }
 
-// SetBackendServersRequest:
+// SetBackendServersRequest: set backend servers request.
 type SetBackendServersRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// ServerIP: List of IP addresses for backend servers. Any other existing backend servers will be removed.
+
+	// ServerIP: list of IP addresses for backend servers. Any other existing backend servers will be removed.
 	ServerIP []string `json:"server_ip"`
 }
 
-// SubscribeToLBRequest:
+// SubscribeToLBRequest: subscribe to lb request.
 type SubscribeToLBRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// SubscriberID: Subscriber ID.
+
+	// SubscriberID: subscriber ID.
 	SubscriberID string `json:"subscriber_id"`
 }
 
-// UnsubscribeFromLBRequest:
+// UnsubscribeFromLBRequest: unsubscribe from lb request.
 type UnsubscribeFromLBRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
 }
 
-// UpdateACLRequest:
+// UpdateACLRequest: update acl request.
 type UpdateACLRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ACLID: ACL ID.
 	ACLID string `json:"-"`
+
 	// Name: ACL name.
 	Name string `json:"name"`
-	// Action: Action to take when incoming traffic matches an ACL filter.
+
+	// Action: action to take when incoming traffic matches an ACL filter.
 	Action *ACLAction `json:"action"`
+
 	// Match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
 	Match *ACLMatch `json:"match"`
-	// Index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+
+	// Index: priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
 	Index int32 `json:"index"`
+
 	// Description: ACL description.
 	Description *string `json:"description,omitempty"`
 }
 
-// UpdateBackendRequest:
+// UpdateBackendRequest: update backend request.
 type UpdateBackendRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// Name: Backend name.
+
+	// Name: backend name.
 	Name string `json:"name"`
-	// ForwardProtocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+
+	// ForwardProtocol: protocol to be used by the backend when forwarding traffic to backend servers.
+	// Default value: tcp
 	ForwardProtocol Protocol `json:"forward_protocol"`
-	// ForwardPort: Port to be used by the backend when forwarding traffic to backend servers.
+
+	// ForwardPort: port to be used by the backend when forwarding traffic to backend servers.
 	ForwardPort int32 `json:"forward_port"`
-	// ForwardPortAlgorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
+
+	// ForwardPortAlgorithm: load balancing algorithm to be used when determining which backend server to forward new traffic to.
+	// Default value: roundrobin
 	ForwardPortAlgorithm ForwardPortAlgorithm `json:"forward_port_algorithm"`
-	// StickySessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+
+	// StickySessions: defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+	// Default value: none
 	StickySessions StickySessionsType `json:"sticky_sessions"`
-	// StickySessionsCookieName: Cookie name for cookie-based sticky sessions.
+
+	// StickySessionsCookieName: cookie name for cookie-based sticky sessions.
 	StickySessionsCookieName string `json:"sticky_sessions_cookie_name"`
-	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
+
+	// Deprecated: SendProxyV2: deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
-	// TimeoutServer: Maximum allowed time for a backend server to process a request.
+
+	// TimeoutServer: maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server,omitempty"`
-	// TimeoutConnect: Maximum allowed time for establishing a connection to a backend server.
+
+	// TimeoutConnect: maximum allowed time for establishing a connection to a backend server.
 	TimeoutConnect *time.Duration `json:"timeout_connect,omitempty"`
-	// TimeoutTunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
+
+	// TimeoutTunnel: maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
 	TimeoutTunnel *time.Duration `json:"timeout_tunnel,omitempty"`
-	// OnMarkedDownAction: Action to take when a backend server is marked as down.
+
+	// OnMarkedDownAction: action to take when a backend server is marked as down.
+	// Default value: on_marked_down_action_none
 	OnMarkedDownAction OnMarkedDownAction `json:"on_marked_down_action"`
-	// ProxyProtocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+
+	// ProxyProtocol: protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+	// Default value: proxy_protocol_unknown
 	ProxyProtocol ProxyProtocol `json:"proxy_protocol"`
-	// FailoverHost: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+
+	// FailoverHost: scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
 	FailoverHost *string `json:"failover_host,omitempty"`
-	// SslBridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
+
+	// SslBridging: defines whether to enable SSL bridging between the Load Balancer and backend servers.
 	SslBridging *bool `json:"ssl_bridging,omitempty"`
-	// IgnoreSslServerVerify: Defines whether the server certificate verification should be ignored.
+
+	// IgnoreSslServerVerify: defines whether the server certificate verification should be ignored.
 	IgnoreSslServerVerify *bool `json:"ignore_ssl_server_verify,omitempty"`
-	// RedispatchAttemptCount: Whether to use another backend server on each attempt.
+
+	// RedispatchAttemptCount: whether to use another backend server on each attempt.
 	RedispatchAttemptCount *int32 `json:"redispatch_attempt_count,omitempty"`
-	// MaxRetries: Number of retries when a backend server connection failed.
+
+	// MaxRetries: number of retries when a backend server connection failed.
 	MaxRetries *int32 `json:"max_retries,omitempty"`
-	// MaxConnections: Maximum number of connections allowed per backend server.
+
+	// MaxConnections: maximum number of connections allowed per backend server.
 	MaxConnections *int32 `json:"max_connections,omitempty"`
-	// TimeoutQueue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
+
+	// TimeoutQueue: maximum time for a request to be left pending in queue when `max_connections` is reached.
 	TimeoutQueue *scw.Duration `json:"timeout_queue,omitempty"`
 }
 
@@ -2457,35 +2849,45 @@ func (m UpdateBackendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// UpdateCertificateRequest:
+// UpdateCertificateRequest: update certificate request.
 type UpdateCertificateRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// CertificateID: Certificate ID.
+
+	// CertificateID: certificate ID.
 	CertificateID string `json:"-"`
-	// Name: Certificate name.
+
+	// Name: certificate name.
 	Name string `json:"name"`
 }
 
-// UpdateFrontendRequest:
+// UpdateFrontendRequest: update frontend request.
 type UpdateFrontendRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// FrontendID: Frontend ID.
+
+	// FrontendID: frontend ID.
 	FrontendID string `json:"-"`
-	// Name: Frontend name.
+
+	// Name: frontend name.
 	Name string `json:"name"`
-	// InboundPort: Port the frontend should listen on.
+
+	// InboundPort: port the frontend should listen on.
 	InboundPort int32 `json:"inbound_port"`
-	// BackendID: Backend ID (ID of the backend the frontend should pass traffic to).
+
+	// BackendID: backend ID (ID of the backend the frontend should pass traffic to).
 	BackendID string `json:"backend_id"`
-	// TimeoutClient: Maximum allowed inactivity time on the client side.
+
+	// TimeoutClient: maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client,omitempty"`
-	// Deprecated: CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
+
+	// Deprecated: CertificateID: certificate ID, deprecated in favor of certificate_ids array.
 	CertificateID *string `json:"certificate_id,omitempty"`
-	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
+
+	// CertificateIDs: list of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs *[]string `json:"certificate_ids,omitempty"`
-	// EnableHTTP3: Defines whether to enable HTTP/3 protocol on the frontend.
+
+	// EnableHTTP3: defines whether to enable HTTP/3 protocol on the frontend.
 	EnableHTTP3 bool `json:"enable_http3"`
 }
 
@@ -2517,37 +2919,58 @@ func (m UpdateFrontendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// UpdateHealthCheckRequest:
+// UpdateHealthCheckRequest: update health check request.
 type UpdateHealthCheckRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// Port: Port to use for the backend server health check.
+
+	// Port: port to use for the backend server health check.
 	Port int32 `json:"port"`
-	// CheckDelay: Time to wait between two consecutive health checks.
+
+	// CheckDelay: time to wait between two consecutive health checks.
 	CheckDelay *time.Duration `json:"check_delay,omitempty"`
-	// CheckTimeout: Maximum time a backend server has to reply to the health check.
+
+	// CheckTimeout: maximum time a backend server has to reply to the health check.
 	CheckTimeout *time.Duration `json:"check_timeout,omitempty"`
-	// CheckMaxRetries: Number of consecutive unsuccessful health checks after which the server will be considered dead.
+
+	// CheckMaxRetries: number of consecutive unsuccessful health checks after which the server will be considered dead.
 	CheckMaxRetries int32 `json:"check_max_retries"`
-	// CheckSendProxy: Defines whether proxy protocol should be activated for the health check.
+
+	// CheckSendProxy: defines whether proxy protocol should be activated for the health check.
 	CheckSendProxy bool `json:"check_send_proxy"`
-	// TCPConfig: Object to configure a basic TCP health check.
+
+	// TCPConfig: object to configure a basic TCP health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	TCPConfig *HealthCheckTCPConfig `json:"tcp_config,omitempty"`
-	// MysqlConfig: Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+
+	// MysqlConfig: object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	MysqlConfig *HealthCheckMysqlConfig `json:"mysql_config,omitempty"`
-	// PgsqlConfig: Object to configure a PostgreSQL health check.
+
+	// PgsqlConfig: object to configure a PostgreSQL health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	PgsqlConfig *HealthCheckPgsqlConfig `json:"pgsql_config,omitempty"`
-	// LdapConfig: Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
+
+	// LdapConfig: object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	LdapConfig *HealthCheckLdapConfig `json:"ldap_config,omitempty"`
-	// RedisConfig: Object to configure a Redis health check. The response is analyzed to find the +PONG response message.
+
+	// RedisConfig: object to configure a Redis health check. The response is analyzed to find the +PONG response message.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	RedisConfig *HealthCheckRedisConfig `json:"redis_config,omitempty"`
-	// HTTPConfig: Object to configure an HTTP health check.
+
+	// HTTPConfig: object to configure an HTTP health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	HTTPConfig *HealthCheckHTTPConfig `json:"http_config,omitempty"`
-	// HTTPSConfig: Object to configure an HTTPS health check.
+
+	// HTTPSConfig: object to configure an HTTPS health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	HTTPSConfig *HealthCheckHTTPSConfig `json:"https_config,omitempty"`
-	// TransientCheckDelay: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
+
+	// TransientCheckDelay: time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
 	TransientCheckDelay *scw.Duration `json:"transient_check_delay,omitempty"`
 }
 
@@ -2583,149 +3006,209 @@ func (m UpdateHealthCheckRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// UpdateIPRequest:
+// UpdateIPRequest: update ip request.
 type UpdateIPRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// IPID: IP address ID.
 	IPID string `json:"-"`
-	// Reverse: Reverse DNS (domain name) for the IP address.
+
+	// Reverse: reverse DNS (domain name) for the IP address.
 	Reverse *string `json:"reverse,omitempty"`
 }
 
-// UpdateLBRequest:
+// UpdateLBRequest: update lb request.
 type UpdateLBRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Load Balancer name.
+
+	// Name: load Balancer name.
 	Name string `json:"name"`
-	// Description: Load Balancer description.
+
+	// Description: load Balancer description.
 	Description string `json:"description"`
-	// Tags: List of tags for the Load Balancer.
+
+	// Tags: list of tags for the Load Balancer.
 	Tags []string `json:"tags"`
-	// SslCompatibilityLevel: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+
+	// SslCompatibilityLevel: determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+	// Default value: ssl_compatibility_level_unknown
 	SslCompatibilityLevel SSLCompatibilityLevel `json:"ssl_compatibility_level"`
 }
 
-// UpdateRouteRequest:
+// UpdateRouteRequest: update route request.
 type UpdateRouteRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// RouteID: Route ID.
+
+	// RouteID: route ID.
 	RouteID string `json:"-"`
+
 	// BackendID: ID of the target backend for the route.
 	BackendID string `json:"backend_id"`
-	// Match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
+
+	// Match: object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
 	Match *RouteMatch `json:"match,omitempty"`
 }
 
-// UpdateSubscriberRequest:
+// UpdateSubscriberRequest: update subscriber request.
 type UpdateSubscriberRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// SubscriberID: Subscriber ID.
+
+	// SubscriberID: subscriber ID.
 	SubscriberID string `json:"-"`
-	// Name: Subscriber name.
+
+	// Name: subscriber name.
 	Name string `json:"name"`
-	// EmailConfig: Email address configuration.
+
+	// EmailConfig: email address configuration.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	EmailConfig *SubscriberEmailConfig `json:"email_config,omitempty"`
-	// WebhookConfig: Webhook URI configuration.
+
+	// WebhookConfig: webhook URI configuration.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	WebhookConfig *SubscriberWebhookConfig `json:"webhook_config,omitempty"`
 }
 
-// ZonedAPIAddBackendServersRequest:
+// ZonedAPIAddBackendServersRequest: zoned api add backend servers request.
 type ZonedAPIAddBackendServersRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// ServerIP: List of IP addresses to add to backend servers.
+
+	// ServerIP: list of IP addresses to add to backend servers.
 	ServerIP []string `json:"server_ip"`
 }
 
-// ZonedAPIAttachPrivateNetworkRequest:
+// ZonedAPIAttachPrivateNetworkRequest: zoned api attach private network request.
 type ZonedAPIAttachPrivateNetworkRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// PrivateNetworkID: Private Network ID.
+
+	// PrivateNetworkID: private Network ID.
 	PrivateNetworkID string `json:"-"`
-	// Deprecated: StaticConfig: Object containing an array of a local IP address for the Load Balancer on this Private Network.
+
+	// Deprecated: StaticConfig: object containing an array of a local IP address for the Load Balancer on this Private Network.
+	// Precisely one of StaticConfig, DHCPConfig, IpamConfig must be set.
 	StaticConfig *PrivateNetworkStaticConfig `json:"static_config,omitempty"`
-	// Deprecated: DHCPConfig: Defines whether to let DHCP assign IP addresses.
+
+	// Deprecated: DHCPConfig: defines whether to let DHCP assign IP addresses.
+	// Precisely one of StaticConfig, DHCPConfig, IpamConfig must be set.
 	DHCPConfig *PrivateNetworkDHCPConfig `json:"dhcp_config,omitempty"`
-	// Deprecated: IpamConfig: For internal use only.
+
+	// Deprecated: IpamConfig: for internal use only.
+	// Precisely one of StaticConfig, DHCPConfig, IpamConfig must be set.
 	IpamConfig *PrivateNetworkIpamConfig `json:"ipam_config,omitempty"`
 }
 
 // ZonedAPICreateACLRequest: Add an ACL to a Load Balancer frontend.
 type ZonedAPICreateACLRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// FrontendID: Frontend ID to attach the ACL to.
+
+	// FrontendID: frontend ID to attach the ACL to.
 	FrontendID string `json:"-"`
+
 	// Name: ACL name.
 	Name string `json:"name"`
-	// Action: Action to take when incoming traffic matches an ACL filter.
+
+	// Action: action to take when incoming traffic matches an ACL filter.
 	Action *ACLAction `json:"action"`
+
 	// Match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
 	Match *ACLMatch `json:"match"`
-	// Index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+
+	// Index: priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
 	Index int32 `json:"index"`
+
 	// Description: ACL description.
 	Description string `json:"description"`
 }
 
-// ZonedAPICreateBackendRequest:
+// ZonedAPICreateBackendRequest: zoned api create backend request.
 type ZonedAPICreateBackendRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Name for the backend.
+
+	// Name: name for the backend.
 	Name string `json:"name"`
-	// ForwardProtocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+
+	// ForwardProtocol: protocol to be used by the backend when forwarding traffic to backend servers.
+	// Default value: tcp
 	ForwardProtocol Protocol `json:"forward_protocol"`
-	// ForwardPort: Port to be used by the backend when forwarding traffic to backend servers.
+
+	// ForwardPort: port to be used by the backend when forwarding traffic to backend servers.
 	ForwardPort int32 `json:"forward_port"`
-	// ForwardPortAlgorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
+
+	// ForwardPortAlgorithm: load balancing algorithm to be used when determining which backend server to forward new traffic to.
+	// Default value: roundrobin
 	ForwardPortAlgorithm ForwardPortAlgorithm `json:"forward_port_algorithm"`
-	// StickySessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+
+	// StickySessions: defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+	// Default value: none
 	StickySessions StickySessionsType `json:"sticky_sessions"`
-	// StickySessionsCookieName: Cookie name for cookie-based sticky sessions.
+
+	// StickySessionsCookieName: cookie name for cookie-based sticky sessions.
 	StickySessionsCookieName string `json:"sticky_sessions_cookie_name"`
-	// HealthCheck: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
+
+	// HealthCheck: object defining the health check to be carried out by the backend when checking the status and health of backend servers.
 	HealthCheck *HealthCheck `json:"health_check"`
-	// ServerIP: List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
+
+	// ServerIP: list of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
 	ServerIP []string `json:"server_ip"`
-	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
+
+	// Deprecated: SendProxyV2: deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
-	// TimeoutServer: Maximum allowed time for a backend server to process a request.
+
+	// TimeoutServer: maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server,omitempty"`
-	// TimeoutConnect: Maximum allowed time for establishing a connection to a backend server.
+
+	// TimeoutConnect: maximum allowed time for establishing a connection to a backend server.
 	TimeoutConnect *time.Duration `json:"timeout_connect,omitempty"`
-	// TimeoutTunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
+
+	// TimeoutTunnel: maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
 	TimeoutTunnel *time.Duration `json:"timeout_tunnel,omitempty"`
-	// OnMarkedDownAction: Action to take when a backend server is marked as down.
+
+	// OnMarkedDownAction: action to take when a backend server is marked as down.
+	// Default value: on_marked_down_action_none
 	OnMarkedDownAction OnMarkedDownAction `json:"on_marked_down_action"`
-	// ProxyProtocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+
+	// ProxyProtocol: protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+	// Default value: proxy_protocol_unknown
 	ProxyProtocol ProxyProtocol `json:"proxy_protocol"`
-	// FailoverHost: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+
+	// FailoverHost: scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
 	FailoverHost *string `json:"failover_host,omitempty"`
-	// SslBridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
+
+	// SslBridging: defines whether to enable SSL bridging between the Load Balancer and backend servers.
 	SslBridging *bool `json:"ssl_bridging,omitempty"`
-	// IgnoreSslServerVerify: Defines whether the server certificate verification should be ignored.
+
+	// IgnoreSslServerVerify: defines whether the server certificate verification should be ignored.
 	IgnoreSslServerVerify *bool `json:"ignore_ssl_server_verify,omitempty"`
-	// RedispatchAttemptCount: Whether to use another backend server on each attempt.
+
+	// RedispatchAttemptCount: whether to use another backend server on each attempt.
 	RedispatchAttemptCount *int32 `json:"redispatch_attempt_count,omitempty"`
-	// MaxRetries: Number of retries when a backend server connection failed.
+
+	// MaxRetries: number of retries when a backend server connection failed.
 	MaxRetries *int32 `json:"max_retries,omitempty"`
-	// MaxConnections: Maximum number of connections allowed per backend server.
+
+	// MaxConnections: maximum number of connections allowed per backend server.
 	MaxConnections *int32 `json:"max_connections,omitempty"`
-	// TimeoutQueue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
+
+	// TimeoutQueue: maximum time for a request to be left pending in queue when `max_connections` is reached.
 	TimeoutQueue *scw.Duration `json:"timeout_queue,omitempty"`
 }
 
@@ -2765,39 +3248,53 @@ func (m ZonedAPICreateBackendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// ZonedAPICreateCertificateRequest:
+// ZonedAPICreateCertificateRequest: zoned api create certificate request.
 type ZonedAPICreateCertificateRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Name for the certificate.
+
+	// Name: name for the certificate.
 	Name string `json:"name"`
-	// Letsencrypt: Object to define a new Let's Encrypt certificate to be generated.
+
+	// Letsencrypt: object to define a new Let's Encrypt certificate to be generated.
+	// Precisely one of Letsencrypt, CustomCertificate must be set.
 	Letsencrypt *CreateCertificateRequestLetsencryptConfig `json:"letsencrypt,omitempty"`
-	// CustomCertificate: Object to define an existing custom certificate to be imported.
+
+	// CustomCertificate: object to define an existing custom certificate to be imported.
+	// Precisely one of Letsencrypt, CustomCertificate must be set.
 	CustomCertificate *CreateCertificateRequestCustomCertificate `json:"custom_certificate,omitempty"`
 }
 
-// ZonedAPICreateFrontendRequest:
+// ZonedAPICreateFrontendRequest: zoned api create frontend request.
 type ZonedAPICreateFrontendRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
+
+	// LBID: load Balancer ID (ID of the Load Balancer to attach the frontend to).
 	LBID string `json:"-"`
-	// Name: Name for the frontend.
+
+	// Name: name for the frontend.
 	Name string `json:"name"`
-	// InboundPort: Port the frontend should listen on.
+
+	// InboundPort: port the frontend should listen on.
 	InboundPort int32 `json:"inbound_port"`
-	// BackendID: Backend ID (ID of the backend the frontend should pass traffic to).
+
+	// BackendID: backend ID (ID of the backend the frontend should pass traffic to).
 	BackendID string `json:"backend_id"`
-	// TimeoutClient: Maximum allowed inactivity time on the client side.
+
+	// TimeoutClient: maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client,omitempty"`
-	// Deprecated: CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
+
+	// Deprecated: CertificateID: certificate ID, deprecated in favor of certificate_ids array.
 	CertificateID *string `json:"certificate_id,omitempty"`
-	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
+
+	// CertificateIDs: list of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs *[]string `json:"certificate_ids,omitempty"`
-	// EnableHTTP3: Defines whether to enable HTTP/3 protocol on the frontend.
+
+	// EnableHTTP3: defines whether to enable HTTP/3 protocol on the frontend.
 	EnableHTTP3 bool `json:"enable_http3"`
 }
 
@@ -2829,507 +3326,658 @@ func (m ZonedAPICreateFrontendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// ZonedAPICreateIPRequest:
+// ZonedAPICreateIPRequest: zoned api create ip request.
 type ZonedAPICreateIPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Deprecated: OrganizationID: Organization ID of the Organization where the IP address should be created.
+
+	// Deprecated: OrganizationID: organization ID of the Organization where the IP address should be created.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// ProjectID: Project ID of the Project where the IP address should be created.
+
+	// ProjectID: project ID of the Project where the IP address should be created.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	ProjectID *string `json:"project_id,omitempty"`
-	// Reverse: Reverse DNS (domain name) for the IP address.
+
+	// Reverse: reverse DNS (domain name) for the IP address.
 	Reverse *string `json:"reverse,omitempty"`
 }
 
-// ZonedAPICreateLBRequest:
+// ZonedAPICreateLBRequest: zoned api create lb request.
 type ZonedAPICreateLBRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Deprecated: OrganizationID: Scaleway Organization to create the Load Balancer in.
+
+	// Deprecated: OrganizationID: scaleway Organization to create the Load Balancer in.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// ProjectID: Scaleway Project to create the Load Balancer in.
+
+	// ProjectID: scaleway Project to create the Load Balancer in.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	ProjectID *string `json:"project_id,omitempty"`
-	// Name: Name for the Load Balancer.
+
+	// Name: name for the Load Balancer.
 	Name string `json:"name"`
-	// Description: Description for the Load Balancer.
+
+	// Description: description for the Load Balancer.
 	Description string `json:"description"`
+
 	// Deprecated: IPID: ID of an existing flexible IP address to attach to the Load Balancer.
 	IPID *string `json:"ip_id,omitempty"`
-	// AssignFlexibleIP: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+
+	// AssignFlexibleIP: defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
 	AssignFlexibleIP *bool `json:"assign_flexible_ip,omitempty"`
-	// Tags: List of tags for the Load Balancer.
+
+	// Tags: list of tags for the Load Balancer.
 	Tags []string `json:"tags"`
-	// Type: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
+
+	// Type: load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
 	Type string `json:"type"`
-	// SslCompatibilityLevel: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+
+	// SslCompatibilityLevel: determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+	// Default value: ssl_compatibility_level_unknown
 	SslCompatibilityLevel SSLCompatibilityLevel `json:"ssl_compatibility_level"`
 }
 
-// ZonedAPICreateRouteRequest:
+// ZonedAPICreateRouteRequest: zoned api create route request.
 type ZonedAPICreateRouteRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// FrontendID: ID of the source frontend to create the route on.
 	FrontendID string `json:"frontend_id"`
+
 	// BackendID: ID of the target backend for the route.
 	BackendID string `json:"backend_id"`
-	// Match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
+
+	// Match: object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
 	Match *RouteMatch `json:"match,omitempty"`
 }
 
 // ZonedAPICreateSubscriberRequest: Create a new alert subscriber (webhook or email).
 type ZonedAPICreateSubscriberRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Name: Subscriber name.
+
+	// Name: subscriber name.
 	Name string `json:"name"`
-	// EmailConfig: Email address configuration.
+
+	// EmailConfig: email address configuration.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	EmailConfig *SubscriberEmailConfig `json:"email_config,omitempty"`
-	// WebhookConfig: WebHook URI configuration.
+
+	// WebhookConfig: webHook URI configuration.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	WebhookConfig *SubscriberWebhookConfig `json:"webhook_config,omitempty"`
-	// Deprecated: OrganizationID: Organization ID to create the subscriber in.
+
+	// Deprecated: OrganizationID: organization ID to create the subscriber in.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// ProjectID: Project ID to create the subscriber in.
+
+	// ProjectID: project ID to create the subscriber in.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	ProjectID *string `json:"project_id,omitempty"`
 }
 
-// ZonedAPIDeleteACLRequest:
+// ZonedAPIDeleteACLRequest: zoned api delete acl request.
 type ZonedAPIDeleteACLRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// ACLID: ACL ID.
 	ACLID string `json:"-"`
 }
 
-// ZonedAPIDeleteBackendRequest:
+// ZonedAPIDeleteBackendRequest: zoned api delete backend request.
 type ZonedAPIDeleteBackendRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// BackendID: ID of the backend to delete.
 	BackendID string `json:"-"`
 }
 
-// ZonedAPIDeleteCertificateRequest:
+// ZonedAPIDeleteCertificateRequest: zoned api delete certificate request.
 type ZonedAPIDeleteCertificateRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// CertificateID: Certificate ID.
+
+	// CertificateID: certificate ID.
 	CertificateID string `json:"-"`
 }
 
-// ZonedAPIDeleteFrontendRequest:
+// ZonedAPIDeleteFrontendRequest: zoned api delete frontend request.
 type ZonedAPIDeleteFrontendRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// FrontendID: ID of the frontend to delete.
 	FrontendID string `json:"-"`
 }
 
-// ZonedAPIDeleteLBRequest:
+// ZonedAPIDeleteLBRequest: zoned api delete lb request.
 type ZonedAPIDeleteLBRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// LBID: ID of the Load Balancer to delete.
 	LBID string `json:"-"`
-	// ReleaseIP: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
+
+	// ReleaseIP: defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
 	ReleaseIP bool `json:"release_ip"`
 }
 
-// ZonedAPIDeleteRouteRequest:
+// ZonedAPIDeleteRouteRequest: zoned api delete route request.
 type ZonedAPIDeleteRouteRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// RouteID: Route ID.
+
+	// RouteID: route ID.
 	RouteID string `json:"-"`
 }
 
-// ZonedAPIDeleteSubscriberRequest:
+// ZonedAPIDeleteSubscriberRequest: zoned api delete subscriber request.
 type ZonedAPIDeleteSubscriberRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// SubscriberID: Subscriber ID.
+
+	// SubscriberID: subscriber ID.
 	SubscriberID string `json:"-"`
 }
 
-// ZonedAPIDetachPrivateNetworkRequest:
+// ZonedAPIDetachPrivateNetworkRequest: zoned api detach private network request.
 type ZonedAPIDetachPrivateNetworkRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load balancer ID.
+
+	// LBID: load balancer ID.
 	LBID string `json:"-"`
-	// PrivateNetworkID: Set your instance private network id.
+
+	// PrivateNetworkID: set your instance private network id.
 	PrivateNetworkID string `json:"-"`
 }
 
-// ZonedAPIGetACLRequest:
+// ZonedAPIGetACLRequest: zoned api get acl request.
 type ZonedAPIGetACLRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// ACLID: ACL ID.
 	ACLID string `json:"-"`
 }
 
-// ZonedAPIGetBackendRequest:
+// ZonedAPIGetBackendRequest: zoned api get backend request.
 type ZonedAPIGetBackendRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
 }
 
-// ZonedAPIGetCertificateRequest:
+// ZonedAPIGetCertificateRequest: zoned api get certificate request.
 type ZonedAPIGetCertificateRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// CertificateID: Certificate ID.
+
+	// CertificateID: certificate ID.
 	CertificateID string `json:"-"`
 }
 
-// ZonedAPIGetFrontendRequest:
+// ZonedAPIGetFrontendRequest: zoned api get frontend request.
 type ZonedAPIGetFrontendRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// FrontendID: Frontend ID.
+
+	// FrontendID: frontend ID.
 	FrontendID string `json:"-"`
 }
 
-// ZonedAPIGetIPRequest:
+// ZonedAPIGetIPRequest: zoned api get ip request.
 type ZonedAPIGetIPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// IPID: IP address ID.
 	IPID string `json:"-"`
 }
 
-// ZonedAPIGetLBRequest:
+// ZonedAPIGetLBRequest: zoned api get lb request.
 type ZonedAPIGetLBRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
 }
 
 // ZonedAPIGetLBStatsRequest: Get Load Balancer stats.
 type ZonedAPIGetLBStatsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
+
 	// BackendID: ID of the backend.
 	BackendID *string `json:"backend_id,omitempty"`
 }
 
-// ZonedAPIGetRouteRequest:
+// ZonedAPIGetRouteRequest: zoned api get route request.
 type ZonedAPIGetRouteRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// RouteID: Route ID.
+
+	// RouteID: route ID.
 	RouteID string `json:"-"`
 }
 
-// ZonedAPIGetSubscriberRequest:
+// ZonedAPIGetSubscriberRequest: zoned api get subscriber request.
 type ZonedAPIGetSubscriberRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// SubscriberID: Subscriber ID.
+
+	// SubscriberID: subscriber ID.
 	SubscriberID string `json:"-"`
 }
 
-// ZonedAPIListACLsRequest:
+// ZonedAPIListACLsRequest: zoned api list ac ls request.
 type ZonedAPIListACLsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// FrontendID: Frontend ID (ACLs attached to this frontend will be returned in the response).
+
+	// FrontendID: frontend ID (ACLs attached to this frontend will be returned in the response).
 	FrontendID string `json:"-"`
-	// OrderBy: Sort order of ACLs in the response.
+
+	// OrderBy: sort order of ACLs in the response.
+	// Default value: created_at_asc
 	OrderBy ListACLRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: The number of ACLs to return.
+
+	// PageSize: the number of ACLs to return.
 	PageSize *uint32 `json:"-"`
+
 	// Name: ACL name to filter for.
 	Name *string `json:"-"`
 }
 
-// ZonedAPIListBackendStatsRequest:
+// ZonedAPIListBackendStatsRequest: zoned api list backend stats request.
 type ZonedAPIListBackendStatsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of items to return.
+
+	// PageSize: number of items to return.
 	PageSize *uint32 `json:"-"`
+
 	// BackendID: ID of the backend.
 	BackendID *string `json:"-"`
 }
 
-// ZonedAPIListBackendsRequest:
+// ZonedAPIListBackendsRequest: zoned api list backends request.
 type ZonedAPIListBackendsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Name of the backend to filter for.
+
+	// Name: name of the backend to filter for.
 	Name *string `json:"-"`
-	// OrderBy: Sort order of backends in the response.
+
+	// OrderBy: sort order of backends in the response.
+	// Default value: created_at_asc
 	OrderBy ListBackendsRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of backends to return.
+
+	// PageSize: number of backends to return.
 	PageSize *uint32 `json:"-"`
 }
 
-// ZonedAPIListCertificatesRequest:
+// ZonedAPIListCertificatesRequest: zoned api list certificates request.
 type ZonedAPIListCertificatesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// OrderBy: Sort order of certificates in the response.
+
+	// OrderBy: sort order of certificates in the response.
+	// Default value: created_at_asc
 	OrderBy ListCertificatesRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of certificates to return.
+
+	// PageSize: number of certificates to return.
 	PageSize *uint32 `json:"-"`
-	// Name: Certificate name to filter for, only certificates of this name will be returned.
+
+	// Name: certificate name to filter for, only certificates of this name will be returned.
 	Name *string `json:"-"`
 }
 
-// ZonedAPIListFrontendsRequest:
+// ZonedAPIListFrontendsRequest: zoned api list frontends request.
 type ZonedAPIListFrontendsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Name of the frontend to filter for.
+
+	// Name: name of the frontend to filter for.
 	Name *string `json:"-"`
-	// OrderBy: Sort order of frontends in the response.
+
+	// OrderBy: sort order of frontends in the response.
+	// Default value: created_at_asc
 	OrderBy ListFrontendsRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of frontends to return.
+
+	// PageSize: number of frontends to return.
 	PageSize *uint32 `json:"-"`
 }
 
-// ZonedAPIListIPsRequest:
+// ZonedAPIListIPsRequest: zoned api list i ps request.
 type ZonedAPIListIPsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: Number of IP addresses to return.
+
+	// PageSize: number of IP addresses to return.
 	PageSize *uint32 `json:"-"`
+
 	// IPAddress: IP address to filter for.
 	IPAddress *string `json:"-"`
-	// OrganizationID: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
+
+	// OrganizationID: organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
+
+	// ProjectID: project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
 	ProjectID *string `json:"-"`
 }
 
-// ZonedAPIListLBPrivateNetworksRequest:
+// ZonedAPIListLBPrivateNetworksRequest: zoned api list lb private networks request.
 type ZonedAPIListLBPrivateNetworksRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// OrderBy: Sort order of Private Network objects in the response.
+
+	// OrderBy: sort order of Private Network objects in the response.
+	// Default value: created_at_asc
 	OrderBy ListPrivateNetworksRequestOrderBy `json:"-"`
-	// PageSize: Number of objects to return.
+
+	// PageSize: number of objects to return.
 	PageSize *uint32 `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
 }
 
-// ZonedAPIListLBTypesRequest:
+// ZonedAPIListLBTypesRequest: zoned api list lb types request.
 type ZonedAPIListLBTypesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: The number of items to return.
+
+	// PageSize: the number of items to return.
 	PageSize *uint32 `json:"-"`
 }
 
-// ZonedAPIListLBsRequest:
+// ZonedAPIListLBsRequest: zoned api list l bs request.
 type ZonedAPIListLBsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Name: Load Balancer name to filter for.
+
+	// Name: load Balancer name to filter for.
 	Name *string `json:"-"`
-	// OrderBy: Sort order of Load Balancers in the response.
+
+	// OrderBy: sort order of Load Balancers in the response.
+	// Default value: created_at_asc
 	OrderBy ListLBsRequestOrderBy `json:"-"`
-	// PageSize: Number of Load Balancers to return.
+
+	// PageSize: number of Load Balancers to return.
 	PageSize *uint32 `json:"-"`
-	// Page: Page number to return, from the paginated results.
+
+	// Page: page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// OrganizationID: Organization ID to filter for, only Load Balancers from this Organization will be returned.
+
+	// OrganizationID: organization ID to filter for, only Load Balancers from this Organization will be returned.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Project ID to filter for, only Load Balancers from this Project will be returned.
+
+	// ProjectID: project ID to filter for, only Load Balancers from this Project will be returned.
 	ProjectID *string `json:"-"`
 }
 
-// ZonedAPIListRoutesRequest:
+// ZonedAPIListRoutesRequest: zoned api list routes request.
 type ZonedAPIListRoutesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Sort order of routes in the response.
+
+	// OrderBy: sort order of routes in the response.
+	// Default value: created_at_asc
 	OrderBy ListRoutesRequestOrderBy `json:"-"`
-	// PageSize: The number of route objects to return.
+
+	// PageSize: the number of route objects to return.
 	PageSize *uint32 `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// FrontendID: Frontend ID to filter for, only Routes from this Frontend will be returned.
+
+	// FrontendID: frontend ID to filter for, only Routes from this Frontend will be returned.
 	FrontendID *string `json:"-"`
 }
 
-// ZonedAPIListSubscriberRequest:
+// ZonedAPIListSubscriberRequest: zoned api list subscriber request.
 type ZonedAPIListSubscriberRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Sort order of subscribers in the response.
+
+	// OrderBy: sort order of subscribers in the response.
+	// Default value: created_at_asc
 	OrderBy ListSubscriberRequestOrderBy `json:"-"`
-	// Page: The page number to return, from the paginated results.
+
+	// Page: the page number to return, from the paginated results.
 	Page *int32 `json:"-"`
-	// PageSize: The number of items to return.
+
+	// PageSize: the number of items to return.
 	PageSize *uint32 `json:"-"`
-	// Name: Subscriber name to search for.
+
+	// Name: subscriber name to search for.
 	Name *string `json:"-"`
-	// OrganizationID: Filter subscribers by Organization ID.
+
+	// OrganizationID: filter subscribers by Organization ID.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Filter subscribers by Project ID.
+
+	// ProjectID: filter subscribers by Project ID.
 	ProjectID *string `json:"-"`
 }
 
-// ZonedAPIMigrateLBRequest:
+// ZonedAPIMigrateLBRequest: zoned api migrate lb request.
 type ZonedAPIMigrateLBRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Type: Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
+
+	// Type: load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
 	Type string `json:"type"`
 }
 
-// ZonedAPIReleaseIPRequest:
+// ZonedAPIReleaseIPRequest: zoned api release ip request.
 type ZonedAPIReleaseIPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// IPID: IP address ID.
 	IPID string `json:"-"`
 }
 
-// ZonedAPIRemoveBackendServersRequest:
+// ZonedAPIRemoveBackendServersRequest: zoned api remove backend servers request.
 type ZonedAPIRemoveBackendServersRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// ServerIP: List of IP addresses to remove from backend servers.
+
+	// ServerIP: list of IP addresses to remove from backend servers.
 	ServerIP []string `json:"server_ip"`
 }
 
-// ZonedAPISetACLsRequest:
+// ZonedAPISetACLsRequest: zoned api set ac ls request.
 type ZonedAPISetACLsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// FrontendID: Frontend ID.
+
+	// FrontendID: frontend ID.
 	FrontendID string `json:"-"`
-	// ACLs: List of ACLs for this frontend. Any other existing ACLs on this frontend will be removed.
+
+	// ACLs: list of ACLs for this frontend. Any other existing ACLs on this frontend will be removed.
 	ACLs []*ACLSpec `json:"acls"`
 }
 
-// ZonedAPISetBackendServersRequest:
+// ZonedAPISetBackendServersRequest: zoned api set backend servers request.
 type ZonedAPISetBackendServersRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// ServerIP: List of IP addresses for backend servers. Any other existing backend servers will be removed.
+
+	// ServerIP: list of IP addresses for backend servers. Any other existing backend servers will be removed.
 	ServerIP []string `json:"server_ip"`
 }
 
-// ZonedAPISubscribeToLBRequest:
+// ZonedAPISubscribeToLBRequest: zoned api subscribe to lb request.
 type ZonedAPISubscribeToLBRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// SubscriberID: Subscriber ID.
+
+	// SubscriberID: subscriber ID.
 	SubscriberID string `json:"subscriber_id"`
 }
 
-// ZonedAPIUnsubscribeFromLBRequest:
+// ZonedAPIUnsubscribeFromLBRequest: zoned api unsubscribe from lb request.
 type ZonedAPIUnsubscribeFromLBRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
 }
 
-// ZonedAPIUpdateACLRequest:
+// ZonedAPIUpdateACLRequest: zoned api update acl request.
 type ZonedAPIUpdateACLRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// ACLID: ACL ID.
 	ACLID string `json:"-"`
+
 	// Name: ACL name.
 	Name string `json:"name"`
-	// Action: Action to take when incoming traffic matches an ACL filter.
+
+	// Action: action to take when incoming traffic matches an ACL filter.
 	Action *ACLAction `json:"action"`
+
 	// Match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
 	Match *ACLMatch `json:"match"`
-	// Index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+
+	// Index: priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
 	Index int32 `json:"index"`
+
 	// Description: ACL description.
 	Description *string `json:"description,omitempty"`
 }
 
-// ZonedAPIUpdateBackendRequest:
+// ZonedAPIUpdateBackendRequest: zoned api update backend request.
 type ZonedAPIUpdateBackendRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// Name: Backend name.
+
+	// Name: backend name.
 	Name string `json:"name"`
-	// ForwardProtocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+
+	// ForwardProtocol: protocol to be used by the backend when forwarding traffic to backend servers.
+	// Default value: tcp
 	ForwardProtocol Protocol `json:"forward_protocol"`
-	// ForwardPort: Port to be used by the backend when forwarding traffic to backend servers.
+
+	// ForwardPort: port to be used by the backend when forwarding traffic to backend servers.
 	ForwardPort int32 `json:"forward_port"`
-	// ForwardPortAlgorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
+
+	// ForwardPortAlgorithm: load balancing algorithm to be used when determining which backend server to forward new traffic to.
+	// Default value: roundrobin
 	ForwardPortAlgorithm ForwardPortAlgorithm `json:"forward_port_algorithm"`
-	// StickySessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+
+	// StickySessions: defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+	// Default value: none
 	StickySessions StickySessionsType `json:"sticky_sessions"`
-	// StickySessionsCookieName: Cookie name for cookie-based sticky sessions.
+
+	// StickySessionsCookieName: cookie name for cookie-based sticky sessions.
 	StickySessionsCookieName string `json:"sticky_sessions_cookie_name"`
-	// Deprecated: SendProxyV2: Deprecated in favor of proxy_protocol field.
+
+	// Deprecated: SendProxyV2: deprecated in favor of proxy_protocol field.
 	SendProxyV2 *bool `json:"send_proxy_v2,omitempty"`
-	// TimeoutServer: Maximum allowed time for a backend server to process a request.
+
+	// TimeoutServer: maximum allowed time for a backend server to process a request.
 	TimeoutServer *time.Duration `json:"timeout_server,omitempty"`
-	// TimeoutConnect: Maximum allowed time for establishing a connection to a backend server.
+
+	// TimeoutConnect: maximum allowed time for establishing a connection to a backend server.
 	TimeoutConnect *time.Duration `json:"timeout_connect,omitempty"`
-	// TimeoutTunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
+
+	// TimeoutTunnel: maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
 	TimeoutTunnel *time.Duration `json:"timeout_tunnel,omitempty"`
-	// OnMarkedDownAction: Action to take when a backend server is marked as down.
+
+	// OnMarkedDownAction: action to take when a backend server is marked as down.
+	// Default value: on_marked_down_action_none
 	OnMarkedDownAction OnMarkedDownAction `json:"on_marked_down_action"`
-	// ProxyProtocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+
+	// ProxyProtocol: protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+	// Default value: proxy_protocol_unknown
 	ProxyProtocol ProxyProtocol `json:"proxy_protocol"`
-	// FailoverHost: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+
+	// FailoverHost: scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
 	FailoverHost *string `json:"failover_host,omitempty"`
-	// SslBridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
+
+	// SslBridging: defines whether to enable SSL bridging between the Load Balancer and backend servers.
 	SslBridging *bool `json:"ssl_bridging,omitempty"`
-	// IgnoreSslServerVerify: Defines whether the server certificate verification should be ignored.
+
+	// IgnoreSslServerVerify: defines whether the server certificate verification should be ignored.
 	IgnoreSslServerVerify *bool `json:"ignore_ssl_server_verify,omitempty"`
-	// RedispatchAttemptCount: Whether to use another backend server on each attempt.
+
+	// RedispatchAttemptCount: whether to use another backend server on each attempt.
 	RedispatchAttemptCount *int32 `json:"redispatch_attempt_count,omitempty"`
-	// MaxRetries: Number of retries when a backend server connection failed.
+
+	// MaxRetries: number of retries when a backend server connection failed.
 	MaxRetries *int32 `json:"max_retries,omitempty"`
-	// MaxConnections: Maximum number of connections allowed per backend server.
+
+	// MaxConnections: maximum number of connections allowed per backend server.
 	MaxConnections *int32 `json:"max_connections,omitempty"`
-	// TimeoutQueue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
+
+	// TimeoutQueue: maximum time for a request to be left pending in queue when `max_connections` is reached.
 	TimeoutQueue *scw.Duration `json:"timeout_queue,omitempty"`
 }
 
@@ -3369,35 +4017,45 @@ func (m ZonedAPIUpdateBackendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// ZonedAPIUpdateCertificateRequest:
+// ZonedAPIUpdateCertificateRequest: zoned api update certificate request.
 type ZonedAPIUpdateCertificateRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// CertificateID: Certificate ID.
+
+	// CertificateID: certificate ID.
 	CertificateID string `json:"-"`
-	// Name: Certificate name.
+
+	// Name: certificate name.
 	Name string `json:"name"`
 }
 
-// ZonedAPIUpdateFrontendRequest:
+// ZonedAPIUpdateFrontendRequest: zoned api update frontend request.
 type ZonedAPIUpdateFrontendRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// FrontendID: Frontend ID.
+
+	// FrontendID: frontend ID.
 	FrontendID string `json:"-"`
-	// Name: Frontend name.
+
+	// Name: frontend name.
 	Name string `json:"name"`
-	// InboundPort: Port the frontend should listen on.
+
+	// InboundPort: port the frontend should listen on.
 	InboundPort int32 `json:"inbound_port"`
-	// BackendID: Backend ID (ID of the backend the frontend should pass traffic to).
+
+	// BackendID: backend ID (ID of the backend the frontend should pass traffic to).
 	BackendID string `json:"backend_id"`
-	// TimeoutClient: Maximum allowed inactivity time on the client side.
+
+	// TimeoutClient: maximum allowed inactivity time on the client side.
 	TimeoutClient *time.Duration `json:"timeout_client,omitempty"`
-	// Deprecated: CertificateID: Certificate ID, deprecated in favor of certificate_ids array.
+
+	// Deprecated: CertificateID: certificate ID, deprecated in favor of certificate_ids array.
 	CertificateID *string `json:"certificate_id,omitempty"`
-	// CertificateIDs: List of SSL/TLS certificate IDs to bind to the frontend.
+
+	// CertificateIDs: list of SSL/TLS certificate IDs to bind to the frontend.
 	CertificateIDs *[]string `json:"certificate_ids,omitempty"`
-	// EnableHTTP3: Defines whether to enable HTTP/3 protocol on the frontend.
+
+	// EnableHTTP3: defines whether to enable HTTP/3 protocol on the frontend.
 	EnableHTTP3 bool `json:"enable_http3"`
 }
 
@@ -3429,37 +4087,58 @@ func (m ZonedAPIUpdateFrontendRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// ZonedAPIUpdateHealthCheckRequest:
+// ZonedAPIUpdateHealthCheckRequest: zoned api update health check request.
 type ZonedAPIUpdateHealthCheckRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// BackendID: Backend ID.
+
+	// BackendID: backend ID.
 	BackendID string `json:"-"`
-	// Port: Port to use for the backend server health check.
+
+	// Port: port to use for the backend server health check.
 	Port int32 `json:"port"`
-	// CheckDelay: Time to wait between two consecutive health checks.
+
+	// CheckDelay: time to wait between two consecutive health checks.
 	CheckDelay *time.Duration `json:"check_delay,omitempty"`
-	// CheckTimeout: Maximum time a backend server has to reply to the health check.
+
+	// CheckTimeout: maximum time a backend server has to reply to the health check.
 	CheckTimeout *time.Duration `json:"check_timeout,omitempty"`
-	// CheckMaxRetries: Number of consecutive unsuccessful health checks after which the server will be considered dead.
+
+	// CheckMaxRetries: number of consecutive unsuccessful health checks after which the server will be considered dead.
 	CheckMaxRetries int32 `json:"check_max_retries"`
-	// CheckSendProxy: Defines whether proxy protocol should be activated for the health check.
+
+	// CheckSendProxy: defines whether proxy protocol should be activated for the health check.
 	CheckSendProxy bool `json:"check_send_proxy"`
-	// TCPConfig: Object to configure a basic TCP health check.
+
+	// TCPConfig: object to configure a basic TCP health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	TCPConfig *HealthCheckTCPConfig `json:"tcp_config,omitempty"`
-	// MysqlConfig: Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+
+	// MysqlConfig: object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	MysqlConfig *HealthCheckMysqlConfig `json:"mysql_config,omitempty"`
-	// PgsqlConfig: Object to configure a PostgreSQL health check.
+
+	// PgsqlConfig: object to configure a PostgreSQL health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	PgsqlConfig *HealthCheckPgsqlConfig `json:"pgsql_config,omitempty"`
-	// LdapConfig: Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
+
+	// LdapConfig: object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	LdapConfig *HealthCheckLdapConfig `json:"ldap_config,omitempty"`
-	// RedisConfig: Object to configure a Redis health check. The response is analyzed to find the +PONG response message.
+
+	// RedisConfig: object to configure a Redis health check. The response is analyzed to find the +PONG response message.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	RedisConfig *HealthCheckRedisConfig `json:"redis_config,omitempty"`
-	// HTTPConfig: Object to configure an HTTP health check.
+
+	// HTTPConfig: object to configure an HTTP health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	HTTPConfig *HealthCheckHTTPConfig `json:"http_config,omitempty"`
-	// HTTPSConfig: Object to configure an HTTPS health check.
+
+	// HTTPSConfig: object to configure an HTTPS health check.
+	// Precisely one of TCPConfig, MysqlConfig, PgsqlConfig, LdapConfig, RedisConfig, HTTPConfig, HTTPSConfig must be set.
 	HTTPSConfig *HealthCheckHTTPSConfig `json:"https_config,omitempty"`
-	// TransientCheckDelay: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
+
+	// TransientCheckDelay: time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
 	TransientCheckDelay *scw.Duration `json:"transient_check_delay,omitempty"`
 }
 
@@ -3495,55 +4174,72 @@ func (m ZonedAPIUpdateHealthCheckRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(tmp)
 }
 
-// ZonedAPIUpdateIPRequest:
+// ZonedAPIUpdateIPRequest: zoned api update ip request.
 type ZonedAPIUpdateIPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// IPID: IP address ID.
 	IPID string `json:"-"`
-	// Reverse: Reverse DNS (domain name) for the IP address.
+
+	// Reverse: reverse DNS (domain name) for the IP address.
 	Reverse *string `json:"reverse,omitempty"`
 }
 
-// ZonedAPIUpdateLBRequest:
+// ZonedAPIUpdateLBRequest: zoned api update lb request.
 type ZonedAPIUpdateLBRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// LBID: Load Balancer ID.
+
+	// LBID: load Balancer ID.
 	LBID string `json:"-"`
-	// Name: Load Balancer name.
+
+	// Name: load Balancer name.
 	Name string `json:"name"`
-	// Description: Load Balancer description.
+
+	// Description: load Balancer description.
 	Description string `json:"description"`
-	// Tags: List of tags for the Load Balancer.
+
+	// Tags: list of tags for the Load Balancer.
 	Tags []string `json:"tags"`
-	// SslCompatibilityLevel: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+
+	// SslCompatibilityLevel: determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+	// Default value: ssl_compatibility_level_unknown
 	SslCompatibilityLevel SSLCompatibilityLevel `json:"ssl_compatibility_level"`
 }
 
-// ZonedAPIUpdateRouteRequest:
+// ZonedAPIUpdateRouteRequest: zoned api update route request.
 type ZonedAPIUpdateRouteRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// RouteID: Route ID.
+
+	// RouteID: route ID.
 	RouteID string `json:"-"`
+
 	// BackendID: ID of the target backend for the route.
 	BackendID string `json:"backend_id"`
-	// Match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
+
+	// Match: object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
 	Match *RouteMatch `json:"match,omitempty"`
 }
 
-// ZonedAPIUpdateSubscriberRequest:
+// ZonedAPIUpdateSubscriberRequest: zoned api update subscriber request.
 type ZonedAPIUpdateSubscriberRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// SubscriberID: Subscriber ID.
+
+	// SubscriberID: subscriber ID.
 	SubscriberID string `json:"-"`
-	// Name: Subscriber name.
+
+	// Name: subscriber name.
 	Name string `json:"name"`
-	// EmailConfig: Email address configuration.
+
+	// EmailConfig: email address configuration.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	EmailConfig *SubscriberEmailConfig `json:"email_config,omitempty"`
-	// WebhookConfig: Webhook URI configuration.
+
+	// WebhookConfig: webhook URI configuration.
+	// Precisely one of EmailConfig, WebhookConfig must be set.
 	WebhookConfig *SubscriberWebhookConfig `json:"webhook_config,omitempty"`
 }
 
@@ -3565,10 +4261,12 @@ func (s *ZonedAPI) Zones() []scw.Zone {
 // ListLBs: List all Load Balancers in the specified zone, for a Scaleway Organization or Scaleway Project. By default, the Load Balancers returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
 func (s *ZonedAPI) ListLBs(req *ZonedAPIListLBsRequest, opts ...scw.RequestOption) (*ListLBsResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -3604,6 +4302,7 @@ func (s *ZonedAPI) ListLBs(req *ZonedAPIListLBsRequest, opts ...scw.RequestOptio
 // CreateLB: Create a new Load Balancer. Note that the Load Balancer will be created without frontends or backends; these must be created separately via the dedicated endpoints.
 func (s *ZonedAPI) CreateLB(req *ZonedAPICreateLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -3649,6 +4348,7 @@ func (s *ZonedAPI) CreateLB(req *ZonedAPICreateLBRequest, opts ...scw.RequestOpt
 // GetLB: Retrieve information about an existing Load Balancer, specified by its Load Balancer ID. Its full details, including name, status and IP address, are returned in the response object.
 func (s *ZonedAPI) GetLB(req *ZonedAPIGetLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -3679,6 +4379,7 @@ func (s *ZonedAPI) GetLB(req *ZonedAPIGetLBRequest, opts ...scw.RequestOption) (
 // UpdateLB: Update the parameters of an existing Load Balancer, specified by its Load Balancer ID. Note that the request type is PUT and not PATCH. You must set all parameters.
 func (s *ZonedAPI) UpdateLB(req *ZonedAPIUpdateLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -3714,6 +4415,7 @@ func (s *ZonedAPI) UpdateLB(req *ZonedAPIUpdateLBRequest, opts ...scw.RequestOpt
 // DeleteLB: Delete an existing Load Balancer, specified by its Load Balancer ID. Deleting a Load Balancer is permanent, and cannot be undone. The Load Balancer's flexible IP address can either be deleted with the Load Balancer, or kept in your account for future use.
 func (s *ZonedAPI) DeleteLB(req *ZonedAPIDeleteLBRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -3746,6 +4448,7 @@ func (s *ZonedAPI) DeleteLB(req *ZonedAPIDeleteLBRequest, opts ...scw.RequestOpt
 // MigrateLB: Migrate an existing Load Balancer from one commercial type to another. Allows you to scale your Load Balancer up or down in terms of bandwidth or multi-cloud provision.
 func (s *ZonedAPI) MigrateLB(req *ZonedAPIMigrateLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -3781,10 +4484,12 @@ func (s *ZonedAPI) MigrateLB(req *ZonedAPIMigrateLBRequest, opts ...scw.RequestO
 // ListIPs: List the Load Balancer flexible IP addresses held in the account (filtered by Organization ID or Project ID). It is also possible to search for a specific IP address.
 func (s *ZonedAPI) ListIPs(req *ZonedAPIListIPsRequest, opts ...scw.RequestOption) (*ListIPsResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -3819,6 +4524,7 @@ func (s *ZonedAPI) ListIPs(req *ZonedAPIListIPsRequest, opts ...scw.RequestOptio
 // CreateIP: Create a new Load Balancer flexible IP address, in the specified Scaleway Project. This can be attached to new Load Balancers created in the future.
 func (s *ZonedAPI) CreateIP(req *ZonedAPICreateIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -3860,6 +4566,7 @@ func (s *ZonedAPI) CreateIP(req *ZonedAPICreateIPRequest, opts ...scw.RequestOpt
 // GetIP: Retrieve the full details of a Load Balancer flexible IP address.
 func (s *ZonedAPI) GetIP(req *ZonedAPIGetIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -3890,6 +4597,7 @@ func (s *ZonedAPI) GetIP(req *ZonedAPIGetIPRequest, opts ...scw.RequestOption) (
 // ReleaseIP: Delete a Load Balancer flexible IP address. This action is irreversible, and cannot be undone.
 func (s *ZonedAPI) ReleaseIP(req *ZonedAPIReleaseIPRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -3918,6 +4626,7 @@ func (s *ZonedAPI) ReleaseIP(req *ZonedAPIReleaseIPRequest, opts ...scw.RequestO
 // UpdateIP: Update the reverse DNS of a Load Balancer flexible IP address.
 func (s *ZonedAPI) UpdateIP(req *ZonedAPIUpdateIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -3953,10 +4662,12 @@ func (s *ZonedAPI) UpdateIP(req *ZonedAPIUpdateIPRequest, opts ...scw.RequestOpt
 // ListBackends: List all the backends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each backend. The response is an array of backend objects, containing full details of each one including their configuration parameters such as protocol, port and forwarding algorithm.
 func (s *ZonedAPI) ListBackends(req *ZonedAPIListBackendsRequest, opts ...scw.RequestOption) (*ListBackendsResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -3994,6 +4705,7 @@ func (s *ZonedAPI) ListBackends(req *ZonedAPIListBackendsRequest, opts ...scw.Re
 // CreateBackend: Create a new backend for a given Load Balancer, specifying its full configuration including protocol, port and forwarding algorithm.
 func (s *ZonedAPI) CreateBackend(req *ZonedAPICreateBackendRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4033,6 +4745,7 @@ func (s *ZonedAPI) CreateBackend(req *ZonedAPICreateBackendRequest, opts ...scw.
 // GetBackend: Get the full details of a given backend, specified by its backend ID. The response contains the backend's full configuration parameters including protocol, port and forwarding algorithm.
 func (s *ZonedAPI) GetBackend(req *ZonedAPIGetBackendRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4063,6 +4776,7 @@ func (s *ZonedAPI) GetBackend(req *ZonedAPIGetBackendRequest, opts ...scw.Reques
 // UpdateBackend: Update a backend of a given Load Balancer, specified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.
 func (s *ZonedAPI) UpdateBackend(req *ZonedAPIUpdateBackendRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4098,6 +4812,7 @@ func (s *ZonedAPI) UpdateBackend(req *ZonedAPIUpdateBackendRequest, opts ...scw.
 // DeleteBackend: Delete a backend of a given Load Balancer, specified by its backend ID. This action is irreversible and cannot be undone.
 func (s *ZonedAPI) DeleteBackend(req *ZonedAPIDeleteBackendRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4126,6 +4841,7 @@ func (s *ZonedAPI) DeleteBackend(req *ZonedAPIDeleteBackendRequest, opts ...scw.
 // AddBackendServers: For a given backend specified by its backend ID, add a set of backend servers (identified by their IP addresses) it should forward traffic to. These will be appended to any existing set of backend servers for this backend.
 func (s *ZonedAPI) AddBackendServers(req *ZonedAPIAddBackendServersRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4161,6 +4877,7 @@ func (s *ZonedAPI) AddBackendServers(req *ZonedAPIAddBackendServersRequest, opts
 // RemoveBackendServers: For a given backend specified by its backend ID, remove the specified backend servers (identified by their IP addresses) so that it no longer forwards traffic to them.
 func (s *ZonedAPI) RemoveBackendServers(req *ZonedAPIRemoveBackendServersRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4196,6 +4913,7 @@ func (s *ZonedAPI) RemoveBackendServers(req *ZonedAPIRemoveBackendServersRequest
 // SetBackendServers: For a given backend specified by its backend ID, define the set of backend servers (identified by their IP addresses) that it should forward traffic to. Any existing backend servers configured for this backend will be removed.
 func (s *ZonedAPI) SetBackendServers(req *ZonedAPISetBackendServersRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4231,6 +4949,7 @@ func (s *ZonedAPI) SetBackendServers(req *ZonedAPISetBackendServersRequest, opts
 // UpdateHealthCheck: Update the configuration of the health check performed by a given backend to verify the health of its backend servers, identified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.
 func (s *ZonedAPI) UpdateHealthCheck(req *ZonedAPIUpdateHealthCheckRequest, opts ...scw.RequestOption) (*HealthCheck, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4266,10 +4985,12 @@ func (s *ZonedAPI) UpdateHealthCheck(req *ZonedAPIUpdateHealthCheckRequest, opts
 // ListFrontends: List all the frontends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each frontend. The response is an array of frontend objects, containing full details of each one including the port they listen on and the backend they are attached to.
 func (s *ZonedAPI) ListFrontends(req *ZonedAPIListFrontendsRequest, opts ...scw.RequestOption) (*ListFrontendsResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -4307,6 +5028,7 @@ func (s *ZonedAPI) ListFrontends(req *ZonedAPIListFrontendsRequest, opts ...scw.
 // CreateFrontend: Create a new frontend for a given Load Balancer, specifying its configuration including the port it should listen on and the backend to attach it to.
 func (s *ZonedAPI) CreateFrontend(req *ZonedAPICreateFrontendRequest, opts ...scw.RequestOption) (*Frontend, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4346,6 +5068,7 @@ func (s *ZonedAPI) CreateFrontend(req *ZonedAPICreateFrontendRequest, opts ...sc
 // GetFrontend: Get the full details of a given frontend, specified by its frontend ID. The response contains the frontend's full configuration parameters including the backend it is attached to, the port it listens on, and any certificates it has.
 func (s *ZonedAPI) GetFrontend(req *ZonedAPIGetFrontendRequest, opts ...scw.RequestOption) (*Frontend, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4376,6 +5099,7 @@ func (s *ZonedAPI) GetFrontend(req *ZonedAPIGetFrontendRequest, opts ...scw.Requ
 // UpdateFrontend: Update a given frontend, specified by its frontend ID. You can update configuration parameters including its name and the port it listens on. Note that the request type is PUT and not PATCH. You must set all parameters.
 func (s *ZonedAPI) UpdateFrontend(req *ZonedAPIUpdateFrontendRequest, opts ...scw.RequestOption) (*Frontend, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4411,6 +5135,7 @@ func (s *ZonedAPI) UpdateFrontend(req *ZonedAPIUpdateFrontendRequest, opts ...sc
 // DeleteFrontend: Delete a given frontend, specified by its frontend ID. This action is irreversible and cannot be undone.
 func (s *ZonedAPI) DeleteFrontend(req *ZonedAPIDeleteFrontendRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4439,10 +5164,12 @@ func (s *ZonedAPI) DeleteFrontend(req *ZonedAPIDeleteFrontendRequest, opts ...sc
 // ListRoutes: List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
 func (s *ZonedAPI) ListRoutes(req *ZonedAPIListRoutesRequest, opts ...scw.RequestOption) (*ListRoutesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -4476,6 +5203,7 @@ func (s *ZonedAPI) ListRoutes(req *ZonedAPIListRoutesRequest, opts ...scw.Reques
 // CreateRoute: Create a new route on a given frontend. To configure a route, specify the backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
 func (s *ZonedAPI) CreateRoute(req *ZonedAPICreateRouteRequest, opts ...scw.RequestOption) (*Route, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4507,6 +5235,7 @@ func (s *ZonedAPI) CreateRoute(req *ZonedAPICreateRouteRequest, opts ...scw.Requ
 // GetRoute: Retrieve information about an existing route, specified by its route ID. Its full details, origin frontend, target backend and match condition, are returned in the response object.
 func (s *ZonedAPI) GetRoute(req *ZonedAPIGetRouteRequest, opts ...scw.RequestOption) (*Route, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4537,6 +5266,7 @@ func (s *ZonedAPI) GetRoute(req *ZonedAPIGetRouteRequest, opts ...scw.RequestOpt
 // UpdateRoute: Update the configuration of an existing route, specified by its route ID.
 func (s *ZonedAPI) UpdateRoute(req *ZonedAPIUpdateRouteRequest, opts ...scw.RequestOption) (*Route, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4572,6 +5302,7 @@ func (s *ZonedAPI) UpdateRoute(req *ZonedAPIUpdateRouteRequest, opts ...scw.Requ
 // DeleteRoute: Delete an existing route, specified by its route ID. Deleting a route is permanent, and cannot be undone.
 func (s *ZonedAPI) DeleteRoute(req *ZonedAPIDeleteRouteRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4600,6 +5331,7 @@ func (s *ZonedAPI) DeleteRoute(req *ZonedAPIDeleteRouteRequest, opts ...scw.Requ
 // Deprecated: GetLBStats: Get usage statistics of a given Load Balancer.
 func (s *ZonedAPI) GetLBStats(req *ZonedAPIGetLBStatsRequest, opts ...scw.RequestOption) (*LBStats, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4634,10 +5366,12 @@ func (s *ZonedAPI) GetLBStats(req *ZonedAPIGetLBStatsRequest, opts ...scw.Reques
 // ListBackendStats: List information about your backend servers, including their state and the result of their last health check.
 func (s *ZonedAPI) ListBackendStats(req *ZonedAPIListBackendStatsRequest, opts ...scw.RequestOption) (*ListBackendStatsResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -4674,10 +5408,12 @@ func (s *ZonedAPI) ListBackendStats(req *ZonedAPIListBackendStatsRequest, opts .
 // ListACLs: List the ACLs for a given frontend, specified by its frontend ID. The response is an array of ACL objects, each one representing an ACL that denies or allows traffic based on certain conditions.
 func (s *ZonedAPI) ListACLs(req *ZonedAPIListACLsRequest, opts ...scw.RequestOption) (*ListACLResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -4715,6 +5451,7 @@ func (s *ZonedAPI) ListACLs(req *ZonedAPIListACLsRequest, opts ...scw.RequestOpt
 // CreateACL: Create a new ACL for a given frontend. Each ACL must have a name, an action to perform (allow or deny), and a match rule (the action is carried out when the incoming traffic matches the rule).
 func (s *ZonedAPI) CreateACL(req *ZonedAPICreateACLRequest, opts ...scw.RequestOption) (*ACL, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4754,6 +5491,7 @@ func (s *ZonedAPI) CreateACL(req *ZonedAPICreateACLRequest, opts ...scw.RequestO
 // GetACL: Get information for a particular ACL, specified by its ACL ID. The response returns full details of the ACL, including its name, action, match rule and frontend.
 func (s *ZonedAPI) GetACL(req *ZonedAPIGetACLRequest, opts ...scw.RequestOption) (*ACL, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4784,6 +5522,7 @@ func (s *ZonedAPI) GetACL(req *ZonedAPIGetACLRequest, opts ...scw.RequestOption)
 // UpdateACL: Update a particular ACL, specified by its ACL ID. You can update details including its name, action and match rule.
 func (s *ZonedAPI) UpdateACL(req *ZonedAPIUpdateACLRequest, opts ...scw.RequestOption) (*ACL, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4819,6 +5558,7 @@ func (s *ZonedAPI) UpdateACL(req *ZonedAPIUpdateACLRequest, opts ...scw.RequestO
 // DeleteACL: Delete an ACL, specified by its ACL ID. Deleting an ACL is irreversible and cannot be undone.
 func (s *ZonedAPI) DeleteACL(req *ZonedAPIDeleteACLRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4847,6 +5587,7 @@ func (s *ZonedAPI) DeleteACL(req *ZonedAPIDeleteACLRequest, opts ...scw.RequestO
 // SetACLs: For a given frontend specified by its frontend ID, define and add the complete set of ACLS for that frontend. Any existing ACLs on this frontend will be removed.
 func (s *ZonedAPI) SetACLs(req *ZonedAPISetACLsRequest, opts ...scw.RequestOption) (*SetACLsResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4882,6 +5623,7 @@ func (s *ZonedAPI) SetACLs(req *ZonedAPISetACLsRequest, opts ...scw.RequestOptio
 // CreateCertificate: Generate a new SSL/TLS certificate for a given Load Balancer. You can choose to create a Let's Encrypt certificate, or import a custom certificate.
 func (s *ZonedAPI) CreateCertificate(req *ZonedAPICreateCertificateRequest, opts ...scw.RequestOption) (*Certificate, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4921,10 +5663,12 @@ func (s *ZonedAPI) CreateCertificate(req *ZonedAPICreateCertificateRequest, opts
 // ListCertificates: List all the SSL/TLS certificates on a given Load Balancer. The response is an array of certificate objects, which are by default listed in ascending order of creation date.
 func (s *ZonedAPI) ListCertificates(req *ZonedAPIListCertificatesRequest, opts ...scw.RequestOption) (*ListCertificatesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -4962,6 +5706,7 @@ func (s *ZonedAPI) ListCertificates(req *ZonedAPIListCertificatesRequest, opts .
 // GetCertificate: Get information for a particular SSL/TLS certificate, specified by its certificate ID. The response returns full details of the certificate, including its type, main domain name, and alternative domain names.
 func (s *ZonedAPI) GetCertificate(req *ZonedAPIGetCertificateRequest, opts ...scw.RequestOption) (*Certificate, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -4992,6 +5737,7 @@ func (s *ZonedAPI) GetCertificate(req *ZonedAPIGetCertificateRequest, opts ...sc
 // UpdateCertificate: Update the name of a particular SSL/TLS certificate, specified by its certificate ID.
 func (s *ZonedAPI) UpdateCertificate(req *ZonedAPIUpdateCertificateRequest, opts ...scw.RequestOption) (*Certificate, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5027,6 +5773,7 @@ func (s *ZonedAPI) UpdateCertificate(req *ZonedAPIUpdateCertificateRequest, opts
 // DeleteCertificate: Delete an SSL/TLS certificate, specified by its certificate ID. Deleting a certificate is irreversible and cannot be undone.
 func (s *ZonedAPI) DeleteCertificate(req *ZonedAPIDeleteCertificateRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5055,10 +5802,12 @@ func (s *ZonedAPI) DeleteCertificate(req *ZonedAPIDeleteCertificateRequest, opts
 // ListLBTypes: List all the different commercial Load Balancer types. The response includes an array of offer types, each with a name, description, and information about its stock availability.
 func (s *ZonedAPI) ListLBTypes(req *ZonedAPIListLBTypesRequest, opts ...scw.RequestOption) (*ListLBTypesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -5090,6 +5839,7 @@ func (s *ZonedAPI) ListLBTypes(req *ZonedAPIListLBTypesRequest, opts ...scw.Requ
 // CreateSubscriber: Create a new subscriber, either with an email configuration or a webhook configuration, for a specified Scaleway Project.
 func (s *ZonedAPI) CreateSubscriber(req *ZonedAPICreateSubscriberRequest, opts ...scw.RequestOption) (*Subscriber, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5131,6 +5881,7 @@ func (s *ZonedAPI) CreateSubscriber(req *ZonedAPICreateSubscriberRequest, opts .
 // GetSubscriber: Retrieve information about an existing subscriber, specified by its subscriber ID. Its full details, including name and email/webhook configuration, are returned in the response object.
 func (s *ZonedAPI) GetSubscriber(req *ZonedAPIGetSubscriberRequest, opts ...scw.RequestOption) (*Subscriber, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5161,10 +5912,12 @@ func (s *ZonedAPI) GetSubscriber(req *ZonedAPIGetSubscriberRequest, opts ...scw.
 // ListSubscriber: List all subscribers to Load Balancer alerts. By default, returns all subscribers to Load Balancer alerts for the Organization associated with the authentication token used for the request.
 func (s *ZonedAPI) ListSubscriber(req *ZonedAPIListSubscriberRequest, opts ...scw.RequestOption) (*ListSubscriberResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -5200,6 +5953,7 @@ func (s *ZonedAPI) ListSubscriber(req *ZonedAPIListSubscriberRequest, opts ...sc
 // UpdateSubscriber: Update the parameters of a given subscriber (e.g. name, webhook configuration, email configuration), specified by its subscriber ID.
 func (s *ZonedAPI) UpdateSubscriber(req *ZonedAPIUpdateSubscriberRequest, opts ...scw.RequestOption) (*Subscriber, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5235,6 +5989,7 @@ func (s *ZonedAPI) UpdateSubscriber(req *ZonedAPIUpdateSubscriberRequest, opts .
 // DeleteSubscriber: Delete an existing subscriber, specified by its subscriber ID. Deleting a subscriber is permanent, and cannot be undone.
 func (s *ZonedAPI) DeleteSubscriber(req *ZonedAPIDeleteSubscriberRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5263,6 +6018,7 @@ func (s *ZonedAPI) DeleteSubscriber(req *ZonedAPIDeleteSubscriberRequest, opts .
 // SubscribeToLB: Subscribe an existing subscriber to alerts for a given Load Balancer.
 func (s *ZonedAPI) SubscribeToLB(req *ZonedAPISubscribeToLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5298,6 +6054,7 @@ func (s *ZonedAPI) SubscribeToLB(req *ZonedAPISubscribeToLBRequest, opts ...scw.
 // UnsubscribeFromLB: Unsubscribe a subscriber from alerts for a given Load Balancer. The subscriber is not deleted, and can be resubscribed in the future if necessary.
 func (s *ZonedAPI) UnsubscribeFromLB(req *ZonedAPIUnsubscribeFromLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5328,10 +6085,12 @@ func (s *ZonedAPI) UnsubscribeFromLB(req *ZonedAPIUnsubscribeFromLBRequest, opts
 // ListLBPrivateNetworks: List the Private Networks attached to a given Load Balancer, specified by its Load Balancer ID. The response is an array of Private Network objects, giving information including the status, configuration, name and creation date of each Private Network.
 func (s *ZonedAPI) ListLBPrivateNetworks(req *ZonedAPIListLBPrivateNetworksRequest, opts ...scw.RequestOption) (*ListLBPrivateNetworksResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -5368,6 +6127,7 @@ func (s *ZonedAPI) ListLBPrivateNetworks(req *ZonedAPIListLBPrivateNetworksReque
 // AttachPrivateNetwork: Attach a specified Load Balancer to a specified Private Network, defining a static or DHCP configuration for the Load Balancer on the network.
 func (s *ZonedAPI) AttachPrivateNetwork(req *ZonedAPIAttachPrivateNetworkRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5407,6 +6167,7 @@ func (s *ZonedAPI) AttachPrivateNetwork(req *ZonedAPIAttachPrivateNetworkRequest
 // DetachPrivateNetwork: Detach a specified Load Balancer from a specified Private Network.
 func (s *ZonedAPI) DetachPrivateNetwork(req *ZonedAPIDetachPrivateNetworkRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -5459,10 +6220,12 @@ func (s *API) Regions() []scw.Region {
 // ListLBs: List load balancers.
 func (s *API) ListLBs(req *ListLBsRequest, opts ...scw.RequestOption) (*ListLBsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -5498,6 +6261,7 @@ func (s *API) ListLBs(req *ListLBsRequest, opts ...scw.RequestOption) (*ListLBsR
 // CreateLB: Create a load balancer.
 func (s *API) CreateLB(req *CreateLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5543,6 +6307,7 @@ func (s *API) CreateLB(req *CreateLBRequest, opts ...scw.RequestOption) (*LB, er
 // GetLB: Get a load balancer.
 func (s *API) GetLB(req *GetLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5573,6 +6338,7 @@ func (s *API) GetLB(req *GetLBRequest, opts ...scw.RequestOption) (*LB, error) {
 // UpdateLB: Update a load balancer.
 func (s *API) UpdateLB(req *UpdateLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5608,6 +6374,7 @@ func (s *API) UpdateLB(req *UpdateLBRequest, opts ...scw.RequestOption) (*LB, er
 // DeleteLB: Delete a load balancer.
 func (s *API) DeleteLB(req *DeleteLBRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5640,6 +6407,7 @@ func (s *API) DeleteLB(req *DeleteLBRequest, opts ...scw.RequestOption) error {
 // MigrateLB: Migrate a load balancer.
 func (s *API) MigrateLB(req *MigrateLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5675,10 +6443,12 @@ func (s *API) MigrateLB(req *MigrateLBRequest, opts ...scw.RequestOption) (*LB, 
 // ListIPs: List IPs.
 func (s *API) ListIPs(req *ListIPsRequest, opts ...scw.RequestOption) (*ListIPsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -5713,6 +6483,7 @@ func (s *API) ListIPs(req *ListIPsRequest, opts ...scw.RequestOption) (*ListIPsR
 // CreateIP: Create an IP.
 func (s *API) CreateIP(req *CreateIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5754,6 +6525,7 @@ func (s *API) CreateIP(req *CreateIPRequest, opts ...scw.RequestOption) (*IP, er
 // GetIP: Get an IP.
 func (s *API) GetIP(req *GetIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5784,6 +6556,7 @@ func (s *API) GetIP(req *GetIPRequest, opts ...scw.RequestOption) (*IP, error) {
 // ReleaseIP: Delete an IP.
 func (s *API) ReleaseIP(req *ReleaseIPRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5812,6 +6585,7 @@ func (s *API) ReleaseIP(req *ReleaseIPRequest, opts ...scw.RequestOption) error 
 // UpdateIP: Update an IP.
 func (s *API) UpdateIP(req *UpdateIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5847,10 +6621,12 @@ func (s *API) UpdateIP(req *UpdateIPRequest, opts ...scw.RequestOption) (*IP, er
 // ListBackends: List backends in a given load balancer.
 func (s *API) ListBackends(req *ListBackendsRequest, opts ...scw.RequestOption) (*ListBackendsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -5888,6 +6664,7 @@ func (s *API) ListBackends(req *ListBackendsRequest, opts ...scw.RequestOption) 
 // CreateBackend: Create a backend in a given load balancer.
 func (s *API) CreateBackend(req *CreateBackendRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5927,6 +6704,7 @@ func (s *API) CreateBackend(req *CreateBackendRequest, opts ...scw.RequestOption
 // GetBackend: Get a backend in a given load balancer.
 func (s *API) GetBackend(req *GetBackendRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5957,6 +6735,7 @@ func (s *API) GetBackend(req *GetBackendRequest, opts ...scw.RequestOption) (*Ba
 // UpdateBackend: Update a backend in a given load balancer.
 func (s *API) UpdateBackend(req *UpdateBackendRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -5992,6 +6771,7 @@ func (s *API) UpdateBackend(req *UpdateBackendRequest, opts ...scw.RequestOption
 // DeleteBackend: Delete a backend in a given load balancer.
 func (s *API) DeleteBackend(req *DeleteBackendRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6020,6 +6800,7 @@ func (s *API) DeleteBackend(req *DeleteBackendRequest, opts ...scw.RequestOption
 // AddBackendServers: Add a set of servers in a given backend.
 func (s *API) AddBackendServers(req *AddBackendServersRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6055,6 +6836,7 @@ func (s *API) AddBackendServers(req *AddBackendServersRequest, opts ...scw.Reque
 // RemoveBackendServers: Remove a set of servers for a given backend.
 func (s *API) RemoveBackendServers(req *RemoveBackendServersRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6090,6 +6872,7 @@ func (s *API) RemoveBackendServers(req *RemoveBackendServersRequest, opts ...scw
 // SetBackendServers: Define all servers in a given backend.
 func (s *API) SetBackendServers(req *SetBackendServersRequest, opts ...scw.RequestOption) (*Backend, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6125,6 +6908,7 @@ func (s *API) SetBackendServers(req *SetBackendServersRequest, opts ...scw.Reque
 // UpdateHealthCheck: Update an health check for a given backend.
 func (s *API) UpdateHealthCheck(req *UpdateHealthCheckRequest, opts ...scw.RequestOption) (*HealthCheck, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6160,10 +6944,12 @@ func (s *API) UpdateHealthCheck(req *UpdateHealthCheckRequest, opts ...scw.Reque
 // ListFrontends: List frontends in a given load balancer.
 func (s *API) ListFrontends(req *ListFrontendsRequest, opts ...scw.RequestOption) (*ListFrontendsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -6201,6 +6987,7 @@ func (s *API) ListFrontends(req *ListFrontendsRequest, opts ...scw.RequestOption
 // CreateFrontend: Create a frontend in a given load balancer.
 func (s *API) CreateFrontend(req *CreateFrontendRequest, opts ...scw.RequestOption) (*Frontend, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6240,6 +7027,7 @@ func (s *API) CreateFrontend(req *CreateFrontendRequest, opts ...scw.RequestOpti
 // GetFrontend: Get a frontend.
 func (s *API) GetFrontend(req *GetFrontendRequest, opts ...scw.RequestOption) (*Frontend, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6270,6 +7058,7 @@ func (s *API) GetFrontend(req *GetFrontendRequest, opts ...scw.RequestOption) (*
 // UpdateFrontend: Update a frontend.
 func (s *API) UpdateFrontend(req *UpdateFrontendRequest, opts ...scw.RequestOption) (*Frontend, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6305,6 +7094,7 @@ func (s *API) UpdateFrontend(req *UpdateFrontendRequest, opts ...scw.RequestOpti
 // DeleteFrontend: Delete a frontend.
 func (s *API) DeleteFrontend(req *DeleteFrontendRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6333,10 +7123,12 @@ func (s *API) DeleteFrontend(req *DeleteFrontendRequest, opts ...scw.RequestOpti
 // ListRoutes: List all backend redirections.
 func (s *API) ListRoutes(req *ListRoutesRequest, opts ...scw.RequestOption) (*ListRoutesResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -6370,6 +7162,7 @@ func (s *API) ListRoutes(req *ListRoutesRequest, opts ...scw.RequestOption) (*Li
 // CreateRoute: Create a backend redirection.
 func (s *API) CreateRoute(req *CreateRouteRequest, opts ...scw.RequestOption) (*Route, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6401,6 +7194,7 @@ func (s *API) CreateRoute(req *CreateRouteRequest, opts ...scw.RequestOption) (*
 // GetRoute: Get single backend redirection.
 func (s *API) GetRoute(req *GetRouteRequest, opts ...scw.RequestOption) (*Route, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6431,6 +7225,7 @@ func (s *API) GetRoute(req *GetRouteRequest, opts ...scw.RequestOption) (*Route,
 // UpdateRoute: Edit a backend redirection.
 func (s *API) UpdateRoute(req *UpdateRouteRequest, opts ...scw.RequestOption) (*Route, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6466,6 +7261,7 @@ func (s *API) UpdateRoute(req *UpdateRouteRequest, opts ...scw.RequestOption) (*
 // DeleteRoute: Delete a backend redirection.
 func (s *API) DeleteRoute(req *DeleteRouteRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6494,6 +7290,7 @@ func (s *API) DeleteRoute(req *DeleteRouteRequest, opts ...scw.RequestOption) er
 // Deprecated: GetLBStats: Get usage statistics of a given load balancer.
 func (s *API) GetLBStats(req *GetLBStatsRequest, opts ...scw.RequestOption) (*LBStats, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6528,10 +7325,12 @@ func (s *API) GetLBStats(req *GetLBStatsRequest, opts ...scw.RequestOption) (*LB
 // ListBackendStats: List backend server statistics.
 func (s *API) ListBackendStats(req *ListBackendStatsRequest, opts ...scw.RequestOption) (*ListBackendStatsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -6568,10 +7367,12 @@ func (s *API) ListBackendStats(req *ListBackendStatsRequest, opts ...scw.Request
 // ListACLs: List ACL for a given frontend.
 func (s *API) ListACLs(req *ListACLsRequest, opts ...scw.RequestOption) (*ListACLResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -6609,6 +7410,7 @@ func (s *API) ListACLs(req *ListACLsRequest, opts ...scw.RequestOption) (*ListAC
 // CreateACL: Create an ACL for a given frontend.
 func (s *API) CreateACL(req *CreateACLRequest, opts ...scw.RequestOption) (*ACL, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6648,6 +7450,7 @@ func (s *API) CreateACL(req *CreateACLRequest, opts ...scw.RequestOption) (*ACL,
 // GetACL: Get an ACL.
 func (s *API) GetACL(req *GetACLRequest, opts ...scw.RequestOption) (*ACL, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6678,6 +7481,7 @@ func (s *API) GetACL(req *GetACLRequest, opts ...scw.RequestOption) (*ACL, error
 // UpdateACL: Update an ACL.
 func (s *API) UpdateACL(req *UpdateACLRequest, opts ...scw.RequestOption) (*ACL, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6713,6 +7517,7 @@ func (s *API) UpdateACL(req *UpdateACLRequest, opts ...scw.RequestOption) (*ACL,
 // DeleteACL: Delete an ACL.
 func (s *API) DeleteACL(req *DeleteACLRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6741,6 +7546,7 @@ func (s *API) DeleteACL(req *DeleteACLRequest, opts ...scw.RequestOption) error 
 // CreateCertificate: Generate a new TLS certificate using Let's Encrypt or import your certificate.
 func (s *API) CreateCertificate(req *CreateCertificateRequest, opts ...scw.RequestOption) (*Certificate, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6780,10 +7586,12 @@ func (s *API) CreateCertificate(req *CreateCertificateRequest, opts ...scw.Reque
 // ListCertificates: List all TLS certificates on a given load balancer.
 func (s *API) ListCertificates(req *ListCertificatesRequest, opts ...scw.RequestOption) (*ListCertificatesResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -6821,6 +7629,7 @@ func (s *API) ListCertificates(req *ListCertificatesRequest, opts ...scw.Request
 // GetCertificate: Get a TLS certificate.
 func (s *API) GetCertificate(req *GetCertificateRequest, opts ...scw.RequestOption) (*Certificate, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6851,6 +7660,7 @@ func (s *API) GetCertificate(req *GetCertificateRequest, opts ...scw.RequestOpti
 // UpdateCertificate: Update a TLS certificate.
 func (s *API) UpdateCertificate(req *UpdateCertificateRequest, opts ...scw.RequestOption) (*Certificate, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6886,6 +7696,7 @@ func (s *API) UpdateCertificate(req *UpdateCertificateRequest, opts ...scw.Reque
 // DeleteCertificate: Delete a TLS certificate.
 func (s *API) DeleteCertificate(req *DeleteCertificateRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6914,10 +7725,12 @@ func (s *API) DeleteCertificate(req *DeleteCertificateRequest, opts ...scw.Reque
 // ListLBTypes: List all load balancer offer type.
 func (s *API) ListLBTypes(req *ListLBTypesRequest, opts ...scw.RequestOption) (*ListLBTypesResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -6949,6 +7762,7 @@ func (s *API) ListLBTypes(req *ListLBTypesRequest, opts ...scw.RequestOption) (*
 // CreateSubscriber: Create a subscriber, webhook or email.
 func (s *API) CreateSubscriber(req *CreateSubscriberRequest, opts ...scw.RequestOption) (*Subscriber, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -6990,6 +7804,7 @@ func (s *API) CreateSubscriber(req *CreateSubscriberRequest, opts ...scw.Request
 // GetSubscriber: Get a subscriber.
 func (s *API) GetSubscriber(req *GetSubscriberRequest, opts ...scw.RequestOption) (*Subscriber, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -7020,10 +7835,12 @@ func (s *API) GetSubscriber(req *GetSubscriberRequest, opts ...scw.RequestOption
 // ListSubscriber: List all subscriber.
 func (s *API) ListSubscriber(req *ListSubscriberRequest, opts ...scw.RequestOption) (*ListSubscriberResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -7059,6 +7876,7 @@ func (s *API) ListSubscriber(req *ListSubscriberRequest, opts ...scw.RequestOpti
 // UpdateSubscriber: Update a subscriber.
 func (s *API) UpdateSubscriber(req *UpdateSubscriberRequest, opts ...scw.RequestOption) (*Subscriber, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -7094,6 +7912,7 @@ func (s *API) UpdateSubscriber(req *UpdateSubscriberRequest, opts ...scw.Request
 // DeleteSubscriber: Delete a subscriber.
 func (s *API) DeleteSubscriber(req *DeleteSubscriberRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -7122,6 +7941,7 @@ func (s *API) DeleteSubscriber(req *DeleteSubscriberRequest, opts ...scw.Request
 // SubscribeToLB: Subscribe a subscriber to a given load balancer.
 func (s *API) SubscribeToLB(req *SubscribeToLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -7157,6 +7977,7 @@ func (s *API) SubscribeToLB(req *SubscribeToLBRequest, opts ...scw.RequestOption
 // UnsubscribeFromLB: Unsubscribe a subscriber from a given load balancer.
 func (s *API) UnsubscribeFromLB(req *UnsubscribeFromLBRequest, opts ...scw.RequestOption) (*LB, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -7187,10 +8008,12 @@ func (s *API) UnsubscribeFromLB(req *UnsubscribeFromLBRequest, opts ...scw.Reque
 // ListLBPrivateNetworks: List attached private network of load balancer.
 func (s *API) ListLBPrivateNetworks(req *ListLBPrivateNetworksRequest, opts ...scw.RequestOption) (*ListLBPrivateNetworksResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -7227,6 +8050,7 @@ func (s *API) ListLBPrivateNetworks(req *ListLBPrivateNetworksRequest, opts ...s
 // AttachPrivateNetwork: Add load balancer on instance private network.
 func (s *API) AttachPrivateNetwork(req *AttachPrivateNetworkRequest, opts ...scw.RequestOption) (*PrivateNetwork, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -7266,6 +8090,7 @@ func (s *API) AttachPrivateNetwork(req *AttachPrivateNetworkRequest, opts ...scw
 // DetachPrivateNetwork: Remove load balancer of private network.
 func (s *API) DetachPrivateNetwork(req *DetachPrivateNetworkRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion

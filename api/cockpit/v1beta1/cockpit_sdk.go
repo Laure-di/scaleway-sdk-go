@@ -293,42 +293,52 @@ func (enum *PlanName) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// ContactPointEmail:
+// ContactPointEmail: contact point email.
 type ContactPointEmail struct {
-	// To:
 	To string `json:"to"`
 }
 
-// TokenScopes:
+// TokenScopes: token scopes.
 type TokenScopes struct {
-	// QueryMetrics: Permission to fetch metrics.
+	// QueryMetrics: permission to fetch metrics.
 	QueryMetrics bool `json:"query_metrics"`
-	// WriteMetrics: Permission to write metrics.
+
+	// WriteMetrics: permission to write metrics.
 	WriteMetrics bool `json:"write_metrics"`
-	// SetupMetricsRules: Permission to setup metrics rules.
+
+	// SetupMetricsRules: permission to setup metrics rules.
 	SetupMetricsRules bool `json:"setup_metrics_rules"`
-	// QueryLogs: Permission to fetch logs.
+
+	// QueryLogs: permission to fetch logs.
 	QueryLogs bool `json:"query_logs"`
-	// WriteLogs: Permission to write logs.
+
+	// WriteLogs: permission to write logs.
 	WriteLogs bool `json:"write_logs"`
-	// SetupLogsRules: Permission to set up logs rules.
+
+	// SetupLogsRules: permission to set up logs rules.
 	SetupLogsRules bool `json:"setup_logs_rules"`
-	// SetupAlerts: Permission to set up alerts.
+
+	// SetupAlerts: permission to set up alerts.
 	SetupAlerts bool `json:"setup_alerts"`
-	// QueryTraces: Permission to fetch traces.
+
+	// QueryTraces: permission to fetch traces.
 	QueryTraces bool `json:"query_traces"`
-	// WriteTraces: Permission to write traces.
+
+	// WriteTraces: permission to write traces.
 	WriteTraces bool `json:"write_traces"`
 }
 
-// CockpitEndpoints:
+// CockpitEndpoints: cockpit endpoints.
 type CockpitEndpoints struct {
 	// MetricsURL: URL for metrics.
 	MetricsURL string `json:"metrics_url"`
+
 	// LogsURL: URL for logs.
 	LogsURL string `json:"logs_url"`
+
 	// AlertmanagerURL: URL for the alert manager.
 	AlertmanagerURL string `json:"alertmanager_url"`
+
 	// GrafanaURL: URL for the Grafana dashboard.
 	GrafanaURL string `json:"grafana_url"`
 }
@@ -337,23 +347,31 @@ type CockpitEndpoints struct {
 type Plan struct {
 	// ID: ID of a given pricing plan.
 	ID string `json:"id"`
-	// Name: Name of a given pricing plan.
+
+	// Name: name of a given pricing plan.
+	// Default value: unknown_name
 	Name PlanName `json:"name"`
-	// RetentionMetricsInterval: Retention for metrics.
+
+	// RetentionMetricsInterval: retention for metrics.
 	RetentionMetricsInterval *scw.Duration `json:"retention_metrics_interval"`
-	// RetentionLogsInterval: Retention for logs.
+
+	// RetentionLogsInterval: retention for logs.
 	RetentionLogsInterval *scw.Duration `json:"retention_logs_interval"`
-	// SampleIngestionPrice: Ingestion price for 1 million samples in cents.
+
+	// SampleIngestionPrice: ingestion price for 1 million samples in cents.
 	SampleIngestionPrice uint32 `json:"sample_ingestion_price"`
-	// LogsIngestionPrice: Ingestion price for 1 GB of logs in cents.
+
+	// LogsIngestionPrice: ingestion price for 1 GB of logs in cents.
 	LogsIngestionPrice uint32 `json:"logs_ingestion_price"`
-	// RetentionPrice: Retention price in euros per month.
+
+	// RetentionPrice: retention price in euros per month.
 	RetentionPrice uint32 `json:"retention_price"`
 }
 
 // ContactPoint: Contact point.
 type ContactPoint struct {
-	// Email: Contact point configuration.
+	// Email: contact point configuration.
+	// Precisely one of Email must be set.
 	Email *ContactPointEmail `json:"email,omitempty"`
 }
 
@@ -361,27 +379,36 @@ type ContactPoint struct {
 type Datasource struct {
 	// ID: ID of the datasource.
 	ID string `json:"id"`
+
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
-	// Name: Datasource name.
+
+	// Name: datasource name.
 	Name string `json:"name"`
-	// URL: Datasource URL.
+
+	// URL: datasource URL.
 	URL string `json:"url"`
-	// Type: Datasource type.
+
+	// Type: datasource type.
+	// Default value: unknown_datasource_type
 	Type DatasourceType `json:"type"`
 }
 
 // GrafanaProductDashboard: Grafana dashboard.
 type GrafanaProductDashboard struct {
-	// DashboardName: Name of the dashboard.
+	// DashboardName: name of the dashboard.
 	DashboardName string `json:"dashboard_name"`
-	// Title: Title of the dashboard.
+
+	// Title: title of the dashboard.
 	Title string `json:"title"`
+
 	// URL: URL of the dashboard.
 	URL string `json:"url"`
-	// Tags: Tags of the dashboard.
+
+	// Tags: tags of the dashboard.
 	Tags []string `json:"tags"`
-	// Variables: Variables of the dashboard.
+
+	// Variables: variables of the dashboard.
 	Variables []string `json:"variables"`
 }
 
@@ -389,33 +416,43 @@ type GrafanaProductDashboard struct {
 type GrafanaUser struct {
 	// ID: ID of the Grafana user.
 	ID uint32 `json:"id"`
-	// Login: Username of the Grafana user.
+
+	// Login: username of the Grafana user.
 	Login string `json:"login"`
-	// Role: Role assigned to the Grafana user.
+
+	// Role: role assigned to the Grafana user.
+	// Default value: unknown_role
 	Role GrafanaUserRole `json:"role"`
-	// Password: The Grafana user's password.
+
+	// Password: the Grafana user's password.
 	Password *string `json:"password"`
 }
 
-// Token:
+// Token: token.
 type Token struct {
 	// ID: ID of the token.
 	ID string `json:"id"`
+
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
-	// Name: Name of the token.
+
+	// Name: name of the token.
 	Name string `json:"name"`
-	// CreatedAt: Date and time of the token's creation.
+
+	// CreatedAt: date and time of the token's creation.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date and time of the token's last update.
+
+	// UpdatedAt: date and time of the token's last update.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Scopes: Token's permissions.
+
+	// Scopes: token's permissions.
 	Scopes *TokenScopes `json:"scopes"`
-	// SecretKey: Token's secret key.
+
+	// SecretKey: token's secret key.
 	SecretKey *string `json:"secret_key"`
 }
 
-// ActivateCockpitRequest:
+// ActivateCockpitRequest: activate cockpit request.
 type ActivateCockpitRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
@@ -425,23 +462,30 @@ type ActivateCockpitRequest struct {
 type Cockpit struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
-	// CreatedAt: Date and time of the Cockpit's creation.
+
+	// CreatedAt: date and time of the Cockpit's creation.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date and time of the Cockpit's last update.
+
+	// UpdatedAt: date and time of the Cockpit's last update.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Endpoints: Endpoints of the Cockpit.
+
+	// Endpoints: endpoints of the Cockpit.
 	Endpoints *CockpitEndpoints `json:"endpoints"`
-	// Status: Status of the Cockpit.
+
+	// Status: status of the Cockpit.
+	// Default value: unknown_status
 	Status CockpitStatus `json:"status"`
-	// ManagedAlertsEnabled: Specifies whether managed alerts are enabled or disabled.
+
+	// ManagedAlertsEnabled: specifies whether managed alerts are enabled or disabled.
 	ManagedAlertsEnabled bool `json:"managed_alerts_enabled"`
-	// Plan: Pricing plan information.
+
+	// Plan: pricing plan information.
 	Plan *Plan `json:"plan"`
 }
 
 // CockpitMetrics: Metrics for a given Cockpit.
 type CockpitMetrics struct {
-	// Timeseries: Time series array.
+	// Timeseries: time series array.
 	Timeseries []*scw.TimeSeries `json:"timeseries"`
 }
 
@@ -449,7 +493,8 @@ type CockpitMetrics struct {
 type CreateContactPointRequest struct {
 	// ProjectID: ID of the Project in which to create the contact point.
 	ProjectID string `json:"project_id"`
-	// ContactPoint: Contact point to create.
+
+	// ContactPoint: contact point to create.
 	ContactPoint *ContactPoint `json:"contact_point,omitempty"`
 }
 
@@ -457,9 +502,12 @@ type CreateContactPointRequest struct {
 type CreateDatasourceRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
-	// Name: Datasource name.
+
+	// Name: datasource name.
 	Name string `json:"name"`
-	// Type: Datasource type.
+
+	// Type: datasource type.
+	// Default value: unknown_datasource_type
 	Type DatasourceType `json:"type"`
 }
 
@@ -467,23 +515,28 @@ type CreateDatasourceRequest struct {
 type CreateGrafanaUserRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
-	// Login: Username of the Grafana user.
+
+	// Login: username of the Grafana user.
 	Login string `json:"login"`
-	// Role: Role assigned to the Grafana user.
+
+	// Role: role assigned to the Grafana user.
+	// Default value: unknown_role
 	Role GrafanaUserRole `json:"role"`
 }
 
-// CreateTokenRequest:
+// CreateTokenRequest: create token request.
 type CreateTokenRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
-	// Name: Name of the token.
+
+	// Name: name of the token.
 	Name string `json:"name"`
-	// Scopes: Token's permissions.
+
+	// Scopes: token's permissions.
 	Scopes *TokenScopes `json:"scopes"`
 }
 
-// DeactivateCockpitRequest:
+// DeactivateCockpitRequest: deactivate cockpit request.
 type DeactivateCockpitRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
@@ -493,7 +546,8 @@ type DeactivateCockpitRequest struct {
 type DeleteContactPointRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
-	// ContactPoint: Contact point to delete.
+
+	// ContactPoint: contact point to delete.
 	ContactPoint *ContactPoint `json:"contact_point,omitempty"`
 }
 
@@ -501,11 +555,12 @@ type DeleteContactPointRequest struct {
 type DeleteGrafanaUserRequest struct {
 	// GrafanaUserID: ID of the Grafana user.
 	GrafanaUserID uint32 `json:"-"`
+
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
 }
 
-// DeleteTokenRequest:
+// DeleteTokenRequest: delete token request.
 type DeleteTokenRequest struct {
 	// TokenID: ID of the token.
 	TokenID string `json:"-"`
@@ -527,15 +582,18 @@ type EnableManagedAlertsRequest struct {
 type GetCockpitMetricsRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"-"`
-	// StartDate: Desired time range's start date for the metrics.
+
+	// StartDate: desired time range's start date for the metrics.
 	StartDate *time.Time `json:"-"`
-	// EndDate: Desired time range's end date for the metrics.
+
+	// EndDate: desired time range's end date for the metrics.
 	EndDate *time.Time `json:"-"`
-	// MetricName: Name of the metric requested.
+
+	// MetricName: name of the metric requested.
 	MetricName *string `json:"-"`
 }
 
-// GetCockpitRequest:
+// GetCockpitRequest: get cockpit request.
 type GetCockpitRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"-"`
@@ -543,13 +601,14 @@ type GetCockpitRequest struct {
 
 // GetGrafanaProductDashboardRequest: Request to get a dashboard.
 type GetGrafanaProductDashboardRequest struct {
-	// DashboardName: Name of the dashboard.
+	// DashboardName: name of the dashboard.
 	DashboardName string `json:"-"`
+
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"-"`
 }
 
-// GetTokenRequest:
+// GetTokenRequest: get token request.
 type GetTokenRequest struct {
 	// TokenID: ID of the token.
 	TokenID string `json:"-"`
@@ -557,23 +616,28 @@ type GetTokenRequest struct {
 
 // ListContactPointsRequest: Request to list all contact points.
 type ListContactPointsRequest struct {
-	// Page: Page number.
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Page size.
+
+	// PageSize: page size.
 	PageSize *uint32 `json:"-"`
+
 	// ProjectID: ID of the Project from which to list the contact points.
 	ProjectID string `json:"-"`
 }
 
 // ListContactPointsResponse: Response returned when listing contact points.
 type ListContactPointsResponse struct {
-	// TotalCount: Count of all contact points created.
+	// TotalCount: count of all contact points created.
 	TotalCount uint32 `json:"total_count"`
-	// ContactPoints: Array of contact points.
+
+	// ContactPoints: array of contact points.
 	ContactPoints []*ContactPoint `json:"contact_points"`
-	// HasAdditionalReceivers: Specifies whether the contact point has other receivers than the default receiver.
+
+	// HasAdditionalReceivers: specifies whether the contact point has other receivers than the default receiver.
 	HasAdditionalReceivers bool `json:"has_additional_receivers"`
-	// HasAdditionalContactPoints: Specifies whether there are unmanaged contact points.
+
+	// HasAdditionalContactPoints: specifies whether there are unmanaged contact points.
 	HasAdditionalContactPoints bool `json:"has_additional_contact_points"`
 }
 
@@ -596,25 +660,31 @@ func (r *ListContactPointsResponse) UnsafeAppend(res interface{}) (uint32, error
 	return uint32(len(results.ContactPoints)), nil
 }
 
-// ListDatasourcesRequest:
+// ListDatasourcesRequest: list datasources request.
 type ListDatasourcesRequest struct {
-	// Page: Page number.
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Page size.
+
+	// PageSize: page size.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: How the response is ordered.
+
+	// OrderBy: how the response is ordered.
+	// Default value: created_at_asc
 	OrderBy ListDatasourcesRequestOrderBy `json:"-"`
+
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"-"`
-	// Types: Filter by datasource types.
+
+	// Types: filter by datasource types.
 	Types []DatasourceType `json:"-"`
 }
 
-// ListDatasourcesResponse:
+// ListDatasourcesResponse: list datasources response.
 type ListDatasourcesResponse struct {
-	// TotalCount: Count of all datasources corresponding to the request.
+	// TotalCount: count of all datasources corresponding to the request.
 	TotalCount uint32 `json:"total_count"`
-	// Datasources: List of the datasources within the pagination.
+
+	// Datasources: list of the datasources within the pagination.
 	Datasources []*Datasource `json:"datasources"`
 }
 
@@ -641,19 +711,23 @@ func (r *ListDatasourcesResponse) UnsafeAppend(res interface{}) (uint32, error) 
 type ListGrafanaProductDashboardsRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Page size.
+
+	// PageSize: page size.
 	PageSize *uint32 `json:"-"`
-	// Tags: Tags to filter the dashboards.
+
+	// Tags: tags to filter the dashboards.
 	Tags []string `json:"-"`
 }
 
 // ListGrafanaProductDashboardsResponse: Response returned when getting a list of dashboards.
 type ListGrafanaProductDashboardsResponse struct {
-	// TotalCount: Count of grafana dasboards.
+	// TotalCount: count of grafana dasboards.
 	TotalCount uint64 `json:"total_count"`
-	// Dashboards: Information on grafana dashboards.
+
+	// Dashboards: information on grafana dashboards.
 	Dashboards []*GrafanaProductDashboard `json:"dashboards"`
 }
 
@@ -678,21 +752,25 @@ func (r *ListGrafanaProductDashboardsResponse) UnsafeAppend(res interface{}) (ui
 
 // ListGrafanaUsersRequest: Request to list all Grafana users.
 type ListGrafanaUsersRequest struct {
-	// Page: Page number.
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Page size.
+
+	// PageSize: page size.
 	PageSize *uint32 `json:"-"`
-	// OrderBy:
+
+	// OrderBy: default value: login_asc
 	OrderBy ListGrafanaUsersRequestOrderBy `json:"-"`
+
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"-"`
 }
 
 // ListGrafanaUsersResponse: Response returned when listing Grafana users.
 type ListGrafanaUsersResponse struct {
-	// TotalCount: Count of all Grafana users.
+	// TotalCount: count of all Grafana users.
 	TotalCount uint32 `json:"total_count"`
-	// GrafanaUsers: Information on all Grafana users.
+
+	// GrafanaUsers: information on all Grafana users.
 	GrafanaUsers []*GrafanaUser `json:"grafana_users"`
 }
 
@@ -717,19 +795,22 @@ func (r *ListGrafanaUsersResponse) UnsafeAppend(res interface{}) (uint32, error)
 
 // ListPlansRequest: Request to list all pricing plans.
 type ListPlansRequest struct {
-	// Page: Page number.
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Page size.
+
+	// PageSize: page size.
 	PageSize *uint32 `json:"-"`
-	// OrderBy:
+
+	// OrderBy: default value: name_asc
 	OrderBy ListPlansRequestOrderBy `json:"-"`
 }
 
 // ListPlansResponse: Response returned when listing all pricing plans.
 type ListPlansResponse struct {
-	// TotalCount: Count of all pricing plans.
+	// TotalCount: count of all pricing plans.
 	TotalCount uint64 `json:"total_count"`
-	// Plans: Information on plans.
+
+	// Plans: information on plans.
 	Plans []*Plan `json:"plans"`
 }
 
@@ -752,23 +833,28 @@ func (r *ListPlansResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Plans)), nil
 }
 
-// ListTokensRequest:
+// ListTokensRequest: list tokens request.
 type ListTokensRequest struct {
-	// Page: Page number.
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Page size.
+
+	// PageSize: page size.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: How the response is ordered.
+
+	// OrderBy: how the response is ordered.
+	// Default value: created_at_asc
 	OrderBy ListTokensRequestOrderBy `json:"-"`
+
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"-"`
 }
 
-// ListTokensResponse:
+// ListTokensResponse: list tokens response.
 type ListTokensResponse struct {
-	// TotalCount: Count of all tokens created.
+	// TotalCount: count of all tokens created.
 	TotalCount uint32 `json:"total_count"`
-	// Tokens: List of all tokens created.
+
+	// Tokens: list of all tokens created.
 	Tokens []*Token `json:"tokens"`
 }
 
@@ -791,7 +877,7 @@ func (r *ListTokensResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tokens)), nil
 }
 
-// ResetCockpitGrafanaRequest:
+// ResetCockpitGrafanaRequest: reset cockpit grafana request.
 type ResetCockpitGrafanaRequest struct {
 	// ProjectID: ID of the Project the Cockpit belongs to.
 	ProjectID string `json:"project_id"`
@@ -801,6 +887,7 @@ type ResetCockpitGrafanaRequest struct {
 type ResetGrafanaUserPasswordRequest struct {
 	// GrafanaUserID: ID of the Grafana user.
 	GrafanaUserID uint32 `json:"-"`
+
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
 }
@@ -809,6 +896,7 @@ type ResetGrafanaUserPasswordRequest struct {
 type SelectPlanRequest struct {
 	// ProjectID: ID of the Project.
 	ProjectID string `json:"project_id"`
+
 	// PlanID: ID of the pricing plan.
 	PlanID string `json:"plan_id"`
 }
@@ -817,9 +905,8 @@ type SelectPlanRequest struct {
 type SelectPlanResponse struct {
 }
 
-// TriggerTestAlertRequest:
+// TriggerTestAlertRequest: trigger test alert request.
 type TriggerTestAlertRequest struct {
-	// ProjectID:
 	ProjectID string `json:"project_id"`
 }
 
@@ -838,6 +925,7 @@ func NewAPI(client *scw.Client) *API {
 // ActivateCockpit: Activate the Cockpit of the specified Project ID.
 func (s *API) ActivateCockpit(req *ActivateCockpitRequest, opts ...scw.RequestOption) (*Cockpit, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -912,6 +1000,7 @@ func (s *API) GetCockpitMetrics(req *GetCockpitMetricsRequest, opts ...scw.Reque
 // DeactivateCockpit: Deactivate the Cockpit of the specified Project ID.
 func (s *API) DeactivateCockpit(req *DeactivateCockpitRequest, opts ...scw.RequestOption) (*Cockpit, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -939,6 +1028,7 @@ func (s *API) DeactivateCockpit(req *DeactivateCockpitRequest, opts ...scw.Reque
 // ResetCockpitGrafana: Reset your Cockpit's Grafana associated with the specified Project ID.
 func (s *API) ResetCockpitGrafana(req *ResetCockpitGrafanaRequest, opts ...scw.RequestOption) (*Cockpit, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -966,6 +1056,7 @@ func (s *API) ResetCockpitGrafana(req *ResetCockpitGrafanaRequest, opts ...scw.R
 // CreateDatasource: Create a datasource for the specified Project ID and the given type.
 func (s *API) CreateDatasource(req *CreateDatasourceRequest, opts ...scw.RequestOption) (*Datasource, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1019,6 +1110,7 @@ func (s *API) ListDatasources(req *ListDatasourcesRequest, opts ...scw.RequestOp
 // CreateToken: Create a token associated with the specified Project ID.
 func (s *API) CreateToken(req *CreateTokenRequest, opts ...scw.RequestOption) (*Token, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1117,6 +1209,7 @@ func (s *API) DeleteToken(req *DeleteTokenRequest, opts ...scw.RequestOption) er
 // CreateContactPoint: Create a contact point to receive alerts for the default receiver.
 func (s *API) CreateContactPoint(req *CreateContactPointRequest, opts ...scw.RequestOption) (*ContactPoint, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1168,6 +1261,7 @@ func (s *API) ListContactPoints(req *ListContactPointsRequest, opts ...scw.Reque
 // DeleteContactPoint: Delete a contact point for the default receiver.
 func (s *API) DeleteContactPoint(req *DeleteContactPointRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1193,6 +1287,7 @@ func (s *API) DeleteContactPoint(req *DeleteContactPointRequest, opts ...scw.Req
 // EnableManagedAlerts: Enable the sending of managed alerts for the specified Project's Cockpit.
 func (s *API) EnableManagedAlerts(req *EnableManagedAlertsRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1218,6 +1313,7 @@ func (s *API) EnableManagedAlerts(req *EnableManagedAlertsRequest, opts ...scw.R
 // DisableManagedAlerts: Disable the sending of managed alerts for the specified Project's Cockpit.
 func (s *API) DisableManagedAlerts(req *DisableManagedAlertsRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1243,6 +1339,7 @@ func (s *API) DisableManagedAlerts(req *DisableManagedAlertsRequest, opts ...scw
 // TriggerTestAlert: Trigger a test alert to all of the Cockpit's receivers.
 func (s *API) TriggerTestAlert(req *TriggerTestAlertRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1268,6 +1365,7 @@ func (s *API) TriggerTestAlert(req *TriggerTestAlertRequest, opts ...scw.Request
 // CreateGrafanaUser: Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID.
 func (s *API) CreateGrafanaUser(req *CreateGrafanaUserRequest, opts ...scw.RequestOption) (*GrafanaUser, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1320,6 +1418,7 @@ func (s *API) ListGrafanaUsers(req *ListGrafanaUsersRequest, opts ...scw.Request
 // DeleteGrafanaUser: Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.
 func (s *API) DeleteGrafanaUser(req *DeleteGrafanaUserRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1349,6 +1448,7 @@ func (s *API) DeleteGrafanaUser(req *DeleteGrafanaUserRequest, opts ...scw.Reque
 // ResetGrafanaUserPassword: Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.
 func (s *API) ResetGrafanaUserPassword(req *ResetGrafanaUserPasswordRequest, opts ...scw.RequestOption) (*GrafanaUser, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1404,6 +1504,7 @@ func (s *API) ListPlans(req *ListPlansRequest, opts ...scw.RequestOption) (*List
 // SelectPlan: Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request.
 func (s *API) SelectPlan(req *SelectPlanRequest, opts ...scw.RequestOption) (*SelectPlanResponse, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1456,6 +1557,7 @@ func (s *API) ListGrafanaProductDashboards(req *ListGrafanaProductDashboardsRequ
 // GetGrafanaProductDashboard: Get a product dashboard specified by the dashboard ID.
 func (s *API) GetGrafanaProductDashboard(req *GetGrafanaProductDashboardRequest, opts ...scw.RequestOption) (*GrafanaProductDashboard, error) {
 	var err error
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID

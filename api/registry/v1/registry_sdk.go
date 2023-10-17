@@ -268,171 +268,226 @@ func (enum *TagStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Image:
+// Image: image.
 type Image struct {
 	// ID: UUID of the image.
 	ID string `json:"id"`
-	// Name: Name of the image, it must be unique within the namespace.
+
+	// Name: name of the image, it must be unique within the namespace.
 	Name string `json:"name"`
+
 	// NamespaceID: UUID of the namespace the image belongs to.
 	NamespaceID string `json:"namespace_id"`
-	// Status: Status of the image.
+
+	// Status: status of the image.
+	// Default value: unknown
 	Status ImageStatus `json:"status"`
-	// StatusMessage: Details of the image status.
+
+	// StatusMessage: details of the image status.
 	StatusMessage *string `json:"status_message"`
-	// Visibility: Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+
+	// Visibility: set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+	// Default value: visibility_unknown
 	Visibility ImageVisibility `json:"visibility"`
-	// Size: Image size in bytes, calculated from the size of image layers. One layer used in two tags of the same image is counted once but one layer used in two images is counted twice.
+
+	// Size: image size in bytes, calculated from the size of image layers. One layer used in two tags of the same image is counted once but one layer used in two images is counted twice.
 	Size scw.Size `json:"size"`
-	// CreatedAt: Date and time of image creation.
+
+	// CreatedAt: date and time of image creation.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date and time of last update.
+
+	// UpdatedAt: date and time of last update.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Tags: List of docker tags of the image.
+
+	// Tags: list of docker tags of the image.
 	Tags []string `json:"tags"`
 }
 
-// Namespace:
+// Namespace: namespace.
 type Namespace struct {
 	// ID: UUID of the namespace.
 	ID string `json:"id"`
-	// Name: Name of the namespace, unique in a region accross all organizations.
+
+	// Name: name of the namespace, unique in a region accross all organizations.
 	Name string `json:"name"`
-	// Description: Description of the namespace.
+
+	// Description: description of the namespace.
 	Description string `json:"description"`
-	// OrganizationID: Owner of the namespace.
+
+	// OrganizationID: owner of the namespace.
 	OrganizationID string `json:"organization_id"`
-	// ProjectID: Project of the namespace.
+
+	// ProjectID: project of the namespace.
 	ProjectID string `json:"project_id"`
-	// Status: Namespace status.
+
+	// Status: namespace status.
+	// Default value: unknown
 	Status NamespaceStatus `json:"status"`
-	// StatusMessage: Namespace status details.
+
+	// StatusMessage: namespace status details.
 	StatusMessage string `json:"status_message"`
-	// Endpoint: Endpoint reachable by docker.
+
+	// Endpoint: endpoint reachable by docker.
 	Endpoint string `json:"endpoint"`
-	// IsPublic: Defines whether or not namespace is public.
+
+	// IsPublic: defines whether or not namespace is public.
 	IsPublic bool `json:"is_public"`
-	// Size: Total size of the namespace, calculated as the sum of the size of all images in the namespace.
+
+	// Size: total size of the namespace, calculated as the sum of the size of all images in the namespace.
 	Size scw.Size `json:"size"`
-	// CreatedAt: Date and time of creation.
+
+	// CreatedAt: date and time of creation.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date and time of last update.
+
+	// UpdatedAt: date and time of last update.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// ImageCount: Number of images in the namespace.
+
+	// ImageCount: number of images in the namespace.
 	ImageCount uint32 `json:"image_count"`
-	// Region: Region the namespace belongs to.
+
+	// Region: region the namespace belongs to.
 	Region scw.Region `json:"region"`
 }
 
-// Tag:
+// Tag: tag.
 type Tag struct {
 	// ID: UUID of the tag.
 	ID string `json:"id"`
-	// Name: Tag name, unique to an image.
+
+	// Name: tag name, unique to an image.
 	Name string `json:"name"`
-	// ImageID: Image ID the of the image the tag belongs to.
+
+	// ImageID: image ID the of the image the tag belongs to.
 	ImageID string `json:"image_id"`
-	// Status: Tag status.
+
+	// Status: tag status.
+	// Default value: unknown
 	Status TagStatus `json:"status"`
-	// Digest: Hash of the tag content. Several tags of a same image may have the same digest.
+
+	// Digest: hash of the tag content. Several tags of a same image may have the same digest.
 	Digest string `json:"digest"`
-	// CreatedAt: Date and time of creation.
+
+	// CreatedAt: date and time of creation.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date and time of last update.
+
+	// UpdatedAt: date and time of last update.
 	UpdatedAt *time.Time `json:"updated_at"`
 }
 
-// CreateNamespaceRequest:
+// CreateNamespaceRequest: create namespace request.
 type CreateNamespaceRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Name: Name of the namespace.
+
+	// Name: name of the namespace.
 	Name string `json:"name"`
-	// Description: Description of the namespace.
+
+	// Description: description of the namespace.
 	Description string `json:"description"`
-	// Deprecated: OrganizationID: Namespace owner (deprecated).
+
+	// Deprecated: OrganizationID: namespace owner (deprecated).
+	// Precisely one of OrganizationID, ProjectID must be set.
 	OrganizationID *string `json:"organization_id,omitempty"`
-	// ProjectID: Project ID on which the namespace will be created.
+
+	// ProjectID: project ID on which the namespace will be created.
+	// Precisely one of OrganizationID, ProjectID must be set.
 	ProjectID *string `json:"project_id,omitempty"`
-	// IsPublic: Defines whether or not namespace is public.
+
+	// IsPublic: defines whether or not namespace is public.
 	IsPublic bool `json:"is_public"`
 }
 
-// DeleteImageRequest:
+// DeleteImageRequest: delete image request.
 type DeleteImageRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ImageID: UUID of the image.
 	ImageID string `json:"-"`
 }
 
-// DeleteNamespaceRequest:
+// DeleteNamespaceRequest: delete namespace request.
 type DeleteNamespaceRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// NamespaceID: UUID of the namespace.
 	NamespaceID string `json:"-"`
 }
 
-// DeleteTagRequest:
+// DeleteTagRequest: delete tag request.
 type DeleteTagRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// TagID: UUID of the tag.
 	TagID string `json:"-"`
-	// Deprecated: Force: If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
+
+	// Deprecated: Force: if two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
 	Force *bool `json:"force,omitempty"`
 }
 
-// GetImageRequest:
+// GetImageRequest: get image request.
 type GetImageRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ImageID: UUID of the image.
 	ImageID string `json:"-"`
 }
 
-// GetNamespaceRequest:
+// GetNamespaceRequest: get namespace request.
 type GetNamespaceRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// NamespaceID: UUID of the namespace.
 	NamespaceID string `json:"-"`
 }
 
-// GetTagRequest:
+// GetTagRequest: get tag request.
 type GetTagRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// TagID: UUID of the tag.
 	TagID string `json:"-"`
 }
 
-// ListImagesRequest:
+// ListImagesRequest: list images request.
 type ListImagesRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page: A positive integer to choose the page to display.
+
+	// Page: a positive integer to choose the page to display.
 	Page *int32 `json:"-"`
-	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
+
+	// PageSize: a positive integer lower or equal to 100 to select the number of items to display.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+
+	// OrderBy: criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+	// Default value: created_at_asc
 	OrderBy ListImagesRequestOrderBy `json:"-"`
-	// NamespaceID: Filter by the namespace ID.
+
+	// NamespaceID: filter by the namespace ID.
 	NamespaceID *string `json:"-"`
-	// Name: Filter by the image name (exact match).
+
+	// Name: filter by the image name (exact match).
 	Name *string `json:"-"`
-	// OrganizationID: Filter by Organization ID.
+
+	// OrganizationID: filter by Organization ID.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Filter by Project ID.
+
+	// ProjectID: filter by Project ID.
 	ProjectID *string `json:"-"`
 }
 
-// ListImagesResponse:
+// ListImagesResponse: list images response.
 type ListImagesResponse struct {
-	// Images: Paginated list of images that match the selected filters.
+	// Images: paginated list of images that match the selected filters.
 	Images []*Image `json:"images"`
-	// TotalCount: Total number of images that match the selected filters.
+
+	// TotalCount: total number of images that match the selected filters.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -455,29 +510,37 @@ func (r *ListImagesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Images)), nil
 }
 
-// ListNamespacesRequest:
+// ListNamespacesRequest: list namespaces request.
 type ListNamespacesRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
-	// Page: A positive integer to choose the page to display.
+
+	// Page: a positive integer to choose the page to display.
 	Page *int32 `json:"-"`
-	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
+
+	// PageSize: a positive integer lower or equal to 100 to select the number of items to display.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+
+	// OrderBy: criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+	// Default value: created_at_asc
 	OrderBy ListNamespacesRequestOrderBy `json:"-"`
-	// OrganizationID: Filter by Organization ID.
+
+	// OrganizationID: filter by Organization ID.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Filter by Project ID.
+
+	// ProjectID: filter by Project ID.
 	ProjectID *string `json:"-"`
-	// Name: Filter by the namespace name (exact match).
+
+	// Name: filter by the namespace name (exact match).
 	Name *string `json:"-"`
 }
 
-// ListNamespacesResponse:
+// ListNamespacesResponse: list namespaces response.
 type ListNamespacesResponse struct {
-	// Namespaces: Paginated list of namespaces that match the selected filters.
+	// Namespaces: paginated list of namespaces that match the selected filters.
 	Namespaces []*Namespace `json:"namespaces"`
-	// TotalCount: Total number of namespaces that match the selected filters.
+
+	// TotalCount: total number of namespaces that match the selected filters.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -500,27 +563,34 @@ func (r *ListNamespacesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Namespaces)), nil
 }
 
-// ListTagsRequest:
+// ListTagsRequest: list tags request.
 type ListTagsRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ImageID: UUID of the image.
 	ImageID string `json:"-"`
-	// Page: A positive integer to choose the page to display.
+
+	// Page: a positive integer to choose the page to display.
 	Page *int32 `json:"-"`
-	// PageSize: A positive integer lower or equal to 100 to select the number of items to display.
+
+	// PageSize: a positive integer lower or equal to 100 to select the number of items to display.
 	PageSize *uint32 `json:"-"`
-	// OrderBy: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+
+	// OrderBy: criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+	// Default value: created_at_asc
 	OrderBy ListTagsRequestOrderBy `json:"-"`
-	// Name: Filter by the tag name (exact match).
+
+	// Name: filter by the tag name (exact match).
 	Name *string `json:"-"`
 }
 
-// ListTagsResponse:
+// ListTagsResponse: list tags response.
 type ListTagsResponse struct {
-	// Tags: Paginated list of tags that match the selected filters.
+	// Tags: paginated list of tags that match the selected filters.
 	Tags []*Tag `json:"tags"`
-	// TotalCount: Total number of tags that match the selected filters.
+
+	// TotalCount: total number of tags that match the selected filters.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -543,25 +613,31 @@ func (r *ListTagsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Tags)), nil
 }
 
-// UpdateImageRequest:
+// UpdateImageRequest: update image request.
 type UpdateImageRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// ImageID: ID of the image to update.
 	ImageID string `json:"-"`
-	// Visibility: Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+
+	// Visibility: set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+	// Default value: visibility_unknown
 	Visibility ImageVisibility `json:"visibility"`
 }
 
-// UpdateNamespaceRequest:
+// UpdateNamespaceRequest: update namespace request.
 type UpdateNamespaceRequest struct {
-	// Region:
+	// Region: region to target. If none is passed will use default region from the config.
 	Region scw.Region `json:"-"`
+
 	// NamespaceID: ID of the namespace to update.
 	NamespaceID string `json:"-"`
-	// Description: Namespace description.
+
+	// Description: namespace description.
 	Description *string `json:"description,omitempty"`
-	// IsPublic: Defines whether or not the namespace is public.
+
+	// IsPublic: defines whether or not the namespace is public.
 	IsPublic *bool `json:"is_public,omitempty"`
 }
 
@@ -583,10 +659,12 @@ func (s *API) Regions() []scw.Region {
 // ListNamespaces: List all namespaces in a specified region. By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `instance_id` and `project_id` parameters.
 func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOption) (*ListNamespacesResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -622,6 +700,7 @@ func (s *API) ListNamespaces(req *ListNamespacesRequest, opts ...scw.RequestOpti
 // GetNamespace: Retrieve information about a given namespace, specified by its `namespace_id` and region. Full details about the namespace, such as `description`, `project_id`, `status`, `endpoint`, `is_public`, `size`, and `image_count` are returned in the response.
 func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -652,6 +731,7 @@ func (s *API) GetNamespace(req *GetNamespaceRequest, opts ...scw.RequestOption) 
 // CreateNamespace: Create a new Container Registry namespace. You must specify the namespace name and region in which you want it to be created. Optionally, you can specify the `project_id` and `is_public` in the request payload.
 func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -697,6 +777,7 @@ func (s *API) CreateNamespace(req *CreateNamespaceRequest, opts ...scw.RequestOp
 // UpdateNamespace: Update the parameters of a given namespace, specified by its `namespace_id` and `region`. You can update the `description` and `is_public` parameters.
 func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -732,6 +813,7 @@ func (s *API) UpdateNamespace(req *UpdateNamespaceRequest, opts ...scw.RequestOp
 // DeleteNamespace: Delete a given namespace. You must specify, in the endpoint, the `region` and `namespace_id` parameters of the namespace you want to delete.
 func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOption) (*Namespace, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -762,10 +844,12 @@ func (s *API) DeleteNamespace(req *DeleteNamespaceRequest, opts ...scw.RequestOp
 // ListImages: List all images in a specified region. By default, the images listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `namespace_id` and `project_id` parameters.
 func (s *API) ListImages(req *ListImagesRequest, opts ...scw.RequestOption) (*ListImagesResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -802,6 +886,7 @@ func (s *API) ListImages(req *ListImagesRequest, opts ...scw.RequestOption) (*Li
 // GetImage: Retrieve information about a given container image, specified by its `image_id` and region. Full details about the image, such as `name`, `namespace_id`, `status`, `visibility`, and `size` are returned in the response.
 func (s *API) GetImage(req *GetImageRequest, opts ...scw.RequestOption) (*Image, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -832,6 +917,7 @@ func (s *API) GetImage(req *GetImageRequest, opts ...scw.RequestOption) (*Image,
 // UpdateImage: Update the parameters of a given image, specified by its `image_id` and `region`. You can update the `visibility` parameter.
 func (s *API) UpdateImage(req *UpdateImageRequest, opts ...scw.RequestOption) (*Image, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -867,6 +953,7 @@ func (s *API) UpdateImage(req *UpdateImageRequest, opts ...scw.RequestOption) (*
 // DeleteImage: Delete a given image. You must specify, in the endpoint, the `region` and `image_id` parameters of the image you want to delete.
 func (s *API) DeleteImage(req *DeleteImageRequest, opts ...scw.RequestOption) (*Image, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -897,10 +984,12 @@ func (s *API) DeleteImage(req *DeleteImageRequest, opts ...scw.RequestOption) (*
 // ListTags: List all tags for a given image, specified by region. By default, the tags listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `name`.
 func (s *API) ListTags(req *ListTagsRequest, opts ...scw.RequestOption) (*ListTagsResponse, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -938,6 +1027,7 @@ func (s *API) ListTags(req *ListTagsRequest, opts ...scw.RequestOption) (*ListTa
 // GetTag: Retrieve information about a given image tag, specified by its `tag_id` and region. Full details about the tag, such as `name`, `image_id`, `status`, and `digest` are returned in the response.
 func (s *API) GetTag(req *GetTagRequest, opts ...scw.RequestOption) (*Tag, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion
@@ -968,6 +1058,7 @@ func (s *API) GetTag(req *GetTagRequest, opts ...scw.RequestOption) (*Tag, error
 // DeleteTag: Delete a given image tag. You must specify, in the endpoint, the `region` and `tag_id` parameters of the tag you want to delete.
 func (s *API) DeleteTag(req *DeleteTagRequest, opts ...scw.RequestOption) (*Tag, error) {
 	var err error
+
 	if req.Region == "" {
 		defaultRegion, _ := s.client.GetDefaultRegion()
 		req.Region = defaultRegion

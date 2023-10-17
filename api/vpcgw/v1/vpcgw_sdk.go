@@ -375,466 +375,619 @@ func (enum *PATRuleProtocol) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// DHCP:
+// DHCP: dhcp.
 type DHCP struct {
 	// ID: ID of the DHCP config.
 	ID string `json:"id"`
-	// OrganizationID: Owning Organization.
+
+	// OrganizationID: owning Organization.
 	OrganizationID string `json:"organization_id"`
-	// ProjectID: Owning Project.
+
+	// ProjectID: owning Project.
 	ProjectID string `json:"project_id"`
-	// CreatedAt: Date the DHCP configuration was created.
+
+	// CreatedAt: date the DHCP configuration was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Configuration last modification date.
+
+	// UpdatedAt: configuration last modification date.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Subnet: Subnet for the DHCP server.
+
+	// Subnet: subnet for the DHCP server.
 	Subnet scw.IPNet `json:"subnet"`
+
 	// Address: IP address of the DHCP server. This will be the Public Gateway's address in the Private Network. It must be part of config's subnet.
 	Address net.IP `json:"address"`
-	// PoolLow: Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
+
+	// PoolLow: low IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
 	PoolLow net.IP `json:"pool_low"`
-	// PoolHigh: High IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
+
+	// PoolHigh: high IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
 	PoolHigh net.IP `json:"pool_high"`
-	// EnableDynamic: Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out.
+
+	// EnableDynamic: defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out.
 	EnableDynamic bool `json:"enable_dynamic"`
-	// ValidLifetime: How long DHCP entries will be valid for.
+
+	// ValidLifetime: how long DHCP entries will be valid for.
 	ValidLifetime *scw.Duration `json:"valid_lifetime"`
-	// RenewTimer: After how long a renew will be attempted. Must be 30s lower than `rebind_timer`.
+
+	// RenewTimer: after how long a renew will be attempted. Must be 30s lower than `rebind_timer`.
 	RenewTimer *scw.Duration `json:"renew_timer"`
-	// RebindTimer: After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`.
+
+	// RebindTimer: after how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`.
 	RebindTimer *scw.Duration `json:"rebind_timer"`
-	// PushDefaultRoute: Defines whether the gateway should push a default route to DHCP clients, or only hand out IPs.
+
+	// PushDefaultRoute: defines whether the gateway should push a default route to DHCP clients, or only hand out IPs.
 	PushDefaultRoute bool `json:"push_default_route"`
-	// PushDNSServer: Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
+
+	// PushDNSServer: defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
 	PushDNSServer bool `json:"push_dns_server"`
-	// DNSServersOverride: Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
+
+	// DNSServersOverride: array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
 	DNSServersOverride []string `json:"dns_servers_override"`
-	// DNSSearch: Array of search paths in addition to the pushed DNS configuration.
+
+	// DNSSearch: array of search paths in addition to the pushed DNS configuration.
 	DNSSearch []string `json:"dns_search"`
-	// DNSLocalName: TLD given to hostnames in the Private Networks. If an Instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve.
+
+	// DNSLocalName: tLD given to hostnames in the Private Networks. If an Instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve.
 	DNSLocalName string `json:"dns_local_name"`
-	// Zone: Zone of this DHCP configuration.
+
+	// Zone: zone of this DHCP configuration.
 	Zone scw.Zone `json:"zone"`
 }
 
-// GatewayNetwork:
+// GatewayNetwork: gateway network.
 type GatewayNetwork struct {
 	// ID: ID of the Public Gateway-Private Network connection.
 	ID string `json:"id"`
-	// CreatedAt: Connection creation date.
+
+	// CreatedAt: connection creation date.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Connection last modification date.
+
+	// UpdatedAt: connection last modification date.
 	UpdatedAt *time.Time `json:"updated_at"`
+
 	// GatewayID: ID of the connected Public Gateway.
 	GatewayID string `json:"gateway_id"`
+
 	// PrivateNetworkID: ID of the connected Private Network.
 	PrivateNetworkID string `json:"private_network_id"`
-	// MacAddress: MAC address of the gateway in the Private Network (if the gateway is up and running).
+
+	// MacAddress: mAC address of the gateway in the Private Network (if the gateway is up and running).
 	MacAddress *string `json:"mac_address"`
-	// EnableMasquerade: Defines whether the gateway masquerades traffic for this Private Network (Dynamic NAT).
+
+	// EnableMasquerade: defines whether the gateway masquerades traffic for this Private Network (Dynamic NAT).
 	EnableMasquerade bool `json:"enable_masquerade"`
-	// Status: Current status of the Public Gateway's connection to the Private Network.
+
+	// Status: current status of the Public Gateway's connection to the Private Network.
+	// Default value: unknown
 	Status GatewayNetworkStatus `json:"status"`
+
 	// DHCP: DHCP configuration for the connected Private Network.
 	DHCP *DHCP `json:"dhcp"`
-	// EnableDHCP: Defines whether DHCP is enabled on the connected Private Network.
+
+	// EnableDHCP: defines whether DHCP is enabled on the connected Private Network.
 	EnableDHCP bool `json:"enable_dhcp"`
-	// Address: Address of the Gateway (in CIDR form) to use when DHCP is not used.
+
+	// Address: address of the Gateway (in CIDR form) to use when DHCP is not used.
 	Address *scw.IPNet `json:"address"`
-	// Zone: Zone of the GatewayNetwork connection.
+
+	// Zone: zone of the GatewayNetwork connection.
 	Zone scw.Zone `json:"zone"`
 }
 
-// GatewayType:
+// GatewayType: gateway type.
 type GatewayType struct {
-	// Name: Public Gateway type name.
+	// Name: public Gateway type name.
 	Name string `json:"name"`
-	// Bandwidth: Bandwidth, in bps, of the Public Gateway. This is the public bandwidth to the outer Internet, and the internal bandwidth to each connected Private Networks.
+
+	// Bandwidth: bandwidth, in bps, of the Public Gateway. This is the public bandwidth to the outer Internet, and the internal bandwidth to each connected Private Networks.
 	Bandwidth uint64 `json:"bandwidth"`
-	// Zone: Zone the Public Gateway type is available in.
+
+	// Zone: zone the Public Gateway type is available in.
 	Zone scw.Zone `json:"zone"`
 }
 
-// IP:
+// IP: ip.
 type IP struct {
 	// ID: IP address ID.
 	ID string `json:"id"`
-	// OrganizationID: Owning Organization.
+
+	// OrganizationID: owning Organization.
 	OrganizationID string `json:"organization_id"`
-	// ProjectID: Owning Project.
+
+	// ProjectID: owning Project.
 	ProjectID string `json:"project_id"`
+
 	// CreatedAt: IP address creation date.
 	CreatedAt *time.Time `json:"created_at"`
+
 	// UpdatedAt: IP address last modification date.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Tags: Tags associated with the IP address.
+
+	// Tags: tags associated with the IP address.
 	Tags []string `json:"tags"`
-	// Address: The IP address itself.
+
+	// Address: the IP address itself.
 	Address net.IP `json:"address"`
-	// Reverse: Reverse domain name for the IP address.
+
+	// Reverse: reverse domain name for the IP address.
 	Reverse *string `json:"reverse"`
-	// GatewayID: Public Gateway associated with the IP address.
+
+	// GatewayID: public Gateway associated with the IP address.
 	GatewayID *string `json:"gateway_id"`
-	// Zone: Zone of the IP address.
+
+	// Zone: zone of the IP address.
 	Zone scw.Zone `json:"zone"`
 }
 
-// CreateDHCPRequest:
+// CreateDHCPRequest: create dhcp request.
 type CreateDHCPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// ProjectID: Project to create the DHCP configuration in.
+
+	// ProjectID: project to create the DHCP configuration in.
 	ProjectID string `json:"project_id"`
-	// Subnet: Subnet for the DHCP server.
+
+	// Subnet: subnet for the DHCP server.
 	Subnet scw.IPNet `json:"subnet"`
+
 	// Address: IP address of the DHCP server. This will be the gateway's address in the Private Network. Defaults to the first address of the subnet.
 	Address *net.IP `json:"address,omitempty"`
-	// PoolLow: Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet.
+
+	// PoolLow: low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet.
 	PoolLow *net.IP `json:"pool_low,omitempty"`
-	// PoolHigh: High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet.
+
+	// PoolHigh: high IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet.
 	PoolHigh *net.IP `json:"pool_high,omitempty"`
-	// EnableDynamic: Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
+
+	// EnableDynamic: defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
 	EnableDynamic *bool `json:"enable_dynamic,omitempty"`
-	// ValidLifetime: How long DHCP entries will be valid for. Defaults to 1h (3600s).
+
+	// ValidLifetime: how long DHCP entries will be valid for. Defaults to 1h (3600s).
 	ValidLifetime *scw.Duration `json:"valid_lifetime,omitempty"`
-	// RenewTimer: After how long a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s).
+
+	// RenewTimer: after how long a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s).
 	RenewTimer *scw.Duration `json:"renew_timer,omitempty"`
-	// RebindTimer: After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s).
+
+	// RebindTimer: after how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s).
 	RebindTimer *scw.Duration `json:"rebind_timer,omitempty"`
-	// PushDefaultRoute: Defines whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true.
+
+	// PushDefaultRoute: defines whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true.
 	PushDefaultRoute *bool `json:"push_default_route,omitempty"`
-	// PushDNSServer: Defines whether the gateway should push custom DNS servers to clients. This allows for Instance hostname -> IP resolution. Defaults to true.
+
+	// PushDNSServer: defines whether the gateway should push custom DNS servers to clients. This allows for Instance hostname -> IP resolution. Defaults to true.
 	PushDNSServer *bool `json:"push_dns_server,omitempty"`
-	// DNSServersOverride: Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
+
+	// DNSServersOverride: array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
 	DNSServersOverride *[]string `json:"dns_servers_override,omitempty"`
-	// DNSSearch: Array of search paths in addition to the pushed DNS configuration.
+
+	// DNSSearch: array of search paths in addition to the pushed DNS configuration.
 	DNSSearch *[]string `json:"dns_search,omitempty"`
-	// DNSLocalName: TLD given to hostnames in the Private Network. Allowed characters are `a-z0-9-.`. Defaults to the slugified Private Network name if created along a GatewayNetwork, or else to `priv`.
+
+	// DNSLocalName: tLD given to hostnames in the Private Network. Allowed characters are `a-z0-9-.`. Defaults to the slugified Private Network name if created along a GatewayNetwork, or else to `priv`.
 	DNSLocalName *string `json:"dns_local_name,omitempty"`
 }
 
-// IpamConfig:
+// IpamConfig: ipam config.
 type IpamConfig struct {
-	// PushDefaultRoute: Defines whether the default route is enabled on that Gateway Network.
+	// PushDefaultRoute: defines whether the default route is enabled on that Gateway Network.
 	PushDefaultRoute bool `json:"push_default_route"`
 }
 
-// DHCPEntry:
+// DHCPEntry: dhcp entry.
 type DHCPEntry struct {
 	// ID: DHCP entry ID.
 	ID string `json:"id"`
+
 	// CreatedAt: DHCP entry creation date.
 	CreatedAt *time.Time `json:"created_at"`
+
 	// UpdatedAt: DHCP entry last modification date.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// GatewayNetworkID: Owning GatewayNetwork.
+
+	// GatewayNetworkID: owning GatewayNetwork.
 	GatewayNetworkID string `json:"gateway_network_id"`
-	// MacAddress: MAC address of the client device.
+
+	// MacAddress: mAC address of the client device.
 	MacAddress string `json:"mac_address"`
-	// IPAddress: Assigned IP address.
+
+	// IPAddress: assigned IP address.
 	IPAddress net.IP `json:"ip_address"`
-	// Hostname: Hostname of the client device.
+
+	// Hostname: hostname of the client device.
 	Hostname string `json:"hostname"`
-	// Type: Entry type, either static (DHCP reservation) or dynamic (DHCP lease).
+
+	// Type: entry type, either static (DHCP reservation) or dynamic (DHCP lease).
+	// Default value: unknown
 	Type DHCPEntryType `json:"type"`
-	// Zone: Zone of this DHCP entry.
+
+	// Zone: zone of this DHCP entry.
 	Zone scw.Zone `json:"zone"`
 }
 
-// Gateway:
+// Gateway: gateway.
 type Gateway struct {
 	// ID: ID of the gateway.
 	ID string `json:"id"`
-	// OrganizationID: Owning Organization.
+
+	// OrganizationID: owning Organization.
 	OrganizationID string `json:"organization_id"`
-	// ProjectID: Owning Project.
+
+	// ProjectID: owning Project.
 	ProjectID string `json:"project_id"`
-	// CreatedAt: Gateway creation date.
+
+	// CreatedAt: gateway creation date.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Gateway last modification date.
+
+	// UpdatedAt: gateway last modification date.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Type: Gateway type (commercial offer).
+
+	// Type: gateway type (commercial offer).
 	Type *GatewayType `json:"type"`
-	// Status: Current status of the gateway.
+
+	// Status: current status of the gateway.
+	// Default value: unknown
 	Status GatewayStatus `json:"status"`
-	// Name: Name of the gateway.
+
+	// Name: name of the gateway.
 	Name string `json:"name"`
-	// Tags: Tags associated with the gateway.
+
+	// Tags: tags associated with the gateway.
 	Tags []string `json:"tags"`
-	// IP: Public IP address of the gateway.
+
+	// IP: public IP address of the gateway.
 	IP *IP `json:"ip"`
-	// GatewayNetworks: GatewayNetwork objects attached to the gateway (each one represents a connection to a Private Network).
+
+	// GatewayNetworks: gatewayNetwork objects attached to the gateway (each one represents a connection to a Private Network).
 	GatewayNetworks []*GatewayNetwork `json:"gateway_networks"`
-	// UpstreamDNSServers: Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
+
+	// UpstreamDNSServers: array of DNS server IP addresses to override the gateway's default recursive DNS servers.
 	UpstreamDNSServers []string `json:"upstream_dns_servers"`
-	// Version: Version of the running gateway software.
+
+	// Version: version of the running gateway software.
 	Version *string `json:"version"`
-	// CanUpgradeTo: Newly available gateway software version that can be updated to.
+
+	// CanUpgradeTo: newly available gateway software version that can be updated to.
 	CanUpgradeTo *string `json:"can_upgrade_to"`
-	// BastionEnabled: Defines whether SSH bastion is enabled on the gateway.
+
+	// BastionEnabled: defines whether SSH bastion is enabled on the gateway.
 	BastionEnabled bool `json:"bastion_enabled"`
-	// BastionPort: Port of the SSH bastion.
+
+	// BastionPort: port of the SSH bastion.
 	BastionPort uint32 `json:"bastion_port"`
-	// SMTPEnabled: Defines whether SMTP traffic is allowed to pass through the gateway.
+
+	// SMTPEnabled: defines whether SMTP traffic is allowed to pass through the gateway.
 	SMTPEnabled bool `json:"smtp_enabled"`
-	// Zone: Zone of the gateway.
+
+	// Zone: zone of the gateway.
 	Zone scw.Zone `json:"zone"`
 }
 
-// PATRule:
+// PATRule: pat rule.
 type PATRule struct {
-	// ID: PAT rule ID.
+	// ID: pAT rule ID.
 	ID string `json:"id"`
-	// GatewayID: Gateway the PAT rule applies to.
+
+	// GatewayID: gateway the PAT rule applies to.
 	GatewayID string `json:"gateway_id"`
-	// CreatedAt: PAT rule creation date.
+
+	// CreatedAt: pAT rule creation date.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: PAT rule last modification date.
+
+	// UpdatedAt: pAT rule last modification date.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// PublicPort: Public port to listen on.
+
+	// PublicPort: public port to listen on.
 	PublicPort uint32 `json:"public_port"`
-	// PrivateIP: Private IP address to forward data to.
+
+	// PrivateIP: private IP address to forward data to.
 	PrivateIP net.IP `json:"private_ip"`
-	// PrivatePort: Private port to translate to.
+
+	// PrivatePort: private port to translate to.
 	PrivatePort uint32 `json:"private_port"`
-	// Protocol: Protocol the rule applies to.
+
+	// Protocol: protocol the rule applies to.
+	// Default value: unknown
 	Protocol PATRuleProtocol `json:"protocol"`
-	// Zone: Zone of the PAT rule.
+
+	// Zone: zone of the PAT rule.
 	Zone scw.Zone `json:"zone"`
 }
 
-// SetDHCPEntriesRequestEntry:
+// SetDHCPEntriesRequestEntry: set dhcp entries request entry.
 type SetDHCPEntriesRequestEntry struct {
-	// MacAddress: MAC address to give a static entry to. A matching entry will be upgraded to a reservation, and a matching reservation will be updated.
+	// MacAddress: mAC address to give a static entry to. A matching entry will be upgraded to a reservation, and a matching reservation will be updated.
 	MacAddress string `json:"mac_address"`
+
 	// IPAddress: IP address to give to the device.
 	IPAddress net.IP `json:"ip_address"`
 }
 
-// SetPATRulesRequestRule:
+// SetPATRulesRequestRule: set pat rules request rule.
 type SetPATRulesRequestRule struct {
-	// PublicPort: Public port to listen on. Uniquely identifies the rule, and a matching rule will be updated with the new parameters.
+	// PublicPort: public port to listen on. Uniquely identifies the rule, and a matching rule will be updated with the new parameters.
 	PublicPort uint32 `json:"public_port"`
-	// PrivateIP: Private IP to forward data to.
+
+	// PrivateIP: private IP to forward data to.
 	PrivateIP net.IP `json:"private_ip"`
-	// PrivatePort: Private port to translate to.
+
+	// PrivatePort: private port to translate to.
 	PrivatePort uint32 `json:"private_port"`
-	// Protocol: Protocol the rule should apply to.
+
+	// Protocol: protocol the rule should apply to.
+	// Default value: unknown
 	Protocol PATRuleProtocol `json:"protocol"`
 }
 
-// CreateDHCPEntryRequest:
+// CreateDHCPEntryRequest: create dhcp entry request.
 type CreateDHCPEntryRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// GatewayNetworkID: GatewayNetwork on which to create a DHCP reservation.
+
+	// GatewayNetworkID: gatewayNetwork on which to create a DHCP reservation.
 	GatewayNetworkID string `json:"gateway_network_id"`
-	// MacAddress: MAC address to give a static entry to.
+
+	// MacAddress: mAC address to give a static entry to.
 	MacAddress string `json:"mac_address"`
+
 	// IPAddress: IP address to give to the device.
 	IPAddress net.IP `json:"ip_address"`
 }
 
-// CreateGatewayNetworkRequest:
+// CreateGatewayNetworkRequest: create gateway network request.
 type CreateGatewayNetworkRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// GatewayID: Public Gateway to connect.
+
+	// GatewayID: public Gateway to connect.
 	GatewayID string `json:"gateway_id"`
-	// PrivateNetworkID: Private Network to connect.
+
+	// PrivateNetworkID: private Network to connect.
 	PrivateNetworkID string `json:"private_network_id"`
-	// EnableMasquerade: Note: this setting is ignored when passing `ipam_config`.
+
+	// EnableMasquerade: note: this setting is ignored when passing `ipam_config`.
 	EnableMasquerade bool `json:"enable_masquerade"`
-	// EnableDHCP: Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
+
+	// EnableDHCP: defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
 	// Note: this setting is ignored when passing `ipam_config`.
 	EnableDHCP *bool `json:"enable_dhcp,omitempty"`
+
 	// DHCPID: ID of an existing DHCP configuration object to use for this GatewayNetwork.
+	// Precisely one of DHCPID, DHCP, Address, IpamConfig must be set.
 	DHCPID *string `json:"dhcp_id,omitempty"`
-	// DHCP: New DHCP configuration object to use for this GatewayNetwork.
+
+	// DHCP: new DHCP configuration object to use for this GatewayNetwork.
+	// Precisely one of DHCPID, DHCP, Address, IpamConfig must be set.
 	DHCP *CreateDHCPRequest `json:"dhcp,omitempty"`
-	// Address: Static IP address in CIDR format to to use without DHCP.
+
+	// Address: static IP address in CIDR format to to use without DHCP.
+	// Precisely one of DHCPID, DHCP, Address, IpamConfig must be set.
 	Address *scw.IPNet `json:"address,omitempty"`
-	// IpamConfig: Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
+
+	// IpamConfig: note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
+	// Precisely one of DHCPID, DHCP, Address, IpamConfig must be set.
 	IpamConfig *IpamConfig `json:"ipam_config,omitempty"`
 }
 
-// CreateGatewayRequest:
+// CreateGatewayRequest: create gateway request.
 type CreateGatewayRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// ProjectID: Scaleway Project to create the gateway in.
+
+	// ProjectID: scaleway Project to create the gateway in.
 	ProjectID string `json:"project_id"`
-	// Name: Name for the gateway.
+
+	// Name: name for the gateway.
 	Name string `json:"name"`
-	// Tags: Tags for the gateway.
+
+	// Tags: tags for the gateway.
 	Tags []string `json:"tags"`
-	// Type: Gateway type (commercial offer type).
+
+	// Type: gateway type (commercial offer type).
 	Type string `json:"type"`
-	// UpstreamDNSServers: Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
+
+	// UpstreamDNSServers: array of DNS server IP addresses to override the gateway's default recursive DNS servers.
 	UpstreamDNSServers []string `json:"upstream_dns_servers"`
-	// IPID: Existing IP address to attach to the gateway.
+
+	// IPID: existing IP address to attach to the gateway.
 	IPID *string `json:"ip_id,omitempty"`
-	// EnableSMTP: Defines whether SMTP traffic should be allowed pass through the gateway.
+
+	// EnableSMTP: defines whether SMTP traffic should be allowed pass through the gateway.
 	EnableSMTP bool `json:"enable_smtp"`
-	// EnableBastion: Defines whether SSH bastion should be enabled the gateway.
+
+	// EnableBastion: defines whether SSH bastion should be enabled the gateway.
 	EnableBastion bool `json:"enable_bastion"`
-	// BastionPort: Port of the SSH bastion.
+
+	// BastionPort: port of the SSH bastion.
 	BastionPort *uint32 `json:"bastion_port,omitempty"`
 }
 
-// CreateIPRequest:
+// CreateIPRequest: create ip request.
 type CreateIPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// ProjectID: Project to create the IP address in.
+
+	// ProjectID: project to create the IP address in.
 	ProjectID string `json:"project_id"`
-	// Tags: Tags to give to the IP address.
+
+	// Tags: tags to give to the IP address.
 	Tags []string `json:"tags"`
 }
 
-// CreatePATRuleRequest:
+// CreatePATRuleRequest: create pat rule request.
 type CreatePATRuleRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayID: ID of the Gateway on which to create the rule.
 	GatewayID string `json:"gateway_id"`
-	// PublicPort: Public port to listen on.
+
+	// PublicPort: public port to listen on.
 	PublicPort uint32 `json:"public_port"`
-	// PrivateIP: Private IP to forward data to.
+
+	// PrivateIP: private IP to forward data to.
 	PrivateIP net.IP `json:"private_ip"`
-	// PrivatePort: Private port to translate to.
+
+	// PrivatePort: private port to translate to.
 	PrivatePort uint32 `json:"private_port"`
-	// Protocol: Protocol the rule should apply to.
+
+	// Protocol: protocol the rule should apply to.
+	// Default value: unknown
 	Protocol PATRuleProtocol `json:"protocol"`
 }
 
-// DeleteDHCPEntryRequest:
+// DeleteDHCPEntryRequest: delete dhcp entry request.
 type DeleteDHCPEntryRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// DHCPEntryID: ID of the DHCP entry to delete.
 	DHCPEntryID string `json:"-"`
 }
 
-// DeleteDHCPRequest:
+// DeleteDHCPRequest: delete dhcp request.
 type DeleteDHCPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// DHCPID: DHCP configuration ID to delete.
 	DHCPID string `json:"-"`
 }
 
-// DeleteGatewayNetworkRequest:
+// DeleteGatewayNetworkRequest: delete gateway network request.
 type DeleteGatewayNetworkRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayNetworkID: ID of the GatewayNetwork to delete.
 	GatewayNetworkID string `json:"-"`
-	// CleanupDHCP: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
+
+	// CleanupDHCP: defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
 	CleanupDHCP bool `json:"cleanup_dhcp"`
 }
 
-// DeleteGatewayRequest:
+// DeleteGatewayRequest: delete gateway request.
 type DeleteGatewayRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayID: ID of the gateway to delete.
 	GatewayID string `json:"-"`
-	// CleanupDHCP: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
+
+	// CleanupDHCP: defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
 	CleanupDHCP bool `json:"cleanup_dhcp"`
 }
 
-// DeleteIPRequest:
+// DeleteIPRequest: delete ip request.
 type DeleteIPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// IPID: ID of the IP address to delete.
 	IPID string `json:"-"`
 }
 
-// DeletePATRuleRequest:
+// DeletePATRuleRequest: delete pat rule request.
 type DeletePATRuleRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// PatRuleID: ID of the PAT rule to delete.
 	PatRuleID string `json:"-"`
 }
 
-// GetDHCPEntryRequest:
+// GetDHCPEntryRequest: get dhcp entry request.
 type GetDHCPEntryRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// DHCPEntryID: ID of the DHCP entry to fetch.
 	DHCPEntryID string `json:"-"`
 }
 
-// GetDHCPRequest:
+// GetDHCPRequest: get dhcp request.
 type GetDHCPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// DHCPID: ID of the DHCP configuration to fetch.
 	DHCPID string `json:"-"`
 }
 
-// GetGatewayNetworkRequest:
+// GetGatewayNetworkRequest: get gateway network request.
 type GetGatewayNetworkRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayNetworkID: ID of the GatewayNetwork to fetch.
 	GatewayNetworkID string `json:"-"`
 }
 
-// GetGatewayRequest:
+// GetGatewayRequest: get gateway request.
 type GetGatewayRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayID: ID of the gateway to fetch.
 	GatewayID string `json:"-"`
 }
 
-// GetIPRequest:
+// GetIPRequest: get ip request.
 type GetIPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// IPID: ID of the IP address to get.
 	IPID string `json:"-"`
 }
 
-// GetPATRuleRequest:
+// GetPATRuleRequest: get pat rule request.
 type GetPATRuleRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// PatRuleID: ID of the PAT rule to get.
 	PatRuleID string `json:"-"`
 }
 
-// ListDHCPEntriesRequest:
+// ListDHCPEntriesRequest: list dhcp entries request.
 type ListDHCPEntriesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Order in which to return results.
+
+	// OrderBy: order in which to return results.
+	// Default value: created_at_asc
 	OrderBy ListDHCPEntriesRequestOrderBy `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
+
 	// PageSize: DHCP entries per page.
 	PageSize *uint32 `json:"-"`
-	// GatewayNetworkID: Filter for entries on this GatewayNetwork.
+
+	// GatewayNetworkID: filter for entries on this GatewayNetwork.
 	GatewayNetworkID *string `json:"-"`
-	// MacAddress: Filter for entries with this MAC address.
+
+	// MacAddress: filter for entries with this MAC address.
 	MacAddress *string `json:"-"`
-	// IPAddress: Filter for entries with this IP address.
+
+	// IPAddress: filter for entries with this IP address.
 	IPAddress *net.IP `json:"-"`
-	// Hostname: Filter for entries with this hostname substring.
+
+	// Hostname: filter for entries with this hostname substring.
 	Hostname *string `json:"-"`
-	// Type: Filter for entries of this type.
+
+	// Type: filter for entries of this type.
+	// Default value: unknown
 	Type DHCPEntryType `json:"-"`
 }
 
-// ListDHCPEntriesResponse:
+// ListDHCPEntriesResponse: list dhcp entries response.
 type ListDHCPEntriesResponse struct {
 	// DHCPEntries: DHCP entries in this page.
 	DHCPEntries []*DHCPEntry `json:"dhcp_entries"`
-	// TotalCount: Total count of DHCP entries matching the filter.
+
+	// TotalCount: total count of DHCP entries matching the filter.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -857,31 +1010,40 @@ func (r *ListDHCPEntriesResponse) UnsafeAppend(res interface{}) (uint32, error) 
 	return uint32(len(results.DHCPEntries)), nil
 }
 
-// ListDHCPsRequest:
+// ListDHCPsRequest: list dhc ps request.
 type ListDHCPsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Order in which to return results.
+
+	// OrderBy: order in which to return results.
+	// Default value: created_at_asc
 	OrderBy ListDHCPsRequestOrderBy `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
+
 	// PageSize: DHCP configurations per page.
 	PageSize *uint32 `json:"-"`
-	// OrganizationID: Include only DHCP configuration objects in this Organization.
+
+	// OrganizationID: include only DHCP configuration objects in this Organization.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Include only DHCP configuration objects in this Project.
+
+	// ProjectID: include only DHCP configuration objects in this Project.
 	ProjectID *string `json:"-"`
-	// Address: Filter for DHCP configuration objects with this DHCP server IP address (the gateway's address in the Private Network).
+
+	// Address: filter for DHCP configuration objects with this DHCP server IP address (the gateway's address in the Private Network).
 	Address *net.IP `json:"-"`
-	// HasAddress: Filter for DHCP configuration objects with subnets containing this IP address.
+
+	// HasAddress: filter for DHCP configuration objects with subnets containing this IP address.
 	HasAddress *net.IP `json:"-"`
 }
 
-// ListDHCPsResponse:
+// ListDHCPsResponse: list dhc ps response.
 type ListDHCPsResponse struct {
-	// Dhcps: First page of DHCP configuration objects.
+	// Dhcps: first page of DHCP configuration objects.
 	Dhcps []*DHCP `json:"dhcps"`
-	// TotalCount: Total count of DHCP configuration objects matching the filter.
+
+	// TotalCount: total count of DHCP configuration objects matching the filter.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -904,33 +1066,44 @@ func (r *ListDHCPsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Dhcps)), nil
 }
 
-// ListGatewayNetworksRequest:
+// ListGatewayNetworksRequest: list gateway networks request.
 type ListGatewayNetworksRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Order in which to return results.
+
+	// OrderBy: order in which to return results.
+	// Default value: created_at_asc
 	OrderBy ListGatewayNetworksRequestOrderBy `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: GatewayNetworks per page.
+
+	// PageSize: gatewayNetworks per page.
 	PageSize *uint32 `json:"-"`
-	// GatewayID: Filter for GatewayNetworks connected to this gateway.
+
+	// GatewayID: filter for GatewayNetworks connected to this gateway.
 	GatewayID *string `json:"-"`
-	// PrivateNetworkID: Filter for GatewayNetworks connected to this Private Network.
+
+	// PrivateNetworkID: filter for GatewayNetworks connected to this Private Network.
 	PrivateNetworkID *string `json:"-"`
-	// EnableMasquerade: Filter for GatewayNetworks with this `enable_masquerade` setting.
+
+	// EnableMasquerade: filter for GatewayNetworks with this `enable_masquerade` setting.
 	EnableMasquerade *bool `json:"-"`
-	// DHCPID: Filter for GatewayNetworks using this DHCP configuration.
+
+	// DHCPID: filter for GatewayNetworks using this DHCP configuration.
 	DHCPID *string `json:"-"`
-	// Status: Filter for GatewayNetworks with this current status this status. Use `unknown` to include all statuses.
+
+	// Status: filter for GatewayNetworks with this current status this status. Use `unknown` to include all statuses.
+	// Default value: unknown
 	Status GatewayNetworkStatus `json:"-"`
 }
 
-// ListGatewayNetworksResponse:
+// ListGatewayNetworksResponse: list gateway networks response.
 type ListGatewayNetworksResponse struct {
-	// GatewayNetworks: GatewayNetworks on this page.
+	// GatewayNetworks: gatewayNetworks on this page.
 	GatewayNetworks []*GatewayNetwork `json:"gateway_networks"`
-	// TotalCount: Total GatewayNetworks count matching the filter.
+
+	// TotalCount: total GatewayNetworks count matching the filter.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -953,49 +1126,62 @@ func (r *ListGatewayNetworksResponse) UnsafeAppend(res interface{}) (uint32, err
 	return uint32(len(results.GatewayNetworks)), nil
 }
 
-// ListGatewayTypesRequest:
+// ListGatewayTypesRequest: list gateway types request.
 type ListGatewayTypesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
 }
 
-// ListGatewayTypesResponse:
+// ListGatewayTypesResponse: list gateway types response.
 type ListGatewayTypesResponse struct {
-	// Types: Available types of Public Gateway.
+	// Types: available types of Public Gateway.
 	Types []*GatewayType `json:"types"`
 }
 
-// ListGatewaysRequest:
+// ListGatewaysRequest: list gateways request.
 type ListGatewaysRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Order in which to return results.
+
+	// OrderBy: order in which to return results.
+	// Default value: created_at_asc
 	OrderBy ListGatewaysRequestOrderBy `json:"-"`
-	// Page: Page number to return.
+
+	// Page: page number to return.
 	Page *int32 `json:"-"`
-	// PageSize: Gateways per page.
+
+	// PageSize: gateways per page.
 	PageSize *uint32 `json:"-"`
-	// OrganizationID: Include only gateways in this Organization.
+
+	// OrganizationID: include only gateways in this Organization.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Include only gateways in this Project.
+
+	// ProjectID: include only gateways in this Project.
 	ProjectID *string `json:"-"`
-	// Name: Filter for gateways which have this search term in their name.
+
+	// Name: filter for gateways which have this search term in their name.
 	Name *string `json:"-"`
-	// Tags: Filter for gateways with these tags.
+
+	// Tags: filter for gateways with these tags.
 	Tags []string `json:"-"`
-	// Type: Filter for gateways of this type.
+
+	// Type: filter for gateways of this type.
 	Type *string `json:"-"`
-	// Status: Filter for gateways with this current status. Use `unknown` to include all statuses.
+
+	// Status: filter for gateways with this current status. Use `unknown` to include all statuses.
+	// Default value: unknown
 	Status GatewayStatus `json:"-"`
-	// PrivateNetworkID: Filter for gateways attached to this Private nNetwork.
+
+	// PrivateNetworkID: filter for gateways attached to this Private nNetwork.
 	PrivateNetworkID *string `json:"-"`
 }
 
-// ListGatewaysResponse:
+// ListGatewaysResponse: list gateways response.
 type ListGatewaysResponse struct {
-	// Gateways: Gateways on this page.
+	// Gateways: gateways on this page.
 	Gateways []*Gateway `json:"gateways"`
-	// TotalCount: Total count of gateways matching the filter.
+
+	// TotalCount: total count of gateways matching the filter.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1018,33 +1204,43 @@ func (r *ListGatewaysResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Gateways)), nil
 }
 
-// ListIPsRequest:
+// ListIPsRequest: list i ps request.
 type ListIPsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Order in which to return results.
+
+	// OrderBy: order in which to return results.
+	// Default value: created_at_asc
 	OrderBy ListIPsRequestOrderBy `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
+
 	// PageSize: IP addresses per page.
 	PageSize *uint32 `json:"-"`
-	// OrganizationID: Filter for IP addresses in this Organization.
+
+	// OrganizationID: filter for IP addresses in this Organization.
 	OrganizationID *string `json:"-"`
-	// ProjectID: Filter for IP addresses in this Project.
+
+	// ProjectID: filter for IP addresses in this Project.
 	ProjectID *string `json:"-"`
-	// Tags: Filter for IP addresses with these tags.
+
+	// Tags: filter for IP addresses with these tags.
 	Tags []string `json:"-"`
-	// Reverse: Filter for IP addresses that have a reverse containing this string.
+
+	// Reverse: filter for IP addresses that have a reverse containing this string.
 	Reverse *string `json:"-"`
-	// IsFree: Filter based on whether the IP is attached to a gateway or not.
+
+	// IsFree: filter based on whether the IP is attached to a gateway or not.
 	IsFree *bool `json:"-"`
 }
 
-// ListIPsResponse:
+// ListIPsResponse: list i ps response.
 type ListIPsResponse struct {
 	// IPs: IP addresses on this page.
 	IPs []*IP `json:"ips"`
-	// TotalCount: Total count of IP addresses matching the filter.
+
+	// TotalCount: total count of IP addresses matching the filter.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1067,29 +1263,38 @@ func (r *ListIPsResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.IPs)), nil
 }
 
-// ListPATRulesRequest:
+// ListPATRulesRequest: list pat rules request.
 type ListPATRulesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Order in which to return results.
+
+	// OrderBy: order in which to return results.
+	// Default value: created_at_asc
 	OrderBy ListPATRulesRequestOrderBy `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: PAT rules per page.
+
+	// PageSize: pAT rules per page.
 	PageSize *uint32 `json:"-"`
-	// GatewayID: Filter for PAT rules on this Gateway.
+
+	// GatewayID: filter for PAT rules on this Gateway.
 	GatewayID *string `json:"-"`
-	// PrivateIP: Filter for PAT rules targeting this private ip.
+
+	// PrivateIP: filter for PAT rules targeting this private ip.
 	PrivateIP *net.IP `json:"-"`
-	// Protocol: Filter for PAT rules with this protocol.
+
+	// Protocol: filter for PAT rules with this protocol.
+	// Default value: unknown
 	Protocol PATRuleProtocol `json:"-"`
 }
 
-// ListPATRulesResponse:
+// ListPATRulesResponse: list pat rules response.
 type ListPATRulesResponse struct {
-	// PatRules: Array of PAT rules matching the filter.
+	// PatRules: array of PAT rules matching the filter.
 	PatRules []*PATRule `json:"pat_rules"`
-	// TotalCount: Total count of PAT rules matching the filter.
+
+	// TotalCount: total count of PAT rules matching the filter.
 	TotalCount uint32 `json:"total_count"`
 }
 
@@ -1112,163 +1317,211 @@ func (r *ListPATRulesResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.PatRules)), nil
 }
 
-// RefreshSSHKeysRequest:
+// RefreshSSHKeysRequest: refresh ssh keys request.
 type RefreshSSHKeysRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayID: ID of the gateway to refresh SSH keys on.
 	GatewayID string `json:"-"`
 }
 
-// SetDHCPEntriesRequest:
+// SetDHCPEntriesRequest: set dhcp entries request.
 type SetDHCPEntriesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayNetworkID: ID of the Gateway Network on which to set DHCP reservation list.
 	GatewayNetworkID string `json:"gateway_network_id"`
-	// DHCPEntries: New list of DHCP reservations.
+
+	// DHCPEntries: new list of DHCP reservations.
 	DHCPEntries []*SetDHCPEntriesRequestEntry `json:"dhcp_entries"`
 }
 
-// SetDHCPEntriesResponse:
+// SetDHCPEntriesResponse: set dhcp entries response.
 type SetDHCPEntriesResponse struct {
-	// DHCPEntries: List of DHCP entries.
+	// DHCPEntries: list of DHCP entries.
 	DHCPEntries []*DHCPEntry `json:"dhcp_entries"`
 }
 
-// SetPATRulesRequest:
+// SetPATRulesRequest: set pat rules request.
 type SetPATRulesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayID: ID of the gateway on which to set the PAT rules.
 	GatewayID string `json:"gateway_id"`
-	// PatRules: New list of PAT rules.
+
+	// PatRules: new list of PAT rules.
 	PatRules []*SetPATRulesRequestRule `json:"pat_rules"`
 }
 
-// SetPATRulesResponse:
+// SetPATRulesResponse: set pat rules response.
 type SetPATRulesResponse struct {
-	// PatRules: List of PAT rules.
+	// PatRules: list of PAT rules.
 	PatRules []*PATRule `json:"pat_rules"`
 }
 
-// UpdateDHCPEntryRequest:
+// UpdateDHCPEntryRequest: update dhcp entry request.
 type UpdateDHCPEntryRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// DHCPEntryID: ID of the DHCP entry to update.
 	DHCPEntryID string `json:"-"`
-	// IPAddress: New IP address to give to the device.
+
+	// IPAddress: new IP address to give to the device.
 	IPAddress *net.IP `json:"ip_address,omitempty"`
 }
 
-// UpdateDHCPRequest:
+// UpdateDHCPRequest: update dhcp request.
 type UpdateDHCPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// DHCPID: DHCP configuration to update.
 	DHCPID string `json:"-"`
-	// Subnet: Subnet for the DHCP server.
+
+	// Subnet: subnet for the DHCP server.
 	Subnet *scw.IPNet `json:"subnet,omitempty"`
+
 	// Address: IP address of the DHCP server. This will be the Public Gateway's address in the Private Network. It must be part of config's subnet.
 	Address *net.IP `json:"address,omitempty"`
-	// PoolLow: Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
+
+	// PoolLow: low IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
 	PoolLow *net.IP `json:"pool_low,omitempty"`
-	// PoolHigh: High IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
+
+	// PoolHigh: high IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
 	PoolHigh *net.IP `json:"pool_high,omitempty"`
-	// EnableDynamic: Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
+
+	// EnableDynamic: defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
 	EnableDynamic *bool `json:"enable_dynamic,omitempty"`
-	// ValidLifetime: How long DHCP entries will be valid for.
+
+	// ValidLifetime: how long DHCP entries will be valid for.
 	ValidLifetime *scw.Duration `json:"valid_lifetime,omitempty"`
-	// RenewTimer: After how long a renew will be attempted. Must be 30s lower than `rebind_timer`.
+
+	// RenewTimer: after how long a renew will be attempted. Must be 30s lower than `rebind_timer`.
 	RenewTimer *scw.Duration `json:"renew_timer,omitempty"`
-	// RebindTimer: After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`.
+
+	// RebindTimer: after how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`.
 	RebindTimer *scw.Duration `json:"rebind_timer,omitempty"`
-	// PushDefaultRoute: Defines whether the gateway should push a default route to DHCP clients, or only hand out IPs.
+
+	// PushDefaultRoute: defines whether the gateway should push a default route to DHCP clients, or only hand out IPs.
 	PushDefaultRoute *bool `json:"push_default_route,omitempty"`
-	// PushDNSServer: Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
+
+	// PushDNSServer: defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
 	PushDNSServer *bool `json:"push_dns_server,omitempty"`
-	// DNSServersOverride: Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
+
+	// DNSServersOverride: array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
 	DNSServersOverride *[]string `json:"dns_servers_override,omitempty"`
-	// DNSSearch: Array of search paths in addition to the pushed DNS configuration.
+
+	// DNSSearch: array of search paths in addition to the pushed DNS configuration.
 	DNSSearch *[]string `json:"dns_search,omitempty"`
-	// DNSLocalName: TLD given to hostnames in the Private Networks. If an instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve. Allowed characters are `a-z0-9-.`.
+
+	// DNSLocalName: tLD given to hostnames in the Private Networks. If an instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve. Allowed characters are `a-z0-9-.`.
 	DNSLocalName *string `json:"dns_local_name,omitempty"`
 }
 
-// UpdateGatewayNetworkRequest:
+// UpdateGatewayNetworkRequest: update gateway network request.
 type UpdateGatewayNetworkRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayNetworkID: ID of the GatewayNetwork to update.
 	GatewayNetworkID string `json:"-"`
-	// EnableMasquerade: Note: this setting is ignored when passing `ipam_config`.
+
+	// EnableMasquerade: note: this setting is ignored when passing `ipam_config`.
 	EnableMasquerade *bool `json:"enable_masquerade,omitempty"`
-	// EnableDHCP: Defaults to `true` if `dhcp_id` is present. If set to `true`, `dhcp_id` must be present.
+
+	// EnableDHCP: defaults to `true` if `dhcp_id` is present. If set to `true`, `dhcp_id` must be present.
 	// Note: this setting is ignored when passing `ipam_config`.
 	EnableDHCP *bool `json:"enable_dhcp,omitempty"`
+
 	// DHCPID: ID of the new DHCP configuration object to use with this GatewayNetwork.
+	// Precisely one of DHCPID, Address, IpamConfig must be set.
 	DHCPID *string `json:"dhcp_id,omitempty"`
-	// Address: New static IP address.
+
+	// Address: new static IP address.
+	// Precisely one of DHCPID, Address, IpamConfig must be set.
 	Address *scw.IPNet `json:"address,omitempty"`
-	// IpamConfig: Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
+
+	// IpamConfig: note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
+	// Precisely one of DHCPID, Address, IpamConfig must be set.
 	IpamConfig *IpamConfig `json:"ipam_config,omitempty"`
 }
 
-// UpdateGatewayRequest:
+// UpdateGatewayRequest: update gateway request.
 type UpdateGatewayRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayID: ID of the gateway to update.
 	GatewayID string `json:"-"`
-	// Name: Name for the gateway.
+
+	// Name: name for the gateway.
 	Name *string `json:"name,omitempty"`
-	// Tags: Tags for the gateway.
+
+	// Tags: tags for the gateway.
 	Tags *[]string `json:"tags,omitempty"`
-	// UpstreamDNSServers: Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
+
+	// UpstreamDNSServers: array of DNS server IP addresses to override the gateway's default recursive DNS servers.
 	UpstreamDNSServers *[]string `json:"upstream_dns_servers,omitempty"`
-	// EnableBastion: Defines whether SSH bastion should be enabled the gateway.
+
+	// EnableBastion: defines whether SSH bastion should be enabled the gateway.
 	EnableBastion *bool `json:"enable_bastion,omitempty"`
-	// BastionPort: Port of the SSH bastion.
+
+	// BastionPort: port of the SSH bastion.
 	BastionPort *uint32 `json:"bastion_port,omitempty"`
-	// EnableSMTP: Defines whether SMTP traffic should be allowed to pass through the gateway.
+
+	// EnableSMTP: defines whether SMTP traffic should be allowed to pass through the gateway.
 	EnableSMTP *bool `json:"enable_smtp,omitempty"`
 }
 
-// UpdateIPRequest:
+// UpdateIPRequest: update ip request.
 type UpdateIPRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// IPID: ID of the IP address to update.
 	IPID string `json:"-"`
-	// Tags: Tags to give to the IP address.
+
+	// Tags: tags to give to the IP address.
 	Tags *[]string `json:"tags,omitempty"`
-	// Reverse: Reverse to set on the address. Empty string to unset.
+
+	// Reverse: reverse to set on the address. Empty string to unset.
 	Reverse *string `json:"reverse,omitempty"`
-	// GatewayID: Gateway to attach the IP address to. Empty string to detach.
+
+	// GatewayID: gateway to attach the IP address to. Empty string to detach.
 	GatewayID *string `json:"gateway_id,omitempty"`
 }
 
-// UpdatePATRuleRequest:
+// UpdatePATRuleRequest: update pat rule request.
 type UpdatePATRuleRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// PatRuleID: ID of the PAT rule to update.
 	PatRuleID string `json:"-"`
-	// PublicPort: Public port to listen on.
+
+	// PublicPort: public port to listen on.
 	PublicPort *uint32 `json:"public_port,omitempty"`
-	// PrivateIP: Private IP to forward data to.
+
+	// PrivateIP: private IP to forward data to.
 	PrivateIP *net.IP `json:"private_ip,omitempty"`
-	// PrivatePort: Private port to translate to.
+
+	// PrivatePort: private port to translate to.
 	PrivatePort *uint32 `json:"private_port,omitempty"`
-	// Protocol: Protocol the rule should apply to.
+
+	// Protocol: protocol the rule should apply to.
+	// Default value: unknown
 	Protocol PATRuleProtocol `json:"protocol"`
 }
 
-// UpgradeGatewayRequest:
+// UpgradeGatewayRequest: upgrade gateway request.
 type UpgradeGatewayRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// GatewayID: ID of the gateway to upgrade.
 	GatewayID string `json:"-"`
 }
@@ -1291,10 +1544,12 @@ func (s *API) Zones() []scw.Zone {
 // ListGateways: List Public Gateways in a given Scaleway Organization or Project. By default, results are displayed in ascending order of creation date.
 func (s *API) ListGateways(req *ListGatewaysRequest, opts ...scw.RequestOption) (*ListGatewaysResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -1334,6 +1589,7 @@ func (s *API) ListGateways(req *ListGatewaysRequest, opts ...scw.RequestOption) 
 // GetGateway: Get details of a Public Gateway, specified by its gateway ID. The response object contains full details of the gateway, including its **name**, **type**, **status** and more.
 func (s *API) GetGateway(req *GetGatewayRequest, opts ...scw.RequestOption) (*Gateway, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1364,10 +1620,12 @@ func (s *API) GetGateway(req *GetGatewayRequest, opts ...scw.RequestOption) (*Ga
 // CreateGateway: Create a new Public Gateway in the specified Scaleway Project, defining its **name**, **type** and other configuration details such as whether to enable SSH bastion.
 func (s *API) CreateGateway(req *CreateGatewayRequest, opts ...scw.RequestOption) (*Gateway, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1403,6 +1661,7 @@ func (s *API) CreateGateway(req *CreateGatewayRequest, opts ...scw.RequestOption
 // UpdateGateway: Update the parameters of an existing Public Gateway, for example, its **name**, **tags**, **SSH bastion configuration**, and **DNS servers**.
 func (s *API) UpdateGateway(req *UpdateGatewayRequest, opts ...scw.RequestOption) (*Gateway, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1438,6 +1697,7 @@ func (s *API) UpdateGateway(req *UpdateGatewayRequest, opts ...scw.RequestOption
 // DeleteGateway: Delete an existing Public Gateway, specified by its gateway ID. This action is irreversible.
 func (s *API) DeleteGateway(req *DeleteGatewayRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1470,6 +1730,7 @@ func (s *API) DeleteGateway(req *DeleteGatewayRequest, opts ...scw.RequestOption
 // UpgradeGateway: Upgrade a given Public Gateway to the newest software version. This applies the latest bugfixes and features to your Public Gateway, but its service will be interrupted during the update.
 func (s *API) UpgradeGateway(req *UpgradeGatewayRequest, opts ...scw.RequestOption) (*Gateway, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1505,10 +1766,12 @@ func (s *API) UpgradeGateway(req *UpgradeGatewayRequest, opts ...scw.RequestOpti
 // ListGatewayNetworks: List the connections between Public Gateways and Private Networks (a connection = a GatewayNetwork). You can choose to filter by `gateway-id` to list all Private Networks attached to the specified Public Gateway, or by `private_network_id` to list all Public Gateways attached to the specified Private Network. Other query parameters are also available. The result is an array of GatewayNetwork objects, each giving details of the connection between a given Public Gateway and a given Private Network.
 func (s *API) ListGatewayNetworks(req *ListGatewayNetworksRequest, opts ...scw.RequestOption) (*ListGatewayNetworksResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -1546,6 +1809,7 @@ func (s *API) ListGatewayNetworks(req *ListGatewayNetworksRequest, opts ...scw.R
 // GetGatewayNetwork: Get details of a given connection between a Public Gateway and a Private Network (this connection = a GatewayNetwork), specified by its `gateway_network_id`. The response object contains details of the connection including the IDs of the Public Gateway and Private Network, the dates the connection was created/updated and its configuration settings.
 func (s *API) GetGatewayNetwork(req *GetGatewayNetworkRequest, opts ...scw.RequestOption) (*GatewayNetwork, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1576,6 +1840,7 @@ func (s *API) GetGatewayNetwork(req *GetGatewayNetworkRequest, opts ...scw.Reque
 // CreateGatewayNetwork: Attach a specific Public Gateway to a specific Private Network (create a GatewayNetwork). You can configure parameters for the connection including DHCP settings, whether to enable masquerade (dynamic NAT), and more.
 func (s *API) CreateGatewayNetwork(req *CreateGatewayNetworkRequest, opts ...scw.RequestOption) (*GatewayNetwork, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1607,6 +1872,7 @@ func (s *API) CreateGatewayNetwork(req *CreateGatewayNetworkRequest, opts ...scw
 // UpdateGatewayNetwork: Update the configuration parameters of a connection between a given Public Gateway and Private Network (the connection = a GatewayNetwork). Updatable parameters include DHCP settings and whether to enable traffic masquerade (dynamic NAT).
 func (s *API) UpdateGatewayNetwork(req *UpdateGatewayNetworkRequest, opts ...scw.RequestOption) (*GatewayNetwork, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1642,6 +1908,7 @@ func (s *API) UpdateGatewayNetwork(req *UpdateGatewayNetworkRequest, opts ...scw
 // DeleteGatewayNetwork: Detach a given Public Gateway from a given Private Network, i.e. delete a GatewayNetwork specified by a gateway_network_id.
 func (s *API) DeleteGatewayNetwork(req *DeleteGatewayNetworkRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1674,10 +1941,12 @@ func (s *API) DeleteGatewayNetwork(req *DeleteGatewayNetworkRequest, opts ...scw
 // ListDHCPs: List DHCP configurations, optionally filtering by Organization, Project, Public Gateway IP address or more. The response is an array of DHCP configuration objects, each identified by a DHCP ID and containing configuration settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. Note that the response does not contain the IDs of any Private Network / Public Gateway the configuration is attached to. Use the `List Public Gateway connections to Private Networks` method for that purpose, filtering on DHCP ID.
 func (s *API) ListDHCPs(req *ListDHCPsRequest, opts ...scw.RequestOption) (*ListDHCPsResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -1714,6 +1983,7 @@ func (s *API) ListDHCPs(req *ListDHCPsRequest, opts ...scw.RequestOption) (*List
 // GetDHCP: Get a DHCP configuration object, identified by its DHCP ID. The response object contains configuration settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. Note that the response does not contain the IDs of any Private Network / Public Gateway the configuration is attached to. Use the `List Public Gateway connections to Private Networks` method for that purpose, filtering on DHCP ID.
 func (s *API) GetDHCP(req *GetDHCPRequest, opts ...scw.RequestOption) (*DHCP, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1744,10 +2014,12 @@ func (s *API) GetDHCP(req *GetDHCPRequest, opts ...scw.RequestOption) (*DHCP, er
 // CreateDHCP: Create a new DHCP configuration object, containing settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. The response object includes the ID of the DHCP configuration object. You can use this ID as part of a call to `Create a Public Gateway connection to a Private Network` or `Update a Public Gateway connection to a Private Network` to directly apply this DHCP configuration.
 func (s *API) CreateDHCP(req *CreateDHCPRequest, opts ...scw.RequestOption) (*DHCP, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1779,6 +2051,7 @@ func (s *API) CreateDHCP(req *CreateDHCPRequest, opts ...scw.RequestOption) (*DH
 // UpdateDHCP: Update a DHCP configuration object, identified by its DHCP ID.
 func (s *API) UpdateDHCP(req *UpdateDHCPRequest, opts ...scw.RequestOption) (*DHCP, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1814,6 +2087,7 @@ func (s *API) UpdateDHCP(req *UpdateDHCPRequest, opts ...scw.RequestOption) (*DH
 // DeleteDHCP: Delete a DHCP configuration object, identified by its DHCP ID. Note that you cannot delete a DHCP configuration object that is currently being used by a Gateway Network.
 func (s *API) DeleteDHCP(req *DeleteDHCPRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1842,10 +2116,12 @@ func (s *API) DeleteDHCP(req *DeleteDHCPRequest, opts ...scw.RequestOption) erro
 // ListDHCPEntries: List DHCP entries, whether dynamically assigned and/or statically reserved. DHCP entries can be filtered by the Gateway Network they are on, their MAC address, IP address, type or hostname.
 func (s *API) ListDHCPEntries(req *ListDHCPEntriesRequest, opts ...scw.RequestOption) (*ListDHCPEntriesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -1883,6 +2159,7 @@ func (s *API) ListDHCPEntries(req *ListDHCPEntriesRequest, opts ...scw.RequestOp
 // GetDHCPEntry: Get a DHCP entry, specified by its DHCP entry ID.
 func (s *API) GetDHCPEntry(req *GetDHCPEntryRequest, opts ...scw.RequestOption) (*DHCPEntry, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1913,6 +2190,7 @@ func (s *API) GetDHCPEntry(req *GetDHCPEntryRequest, opts ...scw.RequestOption) 
 // CreateDHCPEntry: Create a static DHCP reservation, specifying the Gateway Network for the reservation, the MAC address of the target device and the IP address to assign this device. The response is a DHCP entry object, confirming the ID and configuration details of the static DHCP reservation.
 func (s *API) CreateDHCPEntry(req *CreateDHCPEntryRequest, opts ...scw.RequestOption) (*DHCPEntry, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1944,6 +2222,7 @@ func (s *API) CreateDHCPEntry(req *CreateDHCPEntryRequest, opts ...scw.RequestOp
 // UpdateDHCPEntry: Update the IP address for a DHCP entry, specified by its DHCP entry ID. You can update an existing DHCP entry of any type (`reservation` (static), `lease` (dynamic) or `unknown`), but in manually updating the IP address the entry will necessarily be of type `reservation` after the update.
 func (s *API) UpdateDHCPEntry(req *UpdateDHCPEntryRequest, opts ...scw.RequestOption) (*DHCPEntry, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1979,6 +2258,7 @@ func (s *API) UpdateDHCPEntry(req *UpdateDHCPEntryRequest, opts ...scw.RequestOp
 // SetDHCPEntries: Set the list of DHCP reservations attached to a Gateway Network. Reservations are identified by their MAC address, and will sync the current DHCP entry list to the given list, creating, updating or deleting DHCP entries accordingly.
 func (s *API) SetDHCPEntries(req *SetDHCPEntriesRequest, opts ...scw.RequestOption) (*SetDHCPEntriesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2010,6 +2290,7 @@ func (s *API) SetDHCPEntries(req *SetDHCPEntriesRequest, opts ...scw.RequestOpti
 // DeleteDHCPEntry: Delete a static DHCP reservation, identified by its DHCP entry ID. Note that you cannot delete DHCP entries of type `lease`, these are deleted automatically when their time-to-live expires.
 func (s *API) DeleteDHCPEntry(req *DeleteDHCPEntryRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2038,10 +2319,12 @@ func (s *API) DeleteDHCPEntry(req *DeleteDHCPEntryRequest, opts ...scw.RequestOp
 // ListPATRules: List PAT rules. You can filter by gateway ID to list all PAT rules for a particular gateway, or filter for PAT rules targeting a specific IP address or using a specific protocol.
 func (s *API) ListPATRules(req *ListPATRulesRequest, opts ...scw.RequestOption) (*ListPATRulesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -2077,6 +2360,7 @@ func (s *API) ListPATRules(req *ListPATRulesRequest, opts ...scw.RequestOption) 
 // GetPATRule: Get a PAT rule, specified by its PAT rule ID. The response object gives full details of the PAT rule, including the Public Gateway it belongs to and the configuration settings in terms of public / private ports, private IP and protocol.
 func (s *API) GetPATRule(req *GetPATRuleRequest, opts ...scw.RequestOption) (*PATRule, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2107,6 +2391,7 @@ func (s *API) GetPATRule(req *GetPATRuleRequest, opts ...scw.RequestOption) (*PA
 // CreatePATRule: Create a new PAT rule on a specified Public Gateway, defining the protocol to use, public port to listen on, and private port / IP address to map to.
 func (s *API) CreatePATRule(req *CreatePATRuleRequest, opts ...scw.RequestOption) (*PATRule, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2138,6 +2423,7 @@ func (s *API) CreatePATRule(req *CreatePATRuleRequest, opts ...scw.RequestOption
 // UpdatePATRule: Update a PAT rule, specified by its PAT rule ID. Configuration settings including private/public port, private IP address and protocol can all be updated.
 func (s *API) UpdatePATRule(req *UpdatePATRuleRequest, opts ...scw.RequestOption) (*PATRule, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2173,6 +2459,7 @@ func (s *API) UpdatePATRule(req *UpdatePATRuleRequest, opts ...scw.RequestOption
 // SetPATRules: Set a definitive list of PAT rules attached to a Public Gateway. Each rule is identified by its public port and protocol. This will sync the current PAT rule list on the gateway with the new list, creating, updating or deleting PAT rules accordingly.
 func (s *API) SetPATRules(req *SetPATRulesRequest, opts ...scw.RequestOption) (*SetPATRulesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2204,6 +2491,7 @@ func (s *API) SetPATRules(req *SetPATRulesRequest, opts ...scw.RequestOption) (*
 // DeletePATRule: Delete a PAT rule, identified by its PAT rule ID. This action is irreversible.
 func (s *API) DeletePATRule(req *DeletePATRuleRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2232,6 +2520,7 @@ func (s *API) DeletePATRule(req *DeletePATRuleRequest, opts ...scw.RequestOption
 // ListGatewayTypes: List the different Public Gateway commercial offer types available at Scaleway. The response is an array of objects describing the name and technical details of each available gateway type.
 func (s *API) ListGatewayTypes(req *ListGatewayTypesRequest, opts ...scw.RequestOption) (*ListGatewayTypesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2258,10 +2547,12 @@ func (s *API) ListGatewayTypes(req *ListGatewayTypesRequest, opts ...scw.Request
 // ListIPs: List Public Gateway flexible IP addresses. A number of filter options are available for limiting results in the response.
 func (s *API) ListIPs(req *ListIPsRequest, opts ...scw.RequestOption) (*ListIPsResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -2299,6 +2590,7 @@ func (s *API) ListIPs(req *ListIPsRequest, opts ...scw.RequestOption) (*ListIPsR
 // GetIP: Get details of a Public Gateway flexible IP address, identified by its IP ID. The response object contains information including which (if any) Public Gateway using this IP address, the reverse and various other metadata.
 func (s *API) GetIP(req *GetIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2329,10 +2621,12 @@ func (s *API) GetIP(req *GetIPRequest, opts ...scw.RequestOption) (*IP, error) {
 // CreateIP: Create (reserve) a new flexible IP address that can be used for a Public Gateway in a specified Scaleway Project.
 func (s *API) CreateIP(req *CreateIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -2364,6 +2658,7 @@ func (s *API) CreateIP(req *CreateIPRequest, opts ...scw.RequestOption) (*IP, er
 // UpdateIP: Update details of an existing flexible IP address, including its tags, reverse and the Public Gateway it is assigned to.
 func (s *API) UpdateIP(req *UpdateIPRequest, opts ...scw.RequestOption) (*IP, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2399,6 +2694,7 @@ func (s *API) UpdateIP(req *UpdateIPRequest, opts ...scw.RequestOption) (*IP, er
 // DeleteIP: Delete a flexible IP address from your account. This action is irreversible.
 func (s *API) DeleteIP(req *DeleteIPRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -2427,6 +2723,7 @@ func (s *API) DeleteIP(req *DeleteIPRequest, opts ...scw.RequestOption) error {
 // RefreshSSHKeys: Refresh the SSH keys of a given Public Gateway, specified by its gateway ID. This adds any new SSH keys in the gateway's Scaleway Project to the gateway itself.
 func (s *API) RefreshSSHKeys(req *RefreshSSHKeysRequest, opts ...scw.RequestOption) (*Gateway, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone

@@ -314,228 +314,295 @@ func (enum *VolumeStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// SnapshotParentVolume:
+// SnapshotParentVolume: snapshot parent volume.
 type SnapshotParentVolume struct {
-	// ID: Parent volume UUID (volume from which the snapshot originates).
+	// ID: parent volume UUID (volume from which the snapshot originates).
 	ID string `json:"id"`
-	// Name: Name of the parent volume.
+
+	// Name: name of the parent volume.
 	Name string `json:"name"`
-	// Type: Volume type of the parent volume.
+
+	// Type: volume type of the parent volume.
 	Type string `json:"type"`
-	// Status: Current status the parent volume.
+
+	// Status: current status the parent volume.
+	// Default value: unknown_status
 	Status VolumeStatus `json:"status"`
 }
 
-// VolumeSpecifications:
+// VolumeSpecifications: volume specifications.
 type VolumeSpecifications struct {
-	// PerfIops: The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
+	// PerfIops: the maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
 	PerfIops *uint32 `json:"perf_iops"`
-	// Class: The storage class of the volume.
+
+	// Class: the storage class of the volume.
+	// Default value: unknown_storage_class
 	Class StorageClass `json:"class"`
 }
 
-// Reference:
+// Reference: reference.
 type Reference struct {
 	// ID: UUID of the reference.
 	ID string `json:"id"`
-	// ProductResourceType: Type of resoruce to which the reference is associated (snapshot or volume).
+
+	// ProductResourceType: type of resoruce to which the reference is associated (snapshot or volume).
 	ProductResourceType string `json:"product_resource_type"`
+
 	// ProductResourceID: UUID of the volume or the snapshot it refers to (according to the product_resource_type).
 	ProductResourceID string `json:"product_resource_id"`
-	// CreatedAt: Creation date of the reference.
+
+	// CreatedAt: creation date of the reference.
 	CreatedAt *time.Time `json:"created_at"`
-	// Type: Type of reference (link, exclusive, read_only).
+
+	// Type: type of reference (link, exclusive, read_only).
+	// Default value: unknown_type
 	Type ReferenceType `json:"type"`
-	// Status: Status of reference (attaching, attached, detaching).
+
+	// Status: status of reference (attaching, attached, detaching).
+	// Default value: unknown_status
 	Status ReferenceStatus `json:"status"`
 }
 
-// CreateVolumeRequestFromEmpty:
+// CreateVolumeRequestFromEmpty: create volume request from empty.
 type CreateVolumeRequestFromEmpty struct {
-	// Size: Must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
+	// Size: must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
 	Size scw.Size `json:"size"`
 }
 
-// CreateVolumeRequestFromSnapshot:
+// CreateVolumeRequestFromSnapshot: create volume request from snapshot.
 type CreateVolumeRequestFromSnapshot struct {
-	// Size: Must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
+	// Size: must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
 	// Size is optional and is used only if a resize of the volume is requested, otherwise original snapshot size will be used.
 	Size *scw.Size `json:"size"`
-	// SnapshotID: Source snapshot from which volume will be created.
+
+	// SnapshotID: source snapshot from which volume will be created.
 	SnapshotID string `json:"snapshot_id"`
 }
 
-// SnapshotSummary:
+// SnapshotSummary: snapshot summary.
 type SnapshotSummary struct {
 	// ID: UUID of the snapshot.
 	ID string `json:"id"`
-	// Name: Name of the snapshot.
+
+	// Name: name of the snapshot.
 	Name string `json:"name"`
-	// ParentVolume: If the parent volume has been deleted, value is null.
+
+	// ParentVolume: if the parent volume has been deleted, value is null.
 	ParentVolume *SnapshotParentVolume `json:"parent_volume"`
-	// Size: Size of the snapshot in bytes.
+
+	// Size: size of the snapshot in bytes.
 	Size scw.Size `json:"size"`
+
 	// ProjectID: UUID of the project the snapshot belongs to.
 	ProjectID string `json:"project_id"`
-	// CreatedAt: Creation date of the snapshot.
+
+	// CreatedAt: creation date of the snapshot.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Last modification date of the properties of a snapshot.
+
+	// UpdatedAt: last modification date of the properties of a snapshot.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// Status: Current status of the snapshot (available, in_use, ...).
+
+	// Status: current status of the snapshot (available, in_use, ...).
+	// Default value: unknown_status
 	Status SnapshotStatus `json:"status"`
-	// Tags: List of tags assigned to the volume.
+
+	// Tags: list of tags assigned to the volume.
 	Tags []string `json:"tags"`
-	// Zone: Snapshot Availability Zone.
+
+	// Zone: snapshot Availability Zone.
 	Zone scw.Zone `json:"zone"`
-	// Class: Storage class of the snapshot.
+
+	// Class: storage class of the snapshot.
+	// Default value: unknown_storage_class
 	Class StorageClass `json:"class"`
 }
 
-// VolumeType:
+// VolumeType: volume type.
 type VolumeType struct {
-	// Type: Volume type.
+	// Type: volume type.
 	Type string `json:"type"`
-	// Pricing: Price of the volume billed in GB/hour.
+
+	// Pricing: price of the volume billed in GB/hour.
 	Pricing *scw.Money `json:"pricing"`
-	// SnapshotPricing: Price of the snapshot billed in GB/hour.
+
+	// SnapshotPricing: price of the snapshot billed in GB/hour.
 	SnapshotPricing *scw.Money `json:"snapshot_pricing"`
-	// Specs: Volume specifications of the volume type.
+
+	// Specs: volume specifications of the volume type.
 	Specs *VolumeSpecifications `json:"specs"`
 }
 
-// Volume:
+// Volume: volume.
 type Volume struct {
 	// ID: UUID of the volume.
 	ID string `json:"id"`
-	// Name: Name of the volume.
+
+	// Name: name of the volume.
 	Name string `json:"name"`
-	// Type: Volume type.
+
+	// Type: volume type.
 	Type string `json:"type"`
-	// Size: Volume size in bytes.
+
+	// Size: volume size in bytes.
 	Size scw.Size `json:"size"`
+
 	// ProjectID: UUID of the project to which the volume belongs.
 	ProjectID string `json:"project_id"`
-	// CreatedAt: Creation date of the volume.
+
+	// CreatedAt: creation date of the volume.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Last update of the properties of a volume.
+
+	// UpdatedAt: last update of the properties of a volume.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// References: List of the references to the volume.
+
+	// References: list of the references to the volume.
 	References []*Reference `json:"references"`
-	// ParentSnapshotID: When a volume is created from a snapshot, is the UUID of the snapshot from which the volume has been created.
+
+	// ParentSnapshotID: when a volume is created from a snapshot, is the UUID of the snapshot from which the volume has been created.
 	ParentSnapshotID *string `json:"parent_snapshot_id"`
-	// Status: Current status of the volume (available, in_use, ...).
+
+	// Status: current status of the volume (available, in_use, ...).
+	// Default value: unknown_status
 	Status VolumeStatus `json:"status"`
-	// Tags: List of tags assigned to the volume.
+
+	// Tags: list of tags assigned to the volume.
 	Tags []string `json:"tags"`
-	// Zone: Volume zone.
+
+	// Zone: volume zone.
 	Zone scw.Zone `json:"zone"`
-	// Specs: Specifications of the volume.
+
+	// Specs: specifications of the volume.
 	Specs *VolumeSpecifications `json:"specs"`
 }
 
-// CreateSnapshotRequest:
+// CreateSnapshotRequest: create snapshot request.
 type CreateSnapshotRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// VolumeID: UUID of the volume to snapshot.
 	VolumeID string `json:"volume_id"`
-	// Name: Name of the snapshot.
+
+	// Name: name of the snapshot.
 	Name string `json:"name"`
+
 	// ProjectID: UUID of the project to which the volume and the snapshot belong.
 	ProjectID string `json:"project_id"`
-	// Tags: List of tags assigned to the snapshot.
+
+	// Tags: list of tags assigned to the snapshot.
 	Tags []string `json:"tags"`
 }
 
-// CreateVolumeRequest:
+// CreateVolumeRequest: create volume request.
 type CreateVolumeRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Name: Name of the volume.
+
+	// Name: name of the volume.
 	Name string `json:"name"`
-	// PerfIops: The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
+
+	// PerfIops: the maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
+	// Precisely one of PerfIops must be set.
 	PerfIops *uint32 `json:"perf_iops,omitempty"`
+
 	// ProjectID: UUID of the project the volume belongs to.
 	ProjectID string `json:"project_id"`
-	// FromEmpty: Specify the size of the new volume if creating a new one from scratch.
+
+	// FromEmpty: specify the size of the new volume if creating a new one from scratch.
+	// Precisely one of FromEmpty, FromSnapshot must be set.
 	FromEmpty *CreateVolumeRequestFromEmpty `json:"from_empty,omitempty"`
-	// FromSnapshot: Specify the snapshot ID of the original snapshot.
+
+	// FromSnapshot: specify the snapshot ID of the original snapshot.
+	// Precisely one of FromEmpty, FromSnapshot must be set.
 	FromSnapshot *CreateVolumeRequestFromSnapshot `json:"from_snapshot,omitempty"`
-	// Tags: List of tags assigned to the volume.
+
+	// Tags: list of tags assigned to the volume.
 	Tags []string `json:"tags"`
 }
 
-// DeleteSnapshotRequest:
+// DeleteSnapshotRequest: delete snapshot request.
 type DeleteSnapshotRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// SnapshotID: UUID of the snapshot.
 	SnapshotID string `json:"-"`
 }
 
-// DeleteVolumeRequest:
+// DeleteVolumeRequest: delete volume request.
 type DeleteVolumeRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// VolumeID: UUID of the volume.
 	VolumeID string `json:"-"`
 }
 
-// GetSnapshotRequest:
+// GetSnapshotRequest: get snapshot request.
 type GetSnapshotRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// SnapshotID: UUID of the snapshot.
 	SnapshotID string `json:"-"`
 }
 
-// GetVolumeRequest:
+// GetVolumeRequest: get volume request.
 type GetVolumeRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// VolumeID: UUID of the volume.
 	VolumeID string `json:"-"`
 }
 
-// ImportSnapshotFromS3Request:
+// ImportSnapshotFromS3Request: import snapshot from s3 request.
 type ImportSnapshotFromS3Request struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Bucket:
+
 	Bucket string `json:"bucket"`
-	// Key:
+
 	Key string `json:"key"`
-	// Name:
+
 	Name string `json:"name"`
-	// ProjectID:
+
 	ProjectID string `json:"project_id"`
-	// Tags:
+
 	Tags []string `json:"tags"`
 }
 
-// ListSnapshotsRequest:
+// ListSnapshotsRequest: list snapshots request.
 type ListSnapshotsRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Criteria to use when ordering the list.
+
+	// OrderBy: criteria to use when ordering the list.
+	// Default value: created_at_asc
 	OrderBy ListSnapshotsRequestOrderBy `json:"-"`
-	// ProjectID: Filter by Project ID.
+
+	// ProjectID: filter by Project ID.
 	ProjectID *string `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
+
+	// PageSize: page size, defines how many entries are returned in one page, must be lower or equal to 100.
 	PageSize *uint32 `json:"-"`
-	// VolumeID: Filter snapshots by the ID of the original volume.
+
+	// VolumeID: filter snapshots by the ID of the original volume.
 	VolumeID *string `json:"-"`
-	// Name: Filter snapshots by their names.
+
+	// Name: filter snapshots by their names.
 	Name *string `json:"-"`
 }
 
-// ListSnapshotsResponse:
+// ListSnapshotsResponse: list snapshots response.
 type ListSnapshotsResponse struct {
-	// Snapshots: Paginated returned list of snapshots.
+	// Snapshots: paginated returned list of snapshots.
 	Snapshots []*SnapshotSummary `json:"snapshots"`
-	// TotalCount: Total number of snpashots in the project.
+
+	// TotalCount: total number of snpashots in the project.
 	TotalCount uint64 `json:"total_count"`
 }
 
@@ -558,21 +625,24 @@ func (r *ListSnapshotsResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Snapshots)), nil
 }
 
-// ListVolumeTypesRequest:
+// ListVolumeTypesRequest: list volume types request.
 type ListVolumeTypesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
+
+	// PageSize: page size, defines how many entries are returned in one page, must be lower or equal to 100.
 	PageSize *uint32 `json:"-"`
 }
 
-// ListVolumeTypesResponse:
+// ListVolumeTypesResponse: list volume types response.
 type ListVolumeTypesResponse struct {
-	// VolumeTypes: Returns paginated list of volume-types.
+	// VolumeTypes: returns paginated list of volume-types.
 	VolumeTypes []*VolumeType `json:"volume_types"`
-	// TotalCount: Total number of volume-types currently available in stock.
+
+	// TotalCount: total number of volume-types currently available in stock.
 	TotalCount uint64 `json:"total_count"`
 }
 
@@ -595,29 +665,37 @@ func (r *ListVolumeTypesResponse) UnsafeAppend(res interface{}) (uint64, error) 
 	return uint64(len(results.VolumeTypes)), nil
 }
 
-// ListVolumesRequest:
+// ListVolumesRequest: list volumes request.
 type ListVolumesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Criteria to use when ordering the list.
+
+	// OrderBy: criteria to use when ordering the list.
+	// Default value: created_at_asc
 	OrderBy ListVolumesRequestOrderBy `json:"-"`
-	// ProjectID: Filter by Project ID.
+
+	// ProjectID: filter by Project ID.
 	ProjectID *string `json:"-"`
-	// Page: Page number.
+
+	// Page: page number.
 	Page *int32 `json:"-"`
-	// PageSize: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
+
+	// PageSize: page size, defines how many entries are returned in one page, must be lower or equal to 100.
 	PageSize *uint32 `json:"-"`
-	// Name: Filter the return volumes by their names.
+
+	// Name: filter the return volumes by their names.
 	Name *string `json:"-"`
-	// ProductResourceID: Filter by a product resource ID linked to this volume (such as an Instance ID).
+
+	// ProductResourceID: filter by a product resource ID linked to this volume (such as an Instance ID).
 	ProductResourceID *string `json:"-"`
 }
 
-// ListVolumesResponse:
+// ListVolumesResponse: list volumes response.
 type ListVolumesResponse struct {
-	// Volumes: Paginated returned list of volumes.
+	// Volumes: paginated returned list of volumes.
 	Volumes []*Volume `json:"volumes"`
-	// TotalCount: Total number of volumes in the project.
+
+	// TotalCount: total number of volumes in the project.
 	TotalCount uint64 `json:"total_count"`
 }
 
@@ -640,60 +718,81 @@ func (r *ListVolumesResponse) UnsafeAppend(res interface{}) (uint64, error) {
 	return uint64(len(results.Volumes)), nil
 }
 
-// Snapshot:
+// Snapshot: snapshot.
 type Snapshot struct {
 	// ID: UUID of the snapshot.
 	ID string `json:"id"`
-	// Name: Name of the snapshot.
+
+	// Name: name of the snapshot.
 	Name string `json:"name"`
-	// ParentVolume: If the parent volume was deleted, value is null.
+
+	// ParentVolume: if the parent volume was deleted, value is null.
 	ParentVolume *SnapshotParentVolume `json:"parent_volume"`
-	// Size: Size in bytes of the snapshot.
+
+	// Size: size in bytes of the snapshot.
 	Size scw.Size `json:"size"`
+
 	// ProjectID: UUID of the project the snapshot belongs to.
 	ProjectID string `json:"project_id"`
-	// CreatedAt: Creation date of the snapshot.
+
+	// CreatedAt: creation date of the snapshot.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Last modification date of the properties of a snapshot.
+
+	// UpdatedAt: last modification date of the properties of a snapshot.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// References: List of the references to the snapshot.
+
+	// References: list of the references to the snapshot.
 	References []*Reference `json:"references"`
-	// Status: Current status of the snapshot (available, in_use, ...).
+
+	// Status: current status of the snapshot (available, in_use, ...).
+	// Default value: unknown_status
 	Status SnapshotStatus `json:"status"`
-	// Tags: List of tags assigned to the volume.
+
+	// Tags: list of tags assigned to the volume.
 	Tags []string `json:"tags"`
-	// Zone: Snapshot zone.
+
+	// Zone: snapshot zone.
 	Zone scw.Zone `json:"zone"`
-	// Class: Storage class of the snapshot.
+
+	// Class: storage class of the snapshot.
+	// Default value: unknown_storage_class
 	Class StorageClass `json:"class"`
 }
 
-// UpdateSnapshotRequest:
+// UpdateSnapshotRequest: update snapshot request.
 type UpdateSnapshotRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// SnapshotID: UUID of the snapshot.
 	SnapshotID string `json:"-"`
-	// Name: When defined, is the name of the snapshot.
+
+	// Name: when defined, is the name of the snapshot.
 	Name *string `json:"name,omitempty"`
-	// Tags: List of tags assigned to the snapshot.
+
+	// Tags: list of tags assigned to the snapshot.
 	Tags *[]string `json:"tags,omitempty"`
 }
 
-// UpdateVolumeRequest:
+// UpdateVolumeRequest: update volume request.
 type UpdateVolumeRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// VolumeID: UUID of the volume.
 	VolumeID string `json:"-"`
-	// Name: When defined, is the new name of the volume.
+
+	// Name: when defined, is the new name of the volume.
 	Name *string `json:"name,omitempty"`
-	// Size: Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
+
+	// Size: size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
 	// Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
 	Size *scw.Size `json:"size,omitempty"`
-	// Tags: List of tags assigned to the volume.
+
+	// Tags: list of tags assigned to the volume.
 	Tags *[]string `json:"tags,omitempty"`
-	// PerfIops: The selected value must be available for the volume's current storage class.
+
+	// PerfIops: the selected value must be available for the volume's current storage class.
 	PerfIops *uint32 `json:"perf_iops,omitempty"`
 }
 
@@ -715,10 +814,12 @@ func (s *API) Zones() []scw.Zone {
 // ListVolumeTypes: List all available volume types in a specified zone. The volume types listed are ordered by name in ascending order.
 func (s *API) ListVolumeTypes(req *ListVolumeTypesRequest, opts ...scw.RequestOption) (*ListVolumeTypesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -750,10 +851,12 @@ func (s *API) ListVolumeTypes(req *ListVolumeTypesRequest, opts ...scw.RequestOp
 // ListVolumes: List all existing volumes in a specified zone. By default, the volumes listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
 func (s *API) ListVolumes(req *ListVolumesRequest, opts ...scw.RequestOption) (*ListVolumesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -790,10 +893,12 @@ func (s *API) ListVolumes(req *ListVolumesRequest, opts ...scw.RequestOption) (*
 // To create a volume from an existing snapshot, specify `from_snapshot` and the `snapshot_id` in the request payload instead, size is optional and can be specified if you need to extend the original size. The volume will take on the same volume class and underlying IOPS limitations as the original snapshot.
 func (s *API) CreateVolume(req *CreateVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -825,6 +930,7 @@ func (s *API) CreateVolume(req *CreateVolumeRequest, opts ...scw.RequestOption) 
 // GetVolume: Retrieve technical information about a specific volume. Details such as size, type, and status are returned in the response.
 func (s *API) GetVolume(req *GetVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -855,6 +961,7 @@ func (s *API) GetVolume(req *GetVolumeRequest, opts ...scw.RequestOption) (*Volu
 // DeleteVolume: You must specify the `volume_id` of the volume you want to delete. The volume must not be in the `in_use` status.
 func (s *API) DeleteVolume(req *DeleteVolumeRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -884,6 +991,7 @@ func (s *API) DeleteVolume(req *DeleteVolumeRequest, opts ...scw.RequestOption) 
 // You can only resize a volume to a larger size. It is currently not possible to change your Block Storage Class.
 func (s *API) UpdateVolume(req *UpdateVolumeRequest, opts ...scw.RequestOption) (*Volume, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -919,10 +1027,12 @@ func (s *API) UpdateVolume(req *UpdateVolumeRequest, opts ...scw.RequestOption) 
 // ListSnapshots: List all available snapshots in a specified zone. By default, the snapshots listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
 func (s *API) ListSnapshots(req *ListSnapshotsRequest, opts ...scw.RequestOption) (*ListSnapshotsResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -958,6 +1068,7 @@ func (s *API) ListSnapshots(req *ListSnapshotsRequest, opts ...scw.RequestOption
 // GetSnapshot: Retrieve technical information about a specific snapshot. Details such as size, volume type, and status are returned in the response.
 func (s *API) GetSnapshot(req *GetSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -989,10 +1100,12 @@ func (s *API) GetSnapshot(req *GetSnapshotRequest, opts ...scw.RequestOption) (*
 // If your volume is in a transient state, you need to wait until the end of the current operation.
 func (s *API) CreateSnapshot(req *CreateSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1024,10 +1137,12 @@ func (s *API) CreateSnapshot(req *CreateSnapshotRequest, opts ...scw.RequestOpti
 // ImportSnapshotFromS3:
 func (s *API) ImportSnapshotFromS3(req *ImportSnapshotFromS3Request, opts ...scw.RequestOption) (*Snapshot, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -1059,6 +1174,7 @@ func (s *API) ImportSnapshotFromS3(req *ImportSnapshotFromS3Request, opts ...scw
 // DeleteSnapshot: You must specify the `snapshot_id` of the snapshot you want to delete. The snapshot must not be in use.
 func (s *API) DeleteSnapshot(req *DeleteSnapshotRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -1087,6 +1203,7 @@ func (s *API) DeleteSnapshot(req *DeleteSnapshotRequest, opts ...scw.RequestOpti
 // UpdateSnapshot: Update the name or tags of the snapshot.
 func (s *API) UpdateSnapshot(req *UpdateSnapshotRequest, opts ...scw.RequestOption) (*Snapshot, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone

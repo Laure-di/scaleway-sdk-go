@@ -139,151 +139,182 @@ func (enum *ServerTypeStock) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// ServerTypeCPU:
+// ServerTypeCPU: server type cpu.
 type ServerTypeCPU struct {
-	// Name:
 	Name string `json:"name"`
-	// CoreCount:
+
 	CoreCount uint32 `json:"core_count"`
 }
 
-// ServerTypeDisk:
+// ServerTypeDisk: server type disk.
 type ServerTypeDisk struct {
-	// Capacity:
 	Capacity scw.Size `json:"capacity"`
-	// Type:
+
 	Type string `json:"type"`
 }
 
-// ServerTypeMemory:
+// ServerTypeMemory: server type memory.
 type ServerTypeMemory struct {
-	// Capacity:
 	Capacity scw.Size `json:"capacity"`
-	// Type:
+
 	Type string `json:"type"`
 }
 
-// OS:
+// OS: os.
 type OS struct {
-	// ID: Unique ID of the OS.
+	// ID: unique ID of the OS.
 	ID string `json:"id"`
-	// Name: OS name.
+
+	// Name: oS name.
 	Name string `json:"name"`
-	// Label: OS name as it should be displayed.
+
+	// Label: oS name as it should be displayed.
 	Label string `json:"label"`
+
 	// ImageURL: URL of the image.
 	ImageURL string `json:"image_url"`
-	// CompatibleServerTypes: List of compatible server types.
+
+	// CompatibleServerTypes: list of compatible server types.
 	CompatibleServerTypes []string `json:"compatible_server_types"`
 }
 
-// ServerType:
+// ServerType: server type.
 type ServerType struct {
 	// CPU: CPU description.
 	CPU *ServerTypeCPU `json:"cpu"`
-	// Disk: Size of the local disk of the server.
+
+	// Disk: size of the local disk of the server.
 	Disk *ServerTypeDisk `json:"disk"`
-	// Name: Name of the type.
+
+	// Name: name of the type.
 	Name string `json:"name"`
-	// Memory: Size of memory available.
+
+	// Memory: size of memory available.
 	Memory *ServerTypeMemory `json:"memory"`
-	// Stock: Current stock.
+
+	// Stock: current stock.
+	// Default value: unknown_stock
 	Stock ServerTypeStock `json:"stock"`
-	// MinimumLeaseDuration: Minimum duration of the lease in seconds (example. 3.4s).
+
+	// MinimumLeaseDuration: minimum duration of the lease in seconds (example. 3.4s).
 	MinimumLeaseDuration *scw.Duration `json:"minimum_lease_duration"`
 }
 
-// Server:
+// Server: server.
 type Server struct {
 	// ID: UUID of the server.
 	ID string `json:"id"`
-	// Type: Type of the server.
+
+	// Type: type of the server.
 	Type string `json:"type"`
-	// Name: Name of the server.
+
+	// Name: name of the server.
 	Name string `json:"name"`
-	// ProjectID: Project this server is associated with.
+
+	// ProjectID: project this server is associated with.
 	ProjectID string `json:"project_id"`
-	// OrganizationID: Organization this server is associated with.
+
+	// OrganizationID: organization this server is associated with.
 	OrganizationID string `json:"organization_id"`
-	// IP: IPv4 address of the server.
+
+	// IP: iPv4 address of the server.
 	IP net.IP `json:"ip"`
+
 	// VncURL: URL of the VNC.
 	VncURL string `json:"vnc_url"`
-	// Status: Current status of the server.
+
+	// Status: current status of the server.
+	// Default value: unknown_status
 	Status ServerStatus `json:"status"`
-	// CreatedAt: Date on which the server was created.
+
+	// CreatedAt: date on which the server was created.
 	CreatedAt *time.Time `json:"created_at"`
-	// UpdatedAt: Date on which the server was last updated.
+
+	// UpdatedAt: date on which the server was last updated.
 	UpdatedAt *time.Time `json:"updated_at"`
-	// DeletableAt: Date on which the server was last deleted.
+
+	// DeletableAt: date on which the server was last deleted.
 	DeletableAt *time.Time `json:"deletable_at"`
-	// Zone: Zone of the server.
+
+	// Zone: zone of the server.
 	Zone scw.Zone `json:"zone"`
 }
 
-// CreateServerRequest:
+// CreateServerRequest: create server request.
 type CreateServerRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Name: Create a server with this given name.
+
+	// Name: create a server with this given name.
 	Name string `json:"name"`
-	// ProjectID: Create a server in the given project ID.
+
+	// ProjectID: create a server in the given project ID.
 	ProjectID string `json:"project_id"`
-	// Type: Create a server of the given type.
+
+	// Type: create a server of the given type.
 	Type string `json:"type"`
 }
 
-// DeleteServerRequest:
+// DeleteServerRequest: delete server request.
 type DeleteServerRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// ServerID: UUID of the server you want to delete.
 	ServerID string `json:"-"`
 }
 
-// GetOSRequest:
+// GetOSRequest: get os request.
 type GetOSRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// OsID: UUID of the OS you want to get.
 	OsID string `json:"-"`
 }
 
-// GetServerRequest:
+// GetServerRequest: get server request.
 type GetServerRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// ServerID: UUID of the server you want to get.
 	ServerID string `json:"-"`
 }
 
-// GetServerTypeRequest:
+// GetServerTypeRequest: get server type request.
 type GetServerTypeRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// ServerType: Server type identifier.
+
+	// ServerType: server type identifier.
 	ServerType string `json:"-"`
 }
 
-// ListOSRequest:
+// ListOSRequest: list os request.
 type ListOSRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// Page: Positive integer to choose the page to return.
+
+	// Page: positive integer to choose the page to return.
 	Page *int32 `json:"-"`
-	// PageSize: Positive integer lower or equal to 100 to select the number of items to return.
+
+	// PageSize: positive integer lower or equal to 100 to select the number of items to return.
 	PageSize *uint32 `json:"-"`
-	// ServerType: List of compatible server types.
+
+	// ServerType: list of compatible server types.
 	ServerType *string `json:"-"`
-	// Name: Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12")).
+
+	// Name: filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12")).
 	Name *string `json:"-"`
 }
 
-// ListOSResponse:
+// ListOSResponse: list os response.
 type ListOSResponse struct {
-	// TotalCount: Total number of OS.
+	// TotalCount: total number of OS.
 	TotalCount uint32 `json:"total_count"`
-	// Os: List of OS.
+
+	// Os: list of OS.
 	Os []*OS `json:"os"`
 }
 
@@ -306,39 +337,46 @@ func (r *ListOSResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Os)), nil
 }
 
-// ListServerTypesRequest:
+// ListServerTypesRequest: list server types request.
 type ListServerTypesRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
 }
 
-// ListServerTypesResponse:
+// ListServerTypesResponse: list server types response.
 type ListServerTypesResponse struct {
-	// ServerTypes: Available server types.
+	// ServerTypes: available server types.
 	ServerTypes []*ServerType `json:"server_types"`
 }
 
-// ListServersRequest:
+// ListServersRequest: list servers request.
 type ListServersRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
-	// OrderBy: Sort order of the returned servers.
+
+	// OrderBy: sort order of the returned servers.
+	// Default value: created_at_asc
 	OrderBy ListServersRequestOrderBy `json:"-"`
-	// ProjectID: Only list servers of this project ID.
+
+	// ProjectID: only list servers of this project ID.
 	ProjectID *string `json:"-"`
-	// OrganizationID: Only list servers of this Organization ID.
+
+	// OrganizationID: only list servers of this Organization ID.
 	OrganizationID *string `json:"-"`
-	// Page: Positive integer to choose the page to return.
+
+	// Page: positive integer to choose the page to return.
 	Page *int32 `json:"-"`
-	// PageSize: Positive integer lower or equal to 100 to select the number of items to return.
+
+	// PageSize: positive integer lower or equal to 100 to select the number of items to return.
 	PageSize *uint32 `json:"-"`
 }
 
-// ListServersResponse:
+// ListServersResponse: list servers response.
 type ListServersResponse struct {
-	// TotalCount: Total number of servers.
+	// TotalCount: total number of servers.
 	TotalCount uint32 `json:"total_count"`
-	// Servers: Paginated returned servers.
+
+	// Servers: paginated returned servers.
 	Servers []*Server `json:"servers"`
 }
 
@@ -361,29 +399,33 @@ func (r *ListServersResponse) UnsafeAppend(res interface{}) (uint32, error) {
 	return uint32(len(results.Servers)), nil
 }
 
-// RebootServerRequest:
+// RebootServerRequest: reboot server request.
 type RebootServerRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// ServerID: UUID of the server you want to reboot.
 	ServerID string `json:"-"`
 }
 
-// ReinstallServerRequest:
+// ReinstallServerRequest: reinstall server request.
 type ReinstallServerRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// ServerID: UUID of the server you want to reinstall.
 	ServerID string `json:"-"`
 }
 
-// UpdateServerRequest:
+// UpdateServerRequest: update server request.
 type UpdateServerRequest struct {
-	// Zone:
+	// Zone: zone to target. If none is passed will use default zone from the config.
 	Zone scw.Zone `json:"-"`
+
 	// ServerID: UUID of the server you want to update.
 	ServerID string `json:"-"`
-	// Name: Updated name for your server.
+
+	// Name: updated name for your server.
 	Name *string `json:"name,omitempty"`
 }
 
@@ -404,6 +446,7 @@ func (s *API) Zones() []scw.Zone {
 // ListServerTypes: List all technical details about Apple silicon server types available in the specified zone. Since there is only one Availability Zone for Apple silicon servers, the targeted value is `fr-par-3`.
 func (s *API) ListServerTypes(req *ListServerTypesRequest, opts ...scw.RequestOption) (*ListServerTypesResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -430,6 +473,7 @@ func (s *API) ListServerTypes(req *ListServerTypesRequest, opts ...scw.RequestOp
 // GetServerType: Get technical details (CPU, disk size etc.) of a server type.
 func (s *API) GetServerType(req *GetServerTypeRequest, opts ...scw.RequestOption) (*ServerType, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -460,10 +504,12 @@ func (s *API) GetServerType(req *GetServerTypeRequest, opts ...scw.RequestOption
 // CreateServer: Create a new server in the targeted zone, specifying its configuration including name and type.
 func (s *API) CreateServer(req *CreateServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	if req.ProjectID == "" {
 		defaultProjectID, _ := s.client.GetDefaultProjectID()
 		req.ProjectID = defaultProjectID
@@ -499,10 +545,12 @@ func (s *API) CreateServer(req *CreateServerRequest, opts ...scw.RequestOption) 
 // ListServers: List all servers in the specified zone. By default, returned servers in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
 func (s *API) ListServers(req *ListServersRequest, opts ...scw.RequestOption) (*ListServersResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -537,10 +585,12 @@ func (s *API) ListServers(req *ListServersRequest, opts ...scw.RequestOption) (*
 // ListOS: List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
 func (s *API) ListOS(req *ListOSRequest, opts ...scw.RequestOption) (*ListOSResponse, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
 	}
+
 	defaultPageSize, exist := s.client.GetDefaultPageSize()
 	if (req.PageSize == nil || *req.PageSize == 0) && exist {
 		req.PageSize = &defaultPageSize
@@ -574,6 +624,7 @@ func (s *API) ListOS(req *ListOSRequest, opts ...scw.RequestOption) (*ListOSResp
 // GetOS: Get an Operating System (OS).  The response will include the OS's unique ID as well as its name and label.
 func (s *API) GetOS(req *GetOSRequest, opts ...scw.RequestOption) (*OS, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -604,6 +655,7 @@ func (s *API) GetOS(req *GetOSRequest, opts ...scw.RequestOption) (*OS, error) {
 // GetServer: Retrieve information about an existing Apple silicon server, specified by its server ID. Its full details, including name, status and IP address, are returned in the response object.
 func (s *API) GetServer(req *GetServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -634,6 +686,7 @@ func (s *API) GetServer(req *GetServerRequest, opts ...scw.RequestOption) (*Serv
 // UpdateServer: Update the parameters of an existing Apple silicon server, specified by its server ID.
 func (s *API) UpdateServer(req *UpdateServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -669,6 +722,7 @@ func (s *API) UpdateServer(req *UpdateServerRequest, opts ...scw.RequestOption) 
 // DeleteServer: Delete an existing Apple silicon server, specified by its server ID. Deleting a server is permanent, and cannot be undone. Note that the minimum allocation period for Apple silicon-as-a-service is 24 hours, meaning you cannot delete your server prior to that.
 func (s *API) DeleteServer(req *DeleteServerRequest, opts ...scw.RequestOption) error {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -697,6 +751,7 @@ func (s *API) DeleteServer(req *DeleteServerRequest, opts ...scw.RequestOption) 
 // RebootServer: Reboot an existing Apple silicon server, specified by its server ID.
 func (s *API) RebootServer(req *RebootServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
@@ -732,6 +787,7 @@ func (s *API) RebootServer(req *RebootServerRequest, opts ...scw.RequestOption) 
 // ReinstallServer: Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the defailt configuration values of the image (OS).
 func (s *API) ReinstallServer(req *ReinstallServerRequest, opts ...scw.RequestOption) (*Server, error) {
 	var err error
+
 	if req.Zone == "" {
 		defaultZone, _ := s.client.GetDefaultZone()
 		req.Zone = defaultZone
